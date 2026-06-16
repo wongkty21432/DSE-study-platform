@@ -23,13 +23,13 @@
   .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:24px; }
   .stat { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; text-align:center; }
   .stat .val { font-size:2rem; font-weight:800; }
-  .stat .lbl { font-size:.75rem; color:var(--text2); margin-top:4px; }
+  .stat .lbl { font-size:.75rem; color:var(--text); margin-top:4px; }
   .stat.correct .val { color:var(--green); } .stat.wrong .val { color:var(--red); }
   .stat.total .val { color:var(--accent); } .stat.pct .val { color:var(--yellow); }
 
   /* Filters */
   .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
-  .filters button { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text2); cursor:pointer; font-size:.78rem; transition:all .2s; }
+  .filters button { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:.78rem; transition:all .2s; }
   .filters button:hover,.filters button.active { background:var(--accent); color:#0a0f1e; border-color:var(--accent); }
   .filters .sep { color:var(--border); margin:0 4px; align-self:center; }
   #refreshBtn { background:rgba(56,189,248,.15) !important; color:var(--accent) !important; border-color:var(--accent) !important; font-weight:600; }
@@ -45,20 +45,20 @@
   .qcard.answered .qnum { background:var(--accent);color:#0a0f1e; }
   .qcard.correct-q .qnum { background:var(--green);color:#0a0f1e; }
   .qcard.wrong-q .qnum { background:var(--red);color:#fff; }
-  .qcard .qtext { flex:1; font-size:.92rem; line-height:1.6; }
-  .qcard .qtopic { font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
+  .qcard .qtext { color:var(--text)!important;  flex:1; font-size:.92rem; line-height:1.6; }
+  .qcard .qtopic { color:var(--accent)!important;  font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
   .qcard .qbody { padding:12px 20px; }
-  .qcard .opt { display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
+  .qcard .opt { color:var(--text)!important;  display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
   .qcard .opt:hover { border-color:var(--accent); background:rgba(56,189,248,.06); }
   .qcard .opt.selected { border-color:var(--accent); background:rgba(56,189,248,.12); }
   .qcard .opt.correct-ans { border-color:var(--green); background:rgba(74,222,128,.12); }
   .qcard .opt.wrong-ans { border-color:var(--red); background:rgba(248,113,113,.08); }
   .qcard .opt.disabled { pointer-events:none; opacity:.85; }
-  .qcard .explain { margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
-  .qcard.show-explain .explain { display:block; }
+  .qcard .explain { color:var(--text)!important;  margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
+  .qcard.show-explain .explain { color:var(--text)!important;  display:block; }
   .qcard .explain strong { color:var(--yellow); }
-  .qcard .explain .correct-letter { color:var(--green); font-weight:700; }
-  .qcard .year-tag { font-size:.68rem; color:var(--text2); padding:2px 8px; background:var(--surface2); border-radius:4px; }
+  .qcard .explain .correct-letter { color:var(--text)!important;  color:var(--green); font-weight:700; }
+  .qcard .year-tag { color:var(--text)!important;  font-size:.68rem; color:var(--text); padding:2px 8px; background:var(--surface2); border-radius:4px; }
   .qcard .diff-tag { font-size:.62rem; padding:2px 7px; border-radius:4px; margin-left:4px; }
   .qcard .diff-tag.easy { background:rgba(74,222,128,.15); color:var(--green); }
   .qcard .diff-tag.medium { background:rgba(251,191,36,.15); color:var(--yellow); }
@@ -113,11 +113,11 @@
 
 <div class="topbar">
   <a href="../progress.html?subject=chem" style="padding:6px 12px;border-radius:16px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);font-size:.72rem;text-decoration:none;">📊 Progress</a>
-  <a href="../progress.html#settings" onclick="localStorage.setItem('dse_show_settings','1')" style="padding:6px 10px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:.7rem;text-decoration:none;">⚙️</a>
+  <a href="../progress.html#settings" onclick="localStorage.setItem('dse_show_settings','1')" style="padding:6px 10px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.7rem;text-decoration:none;">⚙️</a>
   <a href="../index.html" style="text-decoration:none;font-size:1.1rem;" title="Home">🏠</a>
   <h1>🧪 HKDSE Chemistry Quiz Bank</h1>
   <span class="badge">DSE 2012–2026 · Adaptive</span>
-  <span style="font-size:.78rem;color:var(--text2);" id="topbarInfo">Loading question bank…</span>
+  <span style="font-size:.78rem;color:var(--text);" id="topbarInfo">Loading question bank…</span>
   <span style="margin-left:auto;"></span>
   <select id="langSwitch" onchange="switchLang(this.value)" style="padding:4px 10px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.72rem;cursor:pointer;">
     <option value="en">EN</option>
@@ -142,7 +142,7 @@
 
 <!-- Topic Filter -->
 <div class="filters">
-  <span style="font-size:.78rem;color:var(--text2);align-self:center;">Filter:</span>
+  <span style="font-size:.78rem;color:var(--text);align-self:center;">Filter:</span>
   <button class="active" onclick="filterAll()">📚 All Topics</button>
   <button onclick="filterTopic(1)">🧪 Lab Safety</button>
   <button onclick="filterTopic(2)">🌍 Planet Earth</button>
@@ -163,7 +163,7 @@
 </div>
 
 <!-- Questions -->
-<div id="quizContainer"><p style="text-align:center;color:var(--text2);padding:48px;">⏳ Loading question bank…</p></div>
+<div id="quizContainer"><p style="text-align:center;color:var(--text);padding:48px;">⏳ Loading question bank…</p></div>
 
 <!-- Grade Reference -->
 <div class="grade-info">
@@ -171,9 +171,9 @@
   <table>
     <tr><td class="grade" style="color:#4ade80;">5**</td><td>≥ 33/36 (91%)</td><td class="grade" style="color:#38bdf8;">5*</td><td>31-32/36 (86%)</td><td class="grade" style="color:#c084fc;">5</td><td>28-30/36 (78%)</td></tr>
     <tr><td class="grade" style="color:#fb923c;">4</td><td>24-27/36 (67%)</td><td class="grade" style="color:#fbbf24;">3</td><td>18-23/36 (50%)</td><td class="grade" style="color:#f87171;">2</td><td>12-17/36 (33%)</td></tr>
-    <tr><td class="grade" style="color:#f87171;">1</td><td>6-11/36 (17%)</td><td style="color:var(--text2);">U</td><td>≤5/36</td><td></td><td></td></tr>
+    <tr><td class="grade" style="color:#f87171;">1</td><td>6-11/36 (17%)</td><td style="color:var(--text);">U</td><td>≤5/36</td><td></td><td></td></tr>
   </table>
-  <p style="font-size:.72rem;color:var(--text2);margin-top:8px;">*Approximate grade boundaries based on historical DSE Chemistry exams. Adaptive system selects questions based on your performance — weak topics get more practice.</p>
+  <p style="font-size:.72rem;color:var(--text);margin-top:8px;">*Approximate grade boundaries based on historical DSE Chemistry exams. Adaptive system selects questions based on your performance — weak topics get more practice.</p>
 </div>
 
 </div>
@@ -394,8 +394,8 @@ async function initializeDB() {
     document.getElementById('quizContainer').innerHTML =
       '<div style="text-align:center;padding:48px;color:var(--red);">' +
       '<h3>⚠️ Failed to Load Question Bank</h3>' +
-      '<p style="margin-top:12px;color:var(--text2);">Error: ' + err.message + '</p>' +
-      '<p style="margin-top:8px;font-size:.78rem;color:var(--text2);">' +
+      '<p style="margin-top:12px;color:var(--text);">Error: ' + err.message + '</p>' +
+      '<p style="margin-top:8px;font-size:.78rem;color:var(--text);">' +
       'Possible fixes:<br>' +
       '1. Ensure you are NOT in private/incognito mode (IndexedDB may be restricted)<br>' +
       '2. Try Chrome, Edge, or Firefox (latest version)<br>' +
@@ -1041,8 +1041,8 @@ async function generateNewSession(forceTopics) {
   document.getElementById('quizContainer').innerHTML =
     '<div style="text-align:center;padding:48px;color:var(--red);">' +
     '<h3>⚠️ Could Not Generate Questions</h3>' +
-    '<p style="margin-top:12px;color:var(--text2);">All generation methods failed. This may be due to browser restrictions.</p>' +
-    '<p style="font-size:.78rem;color:var(--text2);margin-top:8px;">Try: Use Chrome/Edge (not private mode) → Clear site data → Reload</p>' +
+    '<p style="margin-top:12px;color:var(--text);">All generation methods failed. This may be due to browser restrictions.</p>' +
+    '<p style="font-size:.78rem;color:var(--text);margin-top:8px;">Try: Use Chrome/Edge (not private mode) → Clear site data → Reload</p>' +
     '<button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;border-radius:20px;border:1px solid var(--accent);background:rgba(56,189,248,.15);color:var(--accent);cursor:pointer;">🔄 Retry</button>' +
     '</div>';
 }
@@ -1105,7 +1105,7 @@ function showLoading(show) {
 function renderQuiz() {
   const container = document.getElementById('quizContainer');
   if (!gActiveQuestions.length) {
-    container.innerHTML = '<p style="text-align:center;color:var(--text2);padding:48px;">No questions loaded. Click "New Questions" to start.</p>';
+    container.innerHTML = '<p style="text-align:center;color:var(--text);padding:48px;">No questions loaded. Click "New Questions" to start.</p>';
     updateStats();
     return;
   }
@@ -1145,7 +1145,7 @@ function renderQuiz() {
         <div class="explain">
           <strong>📝 答案：<span class="correct-letter">${letters[q.answer]}</span></strong><br>
           <div style="margin-top:6px;">${q.explanationCN || q.explanation}</div>
-          ${(q.markingNotesCN || q.markingNotes) ? `<br><small style="color:var(--text2);">📋 評分重點：${q.markingNotesCN || q.markingNotes}</small>` : ''}
+          ${(q.markingNotesCN || q.markingNotes) ? `<br><small style="color:var(--text);">📋 評分重點：${q.markingNotesCN || q.markingNotes}</small>` : ''}
         </div>
       </div>`;
     container.appendChild(card);

@@ -23,13 +23,13 @@
   .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:24px; }
   .stat { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; text-align:center; }
   .stat .val { font-size:2rem; font-weight:800; }
-  .stat .lbl { font-size:.75rem; color:var(--text2); margin-top:4px; }
+  .stat .lbl { font-size:.75rem; color:var(--text); margin-top:4px; }
   .stat.correct .val { color:var(--green); } .stat.wrong .val { color:var(--red); }
   .stat.total .val { color:var(--accent); } .stat.pct .val { color:var(--yellow); }
 
   /* Filters */
   .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
-  .filters button { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text2); cursor:pointer; font-size:.78rem; transition:all .2s; }
+  .filters button { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:.78rem; transition:all .2s; }
   .filters button:hover,.filters button.active { background:var(--accent); color:#0a0f1e; border-color:var(--accent); }
   .filters .sep { color:var(--border); margin:0 4px; align-self:center; }
   #refreshBtn { background:rgba(56,189,248,.15) !important; color:var(--accent) !important; border-color:var(--accent) !important; font-weight:600; }
@@ -45,20 +45,20 @@
   .qcard.answered .qnum { background:var(--accent);color:#0a0f1e; }
   .qcard.correct-q .qnum { background:var(--green);color:#0a0f1e; }
   .qcard.wrong-q .qnum { background:var(--red);color:#fff; }
-  .qcard .qtext { flex:1; font-size:.92rem; line-height:1.6; }
-  .qcard .qtopic { font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
+  .qcard .qtext { color:var(--text)!important;  flex:1; font-size:.92rem; line-height:1.6; }
+  .qcard .qtopic { color:var(--accent)!important;  font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
   .qcard .qbody { padding:12px 20px; }
-  .qcard .opt { display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
+  .qcard .opt { color:var(--text)!important;  display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
   .qcard .opt:hover { border-color:var(--accent); background:rgba(56,189,248,.06); }
   .qcard .opt.selected { border-color:var(--accent); background:rgba(56,189,248,.12); }
   .qcard .opt.correct-ans { border-color:var(--green); background:rgba(74,222,128,.12); }
   .qcard .opt.wrong-ans { border-color:var(--red); background:rgba(248,113,113,.08); }
   .qcard .opt.disabled { pointer-events:none; opacity:.85; }
-  .qcard .explain { margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
-  .qcard.show-explain .explain { display:block; }
+  .qcard .explain { color:var(--text)!important;  margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
+  .qcard.show-explain .explain { color:var(--text)!important;  display:block; }
   .qcard .explain strong { color:var(--yellow); }
-  .qcard .explain .correct-letter { color:var(--green); font-weight:700; }
-  .qcard .year-tag { font-size:.68rem; color:var(--text2); padding:2px 8px; background:var(--surface2); border-radius:4px; }
+  .qcard .explain .correct-letter { color:var(--text)!important;  color:var(--green); font-weight:700; }
+  .qcard .year-tag { color:var(--text)!important;  font-size:.68rem; color:var(--text); padding:2px 8px; background:var(--surface2); border-radius:4px; }
   .qcard .diff-tag { font-size:.62rem; padding:2px 7px; border-radius:4px; margin-left:4px; }
   .qcard .diff-tag.easy { background:rgba(74,222,128,.15); color:var(--green); }
   .qcard .diff-tag.medium { background:rgba(251,191,36,.15); color:var(--yellow); }
@@ -78,7 +78,7 @@
   .auth-overlay.show { display:flex; }
   .auth-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; width:90%;max-width:400px; }
   .auth-box h3 { margin-bottom:16px; color:var(--accent); font-size:1rem; }
-  .auth-box label { display:block; font-size:.75rem; color:var(--text2); margin-bottom:4px; margin-top:10px; }
+  .auth-box label { display:block; font-size:.75rem; color:var(--text); margin-bottom:4px; margin-top:10px; }
   .auth-box input { width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:.85rem; outline:none; font-family:inherit; }
   .auth-box input:focus { border-color:var(--accent); }
   .auth-box .btn-row { display:flex; gap:10px; margin-top:18px; }
@@ -103,19 +103,19 @@
   .progress-overlay.show { display:flex; }
   .progress-panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; width:90%;max-width:700px;max-height:85vh;overflow-y:auto; }
   .progress-panel h3 { color:var(--accent); margin-bottom:8px; font-size:1rem; }
-  .progress-panel .subtitle { font-size:.75rem; color:var(--text2); margin-bottom:16px; }
+  .progress-panel .subtitle { font-size:.75rem; color:var(--text); margin-bottom:16px; }
   .topic-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); }
   .topic-row .t-name { flex:0 0 160px; font-size:.8rem; font-weight:600; }
   .topic-row .t-bar-wrap { flex:1; height:8px; background:var(--surface2); border-radius:4px; overflow:hidden; }
   .topic-row .t-bar { height:100%; border-radius:4px; transition:width .5s; }
-  .topic-row .t-stat { flex:0 0 80px; font-size:.72rem; color:var(--text2); text-align:right; }
+  .topic-row .t-stat { flex:0 0 80px; font-size:.72rem; color:var(--text); text-align:right; }
   .topic-row .t-level { flex:0 0 90px; font-size:.7rem; font-weight:600; text-align:center; padding:2px 8px; border-radius:10px; }
   .level-master { background:rgba(74,222,128,.15); color:#4ade80; }
   .level-advanced { background:rgba(56,189,248,.15); color:#38bdf8; }
   .level-proficient { background:rgba(192,132,252,.15); color:#c084fc; }
   .level-developing { background:rgba(251,191,36,.15); color:#fbbf24; }
   .level-novice,.level-new { background:rgba(248,113,113,.12); color:#f87171; }
-  .sync-ok { color:var(--green); } .sync-off { color:var(--text2); } .sync-err { color:var(--red); }
+  .sync-ok { color:var(--green); } .sync-off { color:var(--text); } .sync-err { color:var(--red); }
 
 @media(max-width:640px){
   .subject-grid{grid-template-columns:1fr!important;gap:10px}
@@ -148,17 +148,17 @@
 <body>
 
 <div class="topbar">
-  <a href="../index.html" style="text-decoration:none;color:var(--text2);font-size:.85rem;" title="返回學習平台">🏠</a>
+  <a href="../index.html" style="text-decoration:none;color:var(--text);font-size:.85rem;" title="返回學習平台">🏠</a>
   <h1>🧪 HKDSE ICT 題庫練習</h1>
   <span class="badge">DSE 2012–2024 · 自適應</span>
   <select id="langSwitch" onchange="switchLang(this.value)" style="padding:4px 10px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.72rem;cursor:pointer;margin-left:8px;"><option value="zh">中文</option><option value="en">English</option></select>
-  <span style="font-size:.78rem;color:var(--text2);" id="topbarInfo">載入題庫中…</span>
+  <span style="font-size:.78rem;color:var(--text);" id="topbarInfo">載入題庫中…</span>
   <span style="margin-left:auto;"></span>
-  <span id="syncStatus" style="font-size:.7rem;color:var(--text2);margin-right:8px;" title="同步狀態"></span>
+  <span id="syncStatus" style="font-size:.7rem;color:var(--text);margin-right:8px;" title="同步狀態"></span>
   <a href="../progress.html?subject=ict" style="padding:7px 14px;border-radius:20px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);cursor:pointer;font-size:.78rem;font-weight:600;text-decoration:none;margin-right:6px;">📊 進度</a>
   <button id="authBtn" onclick="showAuthModal()" style="padding:7px 18px;border-radius:20px;border:1px solid var(--accent);background:rgba(56,189,248,.12);color:var(--accent);cursor:pointer;font-size:.78rem;font-weight:600;">👤 登入</button>
   <span id="userBadge" style="display:none;font-size:.78rem;color:var(--green);font-weight:600;"></span>
-  <button id="logoutBtn" onclick="logout()" style="display:none;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.7rem;">登出</button>
+  <button id="logoutBtn" onclick="logout()" style="display:none;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:.7rem;">登出</button>
 </div>
 
 <div class="loading-overlay" id="loadingOverlay">
@@ -224,7 +224,7 @@
 
 <!-- Question Cards -->
 <div id="quizContainer">
-  <p style="text-align:center;padding:48px;color:var(--text2);">載入中…</p>
+  <p style="text-align:center;padding:48px;color:var(--text);">載入中…</p>
 </div>
 
 <!-- Grade Reference -->
@@ -235,7 +235,7 @@
     <tr><td class="grade" style="color:#c084fc;">5</td><td>≥ 74%</td><td class="grade" style="color:#fb923c;">4</td><td>≥ 62%</td></tr>
     <tr><td class="grade" style="color:#fbbf24;">3</td><td>≥ 50%</td><td class="grade" style="color:#4ade80;">2</td><td>≥ 38%</td></tr>
   </table>
-  <p style="font-size:.72rem;color:var(--text2);margin-top:8px;">*以上為根據歷年DSE ICT考試數據推算的近似等級邊界。自適應系統根據你的表現選擇題目——薄弱課題會獲得更多練習。</p>
+  <p style="font-size:.72rem;color:var(--text);margin-top:8px;">*以上為根據歷年DSE ICT考試數據推算的近似等級邊界。自適應系統根據你的表現選擇題目——薄弱課題會獲得更多練習。</p>
 </div>
 
 </div><!-- .container -->
@@ -470,8 +470,8 @@ async function initializeDB() {
     document.getElementById('quizContainer').innerHTML =
       '<div style="text-align:center;padding:48px;color:var(--red);">' +
       '<h3>⚠️ 載入題庫失敗</h3>' +
-      '<p style="margin-top:12px;color:var(--text2);">錯誤：' + err.message + '</p>' +
-      '<p style="margin-top:8px;font-size:.78rem;color:var(--text2);">' +
+      '<p style="margin-top:12px;color:var(--text);">錯誤：' + err.message + '</p>' +
+      '<p style="margin-top:8px;font-size:.78rem;color:var(--text);">' +
       '可能的解決方法：<br>' +
       '1. 題目數據已內嵌於HTML，無需外部檔案<br>' +
       '2. 請勿使用私隱/無痕模式（IndexedDB 可能受限）<br>' +
@@ -789,7 +789,7 @@ async function generateNewSession() {
 function renderQuiz() {
   const container = document.getElementById('quizContainer');
   if (!gActiveQuestions || gActiveQuestions.length === 0) {
-    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text2);">暫無題目，點擊「新題目」生成</p>';
+    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text);">暫無題目，點擊「新題目」生成</p>';
     return;
   }
 
@@ -800,7 +800,7 @@ function renderQuiz() {
   }
 
   if (questions.length === 0) {
-    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text2);">此課題目前沒有題目</p>';
+    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text);">此課題目前沒有題目</p>';
     return;
   }
 
@@ -1056,7 +1056,7 @@ async function buildProgressPanel() {
   }
 
   if (!html) {
-    html = '<p style="text-align:center;padding:32px;color:var(--text2);">' + __('還沒有答題記錄，開始練習吧！', 'No progress yet. Start practicing!') + '</p>';
+    html = '<p style="text-align:center;padding:32px;color:var(--text);">' + __('還沒有答題記錄，開始練習吧！', 'No progress yet. Start practicing!') + '</p>';
   }
 
   const overallPct = totalAttempted > 0 ? Math.round(totalCorrect / totalAttempted * 100) : 0;
