@@ -90,7 +90,7 @@
   <h1>📊 學習進度</h1>
   <span style="font-size:.78rem;color:var(--text2);" id="userInfo"></span>
   <span style="margin-left:auto;"></span>
-  <button onclick="showSettings()" style="padding:6px 14px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.75rem;">⚙️ 設置</button>
+  <a href="index.html" style="padding:6px 14px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.75rem;text-decoration:none;">⚙️ 設置</a>
   <button id="btnReset" onclick="resetProgress()" style="display:none;padding:6px 14px;border-radius:16px;border:1px solid var(--red);background:rgba(248,113,113,.08);color:var(--red);cursor:pointer;font-size:.72rem;">重設進度</button>
 </div>
 
@@ -129,7 +129,6 @@ var CLR = {master:'#4ade80',advanced:'#38bdf8',proficient:'#c084fc',developing:'
     return;
   }
   if(SUBJ){ document.querySelector('.subject-tab.all').classList.remove('active'); document.querySelector('.subject-tab.'+SUBJ).classList.add('active'); }
-  if(localStorage.getItem('dse_show_settings')==='1'){ localStorage.removeItem('dse_show_settings'); setTimeout(showSettings,500); }
   load();
 })();
 
@@ -260,146 +259,14 @@ function drawTopicsPie(items){
 // ============ BEST5 + SETTINGS ============
 var SCORE = {5:5,4:4,3:3,2:2,1:1,'5*':6,'5**':7}; // Standard DSE: Lv5=5 marks
 var BEST5_CORES = ['中文','英文','數學']; // 3 scored cores (CSD is Pass/Fail only, not scored)
-var ALL_ELECTIVES = ['ict','chem','physics','bio','econ','bafs','chist','history','geog','va','pe','ths','englit','chilit'];
-var ELEC_NAMES = {ict:'資訊及通訊科技',chem:'化學',physics:'物理',bio:'生物',econ:'經濟',bafs:'企業、會計與財務概論',chist:'中國歷史',history:'歷史',geog:'地理',va:'視覺藝術',pe:'體育',ths:'旅遊與款待',englit:'英語文學',chilit:'中國文學'};
 
 function getSettings(){
   try { return JSON.parse(localStorage.getItem('dse_settings')) || {}; } catch(e) { return {}; }
 }
 function saveSettings(s){ localStorage.setItem('dse_settings', JSON.stringify(s)); }
 
-function showSettings(){
-  var s = getSettings(); var cores = s.cores || {}; var electives = s.electives || [];
-  var h = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(6,11,24,.9);z-index:300;display:flex;justify-content:center;align-items:center;" onclick="if(event.target===this)this.remove();">';
-  h += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;width:90%;max-width:460px;max-height:80vh;overflow-y:auto;">';
-  h += '<h3 style="color:var(--accent);margin-bottom:10px;font-size:.95rem;">設置</h3>';
 
-  h += '<div style="font-size:.72rem;color:var(--text2);margin-bottom:6px;">必修科預計成績</div>';
-  var coreList = BEST5_CORES.concat(['公民與社會發展']);
-  coreList.forEach(function(c){
-    var val = cores[c]||'';
-    h += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">';
-    h += '<span style="flex:0 0 44px;font-size:.76rem;">'+(c==='公民與社會發展'?'CSD':c)+'</span>';
-    if(c==='公民與社會發展'){
-      h += '<select onchange="setCoreGrade(\'公民與社會發展\',this.value)" style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.74rem;">';
-      h += '<option value="">—</option><option value="A"'+(val==='A'?' selected':'')+'>達標</option><option value="U"'+(val==='U'?' selected':'')+'>不達標</option></select>';
-    }else{
-      h += '<select onchange="setCoreGrade(\''+c+'\',this.value)" style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.74rem;">';
-      h += '<option value="">—</option>';
-      ['5**','5*','5','4','3','2','1'].forEach(function(g){h += '<option value="'+g+'"'+(val===g?' selected':'')+'>'+g+' ('+SCORE[g]+'分)</option>';});
-      h += '</select>';
-    }
-    h += '</div>';
-  });
 
-  h += '<div style="font-size:.72rem;color:var(--text2);margin:12px 0 4px;">選修科</div>';
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;">';
-  ALL_ELECTIVES.forEach(function(e){
-    var checked = electives.indexOf(e)>=0;
-    h += '<label style="display:flex;align-items:center;gap:5px;padding:2px 0;font-size:.74rem;cursor:pointer;">';
-    h += '<input type="checkbox" '+(checked?'checked':'')+' onchange="toggleElective(\''+e+'\',this.checked)" style="accent-color:var(--accent);">';
-    h += (ELEC_NAMES[e]||e);
-    h += '</label>';
-  });
-  h += '</div>';
-
-  h += '<div style="text-align:center;margin-top:14px;"><button onclick="this.closest(\'div[style]\').parentElement.remove();" style="padding:6px 20px;border-radius:16px;background:var(--accent);color:#060b18;border:none;font-weight:600;cursor:pointer;font-size:.78rem;">完成</button></div>';
-  h += '</div></div>';
-  document.body.insertAdjacentHTML('beforeend', h);
-}
-
-function setCoreGrade(subj, grade){
-  var s = getSettings();
-  if(!s.cores) s.cores = {};
-  if(grade) s.cores[subj] = grade; else delete s.cores[subj];
-  saveSettings(s);
-}
-
-function toggleElective(eid, on){
-  var s = getSettings();
-  if(!s.electives) s.electives = [];
-  if(on && s.electives.indexOf(eid)<0) s.electives.push(eid);
-  if(!on) s.electives = s.electives.filter(function(x){return x!==eid;});
-  saveSettings(s);
-}
-
-function calcBest5(){
-  var s = getSettings();
-  var cores = s.cores || {};
-  var electives = s.electives || [];
-  var scores = [];
-
-  // 3 scored core subjects — always included, default Lv3 if not set
-  BEST5_CORES.forEach(function(c){
-    var g = cores[c] || '3';
-    scores.push({subj:c, grade:g, score:SCORE[g]||3, isCore:true});
-  });
-
-  // Elective scores from progress data
-  electives.forEach(function(e){
-    var items = ALL.filter(function(p){return (p.subject||'ict')===e;});
-    var ta=0,tc=0; items.forEach(function(p){ta+=p.total_attempted;tc+=p.total_correct;});
-    if(ta >= 5){ // need at least 5 answers to predict
-      var pct = Math.round(tc/ta*100);
-      var g = predictGrade(pct).g;
-      scores.push({subj: ELEC_NAMES[e]||e, grade:g, score:SCORE[g]});
-    }
-  });
-
-  // Sort by score descending, take top 5
-  scores.sort(function(a,b){return b.score-a.score;});
-  var best5 = scores.slice(0,5);
-  var total = best5.reduce(function(s,x){return s+x.score;},0);
-  return {scores:scores, best5:best5, total:total, count:best5.length};
-}
-
-// Best5 grade boxes visible only on all-subjects view
-var _renderAll = renderAll;
-renderAll = function(){
-  _renderAll();
-  showBest5Boxes();
-};
-
-function resetProgress(){
-  if(!confirm('確定要重設所有練習進度？此操作無法還原。')) return;
-  fetch(API+'get-progress.php',{headers:{'Authorization':'Bearer '+TOKEN}}).then(function(r){return r.json();}).then(function(d){
-    (d.progress||[]).forEach(function(p){
-      fetch(API+'save-progress.php',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
-        body:JSON.stringify({subject:p.subject||'ict',topics:[{topic:p.topic,totalAttempted:0,totalCorrect:0,totalWrong:0,emaScore:null,masteryLevel:'new'}]})});
-    });
-  });
-  localStorage.clear(); alert('已重設。請重新登入。'); location.href='index.html';
-}
-
-function showBest5Boxes(){
-  var s = getSettings();
-  if(!s.electives || !s.electives.length) return;
-  var b5 = calcBest5();
-  var csd = (s.cores||{})['公民與社會發展'] || '';
-  var csdOK = csd === 'A';
-  var maxScore = 5*7;
-  var COLORS = {'5**':'#fbbf24','5*':'#fbbf24','5':'#c084fc','4':'#fb923c','3':'#38bdf8','2':'#4ade80','1':'#f87171'};
-
-  var existing = document.getElementById('best5Box');
-  if(existing) existing.remove();
-
-  var h = '<div class="chart-box" style="grid-column:1/-1;margin-bottom:0;">';
-  h += '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">';
-  for(var i=0;i<5;i++){
-    var subj = b5.best5[i] || {subj:'?',grade:'-',score:0};
-    var c = COLORS[subj.grade] || '#334155';
-    var short = subj.subj.length>3 ? subj.subj.substring(0,3) : subj.subj;
-    h += '<div style="background:var(--surface2);border:2px solid '+c+';border-radius:12px;padding:10px 16px;text-align:center;min-width:64px;">';
-    h += '<div style="font-size:1.4rem;font-weight:900;color:'+c+';">'+(subj.grade||'-')+'</div>';
-    h += '<div style="font-size:.62rem;color:var(--text2);">'+short+'</div>';
-    h += '</div>';
-  }
-  h += '</div>';
-  h += '<div style="font-size:.7rem;color:var(--text2);margin-top:6px;">CSD: <span style="color:'+(csdOK?'var(--green)':'var(--red)')+';">'+(csdOK?'達標':'未設定')+'</span></div>';
-  h += '</div>';
-  var chartsRow = document.querySelector('.charts-row');
-  chartsRow.insertAdjacentHTML('afterend', '<div id="best5Box">'+h+'</div>');
-}
 </script>
 </body>
 </html>
