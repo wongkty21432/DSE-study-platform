@@ -893,7 +893,13 @@ function renderQuiz() {
     html += '<div class="qnum">' + (i + 1) + '</div>';
     html += '<div>';
     html += '<div class="qtopic">' + topicName + '</div>';
-    html += '<div class="qtext">' + __(q.question, q.question_en) + '</div>';
+    var qText = __(q.question, q.question_en);
+        if (qText.indexOf('
+') >= 0 || qText.indexOf('  ') >= 0) {
+          html += '<div class="qtext"><pre style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:.85rem;line-height:1.6;">' + qText + '</pre></div>';
+        } else {
+          html += '<div class="qtext">' + qText + '</div>';
+        }
     html += '<div style="margin-top:4px;">';
     html += '<span class="year-tag">' + (q.year || '?') + ' 卷一 Q' + (q.qnum || '?') + '</span>';
     html += '<span class="diff-tag ' + diffCss + '">' + diffLabel + '</span>';
