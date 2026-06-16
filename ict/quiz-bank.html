@@ -45,20 +45,20 @@
   .qcard.answered .qnum { background:var(--accent);color:#0a0f1e; }
   .qcard.correct-q .qnum { background:var(--green);color:#0a0f1e; }
   .qcard.wrong-q .qnum { background:var(--red);color:#fff; }
-  .qcard,.qcard *,.qcard .qtext,.qcard .qtopic,.qcard .opt,.qcard .explain,.qcard .year-tag,.qcard .diff-tag{color:var(--text)!important}
-  .qcard .qtopic { color:var(--accent)!important;  font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
+  .qcard .qtext { flex:1; font-size:.92rem; line-height:1.6; }
+  .qcard .qtopic { font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
   .qcard .qbody { padding:12px 20px; }
-  .qcard .opt { color:var(--text)!important;  display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
+  .qcard .opt { display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
   .qcard .opt:hover { border-color:var(--accent); background:rgba(56,189,248,.06); }
   .qcard .opt.selected { border-color:var(--accent); background:rgba(56,189,248,.12); }
   .qcard .opt.correct-ans { border-color:var(--green); background:rgba(74,222,128,.12); }
   .qcard .opt.wrong-ans { border-color:var(--red); background:rgba(248,113,113,.08); }
   .qcard .opt.disabled { pointer-events:none; opacity:.85; }
-  .qcard .explain { color:var(--text)!important;  margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
-  .qcard.show-explain .explain { color:var(--text)!important;  display:block; }
+  .qcard .explain { margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
+  .qcard.show-explain .explain { display:block; }
   .qcard .explain strong { color:var(--yellow); }
-  .qcard .explain .correct-letter { color:var(--text)!important;  color:var(--green); font-weight:700; }
-  .qcard .year-tag { color:var(--text)!important;  font-size:.68rem; color:var(--text); padding:2px 8px; background:var(--surface2); border-radius:4px; }
+  .qcard .explain .correct-letter { color:var(--green); font-weight:700; }
+  .qcard .year-tag { font-size:.68rem; padding:2px 8px; background:var(--surface2); border-radius:4px; }
   .qcard .diff-tag { font-size:.62rem; padding:2px 7px; border-radius:4px; margin-left:4px; }
   .qcard .diff-tag.easy { background:rgba(74,222,128,.15); color:var(--green); }
   .qcard .diff-tag.medium { background:rgba(251,191,36,.15); color:var(--yellow); }
@@ -442,8 +442,10 @@ function showLoading(show) {
 }
 
 async function initializeDB() {
-  showLoading(true);
-  const statusEl = document.getElementById('topbarInfo');
+  // Show skeleton immediately instead of blocking overlay
+  var container = document.getElementById('quizContainer');
+  container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text2);"><div class="loading-spinner" style="margin:0 auto 16px;"></div><p style="font-size:.9rem;">載入題庫中…</p><p style="font-size:.72rem;margin-top:4px;">首次載入可能需要幾秒鐘</p></div>';
+  var statusEl = document.getElementById('topbarInfo');
   statusEl.textContent = '正在初始化資料庫…';
   try {
     if (!window.indexedDB) {
@@ -455,15 +457,26 @@ async function initializeDB() {
     if (!seeded) {
       statusEl.textContent = '載入題目…';
       var questions;
+      // Try API (database) first, then JSON file, then inline fallback
       try {
-        var resp = await fetch('questions-ict.json');
+        var resp = await fetch(API_BASE + 'get-questions.php?subject=ict');
+        if (!resp.ok) throw new Error('API HTTP ' + resp.status);
         questions = await resp.json();
-      } catch(e) {
-        var rawData = document.getElementById('question-bank-data');
-        questions = JSON.parse(rawData ? rawData.textContent.trim() : '[]');
+        console.log('Loaded ' + questions.length + ' questions from database API');
+      } catch(e1) {
+        console.log('API failed, trying JSON file:', e1.message);
+        try {
+          var resp2 = await fetch('questions-ict.json');
+          if (!resp2.ok) throw new Error('JSON HTTP ' + resp2.status);
+          questions = await resp2.json();
+          console.log('Loaded ' + questions.length + ' questions from JSON file');
+        } catch(e2) {
+          console.log('JSON failed, using inline:', e2.message);
+          var rawData = document.getElementById('question-bank-data');
+          questions = JSON.parse(rawData ? rawData.textContent.trim() : '[]');
+        }
       }
-      // Fast seed: single transaction
-      await fastSeed(gDB, questions);
+      await seedQuestions(gDB, questions);
       await seedPerformance(gDB);
     }
     // Load or create session — do it async, show UI immediately
@@ -1038,7 +1051,7 @@ async function resetAllData() {
 }
 
 // ============ AUTH & API ============
-const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? 'http://localhost/dse-ict-api/' : 'https://hedging-tainted-dolly.ngrok-free.dev/dse-ict-api/';
+const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? ('http://localhost' + (location.port ? ':'+location.port : '') + '/dse-ict-api/') : (localStorage.getItem('dse_api_base') || 'https://hedging-tainted-dolly.ngrok-free.dev/dse-ict-api/');
 let gAuthToken = localStorage.getItem('dse_ict_token') || null;
 let gUser = JSON.parse(localStorage.getItem('dse_ict_user') || 'null');
 

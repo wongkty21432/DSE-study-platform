@@ -119,8 +119,6 @@
   .p-row .p-fill { height:100%; border-radius:3px; }
   .p-row .p-stat { flex:0 0 55px; font-size:.7rem; color:var(--text2); text-align:right; }
   .p-row .p-lvl { flex:0 0 70px; font-size:.65rem; font-weight:600; text-align:center; padding:1px 6px; border-radius:8px; }
-  .modal-box .msg-ok { color:var(--green); }
-
   footer { position:relative; z-index:1; text-align:center; padding:40px 20px; color:var(--text2); font-size:.72rem; opacity:.5; }
 
 @media(max-width:640px){
@@ -167,6 +165,9 @@
 <div class="auth-bar" id="authBar">
   <button class="btn-login" id="btnLogin" onclick="showAuthModal()">👤 登入 / 註冊</button>
   <a href="progress.html" id="btnProgress" style="display:none;padding:6px 14px;border-radius:20px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);cursor:pointer;font-size:.78rem;font-weight:600;text-decoration:none;">📊 進度</a>
+  <button id="btnHubProgress" style="display:none;padding:6px 14px;border-radius:20px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);cursor:pointer;font-size:.78rem;font-weight:600;" onclick="showHubProgress()">📈 總覽</button>
+  <button id="btnSettings" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.78rem;font-weight:600;" onclick="showSettings()">⚙️ 設置</button>
+  <a href="database.html" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.78rem;font-weight:600;text-decoration:none;">🗄️ 題庫</a>
   <span class="user-badge" id="userBadge" style="display:none;"></span>
   <button class="btn-logout" id="btnLogout" style="display:none;" onclick="logout()">登出</button>
 </div>
@@ -264,7 +265,7 @@
 })();
 
 // ============ SHARED AUTH (same account across all subjects) ============
-const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? 'http://localhost/dse-ict-api/' : 'https://hedging-tainted-dolly.ngrok-free.dev/dse-ict-api/';
+const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? ('http://localhost' + (location.port ? ':'+location.port : '') + '/dse-ict-api/') : (localStorage.getItem('dse_api_base') || 'https://hedging-tainted-dolly.ngrok-free.dev/dse-ict-api/');
 let gToken = localStorage.getItem('dse_platform_token') || null;
 let gUser = JSON.parse(localStorage.getItem('dse_platform_user') || 'null');
 
@@ -275,9 +276,11 @@ function updateAuthUI() {
   const userBadge = document.getElementById('userBadge');
   const btnLogout = document.getElementById('btnLogout');
   const btnProgress = document.getElementById('btnProgress');
+  const btnHubProgress = document.getElementById('btnHubProgress');
   if (isLoggedIn()) {
     btnLogin.style.display = 'none';
     btnProgress.style.display = 'inline';
+    if (btnHubProgress) btnHubProgress.style.display = 'inline';
     userBadge.style.display = 'inline';
     const roleTag = gUser.role === 'admin' ? ' 🛡️管理員' : '';
     userBadge.textContent = '👤 ' + gUser.username + roleTag;
@@ -286,6 +289,7 @@ function updateAuthUI() {
   } else {
     btnLogin.style.display = 'inline';
     btnProgress.style.display = 'none';
+    if (btnHubProgress) btnHubProgress.style.display = 'none';
     userBadge.style.display = 'none';
     btnLogout.style.display = 'none';
   }
@@ -414,11 +418,13 @@ updateAuthUI();
 
 // Language
 const savedLang = localStorage.getItem('dse_platform_lang') || 'zh';
-document.getElementById('langSwitch').value = savedLang;
+const langSwitch = document.getElementById('langSwitch');
+if (langSwitch) langSwitch.value = savedLang;
 
 function switchLang(lang) {
   localStorage.setItem('dse_platform_lang', lang);
   localStorage.setItem('dse_ict_lang', lang);
+  location.reload();
 }
 
 // ============ DSE SETTINGS ============
@@ -500,7 +506,6 @@ function filterSubjects(){
     }
   });
 }
-</script>
 </script>
 
 </body>
