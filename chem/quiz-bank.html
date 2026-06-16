@@ -1102,11 +1102,42 @@ function showLoading(show) {
   else overlay.classList.remove('show');
 }
 
+var gSelectedYears = [];
+var gSelectedDiffs = [];
+
+function toggleDropdown(id) {
+  var d = document.getElementById(id);
+  d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  var other = id === 'yearDrop' ? 'diffDrop' : 'yearDrop';
+  document.getElementById(other).style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#yearDrop') && !e.target.closest('#diffDrop') && !e.target.closest('button')) {
+    document.getElementById('yearDrop').style.display = 'none';
+    document.getElementById('diffDrop').style.display = 'none';
+  }
+});
+
 async function populateYearFilter() {
   var allQ = await dbGetAll(gDB, 'questions');
   var years = [...new Set(allQ.map(q => q.year).filter(Boolean))].sort((a,b) => b-a);
-  var sel = document.getElementById('yearFilter');
-  years.forEach(function(y){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); });
+  var h = '';
+  years.forEach(function(y){
+    h += '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;white-space:nowrap;"><input type="checkbox" value="'+y+'" onchange="toggleYear(this)"> '+y+'</label>';
+  });
+  document.getElementById('yearDrop').innerHTML = h;
+  document.getElementById('diffDrop').innerHTML = '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="easy" onchange="toggleDiff(this)"> Easy</label><label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="medium" onchange="toggleDiff(this)"> Medium</label><label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="hard" onchange="toggleDiff(this)"> Hard</label>';
+}
+
+function toggleYear(cb) {
+  if (cb.checked) gSelectedYears.push(cb.value); else gSelectedYears = gSelectedYears.filter(y => y !== cb.value);
+  document.getElementById('yearCount').textContent = gSelectedYears.length ? '('+gSelectedYears.length+')' : '';
+  renderQuiz();
+}
+function toggleDiff(cb) {
+  if (cb.checked) gSelectedDiffs.push(cb.value); else gSelectedDiffs = gSelectedDiffs.filter(d => d !== cb.value);
+  document.getElementById('diffCount').textContent = gSelectedDiffs.length ? '('+gSelectedDiffs.length+')' : '';
+  renderQuiz();
 }
 
 function renderQuiz() {

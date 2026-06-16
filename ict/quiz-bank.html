@@ -222,15 +222,14 @@
   <button onclick="setFilter(7)">計算思維(二)</button>
   <button onclick="setFilter(8)">社會影響</button>
   <span class="sep">|</span>
-  <select id="yearFilter" onchange="renderQuiz()" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">
-    <option value="all">📅 全部年份</option>
-  </select>
-  <select id="diffFilter" onchange="renderQuiz()" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">
-    <option value="all">📊 全部難度</option>
-    <option value="easy">容易</option>
-    <option value="medium">中等</option>
-    <option value="hard">困難</option>
-  </select>
+  <span style="position:relative;">
+    <button onclick="toggleDropdown('yearDrop')" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">📅 年份 <span id="yearCount"></span></button>
+    <div id="yearDrop" style="display:none;position:absolute;top:100%;left:0;z-index:50;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;min-width:120px;max-height:200px;overflow-y:auto;"></div>
+  </span>
+  <span style="position:relative;">
+    <button onclick="toggleDropdown('diffDrop')" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">📊 難度 <span id="diffCount"></span></button>
+    <div id="diffDrop" style="display:none;position:absolute;top:100%;left:0;z-index:50;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;min-width:100px;"></div>
+  </span>
   <button id="refreshBtn" onclick="generateNewSession()">🔄 新題目</button>
   <button id="resetBtn" onclick="resetAllData()">重設進度</button>
 </div>
@@ -800,15 +799,51 @@ async function generateNewSession() {
 }
 
 // ============ RENDERING ============
+var gSelectedYears = [];
+var gSelectedDiffs = [];
+
+function toggleDropdown(id) {
+  var d = document.getElementById(id);
+  d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  // Close other dropdown
+  var other = id === 'yearDrop' ? 'diffDrop' : 'yearDrop';
+  document.getElementById(other).style.display = 'none';
+}
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#yearDrop') && !e.target.closest('#diffDrop') && !e.target.closest('button')) {
+    document.getElementById('yearDrop').style.display = 'none';
+    document.getElementById('diffDrop').style.display = 'none';
+  }
+});
+
 async function populateYearFilter() {
   var allQ = await dbGetAll(gDB, 'questions');
   var years = [...new Set(allQ.map(q => q.year).filter(Boolean))].sort((a,b) => b-a);
-  var sel = document.getElementById('yearFilter');
+  var container = document.getElementById('yearDrop');
+  var h = '';
   years.forEach(function(y){
-    var opt = document.createElement('option');
-    opt.value = y; opt.textContent = y;
-    sel.appendChild(opt);
+    h += '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;white-space:nowrap;">';
+    h += '<input type="checkbox" value="'+y+'" onchange="toggleYear(this)"> '+y;
+    h += '</label>';
   });
+  container.innerHTML = h;
+  // Also populate difficulty
+  var dc = document.getElementById('diffDrop');
+  dc.innerHTML = '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="easy" onchange="toggleDiff(this)"> 容易</label>'+
+    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="medium" onchange="toggleDiff(this)"> 中等</label>'+
+    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="hard" onchange="toggleDiff(this)"> 困難</label>';
+}
+
+function toggleYear(cb) {
+  if (cb.checked) gSelectedYears.push(cb.value); else gSelectedYears = gSelectedYears.filter(y => y !== cb.value);
+  document.getElementById('yearCount').textContent = gSelectedYears.length ? '('+gSelectedYears.length+')' : '';
+  renderQuiz();
+}
+function toggleDiff(cb) {
+  if (cb.checked) gSelectedDiffs.push(cb.value); else gSelectedDiffs = gSelectedDiffs.filter(d => d !== cb.value);
+  document.getElementById('diffCount').textContent = gSelectedDiffs.length ? '('+gSelectedDiffs.length+')' : '';
+  renderQuiz();
 }
 
 function renderQuiz() {
@@ -823,15 +858,13 @@ function renderQuiz() {
   if (gActiveFilter !== null) {
     questions = questions.filter(q => q.topic === gActiveFilter);
   }
-  // Apply year filter
-  var yf = document.getElementById('yearFilter').value;
-  if (yf !== 'all') {
-    questions = questions.filter(q => q.year == parseInt(yf));
+  // Apply year filter (multi-select)
+  if (gSelectedYears.length > 0) {
+    questions = questions.filter(q => gSelectedYears.indexOf(String(q.year)) >= 0);
   }
-  // Apply difficulty filter
-  var df = document.getElementById('diffFilter').value;
-  if (df !== 'all') {
-    questions = questions.filter(q => q.difficulty === df);
+  // Apply difficulty filter (multi-select)
+  if (gSelectedDiffs.length > 0) {
+    questions = questions.filter(q => gSelectedDiffs.indexOf(q.difficulty) >= 0);
   }
 
   if (questions.length === 0) {
