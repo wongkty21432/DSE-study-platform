@@ -234,9 +234,7 @@
 })();
 
 // ============ SHARED AUTH (same account across all subjects) ============
-const API_BASE = (window.location.protocol === 'file:') 
-  ? null  // file:// can't call localhost — use http://localhost/dse-study-platform/
-  : 'http://localhost/dse-ict-api/';
+const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? 'http://localhost/dse-ict-api/' : '';
 let gToken = localStorage.getItem('dse_platform_token') || null;
 let gUser = JSON.parse(localStorage.getItem('dse_platform_user') || 'null');
 
