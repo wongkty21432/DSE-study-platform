@@ -167,7 +167,7 @@
 <div class="auth-bar" id="authBar">
   <button class="btn-login" id="btnLogin" onclick="showAuthModal()">👤 登入 / 註冊</button>
   <a href="progress.html" id="btnProgress" style="display:none;padding:6px 14px;border-radius:20px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);cursor:pointer;font-size:.78rem;font-weight:600;text-decoration:none;">📊 進度</a>
-  <a href="javascript:void(0)" onclick="showSettings()" id="btnSettings" style="display:none;padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.75rem;text-decoration:none;">⚙️ 設置</a>
+  <a href="javascript:void(0)" onclick="showSettings()" id="btnSettings" style="padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.75rem;text-decoration:none;">⚙️ 設置</a>
   <span class="user-badge" id="userBadge" style="display:none;"></span>
   <button class="btn-logout" id="btnLogout" style="display:none;" onclick="logout()">登出</button>
 </div>
@@ -275,7 +275,6 @@ function updateAuthUI() {
   if (isLoggedIn()) {
     btnLogin.style.display = 'none';
     btnProgress.style.display = 'inline';
-    document.getElementById('btnSettings').style.display = 'inline';
     userBadge.style.display = 'inline';
     const roleTag = gUser.role === 'admin' ? ' 🛡️管理員' : '';
     userBadge.textContent = '👤 ' + gUser.username + roleTag;
@@ -284,7 +283,6 @@ function updateAuthUI() {
   } else {
     btnLogin.style.display = 'inline';
     btnProgress.style.display = 'none';
-    document.getElementById('btnSettings').style.display = 'none';
     userBadge.style.display = 'none';
     btnLogout.style.display = 'none';
   }
