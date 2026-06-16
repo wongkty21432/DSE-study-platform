@@ -1102,6 +1102,13 @@ function showLoading(show) {
   else overlay.classList.remove('show');
 }
 
+async function populateYearFilter() {
+  var allQ = await dbGetAll(gDB, 'questions');
+  var years = [...new Set(allQ.map(q => q.year).filter(Boolean))].sort((a,b) => b-a);
+  var sel = document.getElementById('yearFilter');
+  years.forEach(function(y){ var o=document.createElement('option'); o.value=y; o.textContent=y; sel.appendChild(o); });
+}
+
 function renderQuiz() {
   const container = document.getElementById('quizContainer');
   if (!gActiveQuestions.length) {

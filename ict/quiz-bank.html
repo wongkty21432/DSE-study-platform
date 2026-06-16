@@ -221,6 +221,16 @@
   <button onclick="setFilter(6)">計算思維(一)</button>
   <button onclick="setFilter(7)">計算思維(二)</button>
   <button onclick="setFilter(8)">社會影響</button>
+  <span class="sep">|</span>
+  <select id="yearFilter" onchange="renderQuiz()" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">
+    <option value="all">📅 全部年份</option>
+  </select>
+  <select id="diffFilter" onchange="renderQuiz()" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">
+    <option value="all">📊 全部難度</option>
+    <option value="easy">容易</option>
+    <option value="medium">中等</option>
+    <option value="hard">困難</option>
+  </select>
   <button id="refreshBtn" onclick="generateNewSession()">🔄 新題目</button>
   <button id="resetBtn" onclick="resetAllData()">重設進度</button>
 </div>
@@ -465,6 +475,7 @@ async function initializeDB() {
     }
     gDBReady = true;
     statusEl.textContent = __('卷一 · 自適應模式', 'Paper 1 · Adaptive Mode');
+    populateYearFilter();
     renderQuiz();
   } catch (err) {
     console.error('DB init error:', err);
@@ -789,6 +800,17 @@ async function generateNewSession() {
 }
 
 // ============ RENDERING ============
+async function populateYearFilter() {
+  var allQ = await dbGetAll(gDB, 'questions');
+  var years = [...new Set(allQ.map(q => q.year).filter(Boolean))].sort((a,b) => b-a);
+  var sel = document.getElementById('yearFilter');
+  years.forEach(function(y){
+    var opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    sel.appendChild(opt);
+  });
+}
+
 function renderQuiz() {
   const container = document.getElementById('quizContainer');
   if (!gActiveQuestions || gActiveQuestions.length === 0) {
@@ -799,11 +821,21 @@ function renderQuiz() {
   // Apply topic filter
   let questions = gActiveQuestions;
   if (gActiveFilter !== null) {
-    questions = gActiveQuestions.filter(q => q.topic === gActiveFilter);
+    questions = questions.filter(q => q.topic === gActiveFilter);
+  }
+  // Apply year filter
+  var yf = document.getElementById('yearFilter').value;
+  if (yf !== 'all') {
+    questions = questions.filter(q => q.year == parseInt(yf));
+  }
+  // Apply difficulty filter
+  var df = document.getElementById('diffFilter').value;
+  if (df !== 'all') {
+    questions = questions.filter(q => q.difficulty === df);
   }
 
   if (questions.length === 0) {
-    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text);">此課題目前沒有題目</p>';
+    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text);">沒有符合條件的題目</p>';
     return;
   }
 

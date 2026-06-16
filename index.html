@@ -167,12 +167,15 @@
 <div class="auth-bar" id="authBar">
   <button class="btn-login" id="btnLogin" onclick="showAuthModal()">👤 登入 / 註冊</button>
   <a href="progress.html" id="btnProgress" style="display:none;padding:6px 14px;border-radius:20px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);cursor:pointer;font-size:.78rem;font-weight:600;text-decoration:none;">📊 進度</a>
-  <a href="javascript:void(0)" onclick="showSettings()" id="btnSettings" style="padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.75rem;text-decoration:none;">⚙️ 設置</a>
   <span class="user-badge" id="userBadge" style="display:none;"></span>
   <button class="btn-logout" id="btnLogout" style="display:none;" onclick="logout()">登出</button>
 </div>
 
 <div class="container">
+
+<div style="text-align:center;margin-bottom:24px;">
+  <input type="text" id="hubSearch" placeholder="🔍 搜尋科目..." oninput="filterSubjects()" style="width:100%;max-width:500px;padding:12px 20px;border-radius:24px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.9rem;outline:none;">
+</div>
 
 <!-- ===== COMPULSORY ===== -->
 <div class="section-title"><h2>🔒 必修科 Core Subjects</h2><p>所有 DSE 考生必須應考</p></div>
@@ -480,6 +483,24 @@ function toggleE(eid,on){
   if(!on)s.electives=s.electives.filter(function(x){return x!==eid;});
   saveSets(s);
 }
+
+function filterSubjects(){
+  var q = document.getElementById('hubSearch').value.toLowerCase();
+  document.querySelectorAll('.subject-grid .subject-card').forEach(function(c){
+    var text = c.textContent.toLowerCase();
+    c.style.display = text.indexOf(q) >= 0 ? '' : 'none';
+  });
+  // Hide section titles if no matching cards in that section
+  document.querySelectorAll('.subject-grid').forEach(function(grid){
+    var visible = grid.querySelectorAll('.subject-card[style*="display: none"],.subject-card[style*="display:none"]').length;
+    var total = grid.querySelectorAll('.subject-card').length;
+    var title = grid.previousElementSibling;
+    if(title && title.classList.contains('section-title')){
+      title.style.display = visible === total ? 'none' : '';
+    }
+  });
+}
+</script>
 </script>
 
 </body>
