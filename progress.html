@@ -54,6 +54,33 @@
   .auth-msg { text-align:center; padding:48px 20px; color:var(--text2); }
   .auth-msg button { margin-top:12px; padding:10px 24px; border-radius:20px; background:var(--accent); color:#060b18; border:none; font-weight:600; cursor:pointer; font-size:.82rem; }
   ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+@media(max-width:640px){
+  .subject-grid{grid-template-columns:1fr!important;gap:10px}
+  .subject-card{padding:14px!important}
+  .card-grid{grid-template-columns:1fr!important}
+  .container{padding:12px!important}
+  header{padding:32px 16px 12px!important}
+  header h1{font-size:1.4rem!important}
+  header .subtitle{font-size:.8rem!important}
+  .auth-bar{flex-wrap:wrap!important;gap:6px!important}
+  .auth-bar button,.auth-bar a{font-size:.7rem!important;padding:6px 12px!important}
+  .topbar{padding:10px 14px!important;gap:8px!important}
+  .topbar h1{font-size:.85rem!important}
+  .stats{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+  .stat{padding:12px!important}
+  .stat .val{font-size:1.5rem!important}
+  .filters{gap:4px!important}
+  .filters button{padding:5px 10px!important;font-size:.68rem!important}
+  .qcard .qhead{padding:10px 14px!important}
+  .qcard .qtext{font-size:.82rem!important}
+  .qcard .opt{padding:8px 12px!important;font-size:.78rem!important}
+  .charts-row{grid-template-columns:1fr!important}
+  .subject-tabs{gap:4px!important}
+  .subject-tab{padding:8px 14px!important;font-size:.75rem!important}
+  .summary-row{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+}
+
 </style>
 </head>
 <body>
