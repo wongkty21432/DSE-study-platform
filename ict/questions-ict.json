@@ -25,7 +25,8 @@
       "D. There is no relationship between them"
     ],
     "explanation_en": "Information is processed, organized, and analyzed data that carries meaning and purpose. Raw data lacks context on its own; only after processing does it become useful information.",
-    "markingNotes_en": "1 mark: B. Information is processed and organized data."
+    "markingNotes_en": "1 mark: B. Information is processed and organized data.",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-002",
@@ -53,7 +54,8 @@
       "D. Must be stored in binary"
     ],
     "explanation_en": "Analog data consists of continuously varying physical quantities that can take any value within a range. Unlike digital data, analog data is not represented by discrete binary values.",
-    "markingNotes_en": "1 mark: C. Analog data is continuously varying values."
+    "markingNotes_en": "1 mark: C. Analog data is continuously varying values.",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-003",
@@ -81,7 +83,8 @@
       "D. 111101"
     ],
     "explanation_en": "45₁₀ = 32+8+4+1 = 2⁵+2³+2²+2⁰ = 101101₂. Verify: 1×32+0×16+1×8+1×4+0×2+1×1 = 45. Using repeated division: 45÷2=22r1, 22÷2=11r0, 11÷2=5r1, 5÷2=2r1, 2÷2=1r0, 1÷2=0r1. Read remainders bottom-up: 101101₂.",
-    "markingNotes_en": "1 mark: A (101101₂). Must show correct decimal to binary conversion steps."
+    "markingNotes_en": "1 mark: A (101101₂). Must show correct decimal to binary conversion steps.",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-004",
@@ -109,7 +112,8 @@
       "D. 24.00 MB"
     ],
     "explanation_en": "File size = 1024×768×24 bits = 1024×768×3 bytes = 2,359,296 bytes ≈ 2.25 MB. Note: 24-bit = 3 bytes per pixel (8 bits = 1 byte), 1 MB = 1,048,576 bytes. Common mistake: forgetting to convert bits to bytes (divide by 8).",
-    "markingNotes_en": "1 mark: A. 1024×768×24/8/1024/1024 ≈ 2.25 MB. Must handle unit conversions correctly."
+    "markingNotes_en": "1 mark: A. 1024×768×24/8/1024/1024 ≈ 2.25 MB. Must handle unit conversions correctly.",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-005",
@@ -137,7 +141,8 @@
       "D. Completely incompatible with ASCII"
     ],
     "explanation_en": "Unicode is an international character encoding standard capable of representing characters from virtually all languages (Chinese, Japanese, Korean, Arabic, etc.), solving ASCII's limitation of only 128 characters and Big-5's restriction to Traditional Chinese. UTF-8 is backward-compatible with ASCII (first 128 characters identical).",
-    "markingNotes_en": "1 mark: B. Unicode can represent characters from multiple languages for international encoding."
+    "markingNotes_en": "1 mark: B. Unicode can represent characters from multiple languages for international encoding.",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-006",
@@ -165,7 +170,8 @@
       "D. GIF or PNG"
     ],
     "explanation_en": "Both PNG (Portable Network Graphics) and GIF (Graphics Interchange Format) support transparent backgrounds. JPEG does not support transparency. BMP typically does not support transparency. PNG supports full alpha channel transparency (256 levels), while GIF only supports 1-bit transparency (fully transparent or fully opaque).",
-    "markingNotes_en": "1 mark: D (GIF or PNG). Both formats support transparent backgrounds. JPEG does not support transparency."
+    "markingNotes_en": "1 mark: D (GIF or PNG). Both formats support transparent backgrounds. JPEG does not support transparency.",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-007",
@@ -193,7 +199,8 @@
       "D. 121.2 MB"
     ],
     "explanation_en": "File size = sample rate × bits per sample × channels × time. 44,100 Hz × 16 bits × 2 channels × (3×60) seconds = 254,016,000 bits = 31,752,000 bytes ≈ 30.3 MB. Key points: convert minutes to seconds (×60), dual channel requires ×2.",
-    "markingNotes_en": "1 mark: B. 44,100×16×2×180/8/1024/1024 ≈ 30.3 MB. Must account for stereo (dual channel)."
+    "markingNotes_en": "1 mark: B. 44,100×16×2×180/8/1024/1024 ≈ 30.3 MB. Must account for stereo (dual channel).",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-008",
@@ -221,7 +228,8 @@
       "D. 5"
     ],
     "explanation_en": "IF function syntax: IF(condition, value_if_true, value_if_false). A1=5, A2=3. Condition A1>A2 (5>3) is TRUE, so result = A1*A2 = 5×3 = 15. If the condition were FALSE, result would be A1+A2 = 8.",
-    "markingNotes_en": "1 mark: B (15). IF condition is true, so multiplication is executed."
+    "markingNotes_en": "1 mark: B (15). IF condition is true, so multiplication is executed.",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-009",
@@ -249,7 +257,8 @@
       "D. 52"
     ],
     "explanation_en": "2F₁₆ = 2×16¹ + F×16⁰ = 2×16 + 15×1 = 32 + 15 = 47₁₀. Note: F = 15 in hexadecimal. Conversion method: multiply each hex digit by the corresponding power of 16 (right to left, powers 0,1,2...), then sum.",
-    "markingNotes_en": "1 mark: C. 2F₁₆ = 2×16 + 15 = 47₁₀."
+    "markingNotes_en": "1 mark: C. 2F₁₆ = 2×16 + 15 = 47₁₀.",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-010",
@@ -277,7 +286,8 @@
       "D. Bitmaps are described using mathematical formulas"
     ],
     "explanation_en": "Vector graphics use mathematical formulas (points, lines, curves, polygons) to describe images, so they can be scaled infinitely without quality loss. Bitmaps are composed of pixels; enlarging them reveals pixelation/jagged edges. Vectors suit charts, logos, and fonts; bitmaps suit photos and complex images.",
-    "markingNotes_en": "1 mark: A. Vector graphics = mathematical description, infinitely scalable. Bitmaps = pixel-based, quality loss on enlargement."
+    "markingNotes_en": "1 mark: A. Vector graphics = mathematical description, infinitely scalable. Bitmaps = pixel-based, quality loss on enlargement.",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-011",
@@ -305,7 +315,8 @@
       "D. Cache Memory"
     ],
     "explanation_en": "The ALU (Arithmetic Logic Unit) executes all arithmetic operations (addition, subtraction, multiplication, division) and logical operations (AND, OR, NOT, comparison) in the CPU. The CU (Control Unit) controls instruction fetch and decode, coordinating all components. Registers are high-speed temporary storage inside the CPU. Cache is a high-speed buffer between CPU and main memory.",
-    "markingNotes_en": "1 mark: B. ALU performs arithmetic and logical operations. CU handles control."
+    "markingNotes_en": "1 mark: B. ALU performs arithmetic and logical operations. CU handles control.",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-012",
@@ -333,7 +344,8 @@
       "D. Both RAM and ROM are non-volatile memory"
     ],
     "explanation_en": "RAM (Random Access Memory) is volatile — data is lost when power is off. It temporarily stores running programs and data. ROM (Read-Only Memory) is non-volatile — data is retained when power is off. It stores firmware such as BIOS/UEFI needed at boot time. Cache memory is also volatile but faster and smaller than RAM.",
-    "markingNotes_en": "1 mark: B. RAM = volatile (data lost on power off), ROM = non-volatile (data retained)."
+    "markingNotes_en": "1 mark: B. RAM = volatile (data lost on power off), ROM = non-volatile (data retained).",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-013",
@@ -361,7 +373,8 @@
       "D. Storing user data and files"
     ],
     "explanation_en": "An operating system is system software that manages computer hardware and software resources. It provides a user interface, memory management, processor scheduling (multitasking), file system management, I/O management, and device driver management. Document editing is application software (e.g., Word).",
-    "markingNotes_en": "1 mark: B. The OS manages computer hardware and software resources."
+    "markingNotes_en": "1 mark: B. The OS manages computer hardware and software resources.",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-014",
@@ -389,7 +402,8 @@
       "D. It can only be used by the operating system, not applications"
     ],
     "explanation_en": "Virtual memory is an OS technique that uses hard disk space as an extension of RAM when physical RAM is insufficient. Temporarily unused data is moved from RAM to disk (paging/swapping), freeing RAM for other programs. Virtual memory is much slower than RAM (disk speed << RAM speed). All applications benefit from virtual memory.",
-    "markingNotes_en": "1 mark: B. Virtual memory uses hard disk space as an extension of RAM when RAM is insufficient."
+    "markingNotes_en": "1 mark: B. Virtual memory uses hard disk space as an extension of RAM when RAM is insufficient.",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-015",
@@ -417,7 +431,8 @@
       "D. Optical Disc (DVD)"
     ],
     "explanation_en": "Speed comparison: RAM (~10-100 ns) > SSD (~0.1 ms) > HDD (~5-10 ms) > Optical disc (~100 ms+). RAM is main memory communicating directly with the CPU, making it the fastest. SSDs use flash memory with no moving parts. HDDs require mechanical head movement and disk rotation. Optical discs are slowest.",
-    "markingNotes_en": "1 mark: C. RAM has the fastest access speed (nanosecond level). Order: RAM > SSD > HDD > Optical disc."
+    "markingNotes_en": "1 mark: C. RAM has the fastest access speed (nanosecond level). Order: RAM > SSD > HDD > Optical disc.",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-016",
@@ -445,7 +460,8 @@
       "D. Encrypting network communication data"
     ],
     "explanation_en": "TCP (Transmission Control Protocol) is responsible for reliable data delivery: segmenting data, flow control, error detection and retransmission, and ensuring data arrives in order. IP (Internet Protocol) handles addressing and routing. DNS handles domain name resolution. SSL/TLS handles encryption.",
-    "markingNotes_en": "1 mark: B. TCP ensures reliable data delivery and error detection. IP handles addressing and routing."
+    "markingNotes_en": "1 mark: B. TCP ensures reliable data delivery and error detection. IP handles addressing and routing.",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-017",
@@ -473,7 +489,8 @@
       "D. IPv6 transmission speed is always faster than IPv4"
     ],
     "explanation_en": "IPv4 uses 32-bit addresses (~4.3 billion), displayed in dotted decimal (e.g., 192.168.1.1). IPv6 uses 128-bit addresses (~3.4×10³⁸), displayed in colon-separated hexadecimal. IPv6 thus provides vastly more addresses, solving IPv4 exhaustion. IPv6 does not inherently guarantee faster speed — speed depends on network infrastructure.",
-    "markingNotes_en": "1 mark: C. IPv6 (128-bit) provides far more addresses than IPv4 (32-bit)."
+    "markingNotes_en": "1 mark: C. IPv6 (128-bit) provides far more addresses than IPv4 (32-bit).",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-018",
@@ -501,7 +518,8 @@
       "D. Filtering spam emails"
     ],
     "explanation_en": "DNS acts like the internet's phone book, converting human-readable domain names (e.g., www.google.com) into machine-readable IP addresses (e.g., 142.250.80.4). When a user enters a domain name, the computer queries DNS servers for the corresponding IP address. DHCP assigns IP addresses. SSL/TLS handles encryption.",
-    "markingNotes_en": "1 mark: B. DNS converts domain names to IP addresses. DHCP assigns IP addresses."
+    "markingNotes_en": "1 mark: B. DNS converts domain names to IP addresses. DHCP assigns IP addresses.",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-019",
@@ -529,7 +547,8 @@
       "D. Automatically backing up all data on the computer"
     ],
     "explanation_en": "A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It can block unauthorized access but cannot prevent all viruses (requires antivirus software). Firewalls do not improve connection speed and do not handle data backup.",
-    "markingNotes_en": "1 mark: B. A firewall controls network traffic based on predefined rules. Cannot prevent all viruses."
+    "markingNotes_en": "1 mark: B. A firewall controls network traffic based on predefined rules. Cannot prevent all viruses.",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-020",
@@ -557,7 +576,8 @@
       "D. LAN is only for home use; WAN is only for enterprise use"
     ],
     "explanation_en": "LAN covers a small geographic area (a room, building, or campus), typically managed by a single organization. WAN covers a large area (city, country, or globally — the Internet is the largest WAN). LAN can use wired (Ethernet) or wireless (Wi-Fi). LAN speeds are typically faster than WAN.",
-    "markingNotes_en": "1 mark: B. LAN = small coverage (within building), WAN = large coverage (across cities/countries)."
+    "markingNotes_en": "1 mark: B. LAN = small coverage (within building), WAN = large coverage (across cities/countries).",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-021",
@@ -585,7 +605,8 @@
       "D. The website only supports text content"
     ],
     "explanation_en": "HTTPS (HTTP Secure) is the secure version of HTTP, encrypting data using SSL/TLS (Secure Sockets Layer/Transport Layer Security) protocols. HTTPS provides data encryption (prevents eavesdropping), authentication (verifies website identity via digital certificates), and data integrity (prevents tampering). A padlock icon appears in the browser address bar.",
-    "markingNotes_en": "1 mark: B. HTTPS = HTTP + SSL/TLS encryption. Provides confidentiality, integrity, and authentication."
+    "markingNotes_en": "1 mark: B. HTTPS = HTTP + SSL/TLS encryption. Provides confidentiality, integrity, and authentication.",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-022",
@@ -613,7 +634,8 @@
       "D. Requires installation of specialized software to use"
     ],
     "explanation_en": "Cloud computing delivers on-demand computing resources and services over the internet (servers, storage, databases, networking, software, analytics, etc.), with users paying only for what they use. Service models: IaaS, PaaS, SaaS. Users can access via browser without installing dedicated software. Cross-platform support is a key feature.",
-    "markingNotes_en": "1 mark: B. Cloud computing provides on-demand computing resources and services via the internet."
+    "markingNotes_en": "1 mark: B. Cloud computing provides on-demand computing resources and services via the internet.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-023",
@@ -641,7 +663,8 @@
       "D. Playing offline games on a local computer"
     ],
     "explanation_en": "IoT refers to physical devices embedded with sensors, software, and other technologies that connect and exchange data over the internet. Smart homes (smart thermostats, lights, locks, voice assistants) are typical IoT applications. Other examples: smartwatches, smart cities (traffic management), industrial IoT (predictive maintenance).",
-    "markingNotes_en": "1 mark: B. IoT = interconnected smart devices communicating and automating over networks."
+    "markingNotes_en": "1 mark: B. IoT = interconnected smart devices communicating and automating over networks.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-024",
@@ -669,7 +692,8 @@
       "D. High Tech Markup Language"
     ],
     "explanation_en": "HTML (HyperText Markup Language) is the standard markup language for creating web pages. It uses tags to define web page structure and content (headings, paragraphs, images, links, etc.). HTML is not a programming language — it is a markup language that marks up the structure and meaning of content.",
-    "markingNotes_en": "1 mark: A. HTML = HyperText Markup Language."
+    "markingNotes_en": "1 mark: A. HTML = HyperText Markup Language.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-025",
@@ -697,7 +721,8 @@
       "D. The encryption process requires no keys"
     ],
     "explanation_en": "Public key encryption (asymmetric encryption) uses a mathematically related key pair: a public key (can be openly shared) for encryption, and a private key (must be kept secret) for decryption. Anyone can encrypt with the recipient's public key, but only the holder of the corresponding private key can decrypt. SSL/TLS uses public-key encryption for initial key exchange.",
-    "markingNotes_en": "1 mark: B. Public key encryption uses a key pair: public key encrypts, private key decrypts."
+    "markingNotes_en": "1 mark: B. Public key encryption uses a key pair: public key encrypts, private key decrypts.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-026",
@@ -725,7 +750,8 @@
       "D. Learning multiple programming languages"
     ],
     "explanation_en": "Computational thinking is a problem-solving approach with these core elements: Abstraction — extracting key information while ignoring irrelevant details; Algorithm Design — designing step-by-step solutions; Automation — using computers to automatically execute repetitive tasks. It is a universal problem-solving method not limited to programming.",
-    "markingNotes_en": "1 mark: B. Core elements of computational thinking: abstraction, algorithm design, and automation."
+    "markingNotes_en": "1 mark: B. Core elements of computational thinking: abstraction, algorithm design, and automation.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-027",
@@ -753,7 +779,8 @@
       "D. Parallelogram"
     ],
     "explanation_en": "Standard flowchart symbols: Oval/Rounded rectangle = Start/End; Rectangle = Process/Operation; Diamond = Decision/Condition (typically Yes/No branches); Parallelogram = Input/Output; Arrows = Flow direction. The diamond is the only symbol with two exits (TRUE/FALSE).",
-    "markingNotes_en": "1 mark: B. Diamond = decision/condition. Rectangle = process, Oval = start/end, Parallelogram = I/O."
+    "markingNotes_en": "1 mark: B. Diamond = decision/condition. Rectangle = process, Oval = start/end, Parallelogram = I/O.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-028",
@@ -781,7 +808,8 @@
       "D. Ensuring programs never have errors"
     ],
     "explanation_en": "A variable is a fundamental programming concept used to temporarily store data in memory, with values that can change during program execution. Variables can store different data types: integers, floats, strings, booleans, etc. Variables are stored in RAM, not hard disk. Using variables does not prevent all errors.",
-    "markingNotes_en": "1 mark: B. Variables store data temporarily in memory; their values can change. Supports multiple data types."
+    "markingNotes_en": "1 mark: B. Variables store data temporarily in memory; their values can change. Supports multiple data types.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-029",
@@ -809,7 +837,8 @@
       "D. 10"
     ],
     "explanation_en": "Pseudocode trace: i=1: 1 mod 2 = 1 ≠ 0, skip, sum=0; i=2: 2 mod 2 = 0, sum=0+2=2; i=3: skip, sum=2; i=4: 4 mod 2 = 0, sum=2+4=6; i=5: skip, sum=6. Final sum = 6, which is the sum of all even numbers from 1 to 5 (2+4). 'mod' is the modulo (remainder) operator.",
-    "markingNotes_en": "1 mark: A (6). The program sums all even numbers from 1 to 5: 2+4=6."
+    "markingNotes_en": "1 mark: A (6). The program sums all even numbers from 1 to 5: 2+4=6.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-030",
@@ -837,7 +866,8 @@
       "D. Jump (Goto)"
     ],
     "explanation_en": "The three fundamental control structures in programming: (1) Sequence — instructions execute in order line by line; (2) Selection — different branches execute based on conditions (if-else, switch-case); (3) Iteration — a group of instructions executes repeatedly until a condition is met (for loop, while loop, do-while). Iteration handles repetitive tasks.",
-    "markingNotes_en": "1 mark: C. Iteration (for/while loops) is used to repeatedly execute instructions."
+    "markingNotes_en": "1 mark: C. Iteration (for/while loops) is used to repeatedly execute instructions.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-031",
@@ -865,7 +895,8 @@
       "D. Making the program run only on specific platforms"
     ],
     "explanation_en": "Modular programming (decomposing into functions/procedures) improves readability (each function has a clear purpose), maintainability (changing one function doesn't affect others), reusability (functions can be called from multiple places), easier debugging (test each function independently), and team collaboration (different people handle different modules).",
-    "markingNotes_en": "1 mark: B. Modularization improves readability, maintainability, and reusability."
+    "markingNotes_en": "1 mark: B. Modularization improves readability, maintainability, and reusability.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-032",
@@ -893,7 +924,8 @@
       "D. Another name for a programming language"
     ],
     "explanation_en": "An array is a data structure that stores multiple elements of the same type in contiguous memory locations, accessed by index (starting from 0). Example: score[0]=85, score[1]=92, score[2]=78. Advantages: manage related data with one variable name, convenient processing via loops, random access (O(1) time complexity).",
-    "markingNotes_en": "1 mark: B. An array stores multiple elements of the same type, accessed by index."
+    "markingNotes_en": "1 mark: B. An array stores multiple elements of the same type, accessed by index.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-033",
@@ -921,7 +953,8 @@
       "D. Testing only with normal, expected inputs"
     ],
     "explanation_en": "Boundary value testing is a black-box testing technique focusing on boundary values of input ranges (minimum, maximum, just below minimum, just above maximum), because errors often occur at boundaries. Example: if a program accepts input 1-100, test 0 (below), 1 (lower bound), 100 (upper bound), 101 (above).",
-    "markingNotes_en": "1 mark: B. Boundary value testing focuses on testing program behavior at the edges of input ranges."
+    "markingNotes_en": "1 mark: B. Boundary value testing focuses on testing program behavior at the edges of input ranges.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-034",
@@ -949,7 +982,8 @@
       "D. Converting the program to another programming language"
     ],
     "explanation_en": "Program documentation describes the program's function, structure, and usage. Purposes include: helping other programmers understand logic, facilitating maintenance and updates, recording design decisions, and serving as a user manual. Good documentation includes code comments, API docs, user manuals, and design documents.",
-    "markingNotes_en": "1 mark: B. Documentation helps understand and maintain programs."
+    "markingNotes_en": "1 mark: B. Documentation helps understand and maintain programs.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-035",
@@ -977,7 +1011,8 @@
       "D. Reducing student social interaction to zero"
     ],
     "explanation_en": "Positive ICT impacts on education: online learning platforms (Moodle, Google Classroom) enabling anytime/anywhere access; multimedia teaching (videos, animations, simulations) improving engagement; instant communication tools facilitating teacher-student interaction; AI-assisted personalized learning. ICT cannot fully replace teachers who provide guidance, motivation, and emotional support.",
-    "markingNotes_en": "1 mark: B. ICT provides online learning platforms, increasing accessibility and flexibility of learning resources."
+    "markingNotes_en": "1 mark: B. ICT provides online learning platforms, increasing accessibility and flexibility of learning resources.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-036",
@@ -1005,7 +1040,8 @@
       "D. Technical limitations of internet speed"
     ],
     "explanation_en": "The digital divide refers to the gap between different regions, socioeconomic classes, age groups, and education levels in accessing and using ICT. This gap manifests in: hardware access (computers, smartphones), internet access (broadband/mobile), digital skills, and digital literacy. The digital divide may exacerbate social inequality.",
-    "markingNotes_en": "1 mark: B. The digital divide is the gap in ICT resource access and usage between different communities."
+    "markingNotes_en": "1 mark: B. The digital divide is the gap in ICT resource access and usage between different communities.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-037",
@@ -1033,7 +1069,8 @@
       "D. Free resources in the public domain"
     ],
     "explanation_en": "Intellectual property protects creators' intellectual and creative works including: Copyright (literary, musical, artistic works, software source code), Patents (inventions and technical innovations), Trademarks (brand names and logos), Trade Secrets. In ICT, software is protected by copyright, unique algorithms can be patented, and brand names can be trademarked.",
-    "markingNotes_en": "1 mark: B. Intellectual property protects intellectual creations including software, music, and literary works."
+    "markingNotes_en": "1 mark: B. Intellectual property protects intellectual creations including software, music, and literary works.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-038",
@@ -1061,7 +1098,8 @@
       "D. Only the original author can use it"
     ],
     "explanation_en": "Open source software characteristics: source code is publicly available (anyone can view), free modification (users can modify code for their needs), free distribution (can share with others), usually free of charge. Common licenses: GPL (modifications must also be open source), MIT (very permissive, can be used in commercial software), Apache (includes patent grant).",
-    "markingNotes_en": "1 mark: B. Open source software has publicly available source code; users can freely modify and distribute."
+    "markingNotes_en": "1 mark: B. Open source software has publicly available source code; users can freely modify and distribute.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-039",
@@ -1089,7 +1127,8 @@
       "D. Neck and back pain"
     ],
     "explanation_en": "Health issues from prolonged computer use: Repetitive Strain Injury (RSI — wrist/hand damage from repetitive motions like carpal tunnel syndrome), eye strain (blurred vision, dry eyes from staring at screens), neck and back pain (poor posture and prolonged sitting). Improved body flexibility is a positive effect from proper exercise, not a health issue from computer use.",
-    "markingNotes_en": "1 mark: C. Improved body flexibility is NOT a health issue from computer use. RSI, eye strain, and neck/back pain are."
+    "markingNotes_en": "1 mark: C. Improved body flexibility is NOT a health issue from computer use. RSI, eye strain, and neck/back pain are.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-040",
@@ -1117,7 +1156,8 @@
       "D. Disabling all security software for faster browsing"
     ],
     "explanation_en": "Effective methods for online privacy: regularly clearing browser history and cookies (reducing tracking), using strong unique passwords for each site, limiting personal information shared on social media, using VPNs to encrypt traffic, enabling two-factor authentication (2FA), and keeping software updated. Using the same password everywhere is a major security risk.",
-    "markingNotes_en": "1 mark: B. Regularly clearing browser history and cookies helps protect online privacy."
+    "markingNotes_en": "1 mark: B. Regularly clearing browser history and cookies helps protect online privacy.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-041",
@@ -1146,7 +1186,8 @@
       "D. User manual"
     ],
     "explanation_en": "The CPU is a physical electronic component and belongs to hardware. Operating systems (A) and DBMS (B) are software. User manuals (D) are procedures/documentation. The five components of an information system: hardware, software, data, people, and procedures.",
-    "markingNotes_en": "1 mark: C. CPU is hardware. Distinguish hardware (physical devices) from software (programs and instructions)."
+    "markingNotes_en": "1 mark: C. CPU is hardware. Distinguish hardware (physical devices) from software (programs and instructions).",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-042",
@@ -1175,7 +1216,8 @@
       "D. RAM uses sequential access"
     ],
     "explanation_en": "Direct access (random access) allows jumping directly to any data location without traversing preceding data (e.g., HDD, SSD, RAM). Sequential access must read data from the beginning until the target is found (e.g., magnetic tape). HDDs use direct access (A wrong), sequential is usually slower (C wrong), RAM uses direct access (D wrong).",
-    "markingNotes_en": "1 mark: B. Direct access = instant data location; sequential = must start from beginning. Tape=sequential, HDD/SSD/RAM=direct."
+    "markingNotes_en": "1 mark: B. Direct access = instant data location; sequential = must start from beginning. Tape=sequential, HDD/SSD/RAM=direct.",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-043",
@@ -1204,7 +1246,8 @@
       "D. Checking if data is encrypted"
     ],
     "explanation_en": "Range check verifies that input data falls within a predefined reasonable range. Example: age should be 0-150, exam scores should be 0-100. Range checking is one of the most common data validation methods, preventing obvious input errors. Type check (B) verifies data type (e.g., number vs text).",
-    "markingNotes_en": "1 mark: A. Range check ensures data is within a reasonable range. Example: 0 ≤ age ≤ 150."
+    "markingNotes_en": "1 mark: A. Range check ensures data is within a reasonable range. Example: 0 ≤ age ≤ 150.",
+    "topic_name_en": "Information Processing I"
   },
   {
     "qid": "ICT-044",
@@ -1233,7 +1276,8 @@
       "D. JPEG and PNG use the same compression algorithm"
     ],
     "explanation_en": "JPEG uses lossy compression (discards some image data to reduce file size), ideal for photos and images with rich gradients. PNG uses lossless compression (preserves all image data), supports alpha channel transparency, ideal for logos, charts, and images needing sharp edges and transparency. JPEG does not support transparency.",
-    "markingNotes_en": "1 mark: C. JPEG = lossy, good for photos; PNG = lossless, supports transparency."
+    "markingNotes_en": "1 mark: C. JPEG = lossy, good for photos; PNG = lossless, supports transparency.",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-045",
@@ -1262,7 +1306,8 @@
       "D. 52.92 MB"
     ],
     "explanation_en": "File size = sample rate × bit depth × channels × time. 22,050 Hz × 8 bits × 1 channel × (5×60) seconds = 22,050 × 8 × 300 = 52,920,000 bits ≈ 6.62 MB. Note: single channel (×1, not ×2). Unit conversions are critical.",
-    "markingNotes_en": "1 mark: B. 22,050×8×1×300/8/1024/1024 ≈ 6.3 MB. Note this is mono (single channel)."
+    "markingNotes_en": "1 mark: B. 22,050×8×1×300/8/1024/1024 ≈ 6.3 MB. Note this is mono (single channel).",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-046",
@@ -1291,7 +1336,8 @@
       "D. =MAX(A1:A10)"
     ],
     "explanation_en": "SUM calculates the total of all numeric values in a range. AVERAGE calculates the mean. COUNT counts the number of cells containing numbers. MAX returns the largest value. These are the most basic spreadsheet functions.",
-    "markingNotes_en": "1 mark: C. SUM() adds values. AVERAGE=mean, COUNT=count cells, MAX=largest value."
+    "markingNotes_en": "1 mark: C. SUM() adds values. AVERAGE=mean, COUNT=count cells, MAX=largest value.",
+    "topic_name_en": "Information Processing II"
   },
   {
     "qid": "ICT-047",
@@ -1320,7 +1366,8 @@
       "D. Specifically designed for managing network connections"
     ],
     "explanation_en": "A GPU has hundreds to thousands of small processing cores designed for parallel processing, particularly suited for graphics rendering, image processing, machine learning, and other tasks requiring massive parallel computation. GPUs complement CPUs (fewer high-performance cores, optimized for sequential processing). Modern GPUs are also used for cryptocurrency mining and AI training.",
-    "markingNotes_en": "1 mark: B. GPU has many cores optimized for parallel processing. CPU=few strong cores, GPU=many small cores."
+    "markingNotes_en": "1 mark: B. GPU has many cores optimized for parallel processing. CPU=few strong cores, GPU=many small cores.",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-048",
@@ -1349,7 +1396,8 @@
       "D. A database management system"
     ],
     "explanation_en": "The bus system consists of communication channels connecting the CPU to other computer components: Data bus (transmits data), Address bus (transmits memory addresses), Control bus (transmits control signals). Bus width (in bits) affects system performance — wider buses can transfer more data per cycle.",
-    "markingNotes_en": "1 mark: B. The bus system is the communication channel between CPU and components. Three types: data, address, control."
+    "markingNotes_en": "1 mark: B. The bus system is the communication channel between CPU and components. Three types: data, address, control.",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-049",
@@ -1378,7 +1426,8 @@
       "D. Does not require operating system support"
     ],
     "explanation_en": "Distributed processing breaks large tasks into subtasks, distributes them to multiple computers on a network for parallel processing, then combines the results. Advantages: improved speed, higher reliability (single point of failure doesn't affect everything), resource sharing, scalability. Examples: SETI@home, blockchain networks, cloud computing.",
-    "markingNotes_en": "1 mark: B. Distributed processing = multiple computers collaborating via network. Distinct from parallel processing (multiple CPUs in one machine)."
+    "markingNotes_en": "1 mark: B. Distributed processing = multiple computers collaborating via network. Distinct from parallel processing (multiple CPUs in one machine).",
+    "topic_name_en": "Computer System Fundamentals"
   },
   {
     "qid": "ICT-050",
@@ -1407,7 +1456,8 @@
       "D. Firewall"
     ],
     "explanation_en": "A Switch operates at the Data Link layer (Layer 2) of the OSI model, forwarding data frames based on MAC addresses to specific ports. A Router operates at the Network layer (Layer 3), forwarding data packets based on IP addresses. A Modem handles analog-digital signal conversion. A Firewall filters traffic based on security rules.",
-    "markingNotes_en": "1 mark: B. Switch uses MAC addresses (Layer 2); Router uses IP addresses (Layer 3)."
+    "markingNotes_en": "1 mark: B. Switch uses MAC addresses (Layer 2); Router uses IP addresses (Layer 3).",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-051",
@@ -1436,7 +1486,8 @@
       "D. Circuit switching is more suitable for bursty data transmission than packet switching"
     ],
     "explanation_en": "Circuit switching establishes a dedicated physical channel before communication (e.g., traditional telephone networks); the channel is exclusively occupied during communication, suitable for continuous communication (voice calls). Packet switching divides data into small packets, each independently routed (e.g., internet using TCP/IP), suitable for bursty data. Internet uses packet switching (B wrong).",
-    "markingNotes_en": "1 mark: A. Circuit switching = dedicated channel (telephone); Packet switching = packet-based transmission (internet TCP/IP)."
+    "markingNotes_en": "1 mark: A. Circuit switching = dedicated channel (telephone); Packet switching = packet-based transmission (internet TCP/IP).",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-052",
@@ -1465,7 +1516,8 @@
       "D. 128 bits"
     ],
     "explanation_en": "IPv4 addresses use 32 bits (4 bytes), displayed in dotted decimal notation (e.g., 192.168.1.1). This provides approximately 4.3 billion unique addresses. As internet devices far exceed 4.3 billion, IPv4 addresses are largely exhausted. IPv6 uses 128 bits (16 bytes), providing 2¹²⁸ addresses.",
-    "markingNotes_en": "1 mark: B. IPv4 = 32 bits (~4.3 billion addresses); IPv6 = 128 bits."
+    "markingNotes_en": "1 mark: B. IPv4 = 32 bits (~4.3 billion addresses); IPv6 = 128 bits.",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-053",
@@ -1494,7 +1546,8 @@
       "D. Setting up your own email server"
     ],
     "explanation_en": "SaaS (Software as a Service) lets users use software via the internet without installation or maintenance. Google Docs is typical SaaS — users only need a browser to edit documents; all processing and storage happen in the cloud. Installing Word locally (A) is traditional software. Buying Windows (C) is licensing, not service. Self-hosting email (D) is IaaS or self-managed.",
-    "markingNotes_en": "1 mark: B. SaaS = using cloud software through a browser. Google Docs, Office 365, Gmail are SaaS examples."
+    "markingNotes_en": "1 mark: B. SaaS = using cloud software through a browser. Google Docs, Office 365, Gmail are SaaS examples.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-054",
@@ -1523,7 +1576,8 @@
       "D. SSL/TLS only protects text data, not images and videos"
     ],
     "explanation_en": "SSL/TLS operation: (1) Client and server use public-key (asymmetric) encryption to securely exchange a symmetric key; (2) Subsequent data transmission uses this symmetric key (faster). HTTPS = HTTP + SSL/TLS. Digital certificates verify website identity (C wrong). SSL/TLS encrypts all data types (D wrong).",
-    "markingNotes_en": "1 mark: B. SSL/TLS uses asymmetric encryption to exchange the symmetric key, then symmetric encryption for data. Hybrid cryptosystem."
+    "markingNotes_en": "1 mark: B. SSL/TLS uses asymmetric encryption to exchange the symmetric key, then symmetric encryption for data. Hybrid cryptosystem.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-055",
@@ -1552,7 +1606,8 @@
       "D. <div>"
     ],
     "explanation_en": "The <a> (anchor) tag creates hyperlinks, using the href attribute to specify the target URL. Example: <a href='https://example.com'>Click here</a>. <img> inserts images, <p> defines paragraphs, <div> defines block-level divisions.",
-    "markingNotes_en": "1 mark: B. <a href='...'> is the HTML hyperlink tag."
+    "markingNotes_en": "1 mark: B. <a href='...'> is the HTML hyperlink tag.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-056",
@@ -1581,7 +1636,8 @@
       "D. No output"
     ],
     "explanation_en": "Trace: x=8 → Check x>10? → 8>10 is No → Check x>5? → 8>5 is Yes → Output 'Medium'. This is a typical nested decision structure for categorizing values by ranges.",
-    "markingNotes_en": "1 mark: B (Medium). x=8 does not satisfy >10, does satisfy >5, outputs Medium."
+    "markingNotes_en": "1 mark: B (Medium). x=8 does not satisfy >10, does satisfy >5, outputs Medium.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-057",
@@ -1610,7 +1666,8 @@
       "D. 8"
     ],
     "explanation_en": "Numbers 1-10 satisfying i mod 2=0 (even) OR i mod 3=0 (multiple of 3): 2✓(even), 3✓(multiple of 3), 4✓(even), 6✓(both, OR counts once), 8✓(even), 9✓(multiple of 3), 10✓(even). Total: 7 numbers. Note: 6 satisfies both conditions but is counted only once (OR logic).",
-    "markingNotes_en": "1 mark: C (7). Numbers that are even OR multiples of 3: 2,3,4,6,8,9,10."
+    "markingNotes_en": "1 mark: C (7). Numbers that are even OR multiples of 3: 2,3,4,6,8,9,10.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-058",
@@ -1639,7 +1696,8 @@
       "D. Encrypting source code to protect intellectual property"
     ],
     "explanation_en": "Pseudocode uses natural language and basic program structures (if-then, for, while) to describe algorithm logic, unrestricted by specific programming language syntax. It is used for planning and communicating algorithm design before writing actual code. Pseudocode cannot be directly executed on a computer.",
-    "markingNotes_en": "1 mark: B. Pseudocode describes algorithm logic in natural language for planning and communication."
+    "markingNotes_en": "1 mark: B. Pseudocode describes algorithm logic in natural language for planning and communication.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-059",
@@ -1668,7 +1726,8 @@
       "D. Procedures can only be called from the main program; functions can be called from anywhere"
     ],
     "explanation_en": "A function performs calculations and returns a value (e.g., sqrt, sum). A procedure/subroutine performs a series of operations without returning a value (e.g., display message, print file). In many modern languages, 'function' is used generically. Both can accept parameters and be called from anywhere.",
-    "markingNotes_en": "1 mark: A. A function returns a value; a procedure does not. This is the fundamental difference."
+    "markingNotes_en": "1 mark: A. A function returns a value; a procedure does not. This is the fundamental difference.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-060",
@@ -1697,7 +1756,8 @@
       "D. [1,3,1,4,5]"
     ],
     "explanation_en": "This is a bubble sort algorithm that sorts the array in ascending order. Original [3,1,4,1,5] becomes [1,1,3,4,5] after a complete bubble sort. Bubble sort repeatedly compares adjacent elements and swaps them, with the largest unsorted element 'bubbling' to the end in each pass.",
-    "markingNotes_en": "1 mark: B [1,1,3,4,5]. Bubble sort produces ascending order. Understanding sorting algorithm processes is important."
+    "markingNotes_en": "1 mark: B [1,1,3,4,5]. Bubble sort produces ascending order. Understanding sorting algorithm processes is important.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-061",
@@ -1726,7 +1786,8 @@
       "D. Not performing any testing"
     ],
     "explanation_en": "Good programming practices: using meaningful variable names (e.g., studentScore not x), writing clear comments, modular design (decomposing into small functions), thorough testing (including boundary testing), consistent coding style, and version control. These improve readability, maintainability, and reliability.",
-    "markingNotes_en": "1 mark: B. Clear comments are good practice. Meaningful names, modularization, and testing are also important."
+    "markingNotes_en": "1 mark: B. Clear comments are good practice. Meaningful names, modularization, and testing are also important.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-062",
@@ -1755,7 +1816,8 @@
       "D. Does not allow anyone to view the source code"
     ],
     "explanation_en": "The GPL (GNU General Public License)'s core feature is 'Copyleft' — when you modify GPL-licensed software, your derivative work must also be released under the GPL license. This ensures the software and its derivatives remain perpetually open source. MIT license is more permissive. GPL allows commercial use and source code viewing.",
-    "markingNotes_en": "1 mark: B. GPL's core is Copyleft: derivative works must also use GPL licensing."
+    "markingNotes_en": "1 mark: B. GPL's core is Copyleft: derivative works must also use GPL licensing.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-063",
@@ -1784,7 +1846,8 @@
       "D. Network attacks"
     ],
     "explanation_en": "The '20-20-20 rule' recommends: Every 20 minutes of computer use, look at something 20 feet (~6 meters) away for at least 20 seconds. This reduces eye strain and digital eye fatigue from prolonged screen focus. RSI prevention requires regular breaks and proper wrist posture. Virus prevention requires antivirus software.",
-    "markingNotes_en": "1 mark: C. The 20-20-20 rule (every 20 min, look 20 ft away for 20 sec) prevents eye strain."
+    "markingNotes_en": "1 mark: C. The 20-20-20 rule (every 20 min, look 20 ft away for 20 sec) prevents eye strain.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-064",
@@ -1813,7 +1876,8 @@
       "D. Reducing ICT courses in schools"
     ],
     "explanation_en": "Strategies to reduce the digital divide: providing free computers and internet access in public spaces, building network infrastructure in remote areas, offering digital skills training programs, providing computer/internet subsidies for low-income families, and developing simplified interfaces for the elderly. Higher prices and reduced coverage only worsen the divide.",
-    "markingNotes_en": "1 mark: B. Free public access to computers and internet is an effective method to reduce the digital divide."
+    "markingNotes_en": "1 mark: B. Free public access to computers and internet is an effective method to reduce the digital divide.",
+    "topic_name_en": "Social Implications of ICT"
   },
   {
     "qid": "ICT-065",
@@ -1842,7 +1906,8 @@
       "D. Can only be used on the internet, not on a LAN"
     ],
     "explanation_en": "In client-server architecture, servers centrally manage resources and provide services (file servers, web servers, database servers). Clients send requests to servers and receive responses. Unlike peer-to-peer (P2P) where all computers are equal (A wrong). This architecture requires network connection (C wrong) and can be used on both LAN and internet (D wrong).",
-    "markingNotes_en": "1 mark: B. Servers provide services; clients request services. Distinct from P2P architecture."
+    "markingNotes_en": "1 mark: B. Servers provide services; clients request services. Distinct from P2P architecture.",
+    "topic_name_en": "Internet & Applications I"
   },
   {
     "qid": "ICT-066",
@@ -1871,7 +1936,8 @@
       "D. Entering the password twice for confirmation"
     ],
     "explanation_en": "2FA requires two different types of authentication factors: (1) Something you know (password, PIN), (2) Something you have (phone, security token, smart card), (3) Something you are (fingerprint, facial recognition). Combining two factors greatly improves security — even if a password is stolen, attackers cannot pass the second factor.",
-    "markingNotes_en": "1 mark: B. 2FA = two different types of authentication factors. Common: password + phone verification code."
+    "markingNotes_en": "1 mark: B. 2FA = two different types of authentication factors. Common: password + phone verification code.",
+    "topic_name_en": "Internet & Applications II"
   },
   {
     "qid": "ICT-067",
@@ -1899,7 +1965,8 @@
       "D. 4"
     ],
     "explanation_en": "Trace: i=1: result=1; i=2: result=2; i=3: result=6; i=4: result=24. This calculates 4! = 24. Note result starts at 1 (if 0, product always 0).",
-    "markingNotes_en": "1 mark: B (24). Computes 4! = 1x1x2x3x4 = 24."
+    "markingNotes_en": "1 mark: B (24). Computes 4! = 1x1x2x3x4 = 24.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-068",
@@ -1927,7 +1994,8 @@
       "D. 0, 1, 2, 3, 5"
     ],
     "explanation_en": "Fibonacci generator. Trace: outputs 0, 1, 1, 2, 3. Outputs a BEFORE updating values each iteration.",
-    "markingNotes_en": "1 mark: B. First 5 Fibonacci numbers with a=0, b=1."
+    "markingNotes_en": "1 mark: B. First 5 Fibonacci numbers with a=0, b=1.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-069",
@@ -1955,7 +2023,8 @@
       "D. 2, 3, 4, 5, 6, 7, 8"
     ],
     "explanation_en": "range(start, stop, step): starts at start (inclusive), increments by step, stops before stop (exclusive). range(2,8,2) produces 2,4,6.",
-    "markingNotes_en": "1 mark: C (2,4,6). stop value (8) is exclusive."
+    "markingNotes_en": "1 mark: C (2,4,6). stop value (8) is exclusive.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-070",
@@ -1983,7 +2052,8 @@
       "D. No error"
     ],
     "explanation_en": "No logic error. i%2=1 correctly identifies odd numbers. % is the modulo operator.",
-    "markingNotes_en": "1 mark: D. No error. i%2=1 correctly tests for odd numbers."
+    "markingNotes_en": "1 mark: D. No error. i%2=1 correctly tests for odd numbers.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-071",
@@ -2011,7 +2081,8 @@
       "D. 5"
     ],
     "explanation_en": "% is modulo. 17/5 = 3 remainder 2. / returns float (3.4), // returns integer quotient (3), % returns remainder (2).",
-    "markingNotes_en": "1 mark: B (2). 17%5 = 2."
+    "markingNotes_en": "1 mark: B (2). 17%5 = 2.",
+    "topic_name_en": "Computational Thinking & Programming I"
   },
   {
     "qid": "ICT-072",
@@ -2039,7 +2110,8 @@
       "D. Compares a and b"
     ],
     "explanation_en": "Recursive Euclidean Algorithm for GCD. Principle: GCD(a,b) = GCD(b, a mod b). When b=0, GCD = a. Example: mystery(48,18) returns 6.",
-    "markingNotes_en": "1 mark: B. Recursive Euclidean Algorithm for HCF/GCD."
+    "markingNotes_en": "1 mark: B. Recursive Euclidean Algorithm for HCF/GCD.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-073",
@@ -2067,7 +2139,8 @@
       "D. [1,8,3,5,9,2]"
     ],
     "explanation_en": "Selection Sort. Each round finds minimum in unsorted portion and swaps with first unsorted element. Final result: [1,2,3,5,8,9] (ascending).",
-    "markingNotes_en": "1 mark: C. Selection Sort produces ascending order [1,2,3,5,8,9]."
+    "markingNotes_en": "1 mark: C. Selection Sort produces ascending order [1,2,3,5,8,9].",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-074",
@@ -2095,7 +2168,8 @@
       "D. Output None"
     ],
     "explanation_en": "try-except handles exceptions. divide(10,0) raises ZeroDivisionError, caught by except block. Program does not crash. Error message is printed.",
-    "markingNotes_en": "1 mark: B. try-except catches ZeroDivisionError gracefully."
+    "markingNotes_en": "1 mark: B. try-except catches ZeroDivisionError gracefully.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-075",
@@ -2123,7 +2197,8 @@
       "D. Test only normal values"
     ],
     "explanation_en": "Boundary Value Analysis tests edges of input ranges where errors commonly occur. Example for range 1-100: test 0, 1, 100, 101.",
-    "markingNotes_en": "1 mark: B. Boundary testing focuses on edges of input ranges."
+    "markingNotes_en": "1 mark: B. Boundary testing focuses on edges of input ranges.",
+    "topic_name_en": "Computational Thinking & Programming II"
   },
   {
     "qid": "ICT-076",
@@ -2151,6 +2226,607 @@
       "D. Length fixed after creation"
     ],
     "explanation_en": "Python lists are mutable — elements can be modified, added (append), removed (pop). Mixed types allowed, indices start at 0, length is dynamic.",
-    "markingNotes_en": "1 mark: C. Python lists are mutable."
+    "markingNotes_en": "1 mark: C. Python lists are mutable.",
+    "topic_name_en": "Computational Thinking & Programming II"
+  },
+  {
+    "qid": "ICT-077",
+    "topic": 9,
+    "year": 2023,
+    "qnum": 1,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "easy",
+    "question": "以下哪項是關聯式數據庫(Relational Database)的主要特點？",
+    "options": [
+      "A. 數據以層次結構儲存",
+      "B. 數據以表格形式儲存，表之間通過鍵值建立關聯",
+      "C. 所有數據儲存在一個檔案中",
+      "D. 只能儲存文字數據"
+    ],
+    "answer": 1,
+    "explanation": "關聯式數據庫以表格(Table/Relation)形式組織數據，每個表格包含行(記錄)和列(字段)。不同表格之間通過主鍵(Primary Key)和外鍵(Foreign Key)建立關聯。",
+    "markingNotes": "1分：B。關聯式數據庫以表格形式儲存，表之間通過鍵值建立關聯。",
+    "question_en": "Which of the following is a key characteristic of a Relational Database?",
+    "options_en": [
+      "A. Data stored in hierarchical structure",
+      "B. Data stored in tables, related through key values",
+      "C. All data stored in a single file",
+      "D. Only text data can be stored"
+    ],
+    "explanation_en": "Relational databases organize data in tables with rows and columns, related through PKs and FKs.",
+    "markingNotes_en": "1 mark: B. Tables related through keys.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-078",
+    "topic": 9,
+    "year": 2022,
+    "qnum": 2,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "easy",
+    "question": "在數據庫中，主鍵(Primary Key)的功能是什麼？",
+    "options": [
+      "A. 加密數據庫中的數據",
+      "B. 唯一標識表中的每一行記錄",
+      "C. 加快互聯網連接速度",
+      "D. 儲存圖像和影片檔案"
+    ],
+    "answer": 1,
+    "explanation": "主鍵(Primary Key)是表中用來唯一標識每一行記錄的字段。主鍵的值必須唯一且不能為空(NOT NULL)。每個表只能有一個主鍵。",
+    "markingNotes": "1分：B。主鍵唯一標識表中的每一行記錄。",
+    "question_en": "In a database, what is the function of a Primary Key?",
+    "options_en": [
+      "A. Encrypt data",
+      "B. Uniquely identify each row in a table",
+      "C. Speed up internet",
+      "D. Store images and videos"
+    ],
+    "explanation_en": "A Primary Key uniquely identifies each row. Values must be unique and NOT NULL. One PK per table.",
+    "markingNotes_en": "1 mark: B. PK uniquely identifies each row.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-079",
+    "topic": 9,
+    "year": 2021,
+    "qnum": 3,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "以下哪項正確描述了外鍵(Foreign Key)的功能？",
+    "options": [
+      "A. 外鍵用於加密數據",
+      "B. 外鍵建立兩個表之間的關聯，引用另一個表的主鍵",
+      "C. 外鍵必須是數字類型",
+      "D. 每個表必須有多個外鍵"
+    ],
+    "answer": 1,
+    "explanation": "外鍵(Foreign Key)引用另一個表的主鍵，用於建立表之間的關聯，確保參照完整性(Referential Integrity)。",
+    "markingNotes": "1分：B。外鍵引用另一個表的主鍵，建立表之間的關聯。",
+    "question_en": "Which correctly describes a Foreign Key?",
+    "options_en": [
+      "A. Encrypts data",
+      "B. Establishes relationships between tables, referencing another table's PK",
+      "C. Must be numeric",
+      "D. Every table must have multiple FKs"
+    ],
+    "explanation_en": "A Foreign Key references another table's Primary Key, ensuring Referential Integrity.",
+    "markingNotes_en": "1 mark: B. FK references another table's PK.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-080",
+    "topic": 9,
+    "year": 2020,
+    "qnum": 4,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "以下SQL語句中，哪一條用於從資料表中查詢數據？",
+    "options": [
+      "A. INSERT INTO students VALUES (...)",
+      "B. UPDATE students SET ...",
+      "C. SELECT * FROM students WHERE ...",
+      "D. DELETE FROM students WHERE ..."
+    ],
+    "answer": 2,
+    "explanation": "SELECT用於查詢數據。INSERT=新增，UPDATE=修改，DELETE=刪除。這四條是SQL的CRUD基本操作。",
+    "markingNotes": "1分：C。SELECT查詢數據。INSERT新增，UPDATE修改，DELETE刪除。",
+    "question_en": "Which SQL statement queries data from a table?",
+    "options_en": [
+      "A. INSERT INTO students VALUES (...)",
+      "B. UPDATE students SET ...",
+      "C. SELECT * FROM students WHERE ...",
+      "D. DELETE FROM students WHERE ..."
+    ],
+    "explanation_en": "SELECT retrieves data. INSERT adds, UPDATE modifies, DELETE removes (CRUD).",
+    "markingNotes_en": "1 mark: C. SELECT queries data.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-081",
+    "topic": 9,
+    "year": 2019,
+    "qnum": 5,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "hard",
+    "question": "以下SQL語句的執行結果是什麼？\nSELECT COUNT(*) FROM orders WHERE amount > 100",
+    "options": [
+      "A. 顯示 orders 表中所有記錄的 amount 總和",
+      "B. 顯示 orders 表中 amount 大於 100 的記錄數量",
+      "C. 刪除 amount 大於 100 的記錄",
+      "D. 顯示 orders 表中的所有記錄"
+    ],
+    "answer": 1,
+    "explanation": "COUNT(*)是聚合函數，計算符合條件的記錄總數。SUM(amount)才是計算總和。",
+    "markingNotes": "1分：B。COUNT(*)計算符合條件的記錄數量。",
+    "question_en": "What is the result of: SELECT COUNT(*) FROM orders WHERE amount > 100",
+    "options_en": [
+      "A. Sum of all amounts",
+      "B. Number of records where amount > 100",
+      "C. Delete records where amount > 100",
+      "D. Display all records"
+    ],
+    "explanation_en": "COUNT(*) counts matching records. SUM() calculates totals.",
+    "markingNotes_en": "1 mark: B. COUNT(*) counts matching records.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-082",
+    "topic": 9,
+    "year": 2018,
+    "qnum": 6,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "hard",
+    "question": "以下哪項是數據正規化(Normalization)的主要目的？",
+    "options": [
+      "A. 增加數據冗餘以提高查詢速度",
+      "B. 減少數據冗餘和避免更新異常",
+      "C. 將所有數據合併到一個表中",
+      "D. 加密所有數據以提高安全性"
+    ],
+    "answer": 1,
+    "explanation": "正規化減少數據冗餘和避免更新異常(插入/刪除/修改異常)。常見形式：1NF、2NF、3NF。",
+    "markingNotes": "1分：B。正規化減少數據冗餘和避免更新異常。",
+    "question_en": "What is the main purpose of database Normalization?",
+    "options_en": [
+      "A. Increase redundancy for faster queries",
+      "B. Reduce redundancy and avoid update anomalies",
+      "C. Merge all data into one table",
+      "D. Encrypt all data"
+    ],
+    "explanation_en": "Normalization reduces redundancy and prevents update anomalies. Forms: 1NF, 2NF, 3NF.",
+    "markingNotes_en": "1 mark: B. Reduces redundancy and anomalies.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-083",
+    "topic": 9,
+    "year": 2017,
+    "qnum": 7,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "SQL中，以下哪個子句用於對查詢結果進行排序？",
+    "options": [
+      "A. GROUP BY",
+      "B. ORDER BY",
+      "C. WHERE",
+      "D. HAVING"
+    ],
+    "answer": 1,
+    "explanation": "ORDER BY排序(ASC升序/DESC降序)。GROUP BY分組。WHERE篩選行。HAVING篩選分組後結果。",
+    "markingNotes": "1分：B。ORDER BY排序。GROUP BY分組。",
+    "question_en": "In SQL, which clause sorts query results?",
+    "options_en": [
+      "A. GROUP BY",
+      "B. ORDER BY",
+      "C. WHERE",
+      "D. HAVING"
+    ],
+    "explanation_en": "ORDER BY sorts (ASC/DESC). GROUP BY groups. WHERE filters rows. HAVING filters after grouping.",
+    "markingNotes_en": "1 mark: B. ORDER BY sorts results.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-084",
+    "topic": 9,
+    "year": 2016,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "easy",
+    "question": "數據庫管理系統(DBMS)的主要功能不包括以下哪項？",
+    "options": [
+      "A. 數據儲存和檢索",
+      "B. 數據安全和權限管理",
+      "C. 設計網頁介面",
+      "D. 數據備份和恢復"
+    ],
+    "answer": 2,
+    "explanation": "DBMS負責數據管理(儲存、安全、備份、並發控制)。設計網頁介面是網頁開發工具的功能。",
+    "markingNotes": "1分：C。設計網頁介面不是DBMS的功能。",
+    "question_en": "Which is NOT a main function of a DBMS?",
+    "options_en": [
+      "A. Data storage and retrieval",
+      "B. Data security and access control",
+      "C. Web interface design",
+      "D. Data backup and recovery"
+    ],
+    "explanation_en": "DBMS handles data management. Web design is a separate concern.",
+    "markingNotes_en": "1 mark: C. Web design is not a DBMS function.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-085",
+    "topic": 9,
+    "year": 2015,
+    "qnum": 9,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "在SQL中，以下哪條語句用於建立新的資料表？",
+    "options": [
+      "A. CREATE TABLE students (id INT, name VARCHAR(50));",
+      "B. INSERT INTO students VALUES (1, 'John');",
+      "C. ALTER TABLE students ADD COLUMN age INT;",
+      "D. DROP TABLE students;"
+    ],
+    "answer": 0,
+    "explanation": "CREATE TABLE建立新表。ALTER TABLE修改結構。DROP TABLE刪除表。DDL包括CREATE、ALTER、DROP。",
+    "markingNotes": "1分：A。CREATE TABLE建立新表。",
+    "question_en": "Which SQL statement creates a new table?",
+    "options_en": [
+      "A. CREATE TABLE students (id INT, name VARCHAR(50));",
+      "B. INSERT INTO students VALUES (1, 'John');",
+      "C. ALTER TABLE students ADD COLUMN age INT;",
+      "D. DROP TABLE students;"
+    ],
+    "explanation_en": "CREATE TABLE creates a new table. DDL: CREATE, ALTER, DROP.",
+    "markingNotes_en": "1 mark: A. CREATE TABLE creates tables.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-086",
+    "topic": 9,
+    "year": 2022,
+    "qnum": 10,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "hard",
+    "question": "以下哪項描述了第一正規化(1NF)的要求？",
+    "options": [
+      "A. 每個欄位的值必須是原子性的(不可再分割)",
+      "B. 所有非主鍵欄位必須完全依賴於主鍵",
+      "C. 不能存在傳遞依賴",
+      "D. 表必須有外鍵"
+    ],
+    "answer": 0,
+    "explanation": "1NF要求欄位值原子性。2NF要求完全函數依賴。3NF消除傳遞依賴。",
+    "markingNotes": "1分：A。1NF要求原子性。2NF=完全依賴。3NF=消除傳遞依賴。",
+    "question_en": "Which describes 1NF?",
+    "options_en": [
+      "A. Each field value must be atomic",
+      "B. All non-key fields must fully depend on PK",
+      "C. No transitive dependencies",
+      "D. Table must have FK"
+    ],
+    "explanation_en": "1NF=atomic values. 2NF=full functional dependency. 3NF=eliminate transitive dependencies.",
+    "markingNotes_en": "1 mark: A. 1NF requires atomic values.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-087",
+    "topic": 10,
+    "year": 2023,
+    "qnum": 1,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "easy",
+    "question": "以下哪項是HTML的主要功能？",
+    "options": [
+      "A. 定義網頁的結構和內容",
+      "B. 控制網頁的樣式和佈局",
+      "C. 處理伺服器端的數據邏輯",
+      "D. 管理數據庫連接"
+    ],
+    "answer": 0,
+    "explanation": "HTML定義結構和內容。CSS負責樣式。JavaScript負責互動。三層分離：結構層、表現層、行為層。",
+    "markingNotes": "1分：A。HTML定義網頁結構和內容。",
+    "question_en": "What is the main function of HTML?",
+    "options_en": [
+      "A. Define web page structure and content",
+      "B. Control page styling and layout",
+      "C. Process server-side logic",
+      "D. Manage database connections"
+    ],
+    "explanation_en": "HTML=structure. CSS=presentation. JavaScript=behavior. Three-layer separation.",
+    "markingNotes_en": "1 mark: A. HTML defines structure.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-088",
+    "topic": 10,
+    "year": 2022,
+    "qnum": 2,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "easy",
+    "question": "CSS中，以下哪個選擇器用於選取所有<p>元素？",
+    "options": [
+      "A. #p { }",
+      "B. .p { }",
+      "C. p { }",
+      "D. *p { }"
+    ],
+    "answer": 2,
+    "explanation": "p{}是元素選擇器。#p是ID選擇器。.p是類別選擇器。*是通用選擇器。",
+    "markingNotes": "1分：C。p{}是元素選擇器。#p=ID，.p=class。",
+    "question_en": "In CSS, which selector selects all <p> elements?",
+    "options_en": [
+      "A. #p { }",
+      "B. .p { }",
+      "C. p { }",
+      "D. *p { }"
+    ],
+    "explanation_en": "p{} = element selector. #p = ID. .p = class. * = universal.",
+    "markingNotes_en": "1 mark: C. p{} is element selector.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-089",
+    "topic": 10,
+    "year": 2021,
+    "qnum": 3,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "以下哪項是客戶端(Client-side)和伺服器端(Server-side)腳本的主要區別？",
+    "options": [
+      "A. 客戶端腳本在瀏覽器中執行，伺服器端腳本在網頁伺服器中執行",
+      "B. 客戶端腳本只能使用PHP編寫",
+      "C. 伺服器端腳本無法存取數據庫",
+      "D. 兩者沒有區別"
+    ],
+    "answer": 0,
+    "explanation": "客戶端(JavaScript)在瀏覽器執行。伺服器端(PHP)在伺服器執行，可存取數據庫。客戶端代碼可見，伺服器端不可見。",
+    "markingNotes": "1分：A。客戶端=瀏覽器，伺服器端=伺服器。",
+    "question_en": "What is the main difference between client-side and server-side scripting?",
+    "options_en": [
+      "A. Client-side runs in browser; server-side runs on web server",
+      "B. Client-side can only use PHP",
+      "C. Server-side cannot access databases",
+      "D. No difference"
+    ],
+    "explanation_en": "Client-side (JS) = browser. Server-side (PHP) = server with DB access.",
+    "markingNotes_en": "1 mark: A. Client=browser, server=server.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-090",
+    "topic": 10,
+    "year": 2020,
+    "qnum": 4,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "在HTML表單中，以下哪個方法會將數據附加在URL後面傳送？",
+    "options": [
+      "A. POST",
+      "B. GET",
+      "C. PUT",
+      "D. DELETE"
+    ],
+    "answer": 1,
+    "explanation": "GET將數據附加在URL查詢字符串後。POST放在請求主體中(更安全)。GET有長度限制。",
+    "markingNotes": "1分：B。GET附加在URL後。POST放在請求主體中。",
+    "question_en": "In HTML forms, which method appends data to the URL?",
+    "options_en": [
+      "A. POST",
+      "B. GET",
+      "C. PUT",
+      "D. DELETE"
+    ],
+    "explanation_en": "GET appends to URL query string. POST puts in request body (more secure).",
+    "markingNotes_en": "1 mark: B. GET appends to URL.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-091",
+    "topic": 10,
+    "year": 2019,
+    "qnum": 5,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "hard",
+    "question": "以下PHP程式碼的輸出是什麼？\n<?php\n$x = 5;\n$y = 3;\necho $x + $y * 2;\n?>",
+    "options": [
+      "A. 16",
+      "B. 11",
+      "C. 13",
+      "D. 10"
+    ],
+    "answer": 1,
+    "explanation": "乘法優先於加法：$y*2=6, $x+6=11。標準數學運算符優先級。",
+    "markingNotes": "1分：B(11)。乘法優先：3*2=6, 5+6=11。",
+    "question_en": "What is the output of: <?php $x=5; $y=3; echo $x+$y*2; ?>",
+    "options_en": [
+      "A. 16",
+      "B. 11",
+      "C. 13",
+      "D. 10"
+    ],
+    "explanation_en": "* before +: $y*2=6, $x+6=11.",
+    "markingNotes_en": "1 mark: B(11). Multiplication first.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-092",
+    "topic": 10,
+    "year": 2018,
+    "qnum": 6,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "CSS中，以下哪項可以設定元素的背景顏色為紅色？",
+    "options": [
+      "A. color: red;",
+      "B. background-color: red;",
+      "C. bgcolor: red;",
+      "D. text-color: red;"
+    ],
+    "answer": 1,
+    "explanation": "background-color設定背景色。color設定文字色。bgcolor是HTML舊屬性(不建議使用)。text-color不存在。",
+    "markingNotes": "1分：B。background-color設定背景色。",
+    "question_en": "Which CSS property sets background color to red?",
+    "options_en": [
+      "A. color: red;",
+      "B. background-color: red;",
+      "C. bgcolor: red;",
+      "D. text-color: red;"
+    ],
+    "explanation_en": "background-color for background. color for text. bgcolor is deprecated HTML.",
+    "markingNotes_en": "1 mark: B. background-color.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-093",
+    "topic": 10,
+    "year": 2017,
+    "qnum": 7,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "hard",
+    "question": "以下哪項是JavaScript中獲取HTML元素的正確方法？",
+    "options": [
+      "A. document.getElementById('myId')",
+      "B. document.getElement('myId')",
+      "C. document.querySelector('#myId')",
+      "D. A和C都正確"
+    ],
+    "answer": 3,
+    "explanation": "getElementById和querySelector('#id')都正確。getElement不存在。",
+    "markingNotes": "1分：D。getElementById和querySelector都正確。",
+    "question_en": "Which is correct for getting an HTML element in JavaScript?",
+    "options_en": [
+      "A. document.getElementById('myId')",
+      "B. document.getElement('myId')",
+      "C. document.querySelector('#myId')",
+      "D. Both A and C"
+    ],
+    "explanation_en": "Both getElementById and querySelector work. getElement doesn't exist.",
+    "markingNotes_en": "1 mark: D. Both A and C.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-094",
+    "topic": 10,
+    "year": 2016,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "easy",
+    "question": "PHP中，以下哪個符號用於表示變量？",
+    "options": [
+      "A. #",
+      "B. $",
+      "C. @",
+      "D. &"
+    ],
+    "answer": 1,
+    "explanation": "PHP變量以$開頭($name)。#是註釋。@是錯誤抑制。&是引用。",
+    "markingNotes": "1分：B。PHP變量以$開頭。",
+    "question_en": "In PHP, which symbol prefixes variables?",
+    "options_en": [
+      "A. #",
+      "B. $",
+      "C. @",
+      "D. &"
+    ],
+    "explanation_en": "PHP variables: $name. # = comment, @ = suppress errors, & = reference.",
+    "markingNotes_en": "1 mark: B. PHP variables use $.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-095",
+    "topic": 10,
+    "year": 2015,
+    "qnum": 9,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "以下哪項是響應式網頁設計(Responsive Web Design)的主要目的？",
+    "options": [
+      "A. 使網頁在不同裝置和螢幕尺寸上都能良好顯示",
+      "B. 加快網頁的載入速度",
+      "C. 加密網頁的所有數據傳輸",
+      "D. 使網頁只適用於桌面電腦"
+    ],
+    "answer": 0,
+    "explanation": "RWD使網頁適應不同螢幕尺寸。核心技術：CSS媒體查詢、彈性佈局。",
+    "markingNotes": "1分：A。RWD使網頁適應不同裝置螢幕。",
+    "question_en": "What is the main purpose of Responsive Web Design?",
+    "options_en": [
+      "A. Adapt layout to different devices and screen sizes",
+      "B. Speed up loading",
+      "C. Encrypt all data",
+      "D. Desktop-only design"
+    ],
+    "explanation_en": "RWD uses CSS media queries and fluid layouts to adapt to screen sizes.",
+    "markingNotes_en": "1 mark: A. RWD adapts to different devices.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-096",
+    "topic": 10,
+    "year": 2022,
+    "qnum": 10,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "hard",
+    "question": "以下哪項正確描述了Cookie和Session的區別？",
+    "options": [
+      "A. Cookie儲存在伺服器端，Session儲存在客戶端",
+      "B. Cookie儲存在客戶端(瀏覽器)，Session儲存在伺服器端",
+      "C. Cookie和Session完全相同",
+      "D. Cookie的容量比Session大"
+    ],
+    "answer": 1,
+    "explanation": "Cookie在客戶端(<4KB)。Session在伺服器端(客戶端只存Session ID)。Session更安全。",
+    "markingNotes": "1分：B。Cookie在客戶端，Session在伺服器端。",
+    "question_en": "Which correctly describes Cookie vs Session?",
+    "options_en": [
+      "A. Cookie server-side, Session client-side",
+      "B. Cookie client-side, Session server-side",
+      "C. They are identical",
+      "D. Cookie has larger capacity"
+    ],
+    "explanation_en": "Cookie=client-side (<4KB). Session=server-side (client holds only Session ID). Session is more secure.",
+    "markingNotes_en": "1 mark: B. Cookie client, Session server.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
   }
 ]

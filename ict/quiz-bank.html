@@ -222,6 +222,9 @@
   <button onclick="setFilter(7)">計算思維(二)</button>
   <button onclick="setFilter(8)">社會影響</button>
   <span class="sep">|</span>
+  <button onclick="setFilter(9)">數據庫</button>
+  <button onclick="setFilter(10)">網絡應用</button>
+  <span class="sep">|</span>
   <span style="position:relative;">
     <button onclick="toggleDropdown('yearDrop')" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">📅 年份 <span id="yearCount"></span></button>
     <div id="yearDrop" style="display:none;position:absolute;top:100%;left:0;z-index:50;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;min-width:120px;max-height:200px;overflow-y:auto;"></div>
@@ -274,9 +277,11 @@ const TOPIC_NAMES = {
   5: '互聯網及其應用 (二)',
   6: '計算思維與程式編寫 (一)',
   7: '計算思維與程式編寫 (二)',
-  8: '資訊及通訊科技對社會的影響'
+  8: '資訊及通訊科技對社會的影響',
+  9: '數據庫',
+  10: '網絡應用程式開發'
 };
-const TOTAL_TOPICS = 8;
+const TOTAL_TOPICS = 10;
 const DIFFICULTY_LABELS = { easy: '容易', medium: '中等', hard: '困難' };
 const DIFFICULTY_CSS = { easy: 'easy', medium: 'medium', hard: 'hard' };
 const PASTPAPER_YEARS = '2012–2024';
@@ -3565,6 +3570,606 @@ initializeDB();
     "explanation_en": "Python lists are mutable — elements can be modified, added (append), removed (pop). Mixed types allowed, indices start at 0, length is dynamic.",
     "markingNotes_en": "1 mark: C. Python lists are mutable.",
     "topic_name_en": "Computational Thinking & Programming II"
+  },
+  {
+    "qid": "ICT-077",
+    "topic": 9,
+    "year": 2023,
+    "qnum": 1,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "easy",
+    "question": "以下哪項是關聯式數據庫(Relational Database)的主要特點？",
+    "options": [
+      "A. 數據以層次結構儲存",
+      "B. 數據以表格形式儲存，表之間通過鍵值建立關聯",
+      "C. 所有數據儲存在一個檔案中",
+      "D. 只能儲存文字數據"
+    ],
+    "answer": 1,
+    "explanation": "關聯式數據庫以表格(Table/Relation)形式組織數據，每個表格包含行(記錄)和列(字段)。不同表格之間通過主鍵(Primary Key)和外鍵(Foreign Key)建立關聯。",
+    "markingNotes": "1分：B。關聯式數據庫以表格形式儲存，表之間通過鍵值建立關聯。",
+    "question_en": "Which of the following is a key characteristic of a Relational Database?",
+    "options_en": [
+      "A. Data stored in hierarchical structure",
+      "B. Data stored in tables, related through key values",
+      "C. All data stored in a single file",
+      "D. Only text data can be stored"
+    ],
+    "explanation_en": "Relational databases organize data in tables with rows and columns, related through PKs and FKs.",
+    "markingNotes_en": "1 mark: B. Tables related through keys.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-078",
+    "topic": 9,
+    "year": 2022,
+    "qnum": 2,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "easy",
+    "question": "在數據庫中，主鍵(Primary Key)的功能是什麼？",
+    "options": [
+      "A. 加密數據庫中的數據",
+      "B. 唯一標識表中的每一行記錄",
+      "C. 加快互聯網連接速度",
+      "D. 儲存圖像和影片檔案"
+    ],
+    "answer": 1,
+    "explanation": "主鍵(Primary Key)是表中用來唯一標識每一行記錄的字段。主鍵的值必須唯一且不能為空(NOT NULL)。每個表只能有一個主鍵。",
+    "markingNotes": "1分：B。主鍵唯一標識表中的每一行記錄。",
+    "question_en": "In a database, what is the function of a Primary Key?",
+    "options_en": [
+      "A. Encrypt data",
+      "B. Uniquely identify each row in a table",
+      "C. Speed up internet",
+      "D. Store images and videos"
+    ],
+    "explanation_en": "A Primary Key uniquely identifies each row. Values must be unique and NOT NULL. One PK per table.",
+    "markingNotes_en": "1 mark: B. PK uniquely identifies each row.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-079",
+    "topic": 9,
+    "year": 2021,
+    "qnum": 3,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "以下哪項正確描述了外鍵(Foreign Key)的功能？",
+    "options": [
+      "A. 外鍵用於加密數據",
+      "B. 外鍵建立兩個表之間的關聯，引用另一個表的主鍵",
+      "C. 外鍵必須是數字類型",
+      "D. 每個表必須有多個外鍵"
+    ],
+    "answer": 1,
+    "explanation": "外鍵(Foreign Key)引用另一個表的主鍵，用於建立表之間的關聯，確保參照完整性(Referential Integrity)。",
+    "markingNotes": "1分：B。外鍵引用另一個表的主鍵，建立表之間的關聯。",
+    "question_en": "Which correctly describes a Foreign Key?",
+    "options_en": [
+      "A. Encrypts data",
+      "B. Establishes relationships between tables, referencing another table's PK",
+      "C. Must be numeric",
+      "D. Every table must have multiple FKs"
+    ],
+    "explanation_en": "A Foreign Key references another table's Primary Key, ensuring Referential Integrity.",
+    "markingNotes_en": "1 mark: B. FK references another table's PK.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-080",
+    "topic": 9,
+    "year": 2020,
+    "qnum": 4,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "以下SQL語句中，哪一條用於從資料表中查詢數據？",
+    "options": [
+      "A. INSERT INTO students VALUES (...)",
+      "B. UPDATE students SET ...",
+      "C. SELECT * FROM students WHERE ...",
+      "D. DELETE FROM students WHERE ..."
+    ],
+    "answer": 2,
+    "explanation": "SELECT用於查詢數據。INSERT=新增，UPDATE=修改，DELETE=刪除。這四條是SQL的CRUD基本操作。",
+    "markingNotes": "1分：C。SELECT查詢數據。INSERT新增，UPDATE修改，DELETE刪除。",
+    "question_en": "Which SQL statement queries data from a table?",
+    "options_en": [
+      "A. INSERT INTO students VALUES (...)",
+      "B. UPDATE students SET ...",
+      "C. SELECT * FROM students WHERE ...",
+      "D. DELETE FROM students WHERE ..."
+    ],
+    "explanation_en": "SELECT retrieves data. INSERT adds, UPDATE modifies, DELETE removes (CRUD).",
+    "markingNotes_en": "1 mark: C. SELECT queries data.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-081",
+    "topic": 9,
+    "year": 2019,
+    "qnum": 5,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "hard",
+    "question": "以下SQL語句的執行結果是什麼？\nSELECT COUNT(*) FROM orders WHERE amount > 100",
+    "options": [
+      "A. 顯示 orders 表中所有記錄的 amount 總和",
+      "B. 顯示 orders 表中 amount 大於 100 的記錄數量",
+      "C. 刪除 amount 大於 100 的記錄",
+      "D. 顯示 orders 表中的所有記錄"
+    ],
+    "answer": 1,
+    "explanation": "COUNT(*)是聚合函數，計算符合條件的記錄總數。SUM(amount)才是計算總和。",
+    "markingNotes": "1分：B。COUNT(*)計算符合條件的記錄數量。",
+    "question_en": "What is the result of: SELECT COUNT(*) FROM orders WHERE amount > 100",
+    "options_en": [
+      "A. Sum of all amounts",
+      "B. Number of records where amount > 100",
+      "C. Delete records where amount > 100",
+      "D. Display all records"
+    ],
+    "explanation_en": "COUNT(*) counts matching records. SUM() calculates totals.",
+    "markingNotes_en": "1 mark: B. COUNT(*) counts matching records.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-082",
+    "topic": 9,
+    "year": 2018,
+    "qnum": 6,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "hard",
+    "question": "以下哪項是數據正規化(Normalization)的主要目的？",
+    "options": [
+      "A. 增加數據冗餘以提高查詢速度",
+      "B. 減少數據冗餘和避免更新異常",
+      "C. 將所有數據合併到一個表中",
+      "D. 加密所有數據以提高安全性"
+    ],
+    "answer": 1,
+    "explanation": "正規化減少數據冗餘和避免更新異常(插入/刪除/修改異常)。常見形式：1NF、2NF、3NF。",
+    "markingNotes": "1分：B。正規化減少數據冗餘和避免更新異常。",
+    "question_en": "What is the main purpose of database Normalization?",
+    "options_en": [
+      "A. Increase redundancy for faster queries",
+      "B. Reduce redundancy and avoid update anomalies",
+      "C. Merge all data into one table",
+      "D. Encrypt all data"
+    ],
+    "explanation_en": "Normalization reduces redundancy and prevents update anomalies. Forms: 1NF, 2NF, 3NF.",
+    "markingNotes_en": "1 mark: B. Reduces redundancy and anomalies.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-083",
+    "topic": 9,
+    "year": 2017,
+    "qnum": 7,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "SQL中，以下哪個子句用於對查詢結果進行排序？",
+    "options": [
+      "A. GROUP BY",
+      "B. ORDER BY",
+      "C. WHERE",
+      "D. HAVING"
+    ],
+    "answer": 1,
+    "explanation": "ORDER BY排序(ASC升序/DESC降序)。GROUP BY分組。WHERE篩選行。HAVING篩選分組後結果。",
+    "markingNotes": "1分：B。ORDER BY排序。GROUP BY分組。",
+    "question_en": "In SQL, which clause sorts query results?",
+    "options_en": [
+      "A. GROUP BY",
+      "B. ORDER BY",
+      "C. WHERE",
+      "D. HAVING"
+    ],
+    "explanation_en": "ORDER BY sorts (ASC/DESC). GROUP BY groups. WHERE filters rows. HAVING filters after grouping.",
+    "markingNotes_en": "1 mark: B. ORDER BY sorts results.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-084",
+    "topic": 9,
+    "year": 2016,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "easy",
+    "question": "數據庫管理系統(DBMS)的主要功能不包括以下哪項？",
+    "options": [
+      "A. 數據儲存和檢索",
+      "B. 數據安全和權限管理",
+      "C. 設計網頁介面",
+      "D. 數據備份和恢復"
+    ],
+    "answer": 2,
+    "explanation": "DBMS負責數據管理(儲存、安全、備份、並發控制)。設計網頁介面是網頁開發工具的功能。",
+    "markingNotes": "1分：C。設計網頁介面不是DBMS的功能。",
+    "question_en": "Which is NOT a main function of a DBMS?",
+    "options_en": [
+      "A. Data storage and retrieval",
+      "B. Data security and access control",
+      "C. Web interface design",
+      "D. Data backup and recovery"
+    ],
+    "explanation_en": "DBMS handles data management. Web design is a separate concern.",
+    "markingNotes_en": "1 mark: C. Web design is not a DBMS function.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-085",
+    "topic": 9,
+    "year": 2015,
+    "qnum": 9,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "medium",
+    "question": "在SQL中，以下哪條語句用於建立新的資料表？",
+    "options": [
+      "A. CREATE TABLE students (id INT, name VARCHAR(50));",
+      "B. INSERT INTO students VALUES (1, 'John');",
+      "C. ALTER TABLE students ADD COLUMN age INT;",
+      "D. DROP TABLE students;"
+    ],
+    "answer": 0,
+    "explanation": "CREATE TABLE建立新表。ALTER TABLE修改結構。DROP TABLE刪除表。DDL包括CREATE、ALTER、DROP。",
+    "markingNotes": "1分：A。CREATE TABLE建立新表。",
+    "question_en": "Which SQL statement creates a new table?",
+    "options_en": [
+      "A. CREATE TABLE students (id INT, name VARCHAR(50));",
+      "B. INSERT INTO students VALUES (1, 'John');",
+      "C. ALTER TABLE students ADD COLUMN age INT;",
+      "D. DROP TABLE students;"
+    ],
+    "explanation_en": "CREATE TABLE creates a new table. DDL: CREATE, ALTER, DROP.",
+    "markingNotes_en": "1 mark: A. CREATE TABLE creates tables.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-086",
+    "topic": 9,
+    "year": 2022,
+    "qnum": 10,
+    "sourceType": "mc",
+    "sourcePaper": "卷二甲",
+    "difficulty": "hard",
+    "question": "以下哪項描述了第一正規化(1NF)的要求？",
+    "options": [
+      "A. 每個欄位的值必須是原子性的(不可再分割)",
+      "B. 所有非主鍵欄位必須完全依賴於主鍵",
+      "C. 不能存在傳遞依賴",
+      "D. 表必須有外鍵"
+    ],
+    "answer": 0,
+    "explanation": "1NF要求欄位值原子性。2NF要求完全函數依賴。3NF消除傳遞依賴。",
+    "markingNotes": "1分：A。1NF要求原子性。2NF=完全依賴。3NF=消除傳遞依賴。",
+    "question_en": "Which describes 1NF?",
+    "options_en": [
+      "A. Each field value must be atomic",
+      "B. All non-key fields must fully depend on PK",
+      "C. No transitive dependencies",
+      "D. Table must have FK"
+    ],
+    "explanation_en": "1NF=atomic values. 2NF=full functional dependency. 3NF=eliminate transitive dependencies.",
+    "markingNotes_en": "1 mark: A. 1NF requires atomic values.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Databases"
+  },
+  {
+    "qid": "ICT-087",
+    "topic": 10,
+    "year": 2023,
+    "qnum": 1,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "easy",
+    "question": "以下哪項是HTML的主要功能？",
+    "options": [
+      "A. 定義網頁的結構和內容",
+      "B. 控制網頁的樣式和佈局",
+      "C. 處理伺服器端的數據邏輯",
+      "D. 管理數據庫連接"
+    ],
+    "answer": 0,
+    "explanation": "HTML定義結構和內容。CSS負責樣式。JavaScript負責互動。三層分離：結構層、表現層、行為層。",
+    "markingNotes": "1分：A。HTML定義網頁結構和內容。",
+    "question_en": "What is the main function of HTML?",
+    "options_en": [
+      "A. Define web page structure and content",
+      "B. Control page styling and layout",
+      "C. Process server-side logic",
+      "D. Manage database connections"
+    ],
+    "explanation_en": "HTML=structure. CSS=presentation. JavaScript=behavior. Three-layer separation.",
+    "markingNotes_en": "1 mark: A. HTML defines structure.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-088",
+    "topic": 10,
+    "year": 2022,
+    "qnum": 2,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "easy",
+    "question": "CSS中，以下哪個選擇器用於選取所有<p>元素？",
+    "options": [
+      "A. #p { }",
+      "B. .p { }",
+      "C. p { }",
+      "D. *p { }"
+    ],
+    "answer": 2,
+    "explanation": "p{}是元素選擇器。#p是ID選擇器。.p是類別選擇器。*是通用選擇器。",
+    "markingNotes": "1分：C。p{}是元素選擇器。#p=ID，.p=class。",
+    "question_en": "In CSS, which selector selects all <p> elements?",
+    "options_en": [
+      "A. #p { }",
+      "B. .p { }",
+      "C. p { }",
+      "D. *p { }"
+    ],
+    "explanation_en": "p{} = element selector. #p = ID. .p = class. * = universal.",
+    "markingNotes_en": "1 mark: C. p{} is element selector.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-089",
+    "topic": 10,
+    "year": 2021,
+    "qnum": 3,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "以下哪項是客戶端(Client-side)和伺服器端(Server-side)腳本的主要區別？",
+    "options": [
+      "A. 客戶端腳本在瀏覽器中執行，伺服器端腳本在網頁伺服器中執行",
+      "B. 客戶端腳本只能使用PHP編寫",
+      "C. 伺服器端腳本無法存取數據庫",
+      "D. 兩者沒有區別"
+    ],
+    "answer": 0,
+    "explanation": "客戶端(JavaScript)在瀏覽器執行。伺服器端(PHP)在伺服器執行，可存取數據庫。客戶端代碼可見，伺服器端不可見。",
+    "markingNotes": "1分：A。客戶端=瀏覽器，伺服器端=伺服器。",
+    "question_en": "What is the main difference between client-side and server-side scripting?",
+    "options_en": [
+      "A. Client-side runs in browser; server-side runs on web server",
+      "B. Client-side can only use PHP",
+      "C. Server-side cannot access databases",
+      "D. No difference"
+    ],
+    "explanation_en": "Client-side (JS) = browser. Server-side (PHP) = server with DB access.",
+    "markingNotes_en": "1 mark: A. Client=browser, server=server.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-090",
+    "topic": 10,
+    "year": 2020,
+    "qnum": 4,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "在HTML表單中，以下哪個方法會將數據附加在URL後面傳送？",
+    "options": [
+      "A. POST",
+      "B. GET",
+      "C. PUT",
+      "D. DELETE"
+    ],
+    "answer": 1,
+    "explanation": "GET將數據附加在URL查詢字符串後。POST放在請求主體中(更安全)。GET有長度限制。",
+    "markingNotes": "1分：B。GET附加在URL後。POST放在請求主體中。",
+    "question_en": "In HTML forms, which method appends data to the URL?",
+    "options_en": [
+      "A. POST",
+      "B. GET",
+      "C. PUT",
+      "D. DELETE"
+    ],
+    "explanation_en": "GET appends to URL query string. POST puts in request body (more secure).",
+    "markingNotes_en": "1 mark: B. GET appends to URL.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-091",
+    "topic": 10,
+    "year": 2019,
+    "qnum": 5,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "hard",
+    "question": "以下PHP程式碼的輸出是什麼？\n<?php\n$x = 5;\n$y = 3;\necho $x + $y * 2;\n?>",
+    "options": [
+      "A. 16",
+      "B. 11",
+      "C. 13",
+      "D. 10"
+    ],
+    "answer": 1,
+    "explanation": "乘法優先於加法：$y*2=6, $x+6=11。標準數學運算符優先級。",
+    "markingNotes": "1分：B(11)。乘法優先：3*2=6, 5+6=11。",
+    "question_en": "What is the output of: <?php $x=5; $y=3; echo $x+$y*2; ?>",
+    "options_en": [
+      "A. 16",
+      "B. 11",
+      "C. 13",
+      "D. 10"
+    ],
+    "explanation_en": "* before +: $y*2=6, $x+6=11.",
+    "markingNotes_en": "1 mark: B(11). Multiplication first.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-092",
+    "topic": 10,
+    "year": 2018,
+    "qnum": 6,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "CSS中，以下哪項可以設定元素的背景顏色為紅色？",
+    "options": [
+      "A. color: red;",
+      "B. background-color: red;",
+      "C. bgcolor: red;",
+      "D. text-color: red;"
+    ],
+    "answer": 1,
+    "explanation": "background-color設定背景色。color設定文字色。bgcolor是HTML舊屬性(不建議使用)。text-color不存在。",
+    "markingNotes": "1分：B。background-color設定背景色。",
+    "question_en": "Which CSS property sets background color to red?",
+    "options_en": [
+      "A. color: red;",
+      "B. background-color: red;",
+      "C. bgcolor: red;",
+      "D. text-color: red;"
+    ],
+    "explanation_en": "background-color for background. color for text. bgcolor is deprecated HTML.",
+    "markingNotes_en": "1 mark: B. background-color.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-093",
+    "topic": 10,
+    "year": 2017,
+    "qnum": 7,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "hard",
+    "question": "以下哪項是JavaScript中獲取HTML元素的正確方法？",
+    "options": [
+      "A. document.getElementById('myId')",
+      "B. document.getElement('myId')",
+      "C. document.querySelector('#myId')",
+      "D. A和C都正確"
+    ],
+    "answer": 3,
+    "explanation": "getElementById和querySelector('#id')都正確。getElement不存在。",
+    "markingNotes": "1分：D。getElementById和querySelector都正確。",
+    "question_en": "Which is correct for getting an HTML element in JavaScript?",
+    "options_en": [
+      "A. document.getElementById('myId')",
+      "B. document.getElement('myId')",
+      "C. document.querySelector('#myId')",
+      "D. Both A and C"
+    ],
+    "explanation_en": "Both getElementById and querySelector work. getElement doesn't exist.",
+    "markingNotes_en": "1 mark: D. Both A and C.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-094",
+    "topic": 10,
+    "year": 2016,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "easy",
+    "question": "PHP中，以下哪個符號用於表示變量？",
+    "options": [
+      "A. #",
+      "B. $",
+      "C. @",
+      "D. &"
+    ],
+    "answer": 1,
+    "explanation": "PHP變量以$開頭($name)。#是註釋。@是錯誤抑制。&是引用。",
+    "markingNotes": "1分：B。PHP變量以$開頭。",
+    "question_en": "In PHP, which symbol prefixes variables?",
+    "options_en": [
+      "A. #",
+      "B. $",
+      "C. @",
+      "D. &"
+    ],
+    "explanation_en": "PHP variables: $name. # = comment, @ = suppress errors, & = reference.",
+    "markingNotes_en": "1 mark: B. PHP variables use $.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-095",
+    "topic": 10,
+    "year": 2015,
+    "qnum": 9,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "medium",
+    "question": "以下哪項是響應式網頁設計(Responsive Web Design)的主要目的？",
+    "options": [
+      "A. 使網頁在不同裝置和螢幕尺寸上都能良好顯示",
+      "B. 加快網頁的載入速度",
+      "C. 加密網頁的所有數據傳輸",
+      "D. 使網頁只適用於桌面電腦"
+    ],
+    "answer": 0,
+    "explanation": "RWD使網頁適應不同螢幕尺寸。核心技術：CSS媒體查詢、彈性佈局。",
+    "markingNotes": "1分：A。RWD使網頁適應不同裝置螢幕。",
+    "question_en": "What is the main purpose of Responsive Web Design?",
+    "options_en": [
+      "A. Adapt layout to different devices and screen sizes",
+      "B. Speed up loading",
+      "C. Encrypt all data",
+      "D. Desktop-only design"
+    ],
+    "explanation_en": "RWD uses CSS media queries and fluid layouts to adapt to screen sizes.",
+    "markingNotes_en": "1 mark: A. RWD adapts to different devices.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
+  },
+  {
+    "qid": "ICT-096",
+    "topic": 10,
+    "year": 2022,
+    "qnum": 10,
+    "sourceType": "mc",
+    "sourcePaper": "卷二乙",
+    "difficulty": "hard",
+    "question": "以下哪項正確描述了Cookie和Session的區別？",
+    "options": [
+      "A. Cookie儲存在伺服器端，Session儲存在客戶端",
+      "B. Cookie儲存在客戶端(瀏覽器)，Session儲存在伺服器端",
+      "C. Cookie和Session完全相同",
+      "D. Cookie的容量比Session大"
+    ],
+    "answer": 1,
+    "explanation": "Cookie在客戶端(<4KB)。Session在伺服器端(客戶端只存Session ID)。Session更安全。",
+    "markingNotes": "1分：B。Cookie在客戶端，Session在伺服器端。",
+    "question_en": "Which correctly describes Cookie vs Session?",
+    "options_en": [
+      "A. Cookie server-side, Session client-side",
+      "B. Cookie client-side, Session server-side",
+      "C. They are identical",
+      "D. Cookie has larger capacity"
+    ],
+    "explanation_en": "Cookie=client-side (<4KB). Session=server-side (client holds only Session ID). Session is more secure.",
+    "markingNotes_en": "1 mark: B. Cookie client, Session server.",
+    "lastUpdated": "2026-06-16",
+    "topic_name_en": "Web Application Development"
   }
 ]
 </script>

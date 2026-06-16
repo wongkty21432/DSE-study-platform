@@ -176,6 +176,17 @@
   <a href="#t8" onclick="scrollToTopic('t8')" style="padding-left:40px;font-size:.78rem;">a. 科技創新</a>
   <a href="#t8b" onclick="scrollToTopic('t8b')" style="padding-left:40px;font-size:.78rem;">b. 健康及道德議題</a>
   <a href="#t8c" onclick="scrollToTopic('t8c')" style="padding-left:40px;font-size:.78rem;">c. 知識產權</a>
+
+  <div style="font-size:.68rem;color:var(--text2);padding:8px 24px 4px;">選修部分</div>
+  <a href="#mF" onclick="scrollToTopic('mF')"><span class="num">A</span> 數據庫</a>
+  <a href="#t9" onclick="scrollToTopic('t9')" style="padding-left:40px;font-size:.78rem;">a. 關聯式數據庫概念</a>
+  <a href="#t9b" onclick="scrollToTopic('t9b')" style="padding-left:40px;font-size:.78rem;">b. SQL語句</a>
+  <a href="#t9c" onclick="scrollToTopic('t9c')" style="padding-left:40px;font-size:.78rem;">c. 數據完整性與正規化</a>
+
+  <a href="#mG" onclick="scrollToTopic('mG')"><span class="num">B</span> 網絡應用程式開發</a>
+  <a href="#t10" onclick="scrollToTopic('t10')" style="padding-left:40px;font-size:.78rem;">a. 客戶端-伺服器通訊</a>
+  <a href="#t10b" onclick="scrollToTopic('t10b')" style="padding-left:40px;font-size:.78rem;">b. HTML/CSS/JavaScript</a>
+  <a href="#t10c" onclick="scrollToTopic('t10c')" style="padding-left:40px;font-size:.78rem;">c. PHP伺服器端編程</a>
 </nav>
 
 <main id="main">
@@ -1251,6 +1262,90 @@ with open("log.txt", "a", encoding="utf-8") as f:
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+
+<!-- ==================== ELECTIVE A: 數據庫 ==================== -->
+<section class="topic-section" id="mF">
+  <div class="topic-header">
+    <span class="badge">選修 A</span>
+    <h2>數據庫 (Databases)</h2>
+    <p>關聯式數據庫設計、SQL語句、數據完整性與正規化</p>
+  </div>
+  <div class="card-grid">
+    <div class="card"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><span class="icon">🗄️</span><h3>關聯式數據庫概念</h3><span class="arrow">▼</span></div><div class="card-body"><h4>基本術語</h4><ul><li><strong>表(Table)</strong>：數據以二維表格形式儲存</li><li><strong>行(Row/Record)</strong>：表中的一條記錄</li><li><strong>列(Column/Field)</strong>：表的一個欄位</li><li><strong>主鍵(Primary Key)</strong>：唯一標識每一行的欄位，不可重複不可為空</li><li><strong>外鍵(Foreign Key)</strong>：引用另一個表主鍵的欄位，建立表間關聯</li></ul><div class="tip">💡 考試重點：主鍵 vs 外鍵的區別。主鍵標識自身，外鍵關聯他表。</div></div></div>
+    <div class="card"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><span class="icon">📝</span><h3>SQL 基本語法</h3><span class="arrow">▼</span></div><div class="card-body"><h4>CRUD 操作</h4><pre class="eq">-- 查詢 (Read)
+SELECT column1, column2 FROM table_name WHERE condition ORDER BY col;
+
+-- 新增 (Create)
+INSERT INTO table_name (col1, col2) VALUES (val1, val2);
+
+-- 修改 (Update)
+UPDATE table_name SET col1 = val1 WHERE condition;
+
+-- 刪除 (Delete)
+DELETE FROM table_name WHERE condition;</pre><h4>聚合函數</h4><pre class="eq">SELECT COUNT(*) FROM table;       -- 計算記錄數
+SELECT SUM(amount) FROM orders;   -- 計算總和
+SELECT AVG(score) FROM students;  -- 計算平均值
+SELECT MAX(score), MIN(score) FROM students;</pre><h4>JOIN 查詢</h4><pre class="eq">SELECT students.name, courses.title
+FROM students
+INNER JOIN enrollments ON students.id = enrollments.student_id
+INNER JOIN courses ON enrollments.course_id = courses.id;</pre></div></div>
+    <div class="card"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><span class="icon">📊</span><h3>數據完整性與正規化</h3><span class="arrow">▼</span></div><div class="card-body"><h4>數據完整性</h4><ul><li><strong>實體完整性</strong>：主鍵不可為NULL且必須唯一</li><li><strong>參照完整性</strong>：外鍵值必須在被參照表中存在或為NULL</li><li><strong>域完整性</strong>：欄位值必須符合定義的類型與約束</li></ul><h4>正規化三步驟</h4><p><strong>1NF</strong>：每個欄位值必須是原子性的(不可再分割)</p><p><strong>2NF</strong>：滿足1NF，所有非主鍵欄位完全依賴於主鍵(消除部分依賴)</p><p><strong>3NF</strong>：滿足2NF，非主鍵欄位之間不存在傳遞依賴</p><div class="tip">💡 記憶口訣：1NF原子 → 2NF完全依賴 → 3NF無傳遞</div></div></div>
+  </div>
+</section>
+
+<!-- ==================== ELECTIVE B: 網絡應用程式開發 ==================== -->
+<section class="topic-section" id="mG">
+  <div class="topic-header">
+    <span class="badge">選修 B</span>
+    <h2>網絡應用程式開發 (Web Application Development)</h2>
+    <p>客戶端-伺服器架構、HTML/CSS/JavaScript、PHP伺服器端編程</p>
+  </div>
+  <div class="card-grid">
+    <div class="card"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><span class="icon">🌐</span><h3>客戶端-伺服器通訊</h3><span class="arrow">▼</span></div><div class="card-body"><h4>三層架構</h4><ul><li><strong>表現層</strong>：HTML/CSS — 用戶介面</li><li><strong>業務邏輯層</strong>：PHP/JavaScript — 處理邏輯</li><li><strong>數據層</strong>：MySQL — 數據儲存</li></ul><h4>HTTP 請求方法</h4><div class="table-wrap"><table><tr><th>方法</th><th>用途</th><th>數據位置</th></tr><tr><td>GET</td><td>讀取數據</td><td>URL查詢字符串</td></tr><tr><td>POST</td><td>提交數據</td><td>請求主體(Body)</td></tr></table></div><h4>Cookie vs Session</h4><ul><li><strong>Cookie</strong>：儲存在客戶端(瀏覽器)，容量小(~4KB)</li><li><strong>Session</strong>：儲存在伺服器端，客戶端只保存Session ID</li></ul></div></div>
+    <div class="card"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><span class="icon">🎨</span><h3>HTML / CSS / JavaScript</h3><span class="arrow">▼</span></div><div class="card-body"><h4>HTML 基本結構</h4><pre class="eq">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Title&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Heading&lt;/h1&gt;
+  &lt;p&gt;Paragraph&lt;/p&gt;
+  &lt;a href="url"&gt;Link&lt;/a&gt;
+  &lt;img src="img.jpg" alt="desc"&gt;
+  &lt;form method="POST" action="process.php"&gt;
+    &lt;input type="text" name="username"&gt;
+    &lt;input type="submit" value="Submit"&gt;
+  &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><h4>CSS 選擇器</h4><pre class="eq">p { color: blue; }            /* 元素選擇器 */
+.classname { font-size: 16px; } /* 類別選擇器 */
+#idname { background: red; }    /* ID選擇器 */</pre><h4>JavaScript DOM</h4><pre class="eq">document.getElementById("myId")
+document.querySelector(".class")
+element.innerHTML = "New content";
+element.addEventListener("click", function() { alert("OK"); });</pre></div></div>
+    <div class="card"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><span class="icon">🐘</span><h3>PHP 伺服器端編程</h3><span class="arrow">▼</span></div><div class="card-body"><h4>基本語法</h4><pre class="eq">&lt;?php
+$name = "John";           // 變量以$開頭
+$age = 17;
+echo "Hello, " . $name;   // 字串連接用 .
+echo "Age: $age";          // 雙引號可解析變量
+
+if ($age >= 18) { echo "Adult"; } else { echo "Minor"; }
+for ($i = 1; $i <= 10; $i++) { echo $i . " "; }
+
+// 關聯陣列
+$student = array("name" => "John", "age" => 17);
+echo $student["name"];
+?&gt;</pre><h4>表單處理與數據庫</h4><pre class="eq">// 接收表單數據
+$name = $_GET["username"];       // GET方法
+$pass = $_POST["password"];      // POST方法
+
+// 連接數據庫
+$conn = mysqli_connect("localhost", "root", "", "mydb");
+$result = mysqli_query($conn, "SELECT * FROM users");
+while ($row = mysqli_fetch_assoc($result)) {
+    echo $row["username"];
+}</pre></div></div>
   </div>
 </section>
 
