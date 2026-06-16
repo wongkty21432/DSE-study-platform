@@ -149,14 +149,33 @@
   </div>
   <div class="lang-wrap" style="padding:0 20px 8px;display:flex;gap:8px;"><select id="langSwitch" onchange="switchLang(this.value)" style="flex:1;padding:8px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.8rem;cursor:pointer;"><option value="zh">中文</option><option value="en">English</option></select></div>
 <input type="text" id="search" placeholder="🔍  搜尋所有課題..." oninput="filterTopics()">
-  <a href="#t1" class="active" onclick="scrollToTopic('t1')"><span class="num">1</span> 資訊處理 (一)</a>
-  <a href="#t2" onclick="scrollToTopic('t2')"><span class="num">2</span> 資訊處理 (二)</a>
-  <a href="#t3" onclick="scrollToTopic('t3')"><span class="num">3</span> 電腦系統基礎</a>
-  <a href="#t4" onclick="scrollToTopic('t4')"><span class="num">4</span> 互聯網及其應用 (一)</a>
-  <a href="#t5" onclick="scrollToTopic('t5')"><span class="num">5</span> 互聯網及其應用 (二)</a>
-  <a href="#t6" onclick="scrollToTopic('t6')"><span class="num">6</span> 計算思維與程式編寫 (一)</a>
-  <a href="#t7" onclick="scrollToTopic('t7')"><span class="num">7</span> 計算思維與程式編寫 (二)</a>
-  <a href="#t8" onclick="scrollToTopic('t8')"><span class="num">8</span> 資訊及通訊科技對社會的影響</a>
+  <div style="font-size:.68rem;color:var(--text2);padding:8px 24px 4px;">必修部分</div>
+  <a href="#mA" class="active" onclick="scrollToTopic('mA')"><span class="num">A</span> 資訊處理</a>
+  <a href="#t1" onclick="scrollToTopic('t1')" style="padding-left:40px;font-size:.78rem;">a. 資訊處理簡介</a>
+  <a href="#t2" onclick="scrollToTopic('t2')" style="padding-left:40px;font-size:.78rem;">b. 數據組織及數據控制</a>
+  <a href="#t1c" onclick="scrollToTopic('t1c')" style="padding-left:40px;font-size:.78rem;">c. 數據表示</a>
+  <a href="#t1d" onclick="scrollToTopic('t1d')" style="padding-left:40px;font-size:.78rem;">d. 數據操縱和分析</a>
+
+  <a href="#mB" onclick="scrollToTopic('mB')"><span class="num">B</span> 電腦系統基礎</a>
+  <a href="#t3" onclick="scrollToTopic('t3')" style="padding-left:40px;font-size:.78rem;">a. 基本機器組織</a>
+  <a href="#t3b" onclick="scrollToTopic('t3b')" style="padding-left:40px;font-size:.78rem;">b. 系統軟件</a>
+
+  <a href="#mC" onclick="scrollToTopic('mC')"><span class="num">C</span> 互聯網及其應用</a>
+  <a href="#t4" onclick="scrollToTopic('t4')" style="padding-left:40px;font-size:.78rem;">a. 建網及互聯網基本知識</a>
+  <a href="#t5" onclick="scrollToTopic('t5')" style="padding-left:40px;font-size:.78rem;">b. 互聯網服務及應用</a>
+  <a href="#t5c" onclick="scrollToTopic('t5c')" style="padding-left:40px;font-size:.78rem;">c. 初級網頁創作</a>
+  <a href="#t5d" onclick="scrollToTopic('t5d')" style="padding-left:40px;font-size:.78rem;">d. 網上威脅及保安</a>
+
+  <a href="#mD" onclick="scrollToTopic('mD')"><span class="num">D</span> 計算思維與程式編寫</a>
+  <a href="#t6" onclick="scrollToTopic('t6')" style="padding-left:40px;font-size:.78rem;">a. 問題建構和分析</a>
+  <a href="#t6b" onclick="scrollToTopic('t6b')" style="padding-left:40px;font-size:.78rem;">b. 算法設計</a>
+  <a href="#t7" onclick="scrollToTopic('t7')" style="padding-left:40px;font-size:.78rem;">c. 程式開發</a>
+  <a href="#t7d" onclick="scrollToTopic('t7d')" style="padding-left:40px;font-size:.78rem;">d. 程式測試和除錯</a>
+
+  <a href="#mE" onclick="scrollToTopic('mE')"><span class="num">E</span> 資訊及通訊科技對社會的影響</a>
+  <a href="#t8" onclick="scrollToTopic('t8')" style="padding-left:40px;font-size:.78rem;">a. 科技創新</a>
+  <a href="#t8b" onclick="scrollToTopic('t8b')" style="padding-left:40px;font-size:.78rem;">b. 健康及道德議題</a>
+  <a href="#t8c" onclick="scrollToTopic('t8c')" style="padding-left:40px;font-size:.78rem;">c. 知識產權</a>
 </nav>
 
 <main id="main">
