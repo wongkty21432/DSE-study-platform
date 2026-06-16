@@ -73,9 +73,13 @@
   .tag { display:inline-block; padding:2px 10px; border-radius:12px; font-size:.7rem; background:var(--surface2); color:var(--text2); margin:2px 4px 2px 0; }
 
   /* Responsive */
+  .nav-toggle { display:none; position:fixed; top:10px;right:14px;z-index:200;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:1.3rem;padding:8px 12px;border-radius:8px;cursor:pointer; }
   @media (max-width:900px) {
-    nav { width:100%; height:auto; position:relative; }
-    main { margin-left:0; padding:20px; }
+    .nav-toggle { display:block; }
+    nav { width:100%; height:auto; position:relative; padding:12px 0; }
+    nav .logo, nav a:not(.nav-home), #search, .lang-wrap { display:none; }
+    nav.open .logo, nav.open a:not(.nav-home), nav.open #search, nav.open .lang-wrap { display:flex; }
+    main { margin-left:0; padding:16px; }
     .card-grid { grid-template-columns:1fr; }
   }
 

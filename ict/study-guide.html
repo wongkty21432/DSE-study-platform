@@ -69,9 +69,13 @@
   .tag { display:inline-block; padding:2px 10px; border-radius:12px; font-size:.7rem; background:var(--surface2); color:var(--text2); margin:2px 4px 2px 0; }
 
   /* Responsive */
+  .nav-toggle { display:none; position:fixed; top:10px;right:14px;z-index:200;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:1.3rem;padding:8px 12px;border-radius:8px;cursor:pointer; }
   @media (max-width:900px) {
-    nav { width:100%; height:auto; position:relative; }
-    main { margin-left:0; padding:20px; }
+    .nav-toggle { display:block; }
+    nav { width:100%; height:auto; position:relative; padding:12px 0; }
+    nav .logo, nav a:not(.nav-home), #search, .lang-wrap { display:none; }
+    nav.open .logo, nav.open a:not(.nav-home), nav.open #search, nav.open .lang-wrap { display:flex; }
+    main { margin-left:0; padding:16px; }
     .card-grid { grid-template-columns:1fr; }
   }
 
@@ -114,15 +118,16 @@
 </head>
 <body>
 
+<button class="nav-toggle" onclick="document.getElementById('nav').classList.toggle('open');this.textContent=document.getElementById('nav').classList.contains('open')?'✕':'☰'">☰</button>
 <nav id="nav">
-  <a href="../index.html" style="font-size:1.2rem;padding:10px 24px;" title="返回學習平台">🏠 學習平台</a>
+  <a href="../index.html" class="nav-home" style="font-size:1.2rem;padding:10px 24px;" title="返回學習平台">🏠 學習平台</a>
   <a href="../progress.html#settings" onclick="localStorage.setItem('dse_show_settings','1')" style="font-size:.8rem;padding:6px 24px;color:var(--text2);">⚙️ 設置</a>
   <a href="../progress.html?subject=ict" style="font-size:.9rem;padding:8px 24px;color:var(--purple);">📊 進度</a>
   <div class="logo">
     <h1>💻 HKDSE ICT</h1>
     <span>資訊及通訊科技 完整學習指南</span>
   </div>
-  <div style="padding:0 20px 8px;display:flex;gap:8px;"><select id="langSwitch" onchange="switchLang(this.value)" style="flex:1;padding:8px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.8rem;cursor:pointer;"><option value="zh">中文</option><option value="en">English</option></select></div>
+  <div class="lang-wrap" style="padding:0 20px 8px;display:flex;gap:8px;"><select id="langSwitch" onchange="switchLang(this.value)" style="flex:1;padding:8px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.8rem;cursor:pointer;"><option value="zh">中文</option><option value="en">English</option></select></div>
 <input type="text" id="search" placeholder="🔍  搜尋所有課題..." oninput="filterTopics()">
   <a href="#t1" class="active" onclick="scrollToTopic('t1')"><span class="num">1</span> 資訊處理 (一)</a>
   <a href="#t2" onclick="scrollToTopic('t2')"><span class="num">2</span> 資訊處理 (二)</a>
