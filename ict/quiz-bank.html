@@ -479,8 +479,8 @@ async function initializeDB() {
     }
     gDBReady = true;
     statusEl.textContent = __('卷一 · 自適應模式', 'Paper 1 · Adaptive Mode');
-    populateYearFilter();
     renderQuiz();
+    setTimeout(populateYearFilter, 100); // defer to speed up initial render
   } catch (err) {
     console.error('DB init error:', err);
     gDBReady = false;
@@ -822,22 +822,22 @@ document.addEventListener('click', function(e) {
   }
 });
 
+var gYearPopulated = false;
 async function populateYearFilter() {
+  if (gYearPopulated) return;
   var allQ = await dbGetAll(gDB, 'questions');
   var years = [...new Set(allQ.map(q => q.year).filter(Boolean))].sort((a,b) => b-a);
-  var container = document.getElementById('yearDrop');
   var h = '';
   years.forEach(function(y){
     h += '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;white-space:nowrap;">';
     h += '<input type="checkbox" value="'+y+'" onchange="toggleYear(this)"> '+y;
     h += '</label>';
   });
-  container.innerHTML = h;
-  // Also populate difficulty
-  var dc = document.getElementById('diffDrop');
-  dc.innerHTML = '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="easy" onchange="toggleDiff(this)"> 容易</label>'+
-    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="medium" onchange="toggleDiff(this)"> 中等</label>'+
-    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="hard" onchange="toggleDiff(this)"> 困難</label>';
+  document.getElementById('yearDrop').innerHTML = h;
+  document.getElementById('diffDrop').innerHTML = '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="easy" onchange="toggleDiff(this)"> '+__('容易','Easy')+'</label>'+
+    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="medium" onchange="toggleDiff(this)"> '+__('中等','Medium')+'</label>'+
+    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="hard" onchange="toggleDiff(this)"> '+__('困難','Hard')+'</label>';
+  gYearPopulated = true;
 }
 
 function toggleYear(cb) {
