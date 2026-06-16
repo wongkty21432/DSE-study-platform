@@ -934,7 +934,7 @@ async function resetAllData() {
 }
 
 // ============ AUTH & API ============
-const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? 'http://localhost/dse-ict-api/' : '';
+const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? 'http://localhost/dse-ict-api/' : 'https://hedging-tainted-dolly.ngrok-free.dev/dse-ict-api/';
 let gAuthToken = localStorage.getItem('dse_ict_token') || null;
 let gUser = JSON.parse(localStorage.getItem('dse_ict_user') || 'null');
 
