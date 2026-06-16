@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學習進度 — DSE Study Platform</title>
+<style>
+  :root {
+    --bg: #060b18; --surface: #0f1629; --surface2: #1a2540;
+    --text: #e2e8f0; --text2: #8899b4; --accent: #38bdf8;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --purple: #c084fc; --orange: #fb923c;
+    --border: #1e2d4a; --radius: 14px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .topbar { background:var(--surface); border-bottom:1px solid var(--border); padding:12px 24px; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:100; }
+  .topbar h1 { font-size:1rem; background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .topbar a { text-decoration:none; font-size:1.1rem; }
+  .container { max-width:900px; margin:0 auto; padding:24px; }
+  .subject-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+  .subject-tab { padding:10px 22px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text2); cursor:pointer; font-size:.85rem; font-weight:600; transition:all .2s; }
+  .subject-tab:hover { border-color:var(--accent); color:var(--text); }
+  .subject-tab.active { color:#060b18; border-color:transparent; }
+  .subject-tab.all.active { background:var(--purple); }
+  .subject-tab.ict.active { background:#38bdf8; }
+  .subject-tab.chem.active { background:#4ade80; }
+  .summary-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:24px; }
+  .summary-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center; }
+  .summary-card .val { font-size:1.8rem; font-weight:800; }
+  .summary-card .lbl { font-size:.72rem; color:var(--text2); margin-top:4px; }
+  .charts-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+  @media(max-width:700px){ .charts-row { grid-template-columns:1fr; } }
+  .chart-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:center; }
+  .chart-box h4 { font-size:.82rem; color:var(--accent); margin-bottom:12px; }
+  .chart-legend { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:10px; }
+  .chart-legend span { font-size:.65rem; padding:2px 8px; border-radius:8px; }
+  .grade-badge { display:inline-block; padding:8px 24px; border-radius:20px; font-size:1.5rem; font-weight:900; text-align:center; }
+  .grade-5s { background:linear-gradient(135deg,#4ade80,#38bdf8); color:#060b18; }
+  .grade-5ss { background:linear-gradient(135deg,#fbbf24,#4ade80); color:#060b18; }
+  .grade-5 { background:#c084fc; color:#060b18; }
+  .grade-4 { background:#fb923c; color:#060b18; }
+  .grade-3 { background:#fbbf24; color:#060b18; }
+  .grade-2 { background:#4ade80; color:#060b18; }
+  .grade-1 { background:#f87171; color:#fff; }
+  .detail-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); }
+  .detail-row .d-icon { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.72rem;flex-shrink:0; }
+  .detail-row .d-info { flex:1; min-width:0; }
+  .detail-row .d-name { font-size:.82rem; font-weight:600; }
+  .detail-row .d-bar-wrap { height:8px; background:var(--surface2); border-radius:4px; overflow:hidden; margin:4px 0; }
+  .detail-row .d-bar { height:100%; border-radius:4px; transition:width .5s; }
+  .detail-row .d-stats { display:flex; gap:12px; font-size:.7rem; color:var(--text2); white-space:nowrap; }
+  .detail-row .d-level { padding:3px 10px; border-radius:10px; font-size:.68rem; font-weight:700; white-space:nowrap; }
+  .auth-msg { text-align:center; padding:48px 20px; color:var(--text2); }
+  .auth-msg button { margin-top:12px; padding:10px 24px; border-radius:20px; background:var(--accent); color:#060b18; border:none; font-weight:600; cursor:pointer; font-size:.82rem; }
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" title="返回平台">🏠</a>
+  <h1>📊 學習進度</h1>
+  <span style="font-size:.78rem;color:var(--text2);" id="userInfo"></span>
+  <span style="margin-left:auto;"></span>
+  <button onclick="showSettings()" style="padding:6px 14px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:.75rem;">⚙️ 設置</button>
+  <button id="btnReset" onclick="resetProgress()" style="display:none;padding:6px 14px;border-radius:16px;border:1px solid var(--red);background:rgba(248,113,113,.08);color:var(--red);cursor:pointer;font-size:.72rem;">重設進度</button>
+</div>
+
+<div class="container">
+  <div class="subject-tabs" id="subjectTabs">
+    <button class="subject-tab all active" onclick="viewAll()">📋 全部科目</button>
+    <button class="subject-tab ict" onclick="viewSubject('ict')">💻 資訊及通訊科技</button>
+    <button class="subject-tab chem" onclick="viewSubject('chem')">⚗️ 化學</button>
+  </div>
+  <div class="summary-row" id="summaryRow"></div>
+  <div class="charts-row">
+    <div class="chart-box"><h4>🎯 掌握程度分佈</h4><canvas id="pieMastery" width="220" height="220"></canvas><div class="chart-legend" id="legendMastery"></div></div>
+    <div class="chart-box"><h4>📊 課題答題量</h4><canvas id="pieTopics" width="220" height="220"></canvas><div class="chart-legend" id="legendTopics"></div></div>
+  </div>
+  <div id="detailContent"><p style="text-align:center;padding:40px;color:var(--text2);">載入中…</p></div>
+</div>
+
+<script>
+var API = 'http://localhost/dse-ict-api/';
+var TOKEN = localStorage.getItem('dse_platform_token');
+var USER = JSON.parse(localStorage.getItem('dse_platform_user') || 'null');
+var ALL = [];
+var SUBJ = new URLSearchParams(window.location.search).get('subject') || null;
+
+var SUB = {
+  ict:{icon:'💻',name:'資訊及通訊科技',topics:{1:'資訊處理(一)',2:'資訊處理(二)',3:'電腦系統基礎',4:'互聯網及應用(一)',5:'互聯網及應用(二)',6:'計算思維與程式編寫(一)',7:'計算思維與程式編寫(二)',8:'社會影響'}},
+  chem:{icon:'⚗️',name:'化學',topics:{1:'實驗室安全',2:'地球',3:'微觀世界I',4:'金屬',5:'酸和鹼',6:'化石燃料',7:'微觀世界II',8:'氧化還原',9:'化學能量學',10:'反應速率',11:'化學平衡',12:'碳化合物化學',13:'化學規律'}}
+};
+var LVL = {master:'大師',advanced:'進階',proficient:'熟練',developing:'成長中',novice:'初學',new:'全新'};
+var CLR = {master:'#4ade80',advanced:'#38bdf8',proficient:'#c084fc',developing:'#fbbf24',novice:'#fb923c',new:'#f87171'};
+
+(function init(){
+  document.getElementById('userInfo').textContent = USER ? '👤 '+USER.username : '(未登入)';
+  if(!TOKEN||!USER){
+    document.getElementById('detailContent').innerHTML = '<div class="auth-msg"><p>請先登入以查看學習進度</p><p style="font-size:.7rem;color:var(--text2);margin-top:8px;">Token: '+(TOKEN?'OK('+TOKEN.length+' chars)':'MISSING')+' | User: '+(USER?USER.username:'MISSING')+'</p><button onclick="location.href=\'index.html\'">前往登入</button></div>';
+    return;
+  }
+  if(SUBJ){ document.querySelector('.subject-tab.all').classList.remove('active'); document.querySelector('.subject-tab.'+SUBJ).classList.add('active'); }
+  if(localStorage.getItem('dse_show_settings')==='1'){ localStorage.removeItem('dse_show_settings'); setTimeout(showSettings,500); }
+  load();
+})();
+
+async function load(){
+  try {
+    var r = await fetch(API+'get-progress.php',{headers:{'Authorization':'Bearer '+TOKEN}});
+    if(r.status===401){ localStorage.clear(); location.href='index.html'; return; }
+    var d = await r.json();
+    ALL = d.progress||[];
+    if(SUBJ) renderSubject(SUBJ); else viewAll();
+  }catch(e){
+    document.getElementById('detailContent').innerHTML = '<div class="auth-msg"><p style="color:var(--red);">無法連接伺服器</p><p style="font-size:.78rem;">'+e.message+'</p></div>';
+  }
+}
+
+function setTab(id){
+  document.querySelectorAll('.subject-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelector('.subject-tab.'+id).classList.add('active');
+}
+
+function viewAll(){ setTab('all'); renderAll(); }
+function viewSubject(s){ setTab(s); renderSubject(s); }
+
+function predictGrade(pct){
+  if(pct>=88) return {g:'5**',c:'grade-5s'};
+  if(pct>=82) return {g:'5*',c:'grade-5ss'};
+  if(pct>=74) return {g:'5',c:'grade-5'};
+  if(pct>=62) return {g:'4',c:'grade-4'};
+  if(pct>=50) return {g:'3',c:'grade-3'};
+  if(pct>=38) return {g:'2',c:'grade-2'};
+  return {g:'1',c:'grade-1'};
+}
+
+function renderAll(){
+  var ta=0,tc=0; ALL.forEach(function(p){ta+=p.total_attempted;tc+=p.total_correct;});
+  var pct = ta>0?Math.round(tc/ta*100):0;
+  var b5 = calcBest5();
+  var b5html = b5.count>0 ?
+    '<div class="summary-card"><div class="val" style="color:var(--yellow);">'+b5.total+'</div><div class="lbl">預測Best5</div></div>' :
+    '<div class="summary-card"><div class="val" style="color:var(--text2);">—</div><div class="lbl">預測Best5</div></div>';
+  document.getElementById('summaryRow').innerHTML =
+    b5html +
+    '<div class="summary-card"><div class="val" style="color:var(--accent);">'+ta+'</div><div class="lbl">總答題</div></div>'+
+    '<div class="summary-card"><div class="val" style="color:var(--green);">'+tc+'</div><div class="lbl">正確</div></div>'+
+    '<div class="summary-card"><div class="val" style="color:var(--red);">'+(ta-tc)+'</div><div class="lbl">錯誤</div></div>'+
+    '<div class="summary-card"><div class="val" style="color:var(--yellow);">'+pct+'%</div><div class="lbl">正確率</div></div>';
+  var h='';
+  for(var s in SUB){
+    var items = ALL.filter(function(p){return (p.subject||'ict')===s;});
+    if(!items.length) continue;
+    h+='<h3 style="color:var(--accent);margin-top:20px;margin-bottom:12px;">'+SUB[s].icon+' '+SUB[s].name+'</h3>';
+    items.forEach(function(p){ h+=row(p,SUB[s]); });
+  }
+  if(!h) h='<p style="text-align:center;padding:40px;color:var(--text2);">尚未有答題記錄</p>';
+  document.getElementById('detailContent').innerHTML = h;
+  document.querySelector('.charts-row').style.display = 'none';
+  document.getElementById('btnReset').style.display = 'inline';
+}
+
+function renderSubject(s){
+  var items = ALL.filter(function(p){return (p.subject||'ict')===s;});
+  var si = SUB[s];
+  var ta=0,tc=0; items.forEach(function(p){ta+=p.total_attempted;tc+=p.total_correct;});
+  var pct = ta>0?Math.round(tc/ta*100):0;
+  var g = predictGrade(pct);
+  document.getElementById('summaryRow').innerHTML =
+    '<div class="summary-card"><span class="grade-badge '+g.c+'">'+g.g+'</span><div class="lbl">預測等級</div></div>'+
+    '<div class="summary-card"><div class="val" style="color:var(--accent);">'+ta+'</div><div class="lbl">總答題</div></div>'+
+    '<div class="summary-card"><div class="val" style="color:var(--green);">'+tc+'</div><div class="lbl">正確</div></div>'+
+    '<div class="summary-card"><div class="val" style="color:var(--red);">'+(ta-tc)+'</div><div class="lbl">錯誤</div></div>'+
+    '<div class="summary-card"><div class="val" style="color:var(--yellow);">'+pct+'%</div><div class="lbl">正確率</div></div>';
+  var h='';
+  items.forEach(function(p){ h+=row(p,si); });
+  if(!h) h='<p style="text-align:center;padding:40px;color:var(--text2);">尚未有'+si.name+'答題記錄</p>';
+  document.getElementById('detailContent').innerHTML = h;
+  drawMasteryPie(items);
+  drawTopicsPie(items);
+  document.querySelector('.charts-row').style.display = '';
+  document.getElementById('btnReset').style.display = 'none';
+}
+
+function row(p,si){
+  var pct = p.total_attempted>0?Math.round(p.total_correct/p.total_attempted*100):0;
+  var lvl = p.mastery_level||'new';
+  var c = CLR[lvl]||'#888';
+  var name = (si.topics[p.topic]||'Topic '+p.topic);
+  return '<div class="detail-row">'+
+    '<div class="d-icon" style="background:'+c+'20;color:'+c+';">'+p.topic+'</div>'+
+    '<div class="d-info"><div class="d-name">'+name+'</div>'+
+    '<div class="d-bar-wrap"><div class="d-bar" style="width:'+Math.max(pct,5)+'%;background:'+c+';"></div></div>'+
+    '<div class="d-stats">✅ '+p.total_correct+'  ❌ '+p.total_wrong+'  '+pct+'%</div></div>'+
+    '<div class="d-level" style="background:'+c+'20;color:'+c+';">'+(LVL[lvl]||lvl)+'</div></div>';
+}
+
+function drawPie(cid, segs, lid){
+  var c = document.getElementById(cid); if(!c) return;
+  var ctx = c.getContext('2d');
+  var cx=c.width/2,cy=c.height/2,r=Math.min(cx,cy)-10;
+  ctx.clearRect(0,0,c.width,c.height);
+  var total = segs.reduce(function(s,x){return s+x.value;},0);
+  if(!total){
+    ctx.fillStyle='#334155'; ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#8899b4';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('No data',cx,cy+4);
+    return;
+  }
+  var angle = -Math.PI/2;
+  segs.forEach(function(seg){
+    var slice = seg.value/total*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+slice);ctx.closePath();
+    ctx.fillStyle=seg.color;ctx.fill();
+    ctx.strokeStyle='#0f1629';ctx.lineWidth=2;ctx.stroke();
+    angle+=slice;
+  });
+  var leg = document.getElementById(lid);
+  if(leg) leg.innerHTML = segs.map(function(s){return '<span style="background:'+s.color+'20;color:'+s.color+';">'+s.label+':'+s.value+'</span>';}).join('');
+}
+
+function drawMasteryPie(items){
+  var cnt={master:0,advanced:0,proficient:0,developing:0,novice:0,new:0};
+  items.forEach(function(p){var l=p.mastery_level||'new';if(cnt[l]!==undefined)cnt[l]++;});
+  drawPie('pieMastery',Object.entries(cnt).filter(function(e){return e[1]>0;}).map(function(e){return{label:LVL[e[0]],value:e[1],color:CLR[e[0]]};}),'legendMastery');
+}
+
+function drawTopicsPie(items){
+  drawPie('pieTopics',items.map(function(p){var pct=p.total_attempted>0?Math.round(p.total_correct/p.total_attempted*100):0;return{label:'T'+p.topic,value:p.total_attempted,color:'hsl('+(pct>80?120:pct>50?200:40)+',70%,55%)'};}).filter(function(s){return s.value>0;}),'legendTopics');
+}
+
+// ============ BEST5 + SETTINGS ============
+var SCORE = {5:5,4:4,3:3,2:2,1:1,'5*':6,'5**':7}; // Standard DSE: Lv5=5 marks
+var BEST5_CORES = ['中文','英文','數學']; // 3 scored cores (CSD is Pass/Fail only, not scored)
+var ALL_ELECTIVES = ['ict','chem','physics','bio','econ','bafs','chist','history','geog','va','pe','ths','englit','chilit'];
+var ELEC_NAMES = {ict:'資訊及通訊科技',chem:'化學',physics:'物理',bio:'生物',econ:'經濟',bafs:'企業、會計與財務概論',chist:'中國歷史',history:'歷史',geog:'地理',va:'視覺藝術',pe:'體育',ths:'旅遊與款待',englit:'英語文學',chilit:'中國文學'};
+
+function getSettings(){
+  try { return JSON.parse(localStorage.getItem('dse_settings')) || {}; } catch(e) { return {}; }
+}
+function saveSettings(s){ localStorage.setItem('dse_settings', JSON.stringify(s)); }
+
+function showSettings(){
+  var s = getSettings(); var cores = s.cores || {}; var electives = s.electives || [];
+  var h = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(6,11,24,.9);z-index:300;display:flex;justify-content:center;align-items:center;" onclick="if(event.target===this)this.remove();">';
+  h += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;width:90%;max-width:460px;max-height:80vh;overflow-y:auto;">';
+  h += '<h3 style="color:var(--accent);margin-bottom:10px;font-size:.95rem;">設置</h3>';
+
+  h += '<div style="font-size:.72rem;color:var(--text2);margin-bottom:6px;">必修科預計成績</div>';
+  var coreList = BEST5_CORES.concat(['公民與社會發展']);
+  coreList.forEach(function(c){
+    var val = cores[c]||'';
+    h += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">';
+    h += '<span style="flex:0 0 44px;font-size:.76rem;">'+(c==='公民與社會發展'?'CSD':c)+'</span>';
+    if(c==='公民與社會發展'){
+      h += '<select onchange="setCoreGrade(\'公民與社會發展\',this.value)" style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.74rem;">';
+      h += '<option value="">—</option><option value="A"'+(val==='A'?' selected':'')+'>達標</option><option value="U"'+(val==='U'?' selected':'')+'>不達標</option></select>';
+    }else{
+      h += '<select onchange="setCoreGrade(\''+c+'\',this.value)" style="flex:1;padding:4px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.74rem;">';
+      h += '<option value="">—</option>';
+      ['5**','5*','5','4','3','2','1'].forEach(function(g){h += '<option value="'+g+'"'+(val===g?' selected':'')+'>'+g+' ('+SCORE[g]+'分)</option>';});
+      h += '</select>';
+    }
+    h += '</div>';
+  });
+
+  h += '<div style="font-size:.72rem;color:var(--text2);margin:12px 0 4px;">選修科</div>';
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;">';
+  ALL_ELECTIVES.forEach(function(e){
+    var checked = electives.indexOf(e)>=0;
+    h += '<label style="display:flex;align-items:center;gap:5px;padding:2px 0;font-size:.74rem;cursor:pointer;">';
+    h += '<input type="checkbox" '+(checked?'checked':'')+' onchange="toggleElective(\''+e+'\',this.checked)" style="accent-color:var(--accent);">';
+    h += (ELEC_NAMES[e]||e);
+    h += '</label>';
+  });
+  h += '</div>';
+
+  h += '<div style="text-align:center;margin-top:14px;"><button onclick="this.closest(\'div[style]\').parentElement.remove();" style="padding:6px 20px;border-radius:16px;background:var(--accent);color:#060b18;border:none;font-weight:600;cursor:pointer;font-size:.78rem;">完成</button></div>';
+  h += '</div></div>';
+  document.body.insertAdjacentHTML('beforeend', h);
+}
+
+function setCoreGrade(subj, grade){
+  var s = getSettings();
+  if(!s.cores) s.cores = {};
+  if(grade) s.cores[subj] = grade; else delete s.cores[subj];
+  saveSettings(s);
+}
+
+function toggleElective(eid, on){
+  var s = getSettings();
+  if(!s.electives) s.electives = [];
+  if(on && s.electives.indexOf(eid)<0) s.electives.push(eid);
+  if(!on) s.electives = s.electives.filter(function(x){return x!==eid;});
+  saveSettings(s);
+}
+
+function calcBest5(){
+  var s = getSettings();
+  var cores = s.cores || {};
+  var electives = s.electives || [];
+  var scores = [];
+
+  // 3 scored core subjects — always included, default Lv3 if not set
+  BEST5_CORES.forEach(function(c){
+    var g = cores[c] || '3';
+    scores.push({subj:c, grade:g, score:SCORE[g]||3, isCore:true});
+  });
+
+  // Elective scores from progress data
+  electives.forEach(function(e){
+    var items = ALL.filter(function(p){return (p.subject||'ict')===e;});
+    var ta=0,tc=0; items.forEach(function(p){ta+=p.total_attempted;tc+=p.total_correct;});
+    if(ta >= 5){ // need at least 5 answers to predict
+      var pct = Math.round(tc/ta*100);
+      var g = predictGrade(pct).g;
+      scores.push({subj: ELEC_NAMES[e]||e, grade:g, score:SCORE[g]});
+    }
+  });
+
+  // Sort by score descending, take top 5
+  scores.sort(function(a,b){return b.score-a.score;});
+  var best5 = scores.slice(0,5);
+  var total = best5.reduce(function(s,x){return s+x.score;},0);
+  return {scores:scores, best5:best5, total:total, count:best5.length};
+}
+
+// Best5 grade boxes visible only on all-subjects view
+var _renderAll = renderAll;
+renderAll = function(){
+  _renderAll();
+  showBest5Boxes();
+};
+
+function resetProgress(){
+  if(!confirm('確定要重設所有練習進度？此操作無法還原。')) return;
+  fetch(API+'get-progress.php',{headers:{'Authorization':'Bearer '+TOKEN}}).then(function(r){return r.json();}).then(function(d){
+    (d.progress||[]).forEach(function(p){
+      fetch(API+'save-progress.php',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN},
+        body:JSON.stringify({subject:p.subject||'ict',topics:[{topic:p.topic,totalAttempted:0,totalCorrect:0,totalWrong:0,emaScore:null,masteryLevel:'new'}]})});
+    });
+  });
+  localStorage.clear(); alert('已重設。請重新登入。'); location.href='index.html';
+}
+
+function showBest5Boxes(){
+  var s = getSettings();
+  if(!s.electives || !s.electives.length) return;
+  var b5 = calcBest5();
+  var csd = (s.cores||{})['公民與社會發展'] || '';
+  var csdOK = csd === 'A';
+  var maxScore = 5*7;
+  var COLORS = {'5**':'#fbbf24','5*':'#fbbf24','5':'#c084fc','4':'#fb923c','3':'#38bdf8','2':'#4ade80','1':'#f87171'};
+
+  var existing = document.getElementById('best5Box');
+  if(existing) existing.remove();
+
+  var h = '<div class="chart-box" style="grid-column:1/-1;margin-bottom:0;">';
+  h += '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">';
+  for(var i=0;i<5;i++){
+    var subj = b5.best5[i] || {subj:'?',grade:'-',score:0};
+    var c = COLORS[subj.grade] || '#334155';
+    var short = subj.subj.length>3 ? subj.subj.substring(0,3) : subj.subj;
+    h += '<div style="background:var(--surface2);border:2px solid '+c+';border-radius:12px;padding:10px 16px;text-align:center;min-width:64px;">';
+    h += '<div style="font-size:1.4rem;font-weight:900;color:'+c+';">'+(subj.grade||'-')+'</div>';
+    h += '<div style="font-size:.62rem;color:var(--text2);">'+short+'</div>';
+    h += '</div>';
+  }
+  h += '</div>';
+  h += '<div style="font-size:.7rem;color:var(--text2);margin-top:6px;">CSD: <span style="color:'+(csdOK?'var(--green)':'var(--red)')+';">'+(csdOK?'達標':'未設定')+'</span></div>';
+  h += '</div>';
+  var chartsRow = document.querySelector('.charts-row');
+  chartsRow.insertAdjacentHTML('afterend', '<div id="best5Box">'+h+'</div>');
+}
+</script>
+</body>
+</html>

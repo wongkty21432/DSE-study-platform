@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>題庫管理工具 — DSE ICT Question Bank Admin</title>
+<style>
+  :root {
+    --bg: #0a0f1e; --surface: #131b2e; --surface2: #1c2840;
+    --text: #e8edf5; --text2: #8899b4; --accent: #38bdf8;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --border: #263048; --radius: 8px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .topbar { background:var(--surface); border-bottom:1px solid var(--border); padding:12px 24px; display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:100; }
+  .topbar h1 { font-size:1rem; }
+  .container { max-width:1400px; margin:0 auto; padding:20px 24px; }
+
+  /* Toolbar */
+  .toolbar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+  .toolbar button { padding:8px 18px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:.8rem; transition:all .2s; }
+  .toolbar button:hover { border-color:var(--accent); }
+  .toolbar button.primary { background:var(--accent); color:#0a0f1e; border-color:var(--accent); font-weight:600; }
+  .toolbar button.danger { background:rgba(248,113,113,.15); color:var(--red); border-color:var(--red); }
+  .toolbar input, .toolbar select { padding:8px 14px; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:.8rem; outline:none; }
+  .toolbar input:focus, .toolbar select:focus { border-color:var(--accent); }
+
+  /* Table */
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius); }
+  table { width:100%; border-collapse:collapse; font-size:.78rem; }
+  th { background:var(--surface2); padding:8px 10px; text-align:left; font-weight:600; color:var(--accent); white-space:nowrap; position:sticky; top:0; }
+  td { padding:6px 10px; border-top:1px solid var(--border); vertical-align:top; }
+  tr:hover td { background:rgba(56,189,248,.03); }
+  td.qtext { max-width:300px; }
+  td.actions { white-space:nowrap; }
+  td.actions button { padding:3px 10px; border-radius:12px; border:1px solid var(--border); background:var(--surface2); color:var(--text2); cursor:pointer; font-size:.7rem; margin:1px 2px; }
+  td.actions button.edit:hover { border-color:var(--accent); color:var(--accent); }
+  td.actions button.delete:hover { border-color:var(--red); color:var(--red); }
+
+  /* Modal */
+  .modal-overlay { display:none; position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(10,15,30,.85);z-index:200;justify-content:center;align-items:center; }
+  .modal-overlay.show { display:flex; }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; max-width:700px; width:90%; max-height:85vh; overflow-y:auto; }
+  .modal h3 { margin-bottom:16px; color:var(--accent); }
+  .modal label { display:block; font-size:.75rem; color:var(--text2); margin-bottom:4px; margin-top:12px; }
+  .modal input, .modal textarea, .modal select { width:100%; padding:8px 12px; border-radius:6px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:.82rem; font-family:inherit; }
+  .modal textarea { min-height:80px; resize:vertical; }
+  .modal .btn-row { display:flex; gap:10px; margin-top:20px; justify-content:flex-end; }
+  .modal button { padding:8px 20px; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text); cursor:pointer; font-size:.8rem; }
+  .modal button.save { background:var(--green); color:#0a0f1e; border-color:var(--green); font-weight:600; }
+  .modal button.cancel { background:var(--surface2); }
+
+  /* Status bar */
+  .status { padding:8px 16px; border-radius:20px; font-size:.75rem; display:inline-block; margin-bottom:12px; }
+  .status.ok { background:rgba(74,222,128,.12); color:var(--green); }
+  .status.err { background:rgba(248,113,113,.12); color:var(--red); }
+
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>🛠️ DSE ICT 題庫管理工具</h1>
+  <span style="font-size:.75rem;color:var(--text2);">編輯題目、評分參考、解釋</span>
+  <span style="margin-left:auto;font-size:.75rem;color:var(--text2);" id="fileInfo"></span>
+</div>
+
+<div class="container">
+
+<div class="toolbar">
+  <button class="primary" onclick="addNewQuestion()">＋ 新增題目</button>
+  <button onclick="exportJSON()">📥 匯出 JSON</button>
+  <button onclick="loadFromJSON()">📂 載入 JSON 檔案</button>
+  <select id="filterTopic" onchange="renderTable()">
+    <option value="all">全部課題</option>
+    <option value="1">資訊處理 (一)</option>
+    <option value="2">資訊處理 (二)</option>
+    <option value="3">電腦系統基礎</option>
+    <option value="4">互聯網及其應用 (一)</option>
+    <option value="5">互聯網及其應用 (二)</option>
+    <option value="6">計算思維與程式編寫 (一)</option>
+    <option value="7">計算思維與程式編寫 (二)</option>
+    <option value="8">社會影響</option>
+  </select>
+  <select id="filterDifficulty" onchange="renderTable()">
+    <option value="all">全部難度</option>
+    <option value="easy">容易</option>
+    <option value="medium">中等</option>
+    <option value="hard">困難</option>
+  </select>
+  <span style="font-size:.75rem;color:var(--text2);" id="countInfo"></span>
+  <button onclick="validateAllQuestions()" style="margin-left:auto;">✅ 驗證所有題目</button>
+</div>
+
+<div id="statusBar"></div>
+
+<div class="table-wrap">
+  <table id="qTable">
+    <thead>
+      <tr>
+        <th>QID</th>
+        <th>課題</th>
+        <th>年份</th>
+        <th>題號</th>
+        <th>難度</th>
+        <th>題目</th>
+        <th>答案</th>
+        <th>評分參考</th>
+        <th>更新日期</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody id="qTableBody">
+      <tr><td colspan="10" style="text-align:center;padding:32px;color:var(--text2);">載入中…</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <h3 id="modalTitle">編輯題目</h3>
+    <input type="hidden" id="editQid">
+    <input type="hidden" id="editIndex">
+
+    <label>題目 ID</label>
+    <input type="text" id="editQidInput" placeholder="ICT-XXX">
+
+    <label>課題 (1-8)</label>
+    <select id="editTopic">
+      <option value="1">1 — 資訊處理 (一)</option>
+      <option value="2">2 — 資訊處理 (二)</option>
+      <option value="3">3 — 電腦系統基礎</option>
+      <option value="4">4 — 互聯網及其應用 (一)</option>
+      <option value="5">5 — 互聯網及其應用 (二)</option>
+      <option value="6">6 — 計算思維與程式編寫 (一)</option>
+      <option value="7">7 — 計算思維與程式編寫 (二)</option>
+      <option value="8">8 — 社會影響</option>
+    </select>
+
+    <label>年份</label>
+    <input type="number" id="editYear" min="2012" max="2026" placeholder="2019">
+
+    <label>題號</label>
+    <input type="number" id="editQnum" min="1" max="40" placeholder="5">
+
+    <label>難度</label>
+    <select id="editDifficulty">
+      <option value="easy">容易 (Easy)</option>
+      <option value="medium">中等 (Medium)</option>
+      <option value="hard">困難 (Hard)</option>
+    </select>
+
+    <label>試卷</label>
+    <input type="text" id="editSourcePaper" value="卷一" placeholder="卷一">
+
+    <label>題目內容</label>
+    <textarea id="editQuestion" rows="3" placeholder="輸入題目文字…"></textarea>
+
+    <label>選項 A</label>
+    <input type="text" id="editOptA" placeholder="A. ...">
+    <label>選項 B</label>
+    <input type="text" id="editOptB" placeholder="B. ...">
+    <label>選項 C</label>
+    <input type="text" id="editOptC" placeholder="C. ...">
+    <label>選項 D</label>
+    <input type="text" id="editOptD" placeholder="D. ...">
+
+    <label>正確答案 (0=A, 1=B, 2=C, 3=D)</label>
+    <select id="editAnswer">
+      <option value="0">A</option>
+      <option value="1">B</option>
+      <option value="2">C</option>
+      <option value="3">D</option>
+    </select>
+
+    <label>詳細解釋</label>
+    <textarea id="editExplanation" rows="4" placeholder="輸入詳細解釋…"></textarea>
+
+    <label>評分參考 (Marking Scheme)</label>
+    <textarea id="editMarking" rows="2" placeholder="輸入官方評分參考…"></textarea>
+
+    <div class="btn-row">
+      <button class="cancel" onclick="closeModal()">取消</button>
+      <button class="save" onclick="saveQuestion()">💾 儲存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOPIC_NAMES = {
+  1:'資訊處理(一)', 2:'資訊處理(二)', 3:'電腦系統', 4:'互聯網(一)',
+  5:'互聯網(二)', 6:'計算思維(一)', 7:'計算思維(二)', 8:'社會影響'
+};
+const DIFF_LABELS = { easy:'容易', medium:'中等', hard:'困難' };
+
+let gQuestions = [];
+let gSourceFile = 'questions-ict.json';
+
+// Load on start
+async function init() {
+  try {
+    const resp = await fetch(gSourceFile);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    gQuestions = await resp.json();
+    showStatus('ok', `已載入 ${gQuestions.length} 題 (來源: ${gSourceFile})`);
+    document.getElementById('fileInfo').textContent = `📄 ${gSourceFile} · ${gQuestions.length} 題`;
+  } catch (err) {
+    showStatus('err', '無法自動載入 ' + gSourceFile + '。請使用「📂 載入 JSON 檔案」按鈕手動選擇 questions-ict.json。');
+    gQuestions = [];
+  }
+  renderTable();
+}
+
+function showStatus(type, msg) {
+  document.getElementById('statusBar').innerHTML = `<span class="status ${type}">${msg}</span>`;
+}
+
+function getFilteredQuestions() {
+  const topicFilter = document.getElementById('filterTopic').value;
+  const diffFilter = document.getElementById('filterDifficulty').value;
+  return gQuestions.filter(q => {
+    if (topicFilter !== 'all' && q.topic !== parseInt(topicFilter)) return false;
+    if (diffFilter !== 'all' && q.difficulty !== diffFilter) return false;
+    return true;
+  });
+}
+
+function renderTable() {
+  const filtered = getFilteredQuestions();
+  const tbody = document.getElementById('qTableBody');
+  document.getElementById('countInfo').textContent = `顯示 ${filtered.length}/${gQuestions.length} 題`;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:32px;color:var(--text2);">沒有符合條件的題目</td></tr>';
+    return;
+  }
+
+  let html = '';
+  for (let i = 0; i < filtered.length; i++) {
+    const q = filtered[i];
+    const origIdx = gQuestions.indexOf(q);
+    const topicName = TOPIC_NAMES[q.topic] || ('#' + q.topic);
+    const diffLabel = DIFF_LABELS[q.difficulty] || q.difficulty;
+    const correctLetter = String.fromCharCode(65 + q.answer);
+    const questionPreview = q.question.length > 60 ? q.question.substring(0, 60) + '…' : q.question;
+    const markingPreview = (q.markingNotes || '').length > 40 ? (q.markingNotes || '').substring(0, 40) + '…' : (q.markingNotes || '—');
+
+    html += '<tr>';
+    html += '<td>' + q.qid + '</td>';
+    html += '<td>' + topicName + '</td>';
+    html += '<td>' + (q.year||'?') + '</td>';
+    html += '<td>' + (q.qnum||'?') + '</td>';
+    html += '<td>' + diffLabel + '</td>';
+    html += '<td class="qtext">' + escapeHTML(questionPreview) + '</td>';
+    html += '<td style="color:var(--green);font-weight:600;">' + correctLetter + '</td>';
+    html += '<td style="font-size:.7rem;">' + escapeHTML(markingPreview) + '</td>';
+    html += '<td style="font-size:.68rem;">' + (q.lastUpdated||'—') + '</td>';
+    html += '<td class="actions">';
+    html += '<button class="edit" onclick="editQuestion(' + origIdx + ')">✏️ 編輯</button>';
+    html += '<button class="delete" onclick="deleteQuestion(' + origIdx + ')">🗑️</button>';
+    html += '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ============ CRUD ============
+function editQuestion(index) {
+  const q = gQuestions[index];
+  document.getElementById('modalTitle').textContent = '編輯題目: ' + q.qid;
+  document.getElementById('editQid').value = q.qid;
+  document.getElementById('editIndex').value = index;
+  document.getElementById('editQidInput').value = q.qid;
+  document.getElementById('editTopic').value = q.topic;
+  document.getElementById('editYear').value = q.year || '';
+  document.getElementById('editQnum').value = q.qnum || '';
+  document.getElementById('editDifficulty').value = q.difficulty || 'medium';
+  document.getElementById('editSourcePaper').value = q.sourcePaper || '卷一';
+  document.getElementById('editQuestion').value = q.question || '';
+  if (q.options && q.options.length === 4) {
+    document.getElementById('editOptA').value = q.options[0];
+    document.getElementById('editOptB').value = q.options[1];
+    document.getElementById('editOptC').value = q.options[2];
+    document.getElementById('editOptD').value = q.options[3];
+  }
+  document.getElementById('editAnswer').value = q.answer;
+  document.getElementById('editExplanation').value = q.explanation || '';
+  document.getElementById('editMarking').value = q.markingNotes || '';
+  document.getElementById('editModal').classList.add('show');
+}
+
+function addNewQuestion() {
+  // Find next available QID
+  const existingIds = new Set(gQuestions.map(q => q.qid));
+  let nextNum = gQuestions.length + 1;
+  while (existingIds.has('ICT-' + String(nextNum).padStart(3, '0'))) nextNum++;
+
+  document.getElementById('modalTitle').textContent = '新增題目';
+  document.getElementById('editQid').value = '';
+  document.getElementById('editIndex').value = '-1';
+  document.getElementById('editQidInput').value = 'ICT-' + String(nextNum).padStart(3, '0');
+  document.getElementById('editTopic').value = '1';
+  document.getElementById('editYear').value = '2024';
+  document.getElementById('editQnum').value = '';
+  document.getElementById('editDifficulty').value = 'medium';
+  document.getElementById('editSourcePaper').value = '卷一';
+  document.getElementById('editQuestion').value = '';
+  document.getElementById('editOptA').value = 'A. ';
+  document.getElementById('editOptB').value = 'B. ';
+  document.getElementById('editOptC').value = 'C. ';
+  document.getElementById('editOptD').value = 'D. ';
+  document.getElementById('editAnswer').value = '0';
+  document.getElementById('editExplanation').value = '';
+  document.getElementById('editMarking').value = '';
+  document.getElementById('editModal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('editModal').classList.remove('show');
+}
+
+function saveQuestion() {
+  const index = parseInt(document.getElementById('editIndex').value);
+  const qid = document.getElementById('editQidInput').value.trim();
+
+  if (!qid) { alert('請輸入題目ID'); return; }
+
+  const questionData = {
+    qid: qid,
+    topic: parseInt(document.getElementById('editTopic').value),
+    year: parseInt(document.getElementById('editYear').value) || null,
+    qnum: parseInt(document.getElementById('editQnum').value) || null,
+    sourceType: 'mc',
+    sourcePaper: document.getElementById('editSourcePaper').value.trim() || '卷一',
+    difficulty: document.getElementById('editDifficulty').value,
+    question: document.getElementById('editQuestion').value.trim(),
+    options: [
+      document.getElementById('editOptA').value.trim(),
+      document.getElementById('editOptB').value.trim(),
+      document.getElementById('editOptC').value.trim(),
+      document.getElementById('editOptD').value.trim()
+    ],
+    answer: parseInt(document.getElementById('editAnswer').value),
+    explanation: document.getElementById('editExplanation').value.trim(),
+    markingNotes: document.getElementById('editMarking').value.trim(),
+    lastUpdated: new Date().toISOString().split('T')[0]
+  };
+
+  if (index >= 0) {
+    // Update existing
+    gQuestions[index] = questionData;
+    showStatus('ok', '已更新題目 ' + qid);
+  } else {
+    // Add new
+    gQuestions.push(questionData);
+    showStatus('ok', '已新增題目 ' + qid);
+  }
+
+  closeModal();
+  renderTable();
+}
+
+function deleteQuestion(index) {
+  const q = gQuestions[index];
+  if (!confirm('確定要刪除題目 ' + q.qid + '？\n\n題目：' + q.question.substring(0, 100) + '\n\n此操作無法還原。')) return;
+  gQuestions.splice(index, 1);
+  showStatus('ok', '已刪除題目 ' + q.qid);
+  renderTable();
+}
+
+// ============ IMPORT / EXPORT ============
+function exportJSON() {
+  const data = JSON.stringify(gQuestions, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'questions-ict.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showStatus('ok', `已匯出 ${gQuestions.length} 題為 questions-ict.json`);
+}
+
+function loadFromJSON() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!Array.isArray(data)) throw new Error('JSON必須是陣列格式');
+      gQuestions = data;
+      gSourceFile = file.name;
+      document.getElementById('fileInfo').textContent = '📄 ' + file.name + ' · ' + gQuestions.length + ' 題';
+      showStatus('ok', '已載入 ' + file.name + ' (' + gQuestions.length + ' 題)');
+      renderTable();
+    } catch (err) {
+      showStatus('err', '載入失敗: ' + err.message);
+    }
+  };
+  input.click();
+}
+
+// ============ VALIDATION ============
+function validateAllQuestions() {
+  const errors = [];
+  const seenQids = new Set();
+
+  for (let i = 0; i < gQuestions.length; i++) {
+    const q = gQuestions[i];
+    if (!q.qid) errors.push(`Q[${i}]: 缺少 qid`);
+    else if (seenQids.has(q.qid)) errors.push(`Q[${i}]: qid "${q.qid}" 重複`);
+    else seenQids.add(q.qid);
+
+    if (q.topic < 1 || q.topic > 8) errors.push(`${q.qid||'Q['+i+']'}: 課題超出範圍 (${q.topic})`);
+    if (!q.question) errors.push(`${q.qid||'Q['+i+']'}: 缺少題目文字`);
+    if (!q.options || q.options.length !== 4) errors.push(`${q.qid||'Q['+i+']'}: 選項數量不正確`);
+    if (q.answer < 0 || q.answer > 3) errors.push(`${q.qid||'Q['+i+']'}: 答案超出範圍`);
+    if (q.difficulty && !['easy','medium','hard'].includes(q.difficulty)) errors.push(`${q.qid||'Q['+i+']'}: 難度無效`);
+  }
+
+  if (errors.length === 0) {
+    showStatus('ok', '✅ 所有 ' + gQuestions.length + ' 題驗證通過！');
+  } else {
+    showStatus('err', '❌ 發現 ' + errors.length + ' 個問題：' + errors.slice(0, 10).join('; ') + (errors.length > 10 ? '…' : ''));
+  }
+}
+
+// Start
+init();
+</script>
+
+</body>
+</html>

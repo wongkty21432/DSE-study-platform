@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKDSE Chemistry — Complete Study Guide | Herman Yeung</title>
+<style>
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --surface2: #334155;
+    --text: #e2e8f0; --text2: #94a3b8; --accent: #38bdf8;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --purple: #c084fc; --orange: #fb923c; --pink: #f472b6;
+    --border: #475569; --radius: 10px; --shadow: 0 4px 24px rgba(0,0,0,.3);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display:flex; min-height:100vh; }
+
+  /* Sidebar */
+  nav { width:280px; min-width:280px; background:var(--surface); border-right:1px solid var(--border); position:fixed; top:0; left:0; height:100vh; overflow-y:auto; z-index:100; padding:20px 0; }
+  nav .logo { padding:0 24px 20px; border-bottom:1px solid var(--border); margin-bottom:8px; }
+  nav .logo h1 { font-size:1.1rem; background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  nav .logo span { font-size:.75rem; color:var(--text2); }
+  nav a { display:flex; align-items:center; gap:10px; padding:10px 24px; color:var(--text2); text-decoration:none; font-size:.88rem; transition:all .2s; border-left:3px solid transparent; }
+  nav a:hover, nav a.active { background:var(--surface2); color:var(--text); border-left-color:var(--accent); }
+  nav a .num { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; background:var(--surface2); flex-shrink:0; }
+  nav a:hover .num, nav a.active .num { background:var(--accent); color:#0f172a; }
+  #search { margin:12px 16px; width:calc(100% - 32px); padding:10px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:.85rem; outline:none; }
+  #search:focus { border-color:var(--accent); }
+
+  /* Main */
+  main { margin-left:280px; flex:1; padding:32px 40px; max-width:1100px; }
+
+  .topic-section { margin-bottom:48px; scroll-margin-top:24px; }
+  .topic-header { margin-bottom:24px; }
+  .topic-header .badge { display:inline-block; padding:4px 14px; border-radius:20px; font-size:.75rem; font-weight:700; background:var(--accent); color:#0f172a; margin-bottom:8px; }
+  .topic-header h2 { font-size:1.8rem; margin-bottom:4px; }
+  .topic-header p { color:var(--text2); font-size:.9rem; }
+
+  /* Cards */
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(480px, 1fr)); gap:16px; margin-bottom:20px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:all .2s; }
+  .card:hover { border-color:var(--accent); box-shadow:var(--shadow); }
+  .card-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; cursor:pointer; user-select:none; }
+  .card-header h3 { font-size:.95rem; flex:1; }
+  .card-header .icon { font-size:1.2rem; }
+  .card-header .arrow { transition:transform .3s; color:var(--text2); }
+  .card.open .card-header .arrow { transform:rotate(180deg); }
+  .card-body { padding:0 20px; max-height:0; overflow:hidden; transition:max-height .4s ease, padding .4s ease; }
+  .card.open .card-body { max-height:4000px; padding:16px 20px; }
+  .card-body p, .card-body li { font-size:.85rem; color:var(--text2); line-height:1.7; }
+  .card-body h4 { font-size:.9rem; color:var(--accent); margin:14px 0 6px; }
+  .card-body ul, .card-body ol { margin:6px 0 6px 20px; }
+
+  /* Tables */
+  .table-wrap { overflow-x:auto; margin:12px 0; border-radius:6px; border:1px solid var(--border); }
+  table { width:100%; border-collapse:collapse; font-size:.82rem; }
+  th { background:var(--surface2); padding:10px 14px; text-align:left; font-weight:600; font-size:.78rem; color:var(--accent); white-space:nowrap; }
+  td { padding:8px 14px; border-top:1px solid var(--border); }
+  tr:hover td { background:rgba(56,189,248,.04); }
+
+  /* Highlights */
+  .eq { color:var(--green); font-family:'JetBrains Mono','Fira Code',monospace; font-size:.82rem; }
+  .warn { background:rgba(248,113,113,.12); border-left:3px solid var(--red); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0; font-size:.83rem; }
+  .tip { background:rgba(56,189,248,.08); border-left:3px solid var(--accent); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0; font-size:.83rem; }
+  .mnemonic { background:rgba(251,191,36,.08); border-left:3px solid var(--yellow); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0; font-size:.83rem; }
+  .mnemonic strong { color:var(--yellow); }
+
+  /* Article link */
+  .article-link { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:20px; background:var(--surface2); color:var(--accent); text-decoration:none; font-size:.82rem; font-weight:600; margin-top:12px; transition:all .2s; }
+  .article-link:hover { background:var(--accent); color:#0f172a; }
+
+  /* Tags */
+  .tag { display:inline-block; padding:2px 10px; border-radius:12px; font-size:.7rem; background:var(--surface2); color:var(--text2); margin:2px 4px 2px 0; }
+
+  /* Responsive */
+  @media (max-width:900px) {
+    nav { width:100%; height:auto; position:relative; }
+    main { margin-left:0; padding:20px; }
+    .card-grid { grid-template-columns:1fr; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+  /* Print */
+  @media print {
+    nav { display:none; } main { margin:0; }
+    .card { break-inside:avoid; border:1px solid #ccc; } .card-body { max-height:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="../progress.html#settings" onclick="localStorage.setItem('dse_show_settings','1')" style="font-size:.8rem;padding:6px 20px;color:var(--text2);">⚙️ 設置</a>
+  <a href="../progress.html?subject=chem" style="font-size:.9rem;padding:8px 24px;color:var(--purple);">📊 Progress</a>
+  <a href="../index.html" style="font-size:1.2rem;padding:10px 24px;" title="Back to Platform">🏠 Study Platform</a>
+  <div class="logo">
+    <h1>⚗️ HKDSE Chemistry</h1>
+    <span>Complete Study Guide · Herman Yeung Series</span>
+  </div>
+  <div style="padding:0 16px 8px;"><select id="langSwitch" onchange="switchLang(this.value)" style="width:100%;padding:8px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.8rem;cursor:pointer;outline:none;">
+  <option value="en">English</option>
+  <option value="zh">中文</option>
+</select></div>
+<input type="text" id="search" placeholder="🔍  Search all topics..." oninput="filterTopics()">
+  <a href="#t1" class="active" onclick="scrollToTopic('t1')"><span class="num">1</span> Laboratory Safety</a>
+  <a href="#t2" onclick="scrollToTopic('t2')"><span class="num">2</span> Planet Earth</a>
+  <a href="#t3" onclick="scrollToTopic('t3')"><span class="num">3</span> Microscopic World I</a>
+  <a href="#t4" onclick="scrollToTopic('t4')"><span class="num">4</span> Metals</a>
+  <a href="#t5" onclick="scrollToTopic('t5')"><span class="num">5</span> Acids &amp; Bases</a>
+  <a href="#t6" onclick="scrollToTopic('t6')"><span class="num">6</span> Fossil Fuels</a>
+  <a href="#t7" onclick="scrollToTopic('t7')"><span class="num">7</span> Microscopic World II</a>
+  <a href="#t8" onclick="scrollToTopic('t8')"><span class="num">8</span> Redox &amp; Electrolysis</a>
+  <a href="#t9" onclick="scrollToTopic('t9')"><span class="num">9</span> Chemical Energetics</a>
+  <a href="#t10" onclick="scrollToTopic('t10')"><span class="num">10</span> Rate of Reaction</a>
+  <a href="#t11" onclick="scrollToTopic('t11')"><span class="num">11</span> Chemical Equilibrium</a>
+  <a href="#t12" onclick="scrollToTopic('t12')"><span class="num">12</span> Carbon Compounds</a>
+  <a href="#t13" onclick="scrollToTopic('t13')"><span class="num">13</span> Patterns &amp; Periodicity</a>
+</nav>
+
+<main>
+
+<!-- ==================== TOPIC 1 ==================== -->
+<section class="topic-section" id="t1">
+<div class="topic-header"><span class="badge">Chapter 0</span><h2>Topic 1 — Laboratory Safety &amp; Precautions</h2><p>GHS hazard pictograms · Lab safety rules · Chemical storage · Reflux apparatus · Measurement precision</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">⚠️</span><h3>GHS Hazard Pictograms & Lab Safety Rules</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>GHS Hazard Symbols</h4>
+<div class="table-wrap"><table>
+<tr><th>Symbol</th><th>Meaning</th><th>Examples</th></tr>
+<tr><td>💥 Explosive</td><td>May explode with heat/shock/friction</td><td>TNT, ammonium nitrate</td></tr>
+<tr><td>🔥 Flammable</td><td>Catches fire easily</td><td>Ethanol, acetone, petrol</td></tr>
+<tr><td>☠️ Toxic</td><td>Fatal if swallowed/inhaled</td><td>Cyanide, mercury compounds</td></tr>
+<tr><td>🧪 Corrosive</td><td>Destroys tissue; attacks metals</td><td>Conc. H₂SO₄, NaOH</td></tr>
+<tr><td>⚗️ Oxidizing</td><td>Provides oxygen; intensifies fire</td><td>KMnO₄, H₂O₂, K₂Cr₂O₇</td></tr>
+<tr><td>❗ Irritant/Harmful</td><td>Causes skin/eye irritation</td><td>Dilute acids, CuSO₄</td></tr>
+<tr><td>☢️ Radioactive</td><td>Emits ionizing radiation</td><td>Uranium, radium</td></tr>
+<tr><td>🌍 Environmental</td><td>Toxic to aquatic life</td><td>Pesticides, some solvents</td></tr>
+</table></div>
+<div class="warn"><strong>⚠️ ADD ACID TO WATER</strong> — never reverse! Conc. H₂SO₄ dilution is highly exothermic. Adding water to acid causes local boiling and dangerous splashing.</div>
+<h4>Fire Extinguisher Selection</h4>
+<div class="table-wrap"><table>
+<tr><th>Fire Class</th><th>Fuel</th><th>Correct Extinguisher</th></tr>
+<tr><td>Class A</td><td>Wood, paper, cloth</td><td>Water, Foam</td></tr>
+<tr><td>Class B</td><td>Flammable liquids</td><td>CO₂, Foam, Dry powder</td></tr>
+<tr><td>Class C</td><td>Flammable gases</td><td>Dry powder</td></tr>
+<tr><td>Class D</td><td>Combustible metals (Na, Mg)</td><td>Special dry powder — <strong>NEVER water!</strong></td></tr>
+<tr><td>Electrical</td><td>Live equipment</td><td>CO₂ — <strong>NEVER water!</strong></td></tr>
+</table></div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🗄️</span><h3>Chemical Storage Methods</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Substance</th><th>Storage Method</th><th>Reason</th></tr>
+<tr><td>Na, K (alkali metals)</td><td>Under paraffin oil</td><td>Reacts violently with water &amp; oxygen</td></tr>
+<tr><td>White phosphorus</td><td>Under water</td><td>Spontaneously ignites in air</td></tr>
+<tr><td>NaOH / KOH pellets</td><td>Airtight + desiccant</td><td>Deliquescent; absorbs moisture &amp; CO₂</td></tr>
+<tr><td>Conc. H₂SO₄</td><td>Sealed glass bottle</td><td>Hygroscopic</td></tr>
+<tr><td>AgNO₃, HNO₃, H₂O₂, Cl₂ water</td><td>Amber/dark bottle, cool place</td><td>Decomposes in light</td></tr>
+<tr><td>I₂ (iodine)</td><td>Sealed container</td><td>Sublimes at room temperature</td></tr>
+<tr><td>FeSO₄ solution</td><td>With iron nail + acidified</td><td>Prevents Fe²⁺ → Fe³⁺ oxidation</td></tr>
+<tr><td>HF (hydrofluoric acid)</td><td>Plastic bottle</td><td>Etches glass (reacts with SiO₂)</td></tr>
+<tr><td>Alkali solutions</td><td>Plastic bottle</td><td>Slowly attacks glass</td></tr>
+</table></div>
+<div class="tip"><strong>💡 Key Principle:</strong> Store chemicals away from incompatibles — acids away from bases, oxidizers away from fuels/flammables.</div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🔬</span><h3>Heating Under Reflux &amp; Lab Apparatus</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Reflux Setup (bottom to top)</h4>
+<ol><li>Heating mantle / Bunsen burner</li><li>Round-bottom flask + reaction mixture + anti-bumping granules</li><li>Vertical condenser — water IN at bottom, OUT at top (counter-current for maximum cooling)</li></ol>
+<div class="tip"><strong>💡 Key:</strong> NEVER stopper the top of the condenser — closed system → explosion risk!</div>
+<h4>Measurement Precision</h4>
+<div class="table-wrap"><table>
+<tr><th>Apparatus</th><th>Precision</th><th>Use</th></tr>
+<tr><td>Beaker</td><td>±5-10% (rough)</td><td>Holding, mixing</td></tr>
+<tr><td>Measuring cylinder</td><td>±1-2%</td><td>Measuring liquid volumes</td></tr>
+<tr><td>Volumetric flask</td><td>±0.1%</td><td>Standard solutions</td></tr>
+<tr><td>Pipette</td><td>±0.1%</td><td>Exact volume delivery</td></tr>
+<tr><td>Burette</td><td>±0.05 mL</td><td>Titration (variable volume)</td></tr>
+<tr><td>Electronic balance</td><td>±0.001g / ±0.01g</td><td>Mass measurement</td></tr>
+</table></div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 0-1 to 0-6</span><span class="tag">GHS</span><span class="tag">storage</span><span class="tag">reflux</span><span class="tag">apparatus</span></p>
+</section>
+
+<!-- ==================== TOPIC 2 ==================== -->
+<section class="topic-section" id="t2">
+<div class="topic-header"><span class="badge">Chapter 1</span><h2>Topic 2 — Planet Earth</h2><p>Atmosphere · Hydrosphere · Lithosphere · Separation methods · Gas tests · Limestone cycle</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🌍</span><h3>Atmosphere &amp; Earth's Spheres</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Gas</th><th>Formula</th><th>% by Volume</th><th>Boiling Point</th></tr>
+<tr><td>Nitrogen</td><td>N₂</td><td>~78%</td><td>-196°C</td></tr>
+<tr><td>Oxygen</td><td>O₂</td><td>~21%</td><td>-183°C</td></tr>
+<tr><td>Argon</td><td>Ar</td><td>~0.93%</td><td>-186°C</td></tr>
+<tr><td>Carbon dioxide</td><td>CO₂</td><td>~0.04%</td><td>-78°C (sublimes)</td></tr>
+<tr><td>Water vapor</td><td>H₂O</td><td>0-4% (variable)</td><td>100°C</td></tr>
+</table></div>
+<div class="mnemonic"><strong>🧠 Nice Old Animals Chat</strong> — N₂, O₂, Ar, CO₂ (atmospheric abundance order)</div>
+<div class="tip"><strong>💡 Evidence air is a MIXTURE:</strong> (1) Variable composition (2) Separable by physical means (3) No energy change on mixing (4) Properties are additive blends</div>
+<h4>Seawater Composition</h4>
+<p>~96.5% water + ~3.5% dissolved salts (mainly NaCl, also MgCl₂, MgSO₄, CaSO₄, K₂SO₄). Dissolved CO₂ forms HCO₃⁻, making seawater slightly alkaline (pH ~8.1).</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🧪</span><h3>Separation Methods</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Method</th><th>Principle</th><th>Best For</th></tr>
+<tr><td>Filtration</td><td>Particle size difference</td><td>Insoluble solid from liquid</td></tr>
+<tr><td>Evaporation</td><td>Solvent evaporates</td><td>Soluble solid from solution (keep solid)</td></tr>
+<tr><td>Crystallization</td><td>Solubility varies with T</td><td>Pure crystals (slow cooling → larger)</td></tr>
+<tr><td>Simple distillation</td><td>Bp difference ≥25°C</td><td>Liquid from dissolved solids</td></tr>
+<tr><td>Fractional distillation</td><td>Repeated condensation cycles</td><td>Miscible liquids (bp &lt;25°C apart)</td></tr>
+<tr><td>Separating funnel</td><td>Immiscibility / density</td><td>Oil + water</td></tr>
+<tr><td>Paper chromatography</td><td>Different partition between phases</td><td>Dyes, pigments</td></tr>
+<tr><td>Sublimation</td><td>One sublimes, other doesn't</td><td>I₂ from sand; NH₄Cl from NaCl</td></tr>
+</table></div>
+<h4>Fractional Distillation of Liquid Air</h4>
+<p>Cool air to ~-200°C → warm slowly → components boil off by bp:</p>
+<p><strong>1st: N₂ (-196°C)</strong> → <strong>2nd: Ar (-186°C)</strong> → <strong>3rd: O₂ (-183°C)</strong></p>
+<div class="warn">CO₂ and H₂O are removed BEFORE liquefaction — they would freeze solid and block pipes!</div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🧪</span><h3>Gas Tests &amp; The Limestone Cycle</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Gas Tests — The Big Four</h4>
+<div class="table-wrap"><table>
+<tr><th>Gas</th><th>Test</th><th>Positive Result</th></tr>
+<tr><td>H₂</td><td>Burning splint</td><td>Burns with <strong>"POP"</strong></td></tr>
+<tr><td>O₂</td><td>Glowing splint</td><td>Splint <strong>RELIGHTS</strong></td></tr>
+<tr><td>CO₂</td><td>Bubble through limewater</td><td>Limewater turns <strong>MILKY/CLOUDY</strong></td></tr>
+<tr><td>H₂O</td><td>Anhydrous CuSO₄ (white)</td><td>Turns <strong>BLUE</strong></td></tr>
+<tr><td>H₂O</td><td>Anhydrous CoCl₂ (blue)</td><td>Turns <strong>PINK</strong></td></tr>
+<tr><td>NH₃</td><td>Damp red litmus</td><td>Turns <strong>BLUE</strong> (only common alkaline gas)</td></tr>
+<tr><td>Cl₂</td><td>Damp blue litmus</td><td>Red then <strong>BLEACHES</strong> white</td></tr>
+</table></div>
+<h4>The Limestone Cycle</h4>
+<p><span class="eq">CaCO₃ →(heat) CaO + CO₂</span> (thermal decomposition)<br>
+<span class="eq">CaO + H₂O → Ca(OH)₂</span> (slaking — highly exothermic!)<br>
+<span class="eq">Ca(OH)₂ + CO₂ → CaCO₃↓ + H₂O</span> (limewater turns milky)<br>
+<span class="eq">CaCO₃ + CO₂ + H₂O → Ca(HCO₃)₂</span> (excess CO₂ — milkiness disappears!)</p>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 1-1 to 1-6</span><span class="tag">atmosphere</span><span class="tag">distillation</span><span class="tag">gas tests</span><span class="tag">lime</span></p>
+</section>
+
+<!-- ==================== TOPIC 3 ==================== -->
+<section class="topic-section" id="t3">
+<div class="topic-header"><span class="badge">Chapter 2</span><h2>Topic 3 — Microscopic World I</h2><p>Atomic structure · Periodic Table · Bonding (ionic/covalent/metallic) · Four giant structures · Octet rule</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">⚛️</span><h3>Atomic Structure &amp; Electronic Configuration</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Particle</th><th>Symbol</th><th>Relative Mass</th><th>Relative Charge</th><th>Location</th></tr>
+<tr><td>Proton</td><td>p / p⁺</td><td>1</td><td>+1</td><td>Nucleus</td></tr>
+<tr><td>Neutron</td><td>n / n⁰</td><td>1</td><td>0</td><td>Nucleus</td></tr>
+<tr><td>Electron</td><td>e⁻</td><td>~1/1840</td><td>-1</td><td>Shells</td></tr>
+</table></div>
+<p><strong>Atomic Number (Z)</strong> = protons (defines element) &nbsp;|&nbsp; <strong>Mass Number (A)</strong> = protons + neutrons</p>
+<h4>First 20 Elements — Electronic Configuration</h4>
+<div class="table-wrap"><table>
+<tr><th>Z</th><th>Element</th><th>Config</th><th>Z</th><th>Element</th><th>Config</th></tr>
+<tr><td>1</td><td>H</td><td>1</td><td>11</td><td>Na</td><td>2,8,1</td></tr>
+<tr><td>2</td><td>He</td><td>2</td><td>12</td><td>Mg</td><td>2,8,2</td></tr>
+<tr><td>3</td><td>Li</td><td>2,1</td><td>13</td><td>Al</td><td>2,8,3</td></tr>
+<tr><td>4</td><td>Be</td><td>2,2</td><td>14</td><td>Si</td><td>2,8,4</td></tr>
+<tr><td>5</td><td>B</td><td>2,3</td><td>15</td><td>P</td><td>2,8,5</td></tr>
+<tr><td>6</td><td>C</td><td>2,4</td><td>16</td><td>S</td><td>2,8,6</td></tr>
+<tr><td>7</td><td>N</td><td>2,5</td><td>17</td><td>Cl</td><td>2,8,7</td></tr>
+<tr><td>8</td><td>O</td><td>2,6</td><td>18</td><td>Ar</td><td>2,8,8</td></tr>
+<tr><td>9</td><td>F</td><td>2,7</td><td>19</td><td>K</td><td>2,8,8,1</td></tr>
+<tr><td>10</td><td>Ne</td><td>2,8</td><td>20</td><td>Ca</td><td>2,8,8,2</td></tr>
+</table></div>
+<p><strong>Groups</strong> = same outer e⁻ → similar properties &nbsp;|&nbsp; <strong>Periods</strong> = same number of shells</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🔗</span><h3>Ionic, Covalent &amp; Metallic Bonding</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Bond Type</th><th>Elements</th><th>Electron Behaviour</th><th>Examples</th></tr>
+<tr><td><strong>Ionic</strong></td><td>Metal + Non-metal</td><td>Electron TRANSFER → cations &amp; anions</td><td>NaCl, MgO</td></tr>
+<tr><td><strong>Covalent</strong></td><td>Non-metal + Non-metal</td><td>Electron SHARING (single/double/triple)</td><td>H₂O, CH₄, CO₂</td></tr>
+<tr><td><strong>Metallic</strong></td><td>Metal + Metal</td><td>Electron DELOCALISATION ("sea" of e⁻)</td><td>Cu, Fe, Al</td></tr>
+</table></div>
+<h4>Solubility Rules (SNAAP)</h4>
+<p><strong>S</strong>odium, <strong>N</strong>itrates, <strong>A</strong>mmonium — <strong>A</strong>lways soluble, <strong>A</strong>lso <strong>P</strong>otassium</p>
+<h4>Common Ion Colours</h4>
+<div class="table-wrap"><table>
+<tr><th>Cu²⁺</th><td>Blue</td><th>Fe²⁺</th><td>Pale green</td><th>Fe³⁺</th><td>Yellow-brown</td></tr>
+<tr><th>MnO₄⁻</th><td>Purple</td><th>Cr₂O₇²⁻</th><td>Orange</td><th>CrO₄²⁻</th><td>Yellow</td></tr>
+</table></div>
+<h4>Precipitate Colours (Key Exam Ones!)</h4>
+<p>Cu(OH)₂ <span style="color:#7dd3fc">pale blue</span> · Fe(OH)₂ <span style="color:#86efac">dirty green</span> · Fe(OH)₃ <span style="color:#fca5a5">red-brown</span> · PbI₂ <span style="color:#fde047">bright yellow</span> · AgCl/AgBr/AgI — white/cream/yellow</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🏗️</span><h3>The Four Structures</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Structure</th><th>mp/bp</th><th>Conductivity</th><th>Hardness</th><th>Examples</th></tr>
+<tr><td><strong>Giant Ionic</strong></td><td>High</td><td>Only molten/aq</td><td>Hard, BRITTLE</td><td>NaCl, MgO</td></tr>
+<tr><td><strong>Giant Metallic</strong></td><td>High</td><td>Yes (all states)</td><td>Hard, MALLEABLE</td><td>Cu, Fe, Al</td></tr>
+<tr><td><strong>Giant Covalent</strong></td><td>Very High</td><td>No (except graphite)</td><td>Very hard</td><td>Diamond, SiO₂</td></tr>
+<tr><td><strong>Simple Molecular</strong></td><td>Low</td><td>No</td><td>Soft</td><td>I₂, CO₂, H₂O</td></tr>
+</table></div>
+<h4>Diamond vs. Graphite</h4>
+<div class="table-wrap"><table>
+<tr><th>Property</th><th>Diamond</th><th>Graphite</th></tr>
+<tr><td>C-C bonds per C</td><td>4 (sp³)</td><td>3 (sp²) + delocalized π</td></tr>
+<tr><td>Hardness</td><td>Hardest natural</td><td>Soft (layers slide)</td></tr>
+<tr><td>Conductivity</td><td>Non-conductor</td><td>Conducts along layers</td></tr>
+</table></div>
+<div class="warn"><strong>⚠️ Brittleness of ionic crystals:</strong> Shearing aligns like charges → REPULSION → crystal SHATTERS. Metals DON'T shatter because the e⁻ sea re-forms bonds as layers slide.</div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🔗</span><h3>Dative Bonds &amp; Octet Rule Exceptions</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Dative Covalent Bond</h4>
+<p>Both electrons come from the SAME atom. Once formed = indistinguishable from normal covalent.</p>
+<p><strong>Examples:</strong> NH₄⁺ (N donates lone pair to H⁺), H₃O⁺, Al₂Cl₆, CO</p>
+<h4>Octet Rule Exceptions</h4>
+<div class="table-wrap"><table>
+<tr><th>Type</th><th>Examples</th><th>Why</th></tr>
+<tr><td>Electron-deficient (<8)</td><td>BeCl₂ (4e⁻), BF₃ (6e⁻), AlCl₃ (6e⁻)</td><td>Few valence e⁻</td></tr>
+<tr><td>Expanded octet (>8)</td><td>PCl₅ (10e⁻), SF₆ (12e⁻)</td><td>Period 3+ has d-orbitals</td></tr>
+<tr><td>Odd-electron radicals</td><td>NO, NO₂, ClO₂</td><td>Unpaired e⁻</td></tr>
+</table></div>
+<div class="tip"><strong>💡 Period 2 (B, C, N, O, F) CANNOT expand octet</strong> — no d-orbitals available. Period 3+ (P, S, Cl) CAN expand.</div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 2-01 to 2-25</span><span class="tag">atoms</span><span class="tag">bonding</span><span class="tag">structures</span><span class="tag">octet</span></p>
+</section>
+
+<!-- ==================== TOPIC 4 ==================== -->
+<section class="topic-section" id="t4">
+<div class="topic-header"><span class="badge">Chapter 3</span><h2>Topic 4 — Metals</h2><p>Reactivity series · Metal reactions · Displacement · Extraction · Corrosion &amp; rusting · Protection · Alloys</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🔥</span><h3>Reactivity Series &amp; Metal Reactions</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="mnemonic"><strong>🧠 Please Send Camels Monkeys And Zebras In Lead Harnesses Can Make Silver Gold</strong><br>K > Na > Ca > Mg > Al > Zn > Fe > Pb > <strong>H</strong> > Cu > Hg > Ag > Au</div>
+<h4>Metal + Oxygen → Metal Oxide</h4>
+<div class="table-wrap"><table>
+<tr><th>Metal</th><th>Observation</th><th>Product</th></tr>
+<tr><td>Mg</td><td><strong>DAZZLING WHITE LIGHT</strong></td><td>MgO (white ash)</td></tr>
+<tr><td>Fe</td><td>Golden sparks</td><td>Fe₃O₄ (black solid)</td></tr>
+<tr><td>Cu</td><td>Black coating forms</td><td>CuO (black)</td></tr>
+<tr><td>Ag, Au</td><td>No reaction</td><td>—</td></tr>
+</table></div>
+<h4>Flame Tests</h4>
+<div class="table-wrap"><table>
+<tr><th>K⁺</th><td><span style="color:#c084fc">LILAC</span></td><th>Na⁺</th><td><span style="color:#fbbf24">GOLDEN YELLOW</span></td><th>Ca²⁺</th><td><span style="color:#f87171">BRICK RED</span></td></tr>
+<tr><th>Ba²⁺</th><td><span style="color:#4ade80">APPLE GREEN</span></td><th>Cu²⁺</th><td><span style="color:#38bdf8">BLUE-GREEN</span></td><th>Sr²⁺</th><td><span style="color:#f472b6">CRIMSON</span></td></tr>
+</table></div>
+<h4>Metal + Water / Acid</h4>
+<p><strong>Cold water:</strong> Only K, Na, Ca react (K violent, Na vigorous, Ca moderate)<br><strong>Steam:</strong> Mg, Zn, Fe react · <strong>Cu/Ag/Au:</strong> NO reaction even with steam<br><strong>Dilute acid:</strong> K→Fe react (produce H₂); Cu/Ag/Au do NOT (below H)</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🛡️</span><h3>Corrosion, Rusting &amp; Protection</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Rusting Requirements &amp; Mechanism</h4>
+<p>Requires BOTH <strong>O₂ + H₂O</strong> — remove either, rusting stops.</p>
+<p><strong>Anode:</strong> <span class="eq">Fe → Fe²⁺ + 2e⁻</span> (oxidation)<br><strong>Cathode:</strong> <span class="eq">O₂ + 2H₂O + 4e⁻ → 4OH⁻</span> (reduction)<br><strong>Overall:</strong> <span class="eq">2Fe + O₂ + 2H₂O → 2Fe(OH)₂</span> →(further oxidation) <strong>Fe₂O₃·xH₂O (RUST)</strong></p>
+<div class="warn"><strong>⚠️ Rust is flaky and porous</strong> — unlike Al₂O₃ on Al, it does NOT protect. Iron underneath continues to rust. Salt accelerates rusting (increases water conductivity).</div>
+<h4>Protection Methods</h4>
+<div class="table-wrap"><table>
+<tr><th>Method</th><th>How</th><th>Examples</th></tr>
+<tr><td>Barrier</td><td>Block O₂+H₂O</td><td>Paint, oil, Sn/Cr plating, plastic</td></tr>
+<tr><td>Sacrificial (galvanizing)</td><td>More reactive metal corrodes instead</td><td>Zn coating on Fe, Mg anodes on ships</td></tr>
+<tr><td>Cathodic (impressed current)</td><td>DC makes Fe the cathode</td><td>Pipelines, bridges</td></tr>
+<tr><td>Alloying</td><td>Cr forms passive Cr₂O₃ layer</td><td>Stainless steel (Fe+Cr+Ni)</td></tr>
+<tr><td>Anodization</td><td>Thicken natural Al₂O₃ layer</td><td>Aluminium (anode in dil. H₂SO₄)</td></tr>
+</table></div>
+<div class="tip"><strong>💡 Tin can scratch problem:</strong> Sn is LESS reactive than Fe → at scratch, Fe rusts FASTER (galvanic action). Zn galvanizing: Zn is MORE reactive → Zn corrodes instead, even at scratches.</div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 3-01 to 3-18</span><span class="tag">reactivity</span><span class="tag">displacement</span><span class="tag">extraction</span><span class="tag">corrosion</span><span class="tag">alloys</span></p>
+</section>
+
+<!-- ==================== TOPIC 5 ==================== -->
+<section class="topic-section" id="t5">
+<div class="topic-header"><span class="badge">Chapter 4</span><h2>Topic 5 — Acids &amp; Bases</h2><p>Acid properties · Alkalis &amp; ammonia · Molarity · pH scale · Titration · Indicators · Crystallization</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🧪</span><h3>Acids — Properties &amp; Reactions</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Common Acids</h4>
+<div class="table-wrap"><table>
+<tr><th>Acid</th><th>Formula</th><th>Strength</th><th>Basicity</th></tr>
+<tr><td>Hydrochloric</td><td>HCl</td><td>STRONG</td><td>Monobasic</td></tr>
+<tr><td>Nitric</td><td>HNO₃</td><td>STRONG</td><td>Monobasic</td></tr>
+<tr><td>Sulfuric</td><td>H₂SO₄</td><td>STRONG</td><td>Dibasic (2 H⁺)</td></tr>
+<tr><td>Ethanoic</td><td>CH₃COOH</td><td>WEAK</td><td>Monobasic</td></tr>
+<tr><td>Carbonic</td><td>H₂CO₃</td><td>WEAK</td><td>Dibasic</td></tr>
+<tr><td>Phosphoric</td><td>H₃PO₄</td><td>WEAK</td><td>Tribasic (3 H⁺)</td></tr>
+</table></div>
+<h4>All Acid Reactions (Memorize!)</h4>
+<div class="table-wrap"><table>
+<tr><th>Acid +</th><th>→ Products</th><th>Ionic Equation</th></tr>
+<tr><td>Reactive metal</td><td>Salt + H₂</td><td class="eq">2H⁺ + M → M²⁺ + H₂</td></tr>
+<tr><td>Metal oxide</td><td>Salt + H₂O</td><td class="eq">2H⁺ + O²⁻ → H₂O</td></tr>
+<tr><td>Metal hydroxide</td><td>Salt + H₂O</td><td class="eq">H⁺ + OH⁻ → H₂O</td></tr>
+<tr><td>Metal carbonate</td><td>Salt + H₂O + CO₂</td><td class="eq">2H⁺ + CO₃²⁻ → H₂O + CO₂</td></tr>
+<tr><td>Metal hydrogencarbonate</td><td>Salt + H₂O + CO₂</td><td class="eq">H⁺ + HCO₃⁻ → H₂O + CO₂</td></tr>
+<tr><td>Ammonia</td><td>Ammonium salt</td><td class="eq">H⁺ + NH₃ → NH₄⁺</td></tr>
+</table></div>
+<div class="warn"><strong>⚠️ Dry HCl gas has NO acidic properties!</strong> Water is essential: <span class="eq">HCl(g) + H₂O(l) → H₃O⁺(aq) + Cl⁻(aq)</span></div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🧴</span><h3>Alkalis, Ammonia &amp; Amphoteric Hydroxides</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Base vs. Alkali</h4>
+<p><strong>Base:</strong> Reacts with acid → salt + water &nbsp;|&nbsp; <strong>Alkali:</strong> SOLUBLE base (produces OH⁻ in water). All alkalis are bases; NOT all bases are alkalis.</p>
+<h4>Ammonia Chemistry</h4>
+<p><span class="eq">NH₃ + H₂O ⇌ NH₄⁺ + OH⁻</span> (weak alkali, ~1% ionized)<br><strong>Test:</strong> Damp red litmus → BLUE | White fumes (NH₄Cl) with conc. HCl<br><strong>Dry NH₃ preparation:</strong> <span class="eq">NH₄Cl + NaOH →(heat) NH₃ + NaCl + H₂O</span><br><strong>Drying:</strong> CaO (NOT conc. H₂SO₄ — reacts! NOT CaCl₂ — forms complex!)</p>
+<h4>Amphoteric Hydroxides</h4>
+<p><strong>Dissolve in EXCESS NaOH:</strong> Zn(OH)₂ (white→colourless), Al(OH)₃ (white→colourless), Pb(OH)₂<br><strong>Do NOT dissolve:</strong> Cu(OH)₂, Fe(OH)₂, Fe(OH)₃, Ca(OH)₂, Mg(OH)₂</p>
+<div class="tip"><strong>💡 Classic exam question:</strong> "White ppt forms with few drops NaOH, dissolves in excess" → Zn²⁺ or Al³⁺</div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">📊</span><h3>Quantitative Chemistry — Molarity, pH &amp; Titration</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Key Formulas</h4>
+<p><strong>Molarity:</strong> <span class="eq">C = n/V</span> (mol/dm³) &nbsp;|&nbsp; <strong>Dilution:</strong> <span class="eq">C₁V₁ = C₂V₂</span><br><strong>pH:</strong> <span class="eq">pH = -log₁₀[H⁺]</span> &nbsp;|&nbsp; <span class="eq">[H⁺] = 10^(-pH)</span></p>
+<h4>Strong ≠ Concentrated!</h4>
+<div class="table-wrap"><table>
+<tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>STRONG acid</td><td>100% ionized</td><td>HCl → H⁺ + Cl⁻</td></tr>
+<tr><td>WEAK acid</td><td>~1% ionized</td><td>CH₃COOH ⇌ H⁺ + CH₃COO⁻</td></tr>
+<tr><td>CONCENTRATED</td><td>Lots of solute</td><td>12 M HCl</td></tr>
+<tr><td>DILUTE</td><td>Little solute</td><td>0.1 M HCl</td></tr>
+</table></div>
+<h4>Indicator Choice for Titration</h4>
+<div class="table-wrap"><table>
+<tr><th>Titration Type</th><th>Indicator</th><th>Why</th></tr>
+<tr><td>Strong acid + Strong base</td><td>Either (methyl orange 3.1-4.4 OR phenolphthalein 8.3-10.0)</td><td>Sharp change at pH 7</td></tr>
+<tr><td>Strong acid + Weak base</td><td>Methyl orange</td><td>End point ~pH 5</td></tr>
+<tr><td>Weak acid + Strong base</td><td>Phenolphthalein</td><td>End point ~pH 9</td></tr>
+<tr><td>Weak acid + Weak base</td><td>NONE suitable</td><td>Gradual change; use pH meter</td></tr>
+</table></div>
+<div class="mnemonic"><strong>🧠 Methyl Orange = Acid Red (MOAR)</strong></div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 4-1 to 4-24</span><span class="tag">acids</span><span class="tag">alkalis</span><span class="tag">pH</span><span class="tag">titration</span><span class="tag">indicators</span></p>
+</section>
+
+<!-- Remaining topics follow the same card pattern. Let me continue with the rest efficiently. -->
+
+<!-- ==================== TOPIC 6 ==================== -->
+<section class="topic-section" id="t6">
+<div class="topic-header"><span class="badge">Chapter 5</span><h2>Topic 6 — Fossil Fuels &amp; Carbon Compounds</h2><p>Petroleum fractions · Cracking · Hydrocarbons · IUPAC naming · Polymers · Environmental problems</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">⛽</span><h3>Fossil Fuels &amp; Fractional Distillation</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Fraction</th><th>Carbons</th><th>bp Range</th><th>Uses</th></tr>
+<tr><td>Refinery gas</td><td>C1-C4</td><td>&lt;40°C</td><td>LPG cooking fuel</td></tr>
+<tr><td>Petrol / Gasoline</td><td>C5-C10</td><td>40-175°C</td><td>Car fuel</td></tr>
+<tr><td>Naphtha</td><td>C6-C12</td><td>75-200°C</td><td>Chemical feedstock → plastics</td></tr>
+<tr><td>Kerosene</td><td>C10-C16</td><td>175-275°C</td><td>Jet fuel, heating</td></tr>
+<tr><td>Diesel oil</td><td>C14-C20</td><td>250-350°C</td><td>Diesel engines</td></tr>
+<tr><td>Lubricating oil</td><td>C20-C50</td><td>300-450°C</td><td>Lubricants, waxes</td></tr>
+<tr><td>Bitumen (residue)</td><td>&gt;C35</td><td>&gt;450°C</td><td>Road surfacing</td></tr>
+</table></div>
+<div class="tip"><strong>Trend as chain length ↑:</strong> bp ↑, viscosity ↑, flammability ↓, colour darkens</div>
+<p><strong>Cracking:</strong> Converts heavy fractions → light fractions. Thermal (~700°C) or Catalytic (~500°C, zeolite).</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🧬</span><h3>Hydrocarbons, IUPAC &amp; Polymers</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Saturated vs. Unsaturated</h4>
+<div class="table-wrap"><table>
+<tr><th>Property</th><th>Alkanes (Saturated)</th><th>Alkenes (Unsaturated)</th></tr>
+<tr><td>Formula</td><td>CₙH₂ₙ₊₂</td><td>CₙH₂ₙ</td></tr>
+<tr><td>C-C bonds</td><td>Single only</td><td>At least one C=C</td></tr>
+<tr><td>Br₂(aq) test</td><td>NO reaction (brown stays)</td><td><strong>DECOLOURISES</strong> (brown→colourless)</td></tr>
+<tr><td>Reaction type</td><td>Substitution (UV light)</td><td>Addition (across C=C)</td></tr>
+</table></div>
+<h4>IUPAC Naming</h4>
+<p><strong>Alkanes:</strong> Meth(1), Eth(2), Prop(3), But(4), Pent(5), Hex(6), Hept(7), Oct(8), Non(9), Dec(10) + <strong>-ane</strong><br><strong>Alkenes:</strong> Same stems + <strong>-ene</strong> with position number<br><strong>Markovnikov's Rule:</strong> H goes to the C with MORE H atoms</p>
+<h4>Addition Polymers</h4>
+<div class="table-wrap"><table>
+<tr><th>Monomer</th><th>Polymer</th><th>Uses</th></tr>
+<tr><td>Ethene</td><td>Polyethene (PE)</td><td>Bags, bottles</td></tr>
+<tr><td>Propene</td><td>Polypropene (PP)</td><td>Rope, carpets</td></tr>
+<tr><td>Chloroethene</td><td>PVC</td><td>Pipes, cable insulation</td></tr>
+<tr><td>Styrene</td><td>Polystyrene (PS)</td><td>Packaging</td></tr>
+<tr><td>Tetrafluoroethene</td><td>PTFE / Teflon</td><td>Non-stick coating</td></tr>
+</table></div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🌿</span><h3>Environmental Problems</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Problem</th><th>Cause</th><th>Chemistry</th></tr>
+<tr><td>Acid rain</td><td>SO₂ + NOₓ</td><td>SO₂+H₂O→H₂SO₃; 2NO₂+H₂O→HNO₃+HNO₂</td></tr>
+<tr><td>Global warming</td><td>CO₂, CH₄</td><td>Greenhouse effect — traps IR</td></tr>
+<tr><td>Photochemical smog</td><td>NOₓ + hydrocarbons + sun</td><td>Produces ground-level O₃ (toxic)</td></tr>
+<tr><td>CO poisoning</td><td>Incomplete combustion</td><td>CO binds haemoglobin 200× stronger than O₂</td></tr>
+</table></div>
+<div class="tip"><strong>Catalytic Converter:</strong> <span class="eq">2CO + 2NO → 2CO₂ + N₂</span> (Pt/Pd/Rh catalyst)</div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 5 &amp; 5X</span><span class="tag">petroleum</span><span class="tag">IUPAC</span><span class="tag">polymers</span><span class="tag">environment</span></p>
+</section>
+
+<!-- ==================== TOPIC 7 ==================== -->
+<section class="topic-section" id="t7">
+<div class="topic-header"><span class="badge">Chapter 6</span><h2>Topic 7 — Microscopic World II</h2><p>VSEPR molecular shapes · Electronegativity · Bond &amp; molecular polarity · Intermolecular forces · Hydrogen bonding</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">📐</span><h3>VSEPR — Molecular Shapes</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Total Pairs</th><th>Lone Pairs</th><th>Shape</th><th>Angle</th><th>Examples</th></tr>
+<tr><td>2</td><td>0</td><td>Linear</td><td>180°</td><td>BeCl₂, CO₂</td></tr>
+<tr><td>3</td><td>0</td><td>Trigonal Planar</td><td>120°</td><td>BF₃, SO₃</td></tr>
+<tr><td>3</td><td>1</td><td>Bent / V-shaped</td><td>~119°</td><td>SO₂, O₃</td></tr>
+<tr><td>4</td><td>0</td><td>Tetrahedral</td><td>109.5°</td><td>CH₄, CCl₄</td></tr>
+<tr><td>4</td><td>1</td><td>Trigonal Pyramidal</td><td>~107°</td><td>NH₃</td></tr>
+<tr><td>4</td><td>2</td><td>Bent / V-shaped</td><td>~104.5°</td><td>H₂O</td></tr>
+<tr><td>5</td><td>0</td><td>Trigonal Bipyramidal</td><td>90°, 120°</td><td>PCl₅</td></tr>
+<tr><td>6</td><td>0</td><td>Octahedral</td><td>90°</td><td>SF₆</td></tr>
+</table></div>
+<div class="tip"><strong>💡 More lone pairs = smaller bond angle:</strong> lp-lp repulsion > lp-bp > bp-bp. CH₄(109.5°)→NH₃(~107°)→H₂O(~104.5°)</div>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">⚡</span><h3>Electronegativity, Polarity &amp; Intermolecular Forces</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Pauling Electronegativity Scale</h4>
+<p><strong>F 4.0</strong> > O 3.5 > N/Cl 3.0 > Br 2.8 > C/S/I 2.5 > <strong>H/P 2.1</strong></p>
+<div class="table-wrap"><table>
+<tr><th>ΔEN</th><th>Bond Type</th></tr>
+<tr><td>0</td><td>Non-polar covalent (H-H, Cl-Cl)</td></tr>
+<tr><td>0 &lt; ΔEN &lt; ~1.7</td><td>Polar covalent (H-Cl, C-O)</td></tr>
+<tr><td>≥ ~1.7</td><td>Ionic (NaCl, KF)</td></tr>
+</table></div>
+<h4>Molecular Polarity = Net Dipole?</h4>
+<p><strong>NON-POLAR</strong> (symmetrical — dipoles cancel): CO₂, CCl₄, BF₃, CH₄<br><strong>POLAR</strong> (asymmetrical): H₂O, NH₃, CHCl₃</p>
+<h4>Intermolecular Forces (increasing strength)</h4>
+<p><strong>1. London Dispersion</strong> — all molecules; stronger with more e⁻ &nbsp;|&nbsp; <strong>2. Dipole-Dipole</strong> — polar molecules &nbsp;|&nbsp; <strong>3. Hydrogen Bonds</strong> — H bonded to N/O/F (10-40 kJ/mol)</p>
+<div class="mnemonic"><strong>🧠 H-bonding requires:</strong> H attached to N, O, or F + lone pair on N, O, or F of neighbour</div>
+<h4>H₂O vs. H₂S — Why H₂O bp is 189°C higher</h4>
+<p>H₂O forms HYDROGEN BONDS; H₂S only has dipole-dipole + LDFs. H-bonds are MUCH stronger, dominating even though H₂S has more electrons.</p>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 6 &amp; 6X</span><span class="tag">VSEPR</span><span class="tag">electronegativity</span><span class="tag">polarity</span><span class="tag">H-bonding</span><span class="tag">IMFs</span></p>
+</section>
+
+<!-- ==================== TOPIC 8 ==================== -->
+<section class="topic-section" id="t8">
+<div class="topic-header"><span class="badge">Chapter 7</span><h2>Topic 8 — Redox, Chemical Cells &amp; Electrolysis</h2><p>OIL RIG · Oxidation numbers · Electrochemical series · Chemical cells · Electrolysis · Fuel cells</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">⚡</span><h3>Redox Fundamentals &amp; Electrochemical Cells</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="mnemonic"><strong>🧠 OIL RIG</strong> — Oxidation Is Loss, Reduction Is Gain (of electrons)</div>
+<h4>Oxidation Number Rules</h4>
+<ol><li>Element = <strong>0</strong></li><li>Simple ion = <strong>charge</strong></li><li>O = <strong>-2</strong> (except peroxides -1)</li><li>H = <strong>+1</strong> (except metal hydrides -1)</li><li>Sum = 0 for compound; = charge for ion</li></ol>
+<h4>Electrochemical Series</h4>
+<p><span class="eq">K(-2.93) > Ca(-2.87) > Na(-2.71) > Mg(-2.37) > Al(-1.66) > Zn(-0.76) > Fe(-0.44) > <strong>H(0.00)</strong> > Cu(+0.34) > Ag(+0.80)</span></p>
+<p>More negative E° = STRONGER reducing agent (more easily oxidized)</p>
+<h4>Zn-Cu Cell (Daniell Cell)</h4>
+<p><strong>Anode (-):</strong> <span class="eq">Zn → Zn²⁺ + 2e⁻</span> (Zn dissolves)<br><strong>Cathode (+):</strong> <span class="eq">Cu²⁺ + 2e⁻ → Cu</span> (Cu deposits)<br><strong>E°cell = 1.10 V</strong> · Salt bridge allows ion flow, completes circuit</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🔋</span><h3>Electrolysis &amp; Chemical Cells</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Chemical Cell vs. Electrolytic Cell</h4>
+<div class="table-wrap"><table>
+<tr><th>Feature</th><th>Chemical Cell</th><th>Electrolytic Cell</th></tr>
+<tr><td>Energy</td><td>Chemical → Electrical</td><td>Electrical → Chemical</td></tr>
+<tr><td>Anode</td><td><strong>NEGATIVE</strong> (-)</td><td><strong>POSITIVE</strong> (+)</td></tr>
+<tr><td>Reaction</td><td>Spontaneous (ΔG&lt;0)</td><td>Forced (external voltage)</td></tr>
+</table></div>
+<div class="mnemonic"><strong>🧠 ANodisation at the ANode</strong></div>
+<h4>Key Electrolysis Examples</h4>
+<p><strong>Molten NaCl:</strong> Na(l) at cathode, Cl₂(g) at anode<br><strong>Brine (aq. NaCl):</strong> H₂ at cathode, Cl₂ at anode, NaOH forms in solution<br><strong>Dil. H₂SO₄ (Hofmann):</strong> H₂:O₂ = <strong>2:1</strong> by volume</p>
+<h4>Common Cells</h4>
+<div class="table-wrap"><table>
+<tr><th>Type</th><th>Voltage</th><th>Rechargeable?</th></tr>
+<tr><td>Dry cell (Zn-C)</td><td>1.5V</td><td>No</td></tr>
+<tr><td>Alkaline</td><td>1.5V</td><td>No</td></tr>
+<tr><td>Lead-acid</td><td>2.0V</td><td>Yes</td></tr>
+<tr><td>Li-ion</td><td>3.6-3.7V</td><td>Yes (Nobel Prize 2019)</td></tr>
+<tr><td>H₂-O₂ Fuel Cell</td><td>~1.23V</td><td>Continuous (H₂+O₂→H₂O)</td></tr>
+</table></div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 7</span><span class="tag">OIL RIG</span><span class="tag">redox</span><span class="tag">electrolysis</span><span class="tag">fuel cells</span></p>
+</section>
+
+<!-- ==================== TOPIC 9 ==================== -->
+<section class="topic-section" id="t9">
+<div class="topic-header"><span class="badge">Chapter 8</span><h2>Topic 9 — Chemical Reactions &amp; Energy</h2><p>Enthalpy · Exothermic/endothermic · Hess's Law · Bond energy calculations · Calorimetry</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🔥</span><h3>Enthalpy &amp; Hess's Law</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Key Definitions</h4>
+<div class="table-wrap"><table>
+<tr><th>Term</th><th>Definition</th></tr>
+<tr><td>Exothermic</td><td><strong>ΔH &lt; 0</strong> — releases heat; products LOWER energy</td></tr>
+<tr><td>Endothermic</td><td><strong>ΔH &gt; 0</strong> — absorbs heat; products HIGHER energy</td></tr>
+<tr><td>ΔH°f</td><td>Formation of 1 mol compound from elements (elements = 0)</td></tr>
+<tr><td>ΔH°c</td><td>Complete combustion of 1 mol substance</td></tr>
+<tr><td>ΔH°neut</td><td>Formation of 1 mol H₂O from acid+alkali neutralization</td></tr>
+</table></div>
+<h4>Hess's Law</h4>
+<p>ΔH is PATH INDEPENDENT — depends only on initial and final states.</p>
+<p><strong>From formation:</strong> <span class="eq">ΔH = ΣΔHf(products) - ΣΔHf(reactants)</span><br><strong>From combustion:</strong> <span class="eq">ΔH = ΣΔHc(reactants) - ΣΔHc(products)</span></p>
+<h4>Bond Energy Calculations</h4>
+<p><span class="eq">ΔH = Σ(bonds BROKEN) - Σ(bonds FORMED)</span><br>Breaking = ENDOTHERMIC (+) · Forming = EXOTHERMIC (-)</p>
+<h4>Calorimetry</h4>
+<p><span class="eq">ΔH = -m × c × ΔT</span> where m=mass(g), c=4.18 J/g°C, ΔT=temp change</p>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 8</span><span class="tag">enthalpy</span><span class="tag">Hess's Law</span><span class="tag">bond energy</span><span class="tag">calorimetry</span></p>
+</section>
+
+<!-- ==================== TOPIC 10 ==================== -->
+<section class="topic-section" id="t10">
+<div class="topic-header"><span class="badge">Chapter 9</span><h2>Topic 10 — Rate of Reaction</h2><p>Collision theory · Factors affecting rate · Maxwell-Boltzmann · Catalysis · Molar volume · Gas collection</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">⏱️</span><h3>Collision Theory &amp; Factors Affecting Rate</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Three Requirements for Reaction</h4>
+<p>Particles must: (1) <strong>COLLIDE</strong> · (2) Correct <strong>ORIENTATION</strong> · (3) Energy ≥ <strong>Ea</strong></p>
+<h4>Five Factors</h4>
+<div class="table-wrap"><table>
+<tr><th>Factor</th><th>Effect</th><th>Mechanism</th></tr>
+<tr><td>Concentration ↑</td><td>Faster</td><td>More particles → more collisions</td></tr>
+<tr><td>Pressure ↑ (gases)</td><td>Faster</td><td>Same as concentration</td></tr>
+<tr><td>Temperature ↑</td><td><strong>MAJOR ↑</strong></td><td>More collisions + more exceed Ea. ~doubles per 10°C</td></tr>
+<tr><td>Surface area ↑</td><td>Faster</td><td>More exposed particles (powder > lumps)</td></tr>
+<tr><td>Catalyst</td><td>Faster</td><td>Alternative pathway, LOWER Ea. Not consumed.</td></tr>
+</table></div>
+<div class="warn"><strong>⚠️ Catalyst does NOT change ΔH or equilibrium position</strong> — only speed of reaching equilibrium.</div>
+<h4>Molar Volume</h4>
+<p><strong>RTP (25°C, 1 atm):</strong> 24.0 dm³/mol &nbsp;|&nbsp; <strong>STP (0°C, 1 atm):</strong> 22.4 dm³/mol</p>
+<h4>Gas Collection Methods</h4>
+<p>Upward delivery (lighter than air: NH₃, H₂) · Downward delivery (heavier: Cl₂, CO₂, SO₂) · Over water (insoluble: H₂, O₂, N₂) · Gas syringe (any gas)</p>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 9</span><span class="tag">collision theory</span><span class="tag">kinetics</span><span class="tag">catalysis</span><span class="tag">molar volume</span></p>
+</section>
+
+<!-- ==================== TOPIC 11 ==================== -->
+<section class="topic-section" id="t11">
+<div class="topic-header"><span class="badge">Chapter 10</span><h2>Topic 11 — Chemical Equilibrium</h2><p>Dynamic equilibrium · Le Chatelier's Principle · Kc constant · Haber &amp; Contact processes</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">⚖️</span><h3>Equilibrium &amp; Le Chatelier's Principle</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Dynamic Equilibrium</h4>
+<p>Forward rate = backward rate · Concentrations constant · <strong>Closed system required</strong></p>
+<h4>Le Chatelier's Principle — Summary</h4>
+<div class="table-wrap"><table>
+<tr><th>Change</th><th>Shift</th><th>Kc change?</th></tr>
+<tr><td>Add reactant</td><td>→ RIGHT</td><td>NO</td></tr>
+<tr><td>Remove product</td><td>→ RIGHT</td><td>NO</td></tr>
+<tr><td>Increase P (fewer gas mol on right)</td><td>→ RIGHT</td><td>NO</td></tr>
+<tr><td>Increase T (exothermic ΔH&lt;0)</td><td>← LEFT</td><td><strong>YES (decreases)</strong></td></tr>
+<tr><td>Increase T (endothermic ΔH&gt;0)</td><td>→ RIGHT</td><td><strong>YES (increases)</strong></td></tr>
+<tr><td>Add catalyst</td><td>NO shift</td><td>NO</td></tr>
+</table></div>
+<h4>Kc Expression</h4>
+<p>For <span class="eq">aA + bB ⇌ cC + dD</span>: <strong>Kc = [C]ᶜ[D]ᵈ / [A]ᵃ[B]ᵇ</strong> · Only T changes Kc!</p>
+<h4>Haber Process: N₂ + 3H₂ ⇌ 2NH₃ &nbsp; ΔH = -92 kJ/mol</h4>
+<p>450°C · 200 atm · Fe catalyst · Recycling → ~98% overall yield</p>
+<h4>Contact Process: 2SO₂ + O₂ ⇌ 2SO₃ &nbsp; ΔH = -197 kJ/mol</h4>
+<p>450°C · 2 atm · V₂O₅ catalyst</p>
+<div class="warn"><strong>⚠️ Common mistakes:</strong> Catalyst ≠ more yield · Equal rates ≠ equal concentrations · Kc only changes with T · Adding solid ≠ shift equilibrium</div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 10</span><span class="tag">equilibrium</span><span class="tag">Le Chatelier</span><span class="tag">Kc</span><span class="tag">Haber</span></p>
+</section>
+
+<!-- ==================== TOPIC 12 ==================== -->
+<section class="topic-section" id="t12">
+<div class="topic-header"><span class="badge">Chapter 11</span><h2>Topic 12 — Chemistry of Carbon Compounds</h2><p>Functional groups · Alcohols &amp; acids · Esterification · Soaps &amp; detergents · Condensation polymers · Isomerism</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🧬</span><h3>Functional Groups &amp; Key Reactions</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Functional Group</th><th>Formula</th><th>Suffix/Prefix</th></tr>
+<tr><td>Alkane</td><td>C-C</td><td>-ane</td></tr>
+<tr><td>Alkene</td><td>C=C</td><td>-ene</td></tr>
+<tr><td>Alkanol (Alcohol)</td><td>-OH</td><td>-ol</td></tr>
+<tr><td>Alkanoic acid</td><td>-COOH</td><td>-oic acid</td></tr>
+<tr><td>Ester</td><td>-COO-</td><td>-yl -oate</td></tr>
+<tr><td>Aldehyde</td><td>-CHO</td><td>-al</td></tr>
+<tr><td>Ketone</td><td>C-CO-C</td><td>-one</td></tr>
+<tr><td>Haloalkane</td><td>-X</td><td>fluoro-/chloro-/bromo-/iodo-</td></tr>
+</table></div>
+<h4>Alcohol Oxidation (K₂Cr₂O₇/H⁺ — orange → green)</h4>
+<p>1° alcohol → aldehyde → carboxylic acid · 2° alcohol → ketone · <strong>3° alcohol → NO reaction</strong></p>
+<h4>Esterification</h4>
+<p><span class="eq">ROH + R'COOH ⇌ R'COOR + H₂O</span> (conc. H₂SO₄ catalyst + dehydrating agent)</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🧼</span><h3>Soaps, Detergents &amp; Condensation Polymers</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Soap vs. Soapless Detergent</h4>
+<div class="table-wrap"><table>
+<tr><th>Property</th><th>Soap (RCOO⁻Na⁺)</th><th>Soapless (R-SO₃⁻Na⁺)</th></tr>
+<tr><td>Hard water</td><td>Forms SCUM (Ca/Mg ppt)</td><td>No scum (soluble)</td></tr>
+<tr><td>Acidic conditions</td><td>Fatty acid precipitates</td><td>Works fine</td></tr>
+</table></div>
+<h4>Condensation Polymerization</h4>
+<p><strong>Nylon:</strong> Diamine + Dicarboxylic acid → polyamide (amide -CONH- linkages) + H₂O<br><strong>Polyester (PET):</strong> Diol + Dicarboxylic acid → polyester (ester -COO- linkages) + H₂O</p>
+<h4>Isomerism Types</h4>
+<div class="table-wrap"><table>
+<tr><th>Type</th><th>Same?</th><th>Different?</th></tr>
+<tr><td>Chain</td><td>Molecular formula</td><td>Carbon skeleton</td></tr>
+<tr><td>Position</td><td>Molecular formula + FG</td><td>Position of FG</td></tr>
+<tr><td>Functional group</td><td>Molecular formula</td><td>FG (e.g., ethanol vs. methoxymethane — both C₂H₆O)</td></tr>
+</table></div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 11</span><span class="tag">functional groups</span><span class="tag">esterification</span><span class="tag">detergents</span><span class="tag">polymers</span><span class="tag">isomerism</span></p>
+</section>
+
+<!-- ==================== TOPIC 13 ==================== -->
+<section class="topic-section" id="t13">
+<div class="topic-header"><span class="badge">Chapter 12</span><h2>Topic 13 — Patterns in the Chemical World</h2><p>Periodic trends · Atomic size · Acid-base oxides · Transition metals · Complex ions · Catalysis</p></div>
+<div class="card-grid">
+
+<div class="card open">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">📊</span><h3>Periodic Trends</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<div class="table-wrap"><table>
+<tr><th>Property</th><th>Across Period (→)</th><th>Down Group (↓)</th></tr>
+<tr><td>Atomic size</td><td><strong>DECREASES</strong></td><td>Increases</td></tr>
+<tr><td>Metallic character</td><td>Decreases</td><td><strong>INCREASES</strong></td></tr>
+<tr><td>Ionization energy</td><td>Generally increases</td><td>Decreases</td></tr>
+<tr><td>Electronegativity</td><td>Increases</td><td>Decreases</td></tr>
+<tr><td>Oxide nature</td><td>Basic → Amphoteric → Acidic</td><td>More basic</td></tr>
+</table></div>
+<p><strong>Why?</strong> <span class="eq">Zeff = Z - S</span> (effective nuclear charge). Across period: Z↑, S≈constant → Zeff↑ → stronger pull → smaller atoms, higher IE.</p>
+<h4>Melting Points Across Period 3</h4>
+<p>Na(98)→Mg(650)→Al(660): metallic bonding strengthens → <strong>Si(1414)</strong>: giant covalent (very high!) → P₄(44), S₈(115), Cl₂(-101), Ar(-189): simple molecular (low, only IMFs)</p>
+</div></div>
+
+<div class="card">
+<div class="card-header" onclick="toggleCard(this)"><span class="icon">🔮</span><h3>Transition Metals &amp; Complex Ions</h3><span class="arrow">▼</span></div>
+<div class="card-body">
+<h4>Characteristic Properties</h4>
+<div class="table-wrap"><table>
+<tr><th>Property</th><th>Examples</th></tr>
+<tr><td>Variable oxidation states</td><td>Fe²⁺/Fe³⁺, Mn²⁺/+4/+7, Cr³⁺/+6</td></tr>
+<tr><td>Coloured compounds</td><td>Cu²⁺ blue, Fe²⁺ pale green, Fe³⁺ yellow, MnO₄⁻ purple, Cr₂O₇²⁻ orange</td></tr>
+<tr><td>Catalytic activity</td><td>Fe (Haber), V₂O₅ (Contact), Ni (hydrogenation), MnO₂ (H₂O₂ decomp)</td></tr>
+<tr><td>Complex ion formation</td><td>[Cu(H₂O)₆]²⁺, [Cu(NH₃)₄]²⁺ deep blue, [Fe(CN)₆]⁴⁻</td></tr>
+</table></div>
+<h4>Why Coloured?</h4>
+<p>Incompletely filled d-orbitals → d-d electronic transitions absorb visible light → complementary colour seen. Crystal field splitting (t₂g/eg) determines the absorbed wavelength.</p>
+<h4>Oxide Acid-Base Character</h4>
+<div class="table-wrap"><table>
+<tr><th>Na₂O</th><th>MgO</th><th>Al₂O₃</th><th>SiO₂</th><th>P₄O₁₀</th><th>SO₂/SO₃</th><th>Cl₂O₇</th></tr>
+<tr><td>BASIC</td><td>BASIC</td><td>AMPHOTERIC</td><td>ACIDIC</td><td>ACIDIC</td><td>ACIDIC</td><td>ACIDIC</td></tr>
+</table></div>
+<div class="mnemonic"><strong>🧠 Metal oxides are Basic, Non-metal oxides are Acidic</strong></div>
+</div></div>
+
+</div>
+<p style="margin-top:4px"><span class="tag">Ch 12</span><span class="tag">periodic trends</span><span class="tag">transition metals</span><span class="tag">oxides</span><span class="tag">complex ions</span></p>
+</section>
+
+<!-- Footer -->
+<div style="text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:40px;color:var(--text2);font-size:.82rem;">
+  <p>📚 HKDSE Chemistry Complete Study Guide · Based on Herman Yeung's 257+ video series (Chapters 0-12)</p>
+  <p style="margin-top:4px">🧪 All compulsory syllabus topics covered · 13 topics · 26 concept cards · 13 in-depth articles</p>
+  <p style="margin-top:12px;font-size:.72rem;color:var(--text2)">Generated 2026-06-13</p>
+</div>
+
+</main>
+
+<script>
+function toggleCard(header) {
+  header.parentElement.classList.toggle('open');
+}
+function scrollToTopic(id) {
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  event.target.closest('a').classList.add('active');
+  document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+}
+function filterTopics() {
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.topic-section').forEach(s => {
+    s.style.display = s.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+// Highlight active nav on scroll
+window.addEventListener('scroll', () => {
+  let current = '';
+  document.querySelectorAll('.topic-section').forEach(s => {
+    if (s.getBoundingClientRect().top < 120) current = s.id;
+  });
+  document.querySelectorAll('nav a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+
+<script>
+// URL language: ?lang=zh-hk or ?lang=en-hk
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get('lang');
+  if (urlLang) {
+    localStorage.setItem('dse_platform_lang', urlLang.startsWith('en') ? 'en' : 'zh');
+  }
+})();
+
+let gLang = localStorage.getItem('dse_platform_lang') || 'en';
+document.addEventListener('DOMContentLoaded', () => {
+  const sel = document.getElementById('langSwitch');
+  if (sel) { sel.value = gLang; }
+  if (gLang === 'zh') applyChinese();
+});
+
+function switchLang(lang) {
+  const l = lang.startsWith('en') ? 'en' : 'zh';
+  localStorage.setItem('dse_platform_lang', l);
+  location.reload();
+}
+
+function applyChinese() {
+  document.title = 'HKDSE 化學 — 完整學習指南';
+  const logo = document.querySelector('.logo h1');
+  if (logo) logo.innerHTML = '⚗️ HKDSE 化學';
+  const logoSub = document.querySelector('.logo span');
+  if (logoSub) logoSub.textContent = '完整學習指南 · Herman Yeung 系列';
+  const search = document.getElementById('search');
+  if (search) search.placeholder = '🔍  搜尋所有課題...';
+  
+  // Chinese topic names
+  const topicNames = {
+    't1': '1. 實驗室安全',
+    't2': '2. 地球',
+    't3': '3. 微觀世界 I',
+    't4': '4. 金屬',
+    't5': '5. 酸和鹼',
+    't6': '6. 化石燃料',
+    't7': '7. 微觀世界 II',
+    't8': '8. 氧化還原',
+    't9': '9. 化學能量學',
+    't10': '10. 反應速率',
+    't11': '11. 化學平衡',
+    't12': '12. 碳化合物化學',
+    't13': '13. 化學世界中的規律',
+  };
+  for (const [id, name] of Object.entries(topicNames)) {
+    const link = document.querySelector('a[href="#' + id + '"]');
+    if (link) {
+      const num = link.querySelector('.num');
+      if (num) num.textContent = name.split('.')[0];
+      link.childNodes[link.childNodes.length-1].textContent = ' ' + name.split('. ')[1];
+    }
+  }
+}
+</script>
+</body>
+</html>

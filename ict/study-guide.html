@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKDSE ICT — 完整學習指南 | 資訊及通訊科技</title>
+<style>
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --surface2: #334155;
+    --text: #e2e8f0; --text2: #94a3b8; --accent: #38bdf8;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --purple: #c084fc; --orange: #fb923c; --pink: #f472b6;
+    --border: #475569; --radius: 10px; --shadow: 0 4px 24px rgba(0,0,0,.3);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); display:flex; min-height:100vh; }
+
+  /* Sidebar */
+  nav { width:280px; min-width:280px; background:var(--surface); border-right:1px solid var(--border); position:fixed; top:0; left:0; height:100vh; overflow-y:auto; z-index:100; padding:20px 0; }
+  nav .logo { padding:0 24px 20px; border-bottom:1px solid var(--border); margin-bottom:8px; }
+  nav .logo h1 { font-size:1.1rem; background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  nav .logo span { font-size:.75rem; color:var(--text2); }
+  nav a { display:flex; align-items:center; gap:10px; padding:10px 24px; color:var(--text2); text-decoration:none; font-size:.88rem; transition:all .2s; border-left:3px solid transparent; }
+  nav a:hover, nav a.active { background:var(--surface2); color:var(--text); border-left-color:var(--accent); }
+  nav a .num { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:700; background:var(--surface2); flex-shrink:0; }
+  nav a:hover .num, nav a.active .num { background:var(--accent); color:#0f172a; }
+  #search { margin:12px 16px; width:calc(100% - 32px); padding:10px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:.85rem; outline:none; }
+  #search:focus { border-color:var(--accent); }
+
+  /* Main */
+  main { margin-left:280px; flex:1; padding:32px 40px; max-width:1100px; }
+
+  .topic-section { margin-bottom:48px; scroll-margin-top:24px; }
+  .topic-header { margin-bottom:24px; }
+  .topic-header .badge { display:inline-block; padding:4px 14px; border-radius:20px; font-size:.75rem; font-weight:700; background:var(--accent); color:#0f172a; margin-bottom:8px; }
+  .topic-header h2 { font-size:1.8rem; margin-bottom:4px; }
+  .topic-header p { color:var(--text2); font-size:.9rem; }
+
+  /* Cards */
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(480px, 1fr)); gap:16px; margin-bottom:20px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:all .2s; }
+  .card:hover { border-color:var(--accent); box-shadow:var(--shadow); }
+  .card-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; cursor:pointer; user-select:none; }
+  .card-header h3 { font-size:.95rem; flex:1; }
+  .card-header .icon { font-size:1.2rem; }
+  .card-header .arrow { transition:transform .3s; color:var(--text2); }
+  .card.open .card-header .arrow { transform:rotate(180deg); }
+  .card-body { padding:0 20px; max-height:0; overflow:hidden; transition:max-height .4s ease, padding .4s ease; }
+  .card.open .card-body { max-height:4000px; padding:16px 20px; }
+  .card-body p, .card-body li { font-size:.85rem; color:var(--text2); line-height:1.7; }
+  .card-body h4 { font-size:.9rem; color:var(--accent); margin:14px 0 6px; }
+  .card-body ul, .card-body ol { margin:6px 0 6px 20px; }
+
+  /* Tables */
+  .table-wrap { overflow-x:auto; margin:12px 0; border-radius:6px; border:1px solid var(--border); }
+  table { width:100%; border-collapse:collapse; font-size:.82rem; }
+  th { background:var(--surface2); padding:10px 14px; text-align:left; font-weight:600; font-size:.78rem; color:var(--accent); white-space:nowrap; }
+  td { padding:8px 14px; border-top:1px solid var(--border); }
+  tr:hover td { background:rgba(56,189,248,.04); }
+
+  /* Highlights */
+  .eq { color:var(--green); font-family:'JetBrains Mono','Fira Code',monospace; font-size:.82rem; }
+  .warn { background:rgba(248,113,113,.12); border-left:3px solid var(--red); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0; font-size:.83rem; }
+  .tip { background:rgba(56,189,248,.08); border-left:3px solid var(--accent); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0; font-size:.83rem; }
+  .mnemonic { background:rgba(251,191,36,.08); border-left:3px solid var(--yellow); padding:10px 14px; border-radius:0 6px 6px 0; margin:12px 0; font-size:.83rem; }
+  .mnemonic strong { color:var(--yellow); }
+
+  /* Tags */
+  .tag { display:inline-block; padding:2px 10px; border-radius:12px; font-size:.7rem; background:var(--surface2); color:var(--text2); margin:2px 4px 2px 0; }
+
+  /* Responsive */
+  @media (max-width:900px) {
+    nav { width:100%; height:auto; position:relative; }
+    main { margin-left:0; padding:20px; }
+    .card-grid { grid-template-columns:1fr; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+  /* Print */
+  @media print {
+    nav { display:none; } main { margin:0; }
+    .card { break-inside:avoid; border:1px solid #ccc; } .card-body { max-height:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="../index.html" style="font-size:1.2rem;padding:10px 24px;" title="返回學習平台">🏠 學習平台</a>
+  <a href="../progress.html#settings" onclick="localStorage.setItem('dse_show_settings','1')" style="font-size:.8rem;padding:6px 24px;color:var(--text2);">⚙️ 設置</a>
+  <a href="../progress.html?subject=ict" style="font-size:.9rem;padding:8px 24px;color:var(--purple);">📊 進度</a>
+  <div class="logo">
+    <h1>💻 HKDSE ICT</h1>
+    <span>資訊及通訊科技 完整學習指南</span>
+  </div>
+  <div style="padding:0 20px 8px;display:flex;gap:8px;"><select id="langSwitch" onchange="switchLang(this.value)" style="flex:1;padding:8px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.8rem;cursor:pointer;"><option value="zh">中文</option><option value="en">English</option></select></div>
+<input type="text" id="search" placeholder="🔍  搜尋所有課題..." oninput="filterTopics()">
+  <a href="#t1" class="active" onclick="scrollToTopic('t1')"><span class="num">1</span> 資訊處理 (一)</a>
+  <a href="#t2" onclick="scrollToTopic('t2')"><span class="num">2</span> 資訊處理 (二)</a>
+  <a href="#t3" onclick="scrollToTopic('t3')"><span class="num">3</span> 電腦系統基礎</a>
+  <a href="#t4" onclick="scrollToTopic('t4')"><span class="num">4</span> 互聯網及其應用 (一)</a>
+  <a href="#t5" onclick="scrollToTopic('t5')"><span class="num">5</span> 互聯網及其應用 (二)</a>
+  <a href="#t6" onclick="scrollToTopic('t6')"><span class="num">6</span> 計算思維與程式編寫 (一)</a>
+  <a href="#t7" onclick="scrollToTopic('t7')"><span class="num">7</span> 計算思維與程式編寫 (二)</a>
+  <a href="#t8" onclick="scrollToTopic('t8')"><span class="num">8</span> 資訊及通訊科技對社會的影響</a>
+</nav>
+
+<main id="main">
+
+<!-- ==================== TOPIC 1: 資訊處理 (一) ==================== -->
+<section class="topic-section" id="t1">
+  <div class="topic-header">
+    <span class="badge">單元 A · 第一部分</span>
+    <h2>資訊處理 (一) — 資訊處理簡介與數據組織</h2>
+    <p>資訊系統的組成、資訊處理過程、數據與資訊的分別、數據組織與數據控制</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📋</span>
+        <h3>資訊系統與資訊處理</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>資訊系統的組成</h4>
+        <p>資訊系統由以下部分組成：</p>
+        <ul>
+          <li><strong>硬件 (Hardware)</strong>：電腦、伺服器、網絡設備等實體設備</li>
+          <li><strong>軟件 (Software)</strong>：操作系統、應用程式、數據庫管理系統</li>
+          <li><strong>數據 (Data)</strong>：原始事實和數字，未經處理</li>
+          <li><strong>人員 (People)</strong>：使用者、管理員、開發人員</li>
+          <li><strong>程序 (Procedures)</strong>：操作流程、政策、規則</li>
+        </ul>
+        <h4>資訊處理過程 (IPO模型)</h4>
+        <p>輸入 (Input) → 處理 (Process) → 輸出 (Output) → 儲存 (Storage) → 反饋 (Feedback)</p>
+        <div class="tip">💡 <strong>考試提示：</strong>IPO模型是資訊處理的核心概念。注意辨別每個階段在具體情境中的對應。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📊</span>
+        <h3>數據與資訊的分別</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <tr><th>特性</th><th>數據 (Data)</th><th>資訊 (Information)</th></tr>
+            <tr><td>定義</td><td>原始事實和數字</td><td>經處理和組織後有意義的數據</td></tr>
+            <tr><td>形式</td><td>無上下文、未經處理</td><td>有上下文、有結構</td></tr>
+            <tr><td>用處</td><td>作為處理的原材料</td><td>用於決策和分析</td></tr>
+            <tr><td>例子</td><td>每個學生的分數：85, 92, 78</td><td>全班平均分：85，排名：第2名</td></tr>
+          </table>
+        </div>
+        <p class="tip">💡 <strong>記憶技巧：</strong>數據是「原材料」，資訊是「製成品」。就像麵粉（數據）經烘焙後變成麵包（資訊）。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🗂️</span>
+        <h3>數據層次 (Data Hierarchy)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p>從最小到最大的數據組織層次：</p>
+        <ol>
+          <li><strong>字段 (Field)</strong>：數據的最小單位，代表一個屬性（如：姓名、年齡）</li>
+          <li><strong>記錄 (Record)</strong>：一組相關字段的集合（如：一個學生的所有資料）</li>
+          <li><strong>檔案 (File)</strong>：一組相關記錄的集合（如：全班學生的資料）</li>
+          <li><strong>數據庫 (Database)</strong>：一組相關檔案的集合（如：全校學生的資料）</li>
+        </ol>
+        <p class="eq">字段 → 記錄 → 檔案 → 數據庫</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">✅</span>
+        <h3>數據驗證 (Data Validation)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p>確保輸入數據的準確性和有效性：</p>
+        <ul>
+          <li><strong>範圍檢查 (Range Check)</strong>：數據是否在允許範圍內（如：年齡0-150）</li>
+          <li><strong>類型檢查 (Type Check)</strong>：數據類型是否正確（如：數字/文字）</li>
+          <li><strong>長度檢查 (Length Check)</strong>：數據長度是否符合要求</li>
+          <li><strong>格式檢查 (Format Check)</strong>：數據格式是否正確（如：日期格式）</li>
+          <li><strong>存在檢查 (Presence Check)</strong>：必填字段是否已填寫</li>
+          <li><strong>奇偶檢查 (Parity Check)</strong>：檢測數據傳輸中的錯誤</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOPIC 2: 資訊處理 (二) ==================== -->
+<section class="topic-section" id="t2">
+  <div class="topic-header">
+    <span class="badge">單元 A · 第二部分</span>
+    <h2>資訊處理 (二) — 數據表示、數碼化與數據操縱</h2>
+    <p>數制轉換、字符編碼、多媒體數碼化、試算表數據分析</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🔢</span>
+        <h3>數制轉換 (Number Systems)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>常用數制</h4>
+        <div class="table-wrap">
+          <table>
+            <tr><th>數制</th><th>基數</th><th>使用的符號</th><th>用途</th></tr>
+            <tr><td>二進制 (Binary)</td><td>2</td><td>0, 1</td><td>電腦內部運算</td></tr>
+            <tr><td>十進制 (Decimal)</td><td>10</td><td>0-9</td><td>人類日常使用</td></tr>
+            <tr><td>十六進制 (Hexadecimal)</td><td>16</td><td>0-9, A-F</td><td>簡潔表示二進制、顏色代碼、記憶體地址</td></tr>
+          </table>
+        </div>
+        <h4>轉換方法</h4>
+        <p><strong>十進制 → 二進制：</strong>重複除法（除以2，收集餘數，從下往上讀取）</p>
+        <p><strong>二進制 → 十進制：</strong>每位乘以2的冪次後求和</p>
+        <p><strong>十六進制 → 二進制：</strong>每個十六進制位轉為4位二進制</p>
+        <p class="eq">例：2F₁₆ = 0010 1111₂ → 47₁₀</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🔤</span>
+        <h3>字符編碼 (Character Encoding)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <tr><th>編碼標準</th><th>位元數</th><th>字符數</th><th>支援語言</th></tr>
+            <tr><td>ASCII</td><td>7-bit (擴展8-bit)</td><td>128 (256)</td><td>基本英文</td></tr>
+            <tr><td>Big-5</td><td>16-bit</td><td>~13,000</td><td>繁體中文</td></tr>
+            <tr><td>GB</td><td>16-bit</td><td>~7,000</td><td>簡體中文</td></tr>
+            <tr><td>Unicode (UTF-8)</td><td>8-32 bit</td><td>>143,000</td><td>幾乎所有語言</td></tr>
+          </table>
+        </div>
+        <div class="tip">💡 <strong>考試重點：</strong>UTF-8與ASCII相容（頭128個字符相同）。Big-5只用於繁體中文，無法顯示日文或韓文。Unicode是國際化應用的最佳選擇。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🖼️</span>
+        <h3>多媒體數碼化與檔案格式</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>圖像檔案格式</h4>
+        <ul>
+          <li><strong>BMP</strong>：無壓縮點陣圖，檔案大</li>
+          <li><strong>JPEG</strong>：有損壓縮，適合照片，不支援透明</li>
+          <li><strong>PNG</strong>：無損壓縮，支援透明（alpha通道）</li>
+          <li><strong>GIF</strong>：256色，支援動畫和1-bit透明</li>
+        </ul>
+        <h4>音頻檔案格式</h4>
+        <ul>
+          <li><strong>WAV</strong>：無壓縮，高品質，檔案大</li>
+          <li><strong>MP3</strong>：有損壓縮，檔案小，最常見</li>
+        </ul>
+        <h4>視頻檔案格式</h4>
+        <ul>
+          <li><strong>AVI</strong>：容器格式，可含不同編碼</li>
+          <li><strong>MPEG4 / MP4</strong>：高效壓縮，最常用</li>
+        </ul>
+        <h4>檔案大小計算公式</h4>
+        <p class="eq">點陣圖大小 = 寬度(px) × 高度(px) × 色彩深度(bits) / 8 / 1024 / 1024 MB</p>
+        <p class="eq">音頻大小 = 採樣率(Hz) × 位元深度 × 聲道數 × 時間(秒) / 8 / 1024 / 1024 MB</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📈</span>
+        <h3>試算表數據分析</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>常用函數</h4>
+        <ul>
+          <li><strong>SUM(range)</strong>：求和</li>
+          <li><strong>AVERAGE(range)</strong>：平均值</li>
+          <li><strong>MAX/MIN(range)</strong>：最大/最小值</li>
+          <li><strong>COUNT(range)</strong>：計算數字格數</li>
+          <li><strong>IF(condition, true_val, false_val)</strong>：條件判斷</li>
+          <li><strong>VLOOKUP(value, table, col, [range])</strong>：垂直查找</li>
+        </ul>
+        <h4>數據分析工具</h4>
+        <ul>
+          <li>排序 (Sort) 和 篩選 (Filter)</li>
+          <li>樞紐分析表 (Pivot Table)</li>
+          <li>假設分析 (What-if Analysis)</li>
+          <li>圖表 (Charts)：柱狀圖、折線圖、圓形圖</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOPIC 3: 電腦系統基礎 ==================== -->
+<section class="topic-section" id="t3">
+  <div class="topic-header">
+    <span class="badge">單元 B</span>
+    <h2>電腦系統基礎 — 硬件、軟件與操作系統</h2>
+    <p>CPU結構、記憶體系統、輸入輸出設備、系統軟件、操作模式</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">⚙️</span>
+        <h3>CPU結構與功能</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>CPU主要部件</h4>
+        <ul>
+          <li><strong>控制單元 (CU)</strong>：控制指令的提取、解碼和執行順序</li>
+          <li><strong>算術邏輯單元 (ALU)</strong>：執行算術和邏輯運算</li>
+          <li><strong>寄存器 (Register)</strong>：CPU內部高速暫存器</li>
+          <li><strong>快取記憶體 (Cache)</strong>：CPU與RAM之間的高速緩衝</li>
+        </ul>
+        <h4>提取-解碼-執行循環 (Fetch-Decode-Execute Cycle)</h4>
+        <ol>
+          <li><strong>提取 (Fetch)</strong>：從記憶體提取下一條指令</li>
+          <li><strong>解碼 (Decode)</strong>：CU解釋該指令</li>
+          <li><strong>執行 (Execute)</strong>：ALU執行運算或傳輸數據</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">💾</span>
+        <h3>記憶體系統</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <tr><th>類型</th><th>易失性</th><th>速度</th><th>用途</th></tr>
+            <tr><td>RAM</td><td>是（斷電丟失）</td><td>極快 (ns)</td><td>主記憶體，運行中的程式和數據</td></tr>
+            <tr><td>ROM</td><td>否（斷電保留）</td><td>快</td><td>BIOS/UEFI韌體</td></tr>
+            <tr><td>Cache</td><td>是</td><td>最快</td><td>CPU與RAM之間的緩衝</td></tr>
+            <tr><td>SSD</td><td>否</td><td>快 (0.1ms)</td><td>輔助儲存</td></tr>
+            <tr><td>HDD</td><td>否</td><td>較慢 (5-10ms)</td><td>輔助儲存（機械式）</td></tr>
+          </table>
+        </div>
+        <p class="warn">⚠️ <strong>常見錯誤：</strong>RAM是易失性的（volatile），斷電後數據會丟失。ROM是非易失性的（non-volatile），斷電後數據仍保留。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🖥️</span>
+        <h3>操作系統 (OS) 功能</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p>操作系統是電腦最基礎的系統軟件，主要功能包括：</p>
+        <ul>
+          <li><strong>記憶體管理</strong>：分配和釋放RAM給不同程式</li>
+          <li><strong>處理器管理</strong>：CPU排程（多任務處理）</li>
+          <li><strong>檔案管理</strong>：檔案和目錄的組織、存取控制</li>
+          <li><strong>輸入輸出管理</strong>：管理各種外圍設備</li>
+          <li><strong>提供用戶介面</strong>：GUI或CLI</li>
+          <li><strong>虛擬記憶體</strong>：使用硬碟空間模擬額外RAM</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🔄</span>
+        <h3>操作模式</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li><strong>批次處理 (Batch Processing)</strong>：收集一批工作後統一處理，不需用戶互動</li>
+          <li><strong>即時處理 (Real-time Processing)</strong>：立即處理輸入並產生輸出（如：航空訂票系統）</li>
+          <li><strong>並行處理 (Parallel Processing)</strong>：多個CPU同時處理不同部分</li>
+          <li><strong>分散式處理 (Distributed Processing)</strong>：多台電腦聯網共同處理</li>
+          <li><strong>虛擬化 (Virtualization)</strong>：在單一硬件上運行多個虛擬機器</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOPIC 4: 互聯網及其應用 (一) ==================== -->
+<section class="topic-section" id="t4">
+  <div class="topic-header">
+    <span class="badge">單元 C · 第一部分</span>
+    <h2>互聯網及其應用 (一) — 網絡基礎與通訊協定</h2>
+    <p>LAN/WAN、網絡硬件、TCP/IP、IP地址、DNS、HTTP/HTTPS</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🌐</span>
+        <h3>網絡類型：LAN vs WAN</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <tr><th>特性</th><th>LAN (局域網)</th><th>WAN (廣域網)</th></tr>
+            <tr><td>覆蓋範圍</td><td>小（建築物/校園內）</td><td>大（城市/國家/全球）</td></tr>
+            <tr><td>擁有權</td><td>單一組織</td><td>多個組織/服務供應商</td></tr>
+            <tr><td>速度</td><td>快（通常100Mbps-10Gbps）</td><td>較慢（取決於連接）</td></tr>
+            <tr><td>延遲</td><td>低</td><td>較高</td></tr>
+            <tr><td>例子</td><td>學校電腦室網絡、家庭Wi-Fi</td><td>互聯網、銀行ATM網絡</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📡</span>
+        <h3>網絡硬件</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li><strong>網卡 (NIC)</strong>：連接電腦到網絡</li>
+          <li><strong>交換機 (Switch)</strong>：在LAN內轉發數據幀（基於MAC地址）</li>
+          <li><strong>路由器 (Router)</strong>：在不同網絡之間轉發數據包（基於IP地址）</li>
+          <li><strong>數據機 (Modem)</strong>：調製和解調信號（模擬↔數碼轉換）</li>
+          <li><strong>無線接入點 (WAP)</strong>：提供Wi-Fi連接</li>
+        </ul>
+        <p class="tip">💡 <strong>記憶：</strong>Switch用MAC（局域內），Router用IP（跨網絡）。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📨</span>
+        <h3>TCP/IP 協議套件</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>TCP (傳輸控制協議)</h4>
+        <ul>
+          <li>確保數據可靠傳送</li>
+          <li>數據分段和重組</li>
+          <li>錯誤檢測和重傳</li>
+          <li>流量控制</li>
+        </ul>
+        <h4>IP (互聯網協議)</h4>
+        <ul>
+          <li>定址（IP地址）</li>
+          <li>路由選擇（決定數據包的路徑）</li>
+        </ul>
+        <p><strong>IPv4：</strong>32位元，約43億個地址<br>
+        <strong>IPv6：</strong>128位元，約3.4×10³⁸個地址</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🔗</span>
+        <h3>DNS、URL、HTTP/HTTPS</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li><strong>DNS (域名系統)</strong>：將域名轉換為IP地址（如 www.google.com → 142.250.80.4）</li>
+          <li><strong>URL (統一資源定位符)</strong>：標識網上資源的地址</li>
+          <li><strong>HTTP</strong>：超文本傳輸協議，未加密</li>
+          <li><strong>HTTPS</strong>：HTTP + SSL/TLS加密，提供機密性、完整性和身份驗證</li>
+        </ul>
+        <p class="eq">URL結構：https://www.example.com:443/path/page.html?query=abc</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOPIC 5: 互聯網及其應用 (二) ==================== -->
+<section class="topic-section" id="t5">
+  <div class="topic-header">
+    <span class="badge">單元 C · 第二部分</span>
+    <h2>互聯網及其應用 (二) — 服務、網頁編寫與安全</h2>
+    <p>互聯網服務、IoT、雲端運算、HTML網頁編寫、網絡安全威脅與防護</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">☁️</span>
+        <h3>雲端運算與物聯網</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>雲端服務模式</h4>
+        <ul>
+          <li><strong>IaaS</strong>（基礎設施即服務）：提供虛擬伺服器、儲存（如AWS EC2）</li>
+          <li><strong>PaaS</strong>（平台即服務）：提供開發平台（如Google App Engine）</li>
+          <li><strong>SaaS</strong>（軟件即服務）：提供即用軟件（如Google Docs, Office 365）</li>
+        </ul>
+        <h4>物聯網 (IoT)</h4>
+        <p>嵌入感應器和網絡連接的物理設備，通過互聯網交換數據。應用：智能家居、智能手錶、智能城市。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🛡️</span>
+        <h3>網絡安全威脅</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li><strong>病毒 (Virus)</strong>：自我複製，附著於檔案</li>
+          <li><strong>蠕蟲 (Worm)</strong>：自我複製，通過網絡傳播</li>
+          <li><strong>木馬 (Trojan)</strong>：偽裝成合法軟件的惡意程式</li>
+          <li><strong>勒索軟件 (Ransomware)</strong>：加密檔案，要求贖金</li>
+          <li><strong>間諜軟件 (Spyware)</strong>：秘密收集用戶資訊</li>
+        </ul>
+        <h4>防護措施</h4>
+        <ul>
+          <li><strong>防火牆 (Firewall)</strong>：根據規則控制進出網絡流量</li>
+          <li><strong>VPN</strong>：加密的虛擬專用網絡通道</li>
+          <li><strong>WPA</strong>：Wi-Fi無線安全協議</li>
+          <li><strong>防毒軟件</strong>：檢測和移除惡意軟件</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🔐</span>
+        <h3>加密與認證</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>對稱加密 vs 公開金鑰加密</h4>
+        <ul>
+          <li><strong>對稱加密</strong>：加密和解密使用同一金鑰，速度快（如AES）</li>
+          <li><strong>公開金鑰加密</strong>：一對金鑰——公鑰加密，私鑰解密（如RSA）</li>
+        </ul>
+        <h4>SSL/TLS與數碼證書</h4>
+        <ul>
+          <li>SSL/TLS使用公開金鑰加密進行初始密鑰交換</li>
+          <li>然後使用對稱加密進行數據傳輸</li>
+          <li>數碼證書由CA（證書頒發機構）簽發，驗證網站身份</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOPIC 6: 計算思維與程式編寫 (一) ==================== -->
+<section class="topic-section" id="t6">
+  <div class="topic-header">
+    <span class="badge">單元 D · 第一部分</span>
+    <h2>計算思維與程式編寫 (一) — 基礎概念與編程實踐</h2>
+    <p>計算思維三元素、算法設計方法、流程圖與偽代碼、三大控制結構實例、Python基礎語法</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🧠</span>
+        <h3>計算思維的核心元素 (CT Elements)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>1. 抽象化 (Abstraction)</h4>
+        <p>從複雜問題中提取關鍵特徵，忽略不相關細節，建立簡化模型。</p>
+        <div class="tip">💡 <strong>例子：</strong>設計地鐵路線圖時，只保留車站和連接線，忽略實際地理距離和彎曲——這就是抽象化。</div>
+
+        <h4>2. 算法設計 (Algorithm Design)</h4>
+        <p>設計一系列明確的、逐步的指令來解決問題。</p>
+        <p>算法的五個重要特徵：</p>
+        <ul>
+          <li><strong>有限性 (Finiteness)</strong>：必須在有限步驟內結束</li>
+          <li><strong>明確性 (Definiteness)</strong>：每一步驟必須清楚無歧義</li>
+          <li><strong>輸入 (Input)</strong>：可有0個或多個輸入</li>
+          <li><strong>輸出 (Output)</strong>：至少產生一個輸出</li>
+          <li><strong>有效性 (Effectiveness)</strong>：每一步驟都是可行的基本操作</li>
+        </ul>
+
+        <h4>3. 自動化 (Automation)</h4>
+        <p>將算法轉化為電腦能夠執行的程式碼，讓電腦自動完成任務。</p>
+        <p class="warn">⚠️ <strong>考試重點：</strong>計算思維 ≠ 程式編寫。計算思維是解決問題的<strong>思維方式</strong>，程式編寫是<strong>實現工具</strong>。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📐</span>
+        <h3>流程圖 (Flowchart) 設計</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <tr><th>符號</th><th>形狀</th><th>用途</th><th>例子</th></tr>
+            <tr><td>終止 (Terminator)</td><td>橢圓形</td><td>開始/結束</td><td class="eq">開始 → ... → 結束</td></tr>
+            <tr><td>處理 (Process)</td><td>矩形</td><td>運算/賦值</td><td class="eq">sum = a + b</td></tr>
+            <tr><td>決策 (Decision)</td><td>菱形</td><td>條件分支 (是/否)</td><td class="eq">x > 10?</td></tr>
+            <tr><td>輸入/輸出 (I/O)</td><td>平行四邊形</td><td>讀取/顯示數據</td><td class="eq">輸入 x / 輸出 sum</td></tr>
+            <tr><td>流程線 (Flow Line)</td><td>箭頭 →</td><td>執行方向</td><td>—</td></tr>
+          </table>
+        </div>
+        <h4>流程圖實例：判斷成績等級</h4>
+        <pre class="eq" style="white-space:pre;font-size:.75rem;">
+     ┌──────┐
+     │ 開始  │
+     └──┬───┘
+        ↓
+    ┌───────┐
+    │輸入score│
+    └───┬───┘
+        ↓
+      ┌─◇──┐  是   ┌──────────┐
+      │score│─────→│輸出 "及格" │
+      │≥ 60?│       └──────────┘
+      └─┬──┘
+        │否
+        ↓
+   ┌──────────┐
+   │輸出"不及格"│
+   └─────┬────┘
+         ↓
+      ┌──────┐
+      │ 結束  │
+      └──────┘
+        </pre>
+        <div class="tip">💡 <strong>考試提示：</strong>菱形是唯一有<strong>兩個出口</strong>（是/否）的符號。所有其他符號只有一個入口和一個出口。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📝</span>
+        <h3>偽代碼 (Pseudocode) 與三大控制結構</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p>偽代碼是<strong>用自然語言描述算法</strong>的方式，不依賴特定程式語言的語法。DSE考試中，偽代碼用於考核算法邏輯。</p>
+
+        <h4>1. 順序結構 (Sequence)</h4>
+        <pre class="eq">輸入 x
+輸入 y
+sum = x + y
+輸出 sum</pre>
+
+        <h4>2. 選擇結構 (Selection)</h4>
+        <pre class="eq">IF score >= 90 THEN
+    輸出 "A"
+ELSE IF score >= 80 THEN
+    輸出 "B"
+ELSE IF score >= 70 THEN
+    輸出 "C"
+ELSE
+    輸出 "F"
+ENDIF</pre>
+        <p>巢狀選擇 (Nested IF)：</p>
+        <pre class="eq">IF x > 0 THEN
+    IF x > 10 THEN
+        輸出 "Large positive"
+    ELSE
+        輸出 "Small positive"
+    ENDIF
+ELSE
+    輸出 "Non-positive"
+ENDIF</pre>
+
+        <h4>3. 迭代結構 (Iteration)</h4>
+        <p><strong>FOR 循環（已知次數）：</strong></p>
+        <pre class="eq">sum = 0
+FOR i = 1 TO 10
+    sum = sum + i
+NEXT i
+輸出 sum          // 結果 = 55 (1+2+...+10)</pre>
+        <p><strong>WHILE 循環（條件控制）：</strong></p>
+        <pre class="eq">count = 0
+WHILE count < 5 DO
+    輸出 count
+    count = count + 1
+ENDWHILE
+// 輸出：0, 1, 2, 3, 4</pre>
+        <p><strong>REPEAT-UNTIL 循環（至少執行一次）：</strong></p>
+        <pre class="eq">REPEAT
+    輸入 password
+UNTIL password = "correct"
+輸出 "Access granted"</pre>
+        <div class="warn">⚠️ <strong>考試陷阱：</strong>WHILE 先檢查條件再執行（可能0次），REPEAT-UNTIL 先執行再檢查（至少1次）。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🐍</span>
+        <h3>Python 程式基礎 (DSE程式語言)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>變量與數據類型</h4>
+        <pre class="eq"># 基本數據類型
+name = "Alice"          # 字串 (str)
+age = 17                # 整數 (int)
+height = 1.65           # 浮點數 (float)
+is_student = True       # 布爾值 (bool)
+
+# 類型轉換
+score = int("85")       # str → int
+price = float("12.5")   # str → float
+text = str(100)          # int → str</pre>
+
+        <h4>輸入與輸出</h4>
+        <pre class="eq"># 輸入
+name = input("請輸入你的名字: ")      # 返回字串
+age = int(input("請輸入你的年齡: "))  # 轉換為整數
+
+# 輸出
+print("Hello, " + name)
+print(f"年齡: {age}")                 # f-string 格式化</pre>
+
+        <h4>數學運算符</h4>
+        <div class="table-wrap">
+          <table>
+            <tr><th>運算符</th><th>功能</th><th>例子</th><th>結果</th></tr>
+            <tr><td>+</td><td>加法</td><td class="eq">7 + 3</td><td>10</td></tr>
+            <tr><td>-</td><td>減法</td><td class="eq">7 - 3</td><td>4</td></tr>
+            <tr><td>*</td><td>乘法</td><td class="eq">7 * 3</td><td>21</td></tr>
+            <tr><td>/</td><td>除法（浮點）</td><td class="eq">7 / 2</td><td>3.5</td></tr>
+            <tr><td>//</td><td>整數除法</td><td class="eq">7 // 2</td><td>3</td></tr>
+            <tr><td>%</td><td>取餘數 (mod)</td><td class="eq">7 % 2</td><td>1</td></tr>
+            <tr><td>**</td><td>冪</td><td class="eq">2 ** 3</td><td>8</td></tr>
+          </table>
+        </div>
+
+        <h4>比較運算符</h4>
+        <pre class="eq">==   等於          !=   不等於
+>    大於          <    小於
+>=   大於等於       <=   小於等於</pre>
+
+        <h4>邏輯運算符</h4>
+        <pre class="eq">and   且（兩者為真才為真）
+or    或（其一為真即為真）
+not   非（取反）</pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">💻</span>
+        <h3>程式實例：從偽代碼到 Python</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>例子1：計算1到N的和</h4>
+        <p><strong>偽代碼：</strong></p>
+        <pre class="eq">輸入 N
+sum = 0
+FOR i = 1 TO N
+    sum = sum + i
+NEXT i
+輸出 sum</pre>
+        <p><strong>Python：</strong></p>
+        <pre class="eq">N = int(input("輸入 N: "))
+sum = 0
+for i in range(1, N + 1):
+    sum = sum + i
+print(f"1到{N}的和為: {sum}")</pre>
+
+        <h4>例子2：找出最大值</h4>
+        <p><strong>偽代碼：</strong></p>
+        <pre class="eq">輸入 a, b, c
+max = a
+IF b > max THEN max = b ENDIF
+IF c > max THEN max = c ENDIF
+輸出 "最大值: ", max</pre>
+        <p><strong>Python：</strong></p>
+        <pre class="eq">a = int(input("輸入 a: "))
+b = int(input("輸入 b: "))
+c = int(input("輸入 c: "))
+max_val = a
+if b > max_val: max_val = b
+if c > max_val: max_val = c
+print(f"最大值: {max_val}")</pre>
+
+        <h4>例子3：判斷質數</h4>
+        <pre class="eq">n = int(input("輸入一個正整數: "))
+is_prime = True
+if n <= 1:
+    is_prime = False
+else:
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            is_prime = False
+            break
+if is_prime:
+    print(f"{n} 是質數")
+else:
+    print(f"{n} 不是質數")</pre>
+        <div class="tip">💡 <strong>考試重點：</strong>DSE 程式題目要求學生能<strong>閱讀</strong>偽代碼/流程圖推理結果，或將問題<strong>轉化</strong>為偽代碼。不需要寫出完整Python語法——偽代碼更注重邏輯而非語法精確性。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOPIC 7: 計算思維與程式編寫 (二) ==================== -->
+<section class="topic-section" id="t7">
+  <div class="topic-header">
+    <span class="badge">單元 D · 第二部分</span>
+    <h2>計算思維與程式編寫 (二) — 進階編程與算法</h2>
+    <p>模組化與函數、陣列操作、搜尋與排序算法、檔案處理、除錯策略與測試方法</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🧩</span>
+        <h3>模組化程式設計 (Modular Programming)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>函數 (Function) vs 程序 (Procedure)</h4>
+        <div class="table-wrap">
+          <table>
+            <tr><th>特性</th><th>函數 (Function)</th><th>程序 (Procedure)</th></tr>
+            <tr><td>返回值</td><td>有（return value）</td><td>無</td></tr>
+            <tr><td>調用方式</td><td class="eq">result = sqrt(16)</td><td class="eq">display_message()</td></tr>
+            <tr><td>例子</td><td>len(), sum(), max()</td><td>print(), sort()</td></tr>
+          </table>
+        </div>
+
+        <h4>Python函數實例</h4>
+        <pre class="eq"># 定義函數：計算矩形面積
+def calculate_area(length, width):
+    """返回矩形面積"""
+    area = length * width
+    return area
+
+# 調用函數
+room_area = calculate_area(5, 4)   # 結果 = 20
+print(f"房間面積: {room_area} 平方米")
+
+# 定義程序：顯示歡迎訊息
+def show_welcome(name):
+    """顯示歡迎訊息（不返回值）"""
+    print(f"歡迎, {name}!")
+    print("祝你有美好的一天！")
+
+# 調用程序
+show_welcome("Alice")</pre>
+
+        <h4>模組化的好處</h4>
+        <ul>
+          <li><strong>可重用性</strong>：同一函數可在多處調用，無需重複編寫</li>
+          <li><strong>可維護性</strong>：修改函數內部不影響調用它的程式</li>
+          <li><strong>可讀性</strong>：函數名稱描述其功能，程式邏輯清晰</li>
+          <li><strong>便於除錯</strong>：可單獨測試每個函數</li>
+          <li><strong>團隊協作</strong>：不同人負責不同模組</li>
+        </ul>
+        <div class="tip">💡 <strong>DSE考試：</strong>參數傳遞（pass by value）——函數接收的是值的<strong>副本</strong>，修改參數不影響原變量。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📦</span>
+        <h3>陣列 (Array) 操作詳解</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>一維陣列</h4>
+        <pre class="eq"># Python (list)
+scores = [85, 92, 78, 90, 88]
+print(scores[0])       # 輸出: 85 (第一個元素，索引=0)
+print(scores[2])       # 輸出: 78 (第三個元素)
+print(len(scores))     # 輸出: 5 (陣列長度)
+print(scores[-1])      # 輸出: 88 (最後一個元素)</pre>
+
+        <h4>遍歷陣列</h4>
+        <pre class="eq"># 方法1：用索引
+for i in range(len(scores)):
+    print(f"學生{i+1}: {scores[i]}")
+
+# 方法2：直接遍歷元素
+total = 0
+for score in scores:
+    total = total + score
+average = total / len(scores)
+print(f"平均分: {average}")  # 輸出: 86.6</pre>
+
+        <h4>常用陣列操作（Python）</h4>
+        <pre class="eq">scores.append(95)           # 添加元素到末尾
+scores.insert(2, 88)        # 在索引2處插入88
+scores.pop()                 # 移除並返回最後一個元素
+scores.remove(78)            # 移除第一個值為78的元素
+scores.sort()                # 升序排序
+scores.reverse()             # 反轉順序</pre>
+
+        <h4>二維陣列（矩陣）</h4>
+        <pre class="eq"># 3x3 矩陣
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+print(matrix[0][1])    # 輸出: 2 (第0行第1列)
+print(matrix[2][2])    # 輸出: 9 (第2行第2列)
+
+# 遍歷二維陣列
+for row in range(3):
+    for col in range(3):
+        print(matrix[row][col], end=" ")
+    print()  # 換行</pre>
+        <p class="warn">⚠️ <strong>注意：</strong>Python 的 list 並非傳統意義上的固定長度陣列，但 DSE 考試中視為等價。偽代碼中的陣列索引也從 0 開始。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🔍</span>
+        <h3>搜尋與排序算法 (Search & Sort)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>線性搜尋 (Linear Search)</h4>
+        <p>逐一檢查每個元素，直到找到目標或遍歷完成。</p>
+        <pre class="eq">arr = [5, 2, 8, 1, 9, 3]
+target = 8
+found = False
+FOR i = 0 TO len(arr)-1
+    IF arr[i] = target THEN
+        輸出 "找到於位置 ", i
+        found = True
+    ENDIF
+NEXT i
+IF NOT found THEN 輸出 "未找到" ENDIF</pre>
+        <p>時間複雜度：O(n) — 最壞情況需檢查所有元素</p>
+
+        <h4>冒泡排序 (Bubble Sort)</h4>
+        <p>重複比較相鄰元素，若順序不對則交換，每輪將最大元素「浮」到末尾。</p>
+        <pre class="eq">arr = [5, 3, 8, 1, 2]
+n = len(arr)
+FOR i = 0 TO n-2                // 外循環：n-1 輪
+    FOR j = 0 TO n-2-i           // 內循環：比較相鄰元素
+        IF arr[j] > arr[j+1] THEN
+            temp = arr[j]        // 交換
+            arr[j] = arr[j+1]
+            arr[j+1] = temp
+        ENDIF
+    NEXT j
+NEXT i
+// 結果：[1, 2, 3, 5, 8]</pre>
+        <div class="table-wrap">
+          <table>
+            <tr><th>輪次(i)</th><th>比較次數</th><th>排序後狀態</th></tr>
+            <tr><td>0</td><td>4</td><td class="eq">[3, 5, 1, 2, <strong>8</strong>]</td></tr>
+            <tr><td>1</td><td>3</td><td class="eq">[3, 1, 2, <strong>5</strong>, 8]</td></tr>
+            <tr><td>2</td><td>2</td><td class="eq">[1, 2, <strong>3</strong>, 5, 8]</td></tr>
+            <tr><td>3</td><td>1</td><td class="eq">[1, <strong>2</strong>, 3, 5, 8]</td></tr>
+          </table>
+        </div>
+        <p>時間複雜度：O(n²)</p>
+
+        <div class="tip">💡 <strong>記憶技巧：</strong>Bubble Sort 每輪結束時，最大的未排序元素會「冒泡」到正確位置——就像水中的氣泡上升一樣。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">📁</span>
+        <h3>檔案處理 (File Handling)</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>開啟與關閉檔案</h4>
+        <pre class="eq">' 偽代碼：
+OPEN "data.txt" FOR INPUT AS #1     ' 開啟供讀取
+OPEN "output.txt" FOR OUTPUT AS #2  ' 開啟供寫入
+CLOSE #1                            ' 關閉檔案</pre>
+
+        <h4>Python 檔案操作</h4>
+        <pre class="eq"># 讀取整個檔案
+with open("data.txt", "r", encoding="utf-8") as f:
+    content = f.read()
+    print(content)
+
+# 逐行讀取
+with open("data.txt", "r", encoding="utf-8") as f:
+    for line in f:
+        print(line.strip())  # strip() 移除換行符
+
+# 寫入檔案
+with open("output.txt", "w", encoding="utf-8") as f:
+    f.write("第一行\\n")
+    f.write("第二行\\n")
+
+# 附加到檔案末尾
+with open("log.txt", "a", encoding="utf-8") as f:
+    f.write("新增的記錄\\n")</pre>
+
+        <h4>檔案模式</h4>
+        <div class="table-wrap">
+          <table>
+            <tr><th>模式</th><th>說明</th></tr>
+            <tr><td class="eq">"r"</td><td>讀取（檔案必須存在）</td></tr>
+            <tr><td class="eq">"w"</td><td>寫入（覆蓋原內容，不存在則建立）</td></tr>
+            <tr><td class="eq">"a"</td><td>附加（在檔案末尾添加）</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🐛</span>
+        <h3>程式除錯與測試策略</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>三種錯誤類型</h4>
+        <div class="table-wrap">
+          <table>
+            <tr><th>類型</th><th>說明</th><th>例子</th></tr>
+            <tr><td>語法錯誤 (Syntax Error)</td><td>違反語言語法規則，程式無法執行</td><td class="eq">prin("hello")  # 拼寫錯誤</td></tr>
+            <tr><td>運行時錯誤 (Runtime Error)</td><td>程式執行中發生異常</td><td class="eq">x = 10 / 0  # 除以零</td></tr>
+            <tr><td>邏輯錯誤 (Logic Error)</td><td>程式能執行但結果不正確</td><td class="eq">area = length + width  # 應為乘法</td></tr>
+          </table>
+        </div>
+
+        <h4>測試策略</h4>
+        <ul>
+          <li><strong>白盒測試 (White-box)</strong>：了解內部結構，測試所有執行路徑和邏輯分支</li>
+          <li><strong>黑盒測試 (Black-box)</strong>：不了解內部結構，僅根據規格測試輸入和輸出</li>
+          <li><strong>邊界值測試 (Boundary Value)</strong>：測試輸入範圍的邊界值（如 0, -1, 最大值+1）</li>
+        </ul>
+
+        <h4>邊界值測試實例</h4>
+        <p>假設程式接受 1-100 的輸入：</p>
+        <div class="table-wrap">
+          <table>
+            <tr><th>測試值</th><th>類別</th><th>預期結果</th></tr>
+            <tr><td>0</td><td>低於下限</td><td>錯誤 / 拒絕</td></tr>
+            <tr><td>1</td><td>下限</td><td>接受</td></tr>
+            <tr><td>50</td><td>正常範圍</td><td>接受</td></tr>
+            <tr><td>100</td><td>上限</td><td>接受</td></tr>
+            <tr><td>101</td><td>高於上限</td><td>錯誤 / 拒絕</td></tr>
+          </table>
+        </div>
+
+        <h4>除錯技巧</h4>
+        <ul>
+          <li><strong>逐步執行 (Step-through)</strong>：逐行執行程式，觀察變量變化</li>
+          <li><strong>加入偵錯輸出</strong>：在關鍵位置加入 print() 查看變量值</li>
+          <li><strong>追蹤表 (Trace Table)</strong>：手動追蹤每個變量在每步的值</li>
+        </ul>
+
+        <h4>追蹤表示例</h4>
+        <p>程式：<code>sum=0; FOR i=1 TO 3: sum=sum+i; NEXT i</code></p>
+        <div class="table-wrap">
+          <table>
+            <tr><th>步驟</th><th>i</th><th>sum</th></tr>
+            <tr><td>初始化</td><td>—</td><td>0</td></tr>
+            <tr><td>i=1</td><td>1</td><td>1</td></tr>
+            <tr><td>i=2</td><td>2</td><td>3</td></tr>
+            <tr><td>i=3</td><td>3</td><td>6</td></tr>
+          </table>
+        </div>
+
+        <h4>程式文檔 (Documentation)</h4>
+        <p>程式文檔是描述程式功能、結構和使用方法的文字說明。良好文檔包括：</p>
+        <ul>
+          <li><strong>程式註釋</strong>：解釋複雜邏輯（用 # 或 // 標記）</li>
+          <li><strong>函數說明</strong>：描述參數、返回值和功能</li>
+          <li><strong>使用者手冊</strong>：如何安裝和操作</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOPIC 8: 社會影響 ==================== -->
+<section class="topic-section" id="t8">
+  <div class="topic-header">
+    <span class="badge">單元 E</span>
+    <h2>資訊及通訊科技對社會的影響</h2>
+    <p>ICT對各領域的影響、知識產權、數碼鴻溝、私隱與健康議題</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🏫</span>
+        <h3>ICT對各領域的影響</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>教育</h4>
+        <ul>
+          <li>網上學習平台（Moodle、Google Classroom）</li>
+          <li>多媒體教學資源</li>
+          <li>即時通訊促進師生交流</li>
+        </ul>
+        <h4>商業</h4>
+        <ul>
+          <li>電子商務（網上購物）</li>
+          <li>遙距工作和視像會議</li>
+          <li>數據分析和商業智能</li>
+        </ul>
+        <h4>娛樂</h4>
+        <ul>
+          <li>串流媒體（Netflix、YouTube）</li>
+          <li>網上遊戲和社交媒體</li>
+          <li>虛擬實境 (VR) 和擴增實境 (AR)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">©️</span>
+        <h3>知識產權</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table>
+            <tr><th>類型</th><th>保護對象</th><th>ICT例子</th></tr>
+            <tr><td>版權 (Copyright)</td><td>文學、音樂、藝術、軟件源代碼</td><td>軟件源代碼、網站內容</td></tr>
+            <tr><td>專利權 (Patent)</td><td>發明和技術創新</td><td>獨特算法、硬件設計</td></tr>
+            <tr><td>商標權 (Trademark)</td><td>品牌名稱和標誌</td><td>軟件名稱、App圖標</td></tr>
+            <tr><td>商業秘密 (Trade Secret)</td><td>機密商業資訊</td><td>Google搜索算法</td></tr>
+          </table>
+        </div>
+        <h4>開源軟件授權</h4>
+        <ul>
+          <li><strong>GPL</strong>：修改後必須也以GPL開源</li>
+          <li><strong>MIT</strong>：非常寬鬆，可用於商業軟件</li>
+          <li><strong>Apache</strong>：包含專利授權條款</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <span class="icon">🔒</span>
+        <h3>私隱、數碼鴻溝與健康</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <h4>數碼鴻溝 (Digital Divide)</h4>
+        <p>不同地區、社會經濟階層、年齡組別在ICT資源獲取和使用上的差距。體現在硬件獲取、互聯網接入、數碼技能等方面。</p>
+        <h4>私隱與監控</h4>
+        <ul>
+          <li>社交媒體數據收集</li>
+          <li>網上行為追蹤（Cookies）</li>
+          <li>政府監控和數據保留</li>
+          <li>保障私隱方法：VPN、清除Cookies、強密碼、雙重驗證</li>
+        </ul>
+        <h4>健康影響</h4>
+        <ul>
+          <li>重複性勞損 (RSI)</li>
+          <li>眼睛疲勞和視力問題</li>
+          <li>久坐導致的頸背疼痛</li>
+          <li>預防：定時休息、人體工學設備、20-20-20法則</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+
+// URL language: ?lang=zh-hk or ?lang=en-hk
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get('lang');
+  if (urlLang) {
+    const lang = urlLang.startsWith('en') ? 'en' : 'zh';
+    localStorage.setItem('dse_platform_lang', lang);
+    localStorage.setItem('dse_ict_lang', lang);
+  }
+})();
+
+// Expand first card of each topic on load
+document.querySelectorAll('.card').forEach(card => card.classList.add('open'));
+
+// Sidebar navigation
+function scrollToTopic(id) {
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  event.target.closest('a').classList.add('active');
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// Search
+function filterTopics() {
+  const query = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.topic-section').forEach(section => {
+    const text = section.textContent.toLowerCase();
+    section.style.display = text.includes(query) ? '' : 'none';
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const sel = document.getElementById('langSwitch');
+  if (sel) { sel.value = gLang; }
+});
+function switchLang(lang) {
+  gLang = lang;
+  localStorage.setItem('dse_ict_lang', lang);
+  localStorage.setItem('dse_platform_lang', lang);
+  location.reload();
+}
+
+</script>
+
+</body>
+</html>

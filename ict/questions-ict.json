@@ -1,0 +1,2156 @@
+[
+  {
+    "qid": "ICT-001",
+    "topic": 1,
+    "year": 2019,
+    "qnum": 5,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "下列哪項是數據與資訊之間的正確關係？",
+    "options": [
+      "A. 數據和資訊是同一概念",
+      "B. 資訊是經過處理和組織的數據",
+      "C. 數據是經過處理和組織的資訊",
+      "D. 兩者之間沒有關係"
+    ],
+    "answer": 1,
+    "explanation": "資訊是經過處理、組織和分析後的數據，使其具有意義和用途。原始數據本身沒有上下文，經過處理後才成為有用的資訊。",
+    "markingNotes": "1分：正確答案是B。資訊是經過處理和組織的數據。",
+    "question_en": "Which of the following is the correct relationship between data and information?",
+    "options_en": [
+      "A. Data and information are the same concept",
+      "B. Information is processed and organized data",
+      "C. Data is processed and organized information",
+      "D. There is no relationship between them"
+    ],
+    "explanation_en": "Information is processed, organized, and analyzed data that carries meaning and purpose. Raw data lacks context on its own; only after processing does it become useful information.",
+    "markingNotes_en": "1 mark: B. Information is processed and organized data."
+  },
+  {
+    "qid": "ICT-002",
+    "topic": 1,
+    "year": 2020,
+    "qnum": 3,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是模擬數據(analog data)的特性？",
+    "options": [
+      "A. 以離散數值表示",
+      "B. 只能取0和1兩個值",
+      "C. 連續變化的數值",
+      "D. 必須以二進制儲存"
+    ],
+    "answer": 2,
+    "explanation": "模擬數據是連續變化的物理量，可以在一定範圍內取任意值。與數碼數據不同，模擬數據不是以離散的二進制數值表示。",
+    "markingNotes": "1分：C。模擬數據是連續變化的數值。",
+    "question_en": "Which of the following is a characteristic of analog data?",
+    "options_en": [
+      "A. Represented by discrete values",
+      "B. Can only take values of 0 and 1",
+      "C. Continuously varying values",
+      "D. Must be stored in binary"
+    ],
+    "explanation_en": "Analog data consists of continuously varying physical quantities that can take any value within a range. Unlike digital data, analog data is not represented by discrete binary values.",
+    "markingNotes_en": "1 mark: C. Analog data is continuously varying values."
+  },
+  {
+    "qid": "ICT-003",
+    "topic": 1,
+    "year": 2021,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "將十進制數45轉換為二進制數，結果是：",
+    "options": [
+      "A. 101101",
+      "B. 110101",
+      "C. 101111",
+      "D. 111101"
+    ],
+    "answer": 0,
+    "explanation": "45₁₀ = 32 + 8 + 4 + 1 = 2⁵ + 2³ + 2² + 2⁰ = 101101₂。驗證：101101₂ = 1×32 + 0×16 + 1×8 + 1×4 + 0×2 + 1×1 = 32 + 8 + 4 + 1 = 45。使用重複除法：45÷2=22餘1, 22÷2=11餘0, 11÷2=5餘1, 5÷2=2餘1, 2÷2=1餘0, 1÷2=0餘1，從下往上讀取餘數得101101₂。",
+    "markingNotes": "1分：A (101101₂)。需展示正確的十進制轉二進制步驟。",
+    "question_en": "Convert the decimal number 45 to binary. The result is:",
+    "options_en": [
+      "A. 101101",
+      "B. 110101",
+      "C. 101111",
+      "D. 111101"
+    ],
+    "explanation_en": "45₁₀ = 32+8+4+1 = 2⁵+2³+2²+2⁰ = 101101₂. Verify: 1×32+0×16+1×8+1×4+0×2+1×1 = 45. Using repeated division: 45÷2=22r1, 22÷2=11r0, 11÷2=5r1, 5÷2=2r1, 2÷2=1r0, 1÷2=0r1. Read remainders bottom-up: 101101₂.",
+    "markingNotes_en": "1 mark: A (101101₂). Must show correct decimal to binary conversion steps."
+  },
+  {
+    "qid": "ICT-004",
+    "topic": 1,
+    "year": 2018,
+    "qnum": 14,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "一幅1024×768像素的24-bit全彩色點陣圖，其未經壓縮的檔案大小約為多少？",
+    "options": [
+      "A. 2.25 MB",
+      "B. 2.36 MB",
+      "C. 18.87 MB",
+      "D. 24.00 MB"
+    ],
+    "answer": 0,
+    "explanation": "檔案大小 = 1024 × 768 × 24 bits = 1024 × 768 × 3 bytes = 2,359,296 bytes ≈ 2.25 MB。注意24-bit = 3 bytes per pixel（因為8 bits = 1 byte），1 MB = 1,048,576 bytes = 1024 × 1024 bytes。計算：2,359,296 / 1,048,576 = 2.25 MB。常見錯誤是忘記將bits轉為bytes（除以8）。",
+    "markingNotes": "1分：A。1024×768×24/8/1024/1024 ≈ 2.25 MB。必須正確處理單位換算。",
+    "question_en": "An uncompressed 1024×768 pixel 24-bit full-color bitmap image has a file size of approximately:",
+    "options_en": [
+      "A. 2.25 MB",
+      "B. 2.36 MB",
+      "C. 18.87 MB",
+      "D. 24.00 MB"
+    ],
+    "explanation_en": "File size = 1024×768×24 bits = 1024×768×3 bytes = 2,359,296 bytes ≈ 2.25 MB. Note: 24-bit = 3 bytes per pixel (8 bits = 1 byte), 1 MB = 1,048,576 bytes. Common mistake: forgetting to convert bits to bytes (divide by 8).",
+    "markingNotes_en": "1 mark: A. 1024×768×24/8/1024/1024 ≈ 2.25 MB. Must handle unit conversions correctly."
+  },
+  {
+    "qid": "ICT-005",
+    "topic": 1,
+    "year": 2017,
+    "qnum": 11,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是Unicode編碼的主要優點？",
+    "options": [
+      "A. 佔用最少的儲存空間",
+      "B. 能表示多種語言的字符",
+      "C. 只能表示英文字母和數字",
+      "D. 與ASCII完全不相容"
+    ],
+    "answer": 1,
+    "explanation": "Unicode是一種國際字符編碼標準，能表示幾乎所有語言的字符（包括中文、日文、韓文、阿拉伯文等），解決了ASCII只能表示128個字符和Big-5主要用於繁體中文的限制。Unicode有多種實現方式（UTF-8、UTF-16等），其中UTF-8與ASCII相容（前128個字符與ASCII相同）。雖然Unicode可能需要更多儲存空間（每個字符1-4 bytes），但其優勢在於通用性和多語言支援。",
+    "markingNotes": "1分：B。Unicode能表示多種語言字符，實現國際化編碼。",
+    "question_en": "Which of the following is the main advantage of Unicode encoding?",
+    "options_en": [
+      "A. Uses the least storage space",
+      "B. Can represent characters from multiple languages",
+      "C. Can only represent English letters and numbers",
+      "D. Completely incompatible with ASCII"
+    ],
+    "explanation_en": "Unicode is an international character encoding standard capable of representing characters from virtually all languages (Chinese, Japanese, Korean, Arabic, etc.), solving ASCII's limitation of only 128 characters and Big-5's restriction to Traditional Chinese. UTF-8 is backward-compatible with ASCII (first 128 characters identical).",
+    "markingNotes_en": "1 mark: B. Unicode can represent characters from multiple languages for international encoding."
+  },
+  {
+    "qid": "ICT-006",
+    "topic": 2,
+    "year": 2020,
+    "qnum": 16,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項檔案格式最適合用於儲存具有透明背景的圖像？",
+    "options": [
+      "A. JPEG",
+      "B. BMP",
+      "C. PNG",
+      "D. GIF 或 PNG"
+    ],
+    "answer": 3,
+    "explanation": "PNG（可攜式網絡圖形）和GIF（圖形交換格式）都支援透明背景。JPEG不支援透明度，BMP通常也不支援透明度。PNG支援全alpha通道透明度（256級透明度），而GIF只支援1-bit透明度（完全透明或完全不透明）。對於網頁圖像和需要透明背景的場合，PNG是最佳選擇。",
+    "markingNotes": "1分：D（GIF或PNG）。這兩種格式都支援透明背景。JPEG不支援透明度。",
+    "question_en": "Which file format is most suitable for storing images with transparent backgrounds?",
+    "options_en": [
+      "A. JPEG",
+      "B. BMP",
+      "C. PNG",
+      "D. GIF or PNG"
+    ],
+    "explanation_en": "Both PNG (Portable Network Graphics) and GIF (Graphics Interchange Format) support transparent backgrounds. JPEG does not support transparency. BMP typically does not support transparency. PNG supports full alpha channel transparency (256 levels), while GIF only supports 1-bit transparency (fully transparent or fully opaque).",
+    "markingNotes_en": "1 mark: D (GIF or PNG). Both formats support transparent backgrounds. JPEG does not support transparency."
+  },
+  {
+    "qid": "ICT-007",
+    "topic": 2,
+    "year": 2019,
+    "qnum": 22,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "一個3分鐘的立體聲(雙聲道)音頻檔案，採樣率為44.1 kHz，每個樣本以16 bits量化。未經壓縮的檔案大小約為：",
+    "options": [
+      "A. 15.1 MB",
+      "B. 30.3 MB",
+      "C. 60.6 MB",
+      "D. 121.2 MB"
+    ],
+    "answer": 1,
+    "explanation": "檔案大小 = 採樣率 × 每個樣本位元數 × 聲道數 × 時間。計算：44,100 Hz × 16 bits × 2 channels × (3 × 60) seconds = 44,100 × 16 × 2 × 180 = 254,016,000 bits = 31,752,000 bytes ≈ 30.3 MB。關鍵：必須將分鐘轉為秒（×60），雙聲道需乘以2。",
+    "markingNotes": "1分：B。44,100×16×2×180 / 8 / 1024 / 1024 ≈ 30.3 MB。必須考慮立體聲雙聲道。",
+    "question_en": "A 3-minute stereo (dual-channel) audio file with a sampling rate of 44.1 kHz and 16-bit quantization per sample. The uncompressed file size is approximately:",
+    "options_en": [
+      "A. 15.1 MB",
+      "B. 30.3 MB",
+      "C. 60.6 MB",
+      "D. 121.2 MB"
+    ],
+    "explanation_en": "File size = sample rate × bits per sample × channels × time. 44,100 Hz × 16 bits × 2 channels × (3×60) seconds = 254,016,000 bits = 31,752,000 bytes ≈ 30.3 MB. Key points: convert minutes to seconds (×60), dual channel requires ×2.",
+    "markingNotes_en": "1 mark: B. 44,100×16×2×180/8/1024/1024 ≈ 30.3 MB. Must account for stereo (dual channel)."
+  },
+  {
+    "qid": "ICT-008",
+    "topic": 2,
+    "year": 2022,
+    "qnum": 4,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "在試算表中，單元格A1的值為5，A2的值為3。公式「=IF(A1>A2, A1*A2, A1+A2)」的結果是：",
+    "options": [
+      "A. 8",
+      "B. 15",
+      "C. 2",
+      "D. 5"
+    ],
+    "answer": 1,
+    "explanation": "IF函數的語法：IF(條件, 條件為真時的值, 條件為假時的值)。A1=5, A2=3。條件A1>A2（5>3）為TRUE，因此結果為A1*A2 = 5×3 = 15。如果條件為FALSE，則結果為A1+A2=8。",
+    "markingNotes": "1分：B (15)。IF條件為真時執行乘法。",
+    "question_en": "In a spreadsheet, cell A1=5, A2=3. The result of the formula =IF(A1>A2, A1*A2, A1+A2) is:",
+    "options_en": [
+      "A. 8",
+      "B. 15",
+      "C. 2",
+      "D. 5"
+    ],
+    "explanation_en": "IF function syntax: IF(condition, value_if_true, value_if_false). A1=5, A2=3. Condition A1>A2 (5>3) is TRUE, so result = A1*A2 = 5×3 = 15. If the condition were FALSE, result would be A1+A2 = 8.",
+    "markingNotes_en": "1 mark: B (15). IF condition is true, so multiplication is executed."
+  },
+  {
+    "qid": "ICT-009",
+    "topic": 2,
+    "year": 2021,
+    "qnum": 13,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "將十六進制數2F轉換為十進制數，結果是：",
+    "options": [
+      "A. 37",
+      "B. 42",
+      "C. 47",
+      "D. 52"
+    ],
+    "answer": 2,
+    "explanation": "2F₁₆ = 2×16¹ + F×16⁰ = 2×16 + 15×1 = 32 + 15 = 47₁₀。注意：十六進制中F=15。轉換方法：每個十六進制位數乘以16的冪次（從右往左，冪次為0,1,2...），然後求和。",
+    "markingNotes": "1分：C。2F₁₆ = 2×16 + 15 = 47₁₀。",
+    "question_en": "Convert the hexadecimal number 2F to decimal. The result is:",
+    "options_en": [
+      "A. 37",
+      "B. 42",
+      "C. 47",
+      "D. 52"
+    ],
+    "explanation_en": "2F₁₆ = 2×16¹ + F×16⁰ = 2×16 + 15×1 = 32 + 15 = 47₁₀. Note: F = 15 in hexadecimal. Conversion method: multiply each hex digit by the corresponding power of 16 (right to left, powers 0,1,2...), then sum.",
+    "markingNotes_en": "1 mark: C. 2F₁₆ = 2×16 + 15 = 47₁₀."
+  },
+  {
+    "qid": "ICT-010",
+    "topic": 2,
+    "year": 2018,
+    "qnum": 19,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "下列哪項關於矢量圖(vector graphics)和點陣圖(bitmap)的比較是正確的？",
+    "options": [
+      "A. 矢量圖放大後不會失真，點陣圖放大後會出現鋸齒",
+      "B. 矢量圖適合儲存照片，點陣圖適合儲存圖表",
+      "C. 矢量圖的檔案大小必定大於點陣圖",
+      "D. 點陣圖是以數學公式描述圖像"
+    ],
+    "answer": 0,
+    "explanation": "矢量圖使用數學公式（點、線、曲線、多邊形）描述圖像，因此放大後不會失真。點陣圖由像素點組成，放大後會出現鋸齒/馬賽克效果。矢量圖適合圖表、標誌、字體設計（簡單幾何形狀），檔案通常較小；點陣圖適合照片和複雜圖像（每個像素都需記錄），檔案通常較大。矢量圖不是必然小於點陣圖（複雜矢量圖可能很大），點陣圖也不是以數學公式描述。",
+    "markingNotes": "1分：A。矢量圖是數學描述，可無限放大不失真。點陣圖基於像素，放大會失真。",
+    "question_en": "Which of the following comparisons between vector graphics and bitmap images is correct?",
+    "options_en": [
+      "A. Vector graphics do not lose quality when enlarged; bitmaps appear pixelated when enlarged",
+      "B. Vector graphics are suitable for storing photos; bitmaps are suitable for storing charts",
+      "C. Vector graphics are always larger in file size than bitmaps",
+      "D. Bitmaps are described using mathematical formulas"
+    ],
+    "explanation_en": "Vector graphics use mathematical formulas (points, lines, curves, polygons) to describe images, so they can be scaled infinitely without quality loss. Bitmaps are composed of pixels; enlarging them reveals pixelation/jagged edges. Vectors suit charts, logos, and fonts; bitmaps suit photos and complex images.",
+    "markingNotes_en": "1 mark: A. Vector graphics = mathematical description, infinitely scalable. Bitmaps = pixel-based, quality loss on enlargement."
+  },
+  {
+    "qid": "ICT-011",
+    "topic": 3,
+    "year": 2020,
+    "qnum": 6,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是CPU中負責執行算術和邏輯運算的部件？",
+    "options": [
+      "A. 控制單元 (CU)",
+      "B. 算術邏輯單元 (ALU)",
+      "C. 寄存器 (Register)",
+      "D. 快取記憶體 (Cache)"
+    ],
+    "answer": 1,
+    "explanation": "ALU（Arithmetic Logic Unit，算術邏輯單元）是CPU中執行所有算術運算（加減乘除）和邏輯運算（AND、OR、NOT、比較）的部件。CU（控制單元）負責控制指令的提取和解碼，協調各部件工作。Register是CPU內部的高速暫存器，用於暫時儲存數據和指令。Cache是位於CPU和主記憶體之間的高速緩衝記憶體，用於加速數據存取。",
+    "markingNotes": "1分：B。ALU負責算術和邏輯運算。CU負責控制。",
+    "question_en": "Which component of the CPU is responsible for performing arithmetic and logical operations?",
+    "options_en": [
+      "A. Control Unit (CU)",
+      "B. Arithmetic Logic Unit (ALU)",
+      "C. Register",
+      "D. Cache Memory"
+    ],
+    "explanation_en": "The ALU (Arithmetic Logic Unit) executes all arithmetic operations (addition, subtraction, multiplication, division) and logical operations (AND, OR, NOT, comparison) in the CPU. The CU (Control Unit) controls instruction fetch and decode, coordinating all components. Registers are high-speed temporary storage inside the CPU. Cache is a high-speed buffer between CPU and main memory.",
+    "markingNotes_en": "1 mark: B. ALU performs arithmetic and logical operations. CU handles control."
+  },
+  {
+    "qid": "ICT-012",
+    "topic": 3,
+    "year": 2022,
+    "qnum": 11,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項正確描述了RAM和ROM的區別？",
+    "options": [
+      "A. RAM和ROM都是易失性記憶體",
+      "B. RAM是易失性記憶體，ROM是非易失性記憶體",
+      "C. RAM是非易失性記憶體，ROM是易失性記憶體",
+      "D. RAM和ROM都是非易失性記憶體"
+    ],
+    "answer": 1,
+    "explanation": "RAM（隨機存取記憶體）是易失性的，斷電後數據會丟失，用於暫時儲存正在運行的程式和數據。ROM（唯讀記憶體）是非易失性的，斷電後數據仍然保留，用於儲存BIOS/UEFI等韌體程式，這些程式在開機時需要執行。快取記憶體(Cache)也是易失性的，但比RAM更快且容量更小。",
+    "markingNotes": "1分：B。RAM是易失性（斷電數據丟失），ROM是非易失性（斷電數據保留）。",
+    "question_en": "Which of the following correctly describes the difference between RAM and ROM?",
+    "options_en": [
+      "A. Both RAM and ROM are volatile memory",
+      "B. RAM is volatile memory, ROM is non-volatile memory",
+      "C. RAM is non-volatile memory, ROM is volatile memory",
+      "D. Both RAM and ROM are non-volatile memory"
+    ],
+    "explanation_en": "RAM (Random Access Memory) is volatile — data is lost when power is off. It temporarily stores running programs and data. ROM (Read-Only Memory) is non-volatile — data is retained when power is off. It stores firmware such as BIOS/UEFI needed at boot time. Cache memory is also volatile but faster and smaller than RAM.",
+    "markingNotes_en": "1 mark: B. RAM = volatile (data lost on power off), ROM = non-volatile (data retained)."
+  },
+  {
+    "qid": "ICT-013",
+    "topic": 3,
+    "year": 2017,
+    "qnum": 9,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是操作系統(Operating System)的主要功能？",
+    "options": [
+      "A. 編輯文檔和製作簡報",
+      "B. 管理電腦硬件和軟件資源",
+      "C. 設計網站和應用程式",
+      "D. 儲存用戶數據和檔案"
+    ],
+    "answer": 1,
+    "explanation": "操作系統是管理電腦硬件和軟件資源的系統軟件，提供用戶介面、管理記憶體、處理器排程（多任務處理）、檔案系統管理、輸入輸出管理、設備驅動程式管理等核心功能。編輯文檔是應用軟件（如Word）的功能。設計網站是開發工具的功能。",
+    "markingNotes": "1分：B。操作系統管理電腦硬件和軟件資源。",
+    "question_en": "Which of the following is a primary function of an Operating System?",
+    "options_en": [
+      "A. Editing documents and creating presentations",
+      "B. Managing computer hardware and software resources",
+      "C. Designing websites and applications",
+      "D. Storing user data and files"
+    ],
+    "explanation_en": "An operating system is system software that manages computer hardware and software resources. It provides a user interface, memory management, processor scheduling (multitasking), file system management, I/O management, and device driver management. Document editing is application software (e.g., Word).",
+    "markingNotes_en": "1 mark: B. The OS manages computer hardware and software resources."
+  },
+  {
+    "qid": "ICT-014",
+    "topic": 3,
+    "year": 2019,
+    "qnum": 24,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項是虛擬記憶體(Virtual Memory)的正確描述？",
+    "options": [
+      "A. 它是CPU內部的記憶體",
+      "B. 它使用硬碟空間模擬額外的RAM",
+      "C. 它的存取速度比RAM快",
+      "D. 它只能被操作系統使用，應用程式無法使用"
+    ],
+    "answer": 1,
+    "explanation": "虛擬記憶體是操作系統的一種技術，當RAM不足時，將部分暫時不用的數據從RAM移至硬碟（稱為分頁/交換），從而釋放RAM供其他程式使用。虛擬記憶體的存取速度遠比RAM慢（硬碟速度 << RAM速度）。所有應用程式都可以受益於虛擬記憶體，不僅限於操作系統。",
+    "markingNotes": "1分：B。虛擬記憶體使用硬碟空間作為RAM的延伸，解決RAM不足問題。",
+    "question_en": "Which of the following correctly describes Virtual Memory?",
+    "options_en": [
+      "A. It is memory inside the CPU",
+      "B. It uses hard disk space to simulate additional RAM",
+      "C. Its access speed is faster than RAM",
+      "D. It can only be used by the operating system, not applications"
+    ],
+    "explanation_en": "Virtual memory is an OS technique that uses hard disk space as an extension of RAM when physical RAM is insufficient. Temporarily unused data is moved from RAM to disk (paging/swapping), freeing RAM for other programs. Virtual memory is much slower than RAM (disk speed << RAM speed). All applications benefit from virtual memory.",
+    "markingNotes_en": "1 mark: B. Virtual memory uses hard disk space as an extension of RAM when RAM is insufficient."
+  },
+  {
+    "qid": "ICT-015",
+    "topic": 3,
+    "year": 2016,
+    "qnum": 17,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項儲存裝置的存取速度最快？",
+    "options": [
+      "A. 硬碟 (Hard Disk)",
+      "B. 固態硬碟 (SSD)",
+      "C. RAM",
+      "D. 光碟 (DVD)"
+    ],
+    "answer": 2,
+    "explanation": "存取速度比較：RAM（約10-100 ns）> SSD（約0.1 ms）> 硬碟（約5-10 ms）> 光碟（約100 ms+）。RAM是主記憶體，直接與CPU通訊，速度最快。SSD使用快閃記憶體，沒有機械部件，比傳統硬碟快。傳統硬碟需要磁頭移動和碟片旋轉，速度較慢。光碟最慢，需要激光讀取。",
+    "markingNotes": "1分：C。RAM的存取速度最快（納秒級別）。速度：RAM > SSD > HDD > 光碟。",
+    "question_en": "Which of the following storage devices has the fastest access speed?",
+    "options_en": [
+      "A. Hard Disk Drive (HDD)",
+      "B. Solid State Drive (SSD)",
+      "C. RAM",
+      "D. Optical Disc (DVD)"
+    ],
+    "explanation_en": "Speed comparison: RAM (~10-100 ns) > SSD (~0.1 ms) > HDD (~5-10 ms) > Optical disc (~100 ms+). RAM is main memory communicating directly with the CPU, making it the fastest. SSDs use flash memory with no moving parts. HDDs require mechanical head movement and disk rotation. Optical discs are slowest.",
+    "markingNotes_en": "1 mark: C. RAM has the fastest access speed (nanosecond level). Order: RAM > SSD > HDD > Optical disc."
+  },
+  {
+    "qid": "ICT-016",
+    "topic": 4,
+    "year": 2019,
+    "qnum": 15,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是網絡通訊協定TCP/IP中TCP的主要功能？",
+    "options": [
+      "A. 將數據包從來源傳送到目的地",
+      "B. 確保數據可靠傳送和錯誤檢測",
+      "C. 將域名轉換為IP地址",
+      "D. 加密網絡通訊數據"
+    ],
+    "answer": 1,
+    "explanation": "TCP（Transmission Control Protocol，傳輸控制協議）負責確保數據在網絡中可靠傳送，包括：將數據分段、流量控制、錯誤檢測與重傳機制、確保數據按序到達。IP（Internet Protocol）負責定址和路由選擇，將數據包從來源傳送到目的地。DNS負責域名解析（域名→IP）。SSL/TLS負責加密通訊。",
+    "markingNotes": "1分：B。TCP確保數據可靠傳送和錯誤檢測。IP負責定址和路由。",
+    "question_en": "What is the primary function of TCP in the TCP/IP protocol suite?",
+    "options_en": [
+      "A. Delivering data packets from source to destination",
+      "B. Ensuring reliable data delivery and error detection",
+      "C. Converting domain names to IP addresses",
+      "D. Encrypting network communication data"
+    ],
+    "explanation_en": "TCP (Transmission Control Protocol) is responsible for reliable data delivery: segmenting data, flow control, error detection and retransmission, and ensuring data arrives in order. IP (Internet Protocol) handles addressing and routing. DNS handles domain name resolution. SSL/TLS handles encryption.",
+    "markingNotes_en": "1 mark: B. TCP ensures reliable data delivery and error detection. IP handles addressing and routing."
+  },
+  {
+    "qid": "ICT-017",
+    "topic": 4,
+    "year": 2021,
+    "qnum": 18,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項關於IPv4和IPv6的描述是正確的？",
+    "options": [
+      "A. IPv4地址為64位元，IPv6地址為32位元",
+      "B. IPv4使用十六進制表示，IPv6使用十進制表示",
+      "C. IPv6能提供比IPv4更多的IP地址",
+      "D. IPv6的傳輸速度必定比IPv4快"
+    ],
+    "answer": 2,
+    "explanation": "IPv4使用32位元地址（約2³² ≈ 43億個地址），以點分十進制表示（如192.168.1.1）。IPv6使用128位元地址（約2¹²⁸ ≈ 3.4×10³⁸個地址），以冒號分隔十六進制表示（如2001:0db8:85a3:0000:0000:8a2e:0370:7334）。因此IPv6能提供遠多於IPv4的地址，解決了IPv4地址耗盡問題。IPv6本身不保證更快的傳輸速度，速度取決於網絡基礎設施。",
+    "markingNotes": "1分：C。IPv6（128位元）比IPv4（32位元）提供更多地址。IPv4是32位元，IPv6是128位元。",
+    "question_en": "Which of the following about IPv4 and IPv6 is correct?",
+    "options_en": [
+      "A. IPv4 addresses are 64-bit; IPv6 addresses are 32-bit",
+      "B. IPv4 uses hexadecimal notation; IPv6 uses decimal notation",
+      "C. IPv6 can provide significantly more IP addresses than IPv4",
+      "D. IPv6 transmission speed is always faster than IPv4"
+    ],
+    "explanation_en": "IPv4 uses 32-bit addresses (~4.3 billion), displayed in dotted decimal (e.g., 192.168.1.1). IPv6 uses 128-bit addresses (~3.4×10³⁸), displayed in colon-separated hexadecimal. IPv6 thus provides vastly more addresses, solving IPv4 exhaustion. IPv6 does not inherently guarantee faster speed — speed depends on network infrastructure.",
+    "markingNotes_en": "1 mark: C. IPv6 (128-bit) provides far more addresses than IPv4 (32-bit)."
+  },
+  {
+    "qid": "ICT-018",
+    "topic": 4,
+    "year": 2020,
+    "qnum": 20,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "DNS (Domain Name System) 的主要功能是：",
+    "options": [
+      "A. 加密網絡通訊",
+      "B. 將域名轉換為IP地址",
+      "C. 分配IP地址給設備",
+      "D. 過濾垃圾郵件"
+    ],
+    "answer": 1,
+    "explanation": "DNS（域名系統）就像互聯網的電話簿，將人類可讀的域名（如www.google.com）轉換為電腦可理解的IP地址（如142.250.80.4）。當用戶在瀏覽器中輸入域名時，電腦會向DNS服務器查詢對應的IP地址，然後使用該IP地址連接到目標伺服器。DHCP負責分配IP地址，SSL/TLS負責加密，防火牆/垃圾郵件過濾器負責過濾。",
+    "markingNotes": "1分：B。DNS將域名轉換為IP地址。DHCP負責分配IP地址。",
+    "question_en": "The primary function of DNS (Domain Name System) is:",
+    "options_en": [
+      "A. Encrypting network communication",
+      "B. Converting domain names to IP addresses",
+      "C. Assigning IP addresses to devices",
+      "D. Filtering spam emails"
+    ],
+    "explanation_en": "DNS acts like the internet's phone book, converting human-readable domain names (e.g., www.google.com) into machine-readable IP addresses (e.g., 142.250.80.4). When a user enters a domain name, the computer queries DNS servers for the corresponding IP address. DHCP assigns IP addresses. SSL/TLS handles encryption.",
+    "markingNotes_en": "1 mark: B. DNS converts domain names to IP addresses. DHCP assigns IP addresses."
+  },
+  {
+    "qid": "ICT-019",
+    "topic": 4,
+    "year": 2023,
+    "qnum": 7,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是防火牆(Firewall)的主要功能？",
+    "options": [
+      "A. 防止電腦感染所有類型的病毒",
+      "B. 根據預設規則控制網絡流量進出",
+      "C. 加快互聯網連接速度",
+      "D. 自動備份電腦中的所有數據"
+    ],
+    "answer": 1,
+    "explanation": "防火牆是網絡安全系統，根據預設的安全規則監控和控制進出網絡的流量。它可以阻擋未經授權的訪問，但不能防止所有病毒（需要防毒軟件配合）。防火牆不影響連接速度（甚至可能略微降低速度因為需要檢查每個數據包），也不負責數據備份（那是備份軟件的功能）。防火牆可以是硬件或軟件形式。",
+    "markingNotes": "1分：B。防火牆根據預設規則控制網絡流量進出。不能防止所有病毒。",
+    "question_en": "What is the primary function of a Firewall?",
+    "options_en": [
+      "A. Preventing all types of virus infections on the computer",
+      "B. Controlling network traffic based on predefined rules",
+      "C. Increasing internet connection speed",
+      "D. Automatically backing up all data on the computer"
+    ],
+    "explanation_en": "A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It can block unauthorized access but cannot prevent all viruses (requires antivirus software). Firewalls do not improve connection speed and do not handle data backup.",
+    "markingNotes_en": "1 mark: B. A firewall controls network traffic based on predefined rules. Cannot prevent all viruses."
+  },
+  {
+    "qid": "ICT-020",
+    "topic": 4,
+    "year": 2018,
+    "qnum": 5,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是LAN (Local Area Network) 和 WAN (Wide Area Network) 的主要區別？",
+    "options": [
+      "A. LAN使用無線連接，WAN使用有線連接",
+      "B. LAN覆蓋範圍小，WAN覆蓋範圍大",
+      "C. LAN的傳輸速度必定比WAN慢",
+      "D. LAN只能用於家庭，WAN只能用於企業"
+    ],
+    "answer": 1,
+    "explanation": "LAN（局域網）覆蓋小範圍區域，如一個房間、建築物或校園，通常由單一組織管理。WAN（廣域網）覆蓋大範圍區域，如城市、國家或全球（互聯網就是最大的WAN）。LAN可以使用有線（Ethernet）或無線（Wi-Fi）連接。LAN的傳輸速度通常比WAN快（因為距離短、延遲低），但並非必然。LAN可用於家庭、學校和企業。",
+    "markingNotes": "1分：B。LAN覆蓋範圍小（建築物內），WAN覆蓋範圍大（跨城市/國家）。",
+    "question_en": "What is the primary difference between LAN (Local Area Network) and WAN (Wide Area Network)?",
+    "options_en": [
+      "A. LAN uses wireless connections; WAN uses wired connections",
+      "B. LAN covers a small area; WAN covers a large area",
+      "C. LAN transmission speed is always slower than WAN",
+      "D. LAN is only for home use; WAN is only for enterprise use"
+    ],
+    "explanation_en": "LAN covers a small geographic area (a room, building, or campus), typically managed by a single organization. WAN covers a large area (city, country, or globally — the Internet is the largest WAN). LAN can use wired (Ethernet) or wireless (Wi-Fi). LAN speeds are typically faster than WAN.",
+    "markingNotes_en": "1 mark: B. LAN = small coverage (within building), WAN = large coverage (across cities/countries)."
+  },
+  {
+    "qid": "ICT-021",
+    "topic": 4,
+    "year": 2017,
+    "qnum": 10,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "URL中的「https」表示：",
+    "options": [
+      "A. 該網站使用HTTP協議傳輸超文件",
+      "B. 該網站使用經SSL/TLS加密的HTTP協議",
+      "C. 該網站的傳輸速度特別快",
+      "D. 該網站僅支援文字內容"
+    ],
+    "answer": 1,
+    "explanation": "HTTPS（HTTP Secure）是HTTP協議的安全版本，通過SSL/TLS（安全套接層/傳輸層安全）協議對數據進行加密。使用HTTPS的網站具有以下特點：數據加密傳輸（防止竊聽）、身份驗證（通過數碼證書確認網站身份）、數據完整性（防止數據被篡改）。瀏覽器地址欄中會顯示鎖形圖標表示HTTPS連接。",
+    "markingNotes": "1分：B。HTTPS = HTTP + SSL/TLS加密。提供數據保密性、完整性和身份驗證。",
+    "question_en": "In a URL, 'https' indicates:",
+    "options_en": [
+      "A. The website uses HTTP protocol to transmit hypertext",
+      "B. The website uses HTTP encrypted by SSL/TLS",
+      "C. The website has particularly fast transmission speed",
+      "D. The website only supports text content"
+    ],
+    "explanation_en": "HTTPS (HTTP Secure) is the secure version of HTTP, encrypting data using SSL/TLS (Secure Sockets Layer/Transport Layer Security) protocols. HTTPS provides data encryption (prevents eavesdropping), authentication (verifies website identity via digital certificates), and data integrity (prevents tampering). A padlock icon appears in the browser address bar.",
+    "markingNotes_en": "1 mark: B. HTTPS = HTTP + SSL/TLS encryption. Provides confidentiality, integrity, and authentication."
+  },
+  {
+    "qid": "ICT-022",
+    "topic": 5,
+    "year": 2020,
+    "qnum": 23,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是雲端運算(Cloud Computing)的正確描述？",
+    "options": [
+      "A. 所有數據必須儲存在用戶的本地電腦上",
+      "B. 通過互聯網提供按需的計算資源和服務",
+      "C. 只能在特定操作系統上使用",
+      "D. 必須安裝專用軟件才能使用"
+    ],
+    "answer": 1,
+    "explanation": "雲端運算通過互聯網提供按需的計算資源和服務（如伺服器、儲存空間、數據庫、網絡、軟件、分析等），用戶只需為使用的資源付費。雲端服務模式包括：IaaS（基礎設施即服務）、PaaS（平台即服務）、SaaS（軟件即服務）。用戶可以通過瀏覽器訪問，無需安裝專用軟件（雖然有些服務提供客戶端）。跨平台支援是雲端的重要特性。",
+    "markingNotes": "1分：B。雲端運算通過互聯網提供按需計算資源和服務。",
+    "question_en": "Which of the following correctly describes Cloud Computing?",
+    "options_en": [
+      "A. All data must be stored on the user's local computer",
+      "B. On-demand computing resources and services delivered over the internet",
+      "C. Can only be used on a specific operating system",
+      "D. Requires installation of specialized software to use"
+    ],
+    "explanation_en": "Cloud computing delivers on-demand computing resources and services over the internet (servers, storage, databases, networking, software, analytics, etc.), with users paying only for what they use. Service models: IaaS, PaaS, SaaS. Users can access via browser without installing dedicated software. Cross-platform support is a key feature.",
+    "markingNotes_en": "1 mark: B. Cloud computing provides on-demand computing resources and services via the internet."
+  },
+  {
+    "qid": "ICT-023",
+    "topic": 5,
+    "year": 2021,
+    "qnum": 25,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項是物聯網(IoT)的應用實例？",
+    "options": [
+      "A. 使用試算表進行數據分析",
+      "B. 智能家居設備通過網絡互相通訊和自動控制",
+      "C. 使用文書處理軟件編輯文件",
+      "D. 在本地電腦上玩單機遊戲"
+    ],
+    "answer": 1,
+    "explanation": "物聯網（IoT，Internet of Things）是指嵌入感應器、軟件和其他技術的物理設備，通過互聯網連接並交換數據。智能家居（如智能恆溫器、智能燈泡、智能門鎖、語音助理等）是IoT的典型應用，這些設備通過Wi-Fi/藍牙等連接互相通訊，實現自動化控制。其他IoT應用包括：智能手錶、智能城市（交通管理）、工業IoT（預測性維護）等。",
+    "markingNotes": "1分：B。物聯網是通過網絡連接的智能設備系統，實現自動化通訊和控制。",
+    "question_en": "Which of the following is an example of IoT (Internet of Things) application?",
+    "options_en": [
+      "A. Using a spreadsheet for data analysis",
+      "B. Smart home devices communicating and automating via the network",
+      "C. Editing documents with word processing software",
+      "D. Playing offline games on a local computer"
+    ],
+    "explanation_en": "IoT refers to physical devices embedded with sensors, software, and other technologies that connect and exchange data over the internet. Smart homes (smart thermostats, lights, locks, voice assistants) are typical IoT applications. Other examples: smartwatches, smart cities (traffic management), industrial IoT (predictive maintenance).",
+    "markingNotes_en": "1 mark: B. IoT = interconnected smart devices communicating and automating over networks."
+  },
+  {
+    "qid": "ICT-024",
+    "topic": 5,
+    "year": 2019,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "HTML的全稱是：",
+    "options": [
+      "A. HyperText Markup Language",
+      "B. High Technology Modern Language",
+      "C. HyperText Modern Language",
+      "D. High Tech Markup Language"
+    ],
+    "answer": 0,
+    "explanation": "HTML（HyperText Markup Language，超文本標記語言）是用於創建網頁的標準標記語言。它使用標籤（tags）來定義網頁的結構和內容，如標題、段落、圖像、連結等。HTML不是程式語言（不能進行邏輯運算），而是標記語言（標記內容的結構和含義）。",
+    "markingNotes": "1分：A。HTML = HyperText Markup Language（超文本標記語言）。",
+    "question_en": "The full name of HTML is:",
+    "options_en": [
+      "A. HyperText Markup Language",
+      "B. High Technology Modern Language",
+      "C. HyperText Modern Language",
+      "D. High Tech Markup Language"
+    ],
+    "explanation_en": "HTML (HyperText Markup Language) is the standard markup language for creating web pages. It uses tags to define web page structure and content (headings, paragraphs, images, links, etc.). HTML is not a programming language — it is a markup language that marks up the structure and meaning of content.",
+    "markingNotes_en": "1 mark: A. HTML = HyperText Markup Language."
+  },
+  {
+    "qid": "ICT-025",
+    "topic": 5,
+    "year": 2022,
+    "qnum": 12,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是公開金鑰加密(Public Key Encryption)的特點？",
+    "options": [
+      "A. 加密和解密使用相同的金鑰",
+      "B. 使用一對金鑰：公開金鑰加密，私密金鑰解密",
+      "C. 任何人都可以用私密金鑰解密任何訊息",
+      "D. 加密過程不需要任何金鑰"
+    ],
+    "answer": 1,
+    "explanation": "公開金鑰加密（非對稱加密）使用一對數學上相關的金鑰：公開金鑰（可公開發布）用於加密數據，私密金鑰（必須保密）用於解密。任何人都可以使用接收者的公開金鑰加密訊息，但只有持有對應私密金鑰的接收者才能解密。與對稱加密（使用同一金鑰加密和解密，如AES）不同。SSL/TLS使用公開金鑰加密進行初始密鑰交換，然後使用對稱加密進行數據傳輸。",
+    "markingNotes": "1分：B。公開金鑰加密使用一對金鑰：公鑰加密，私鑰解密。",
+    "question_en": "Which of the following is a characteristic of Public Key Encryption?",
+    "options_en": [
+      "A. Encryption and decryption use the same key",
+      "B. Uses a key pair: public key for encryption, private key for decryption",
+      "C. Anyone can decrypt any message with the private key",
+      "D. The encryption process requires no keys"
+    ],
+    "explanation_en": "Public key encryption (asymmetric encryption) uses a mathematically related key pair: a public key (can be openly shared) for encryption, and a private key (must be kept secret) for decryption. Anyone can encrypt with the recipient's public key, but only the holder of the corresponding private key can decrypt. SSL/TLS uses public-key encryption for initial key exchange.",
+    "markingNotes_en": "1 mark: B. Public key encryption uses a key pair: public key encrypts, private key decrypts."
+  },
+  {
+    "qid": "ICT-026",
+    "topic": 6,
+    "year": 2021,
+    "qnum": 2,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是計算思維(Computational Thinking)的核心元素？",
+    "options": [
+      "A. 死記硬背和重複練習",
+      "B. 抽象化、算法設計和自動化",
+      "C. 僅使用計算機進行計算",
+      "D. 學習多種程式語言"
+    ],
+    "answer": 1,
+    "explanation": "計算思維是一種解決問題的思維方式，包含以下核心元素：抽象化（Abstraction）— 提取關鍵信息，忽略無關細節；算法設計（Algorithm Design）— 設計逐步解決問題的步驟；自動化（Automation）— 使用計算機自動執行重複任務。計算思維不局限於程式編寫，而是應用於各種領域的通用問題解決方法。",
+    "markingNotes": "1分：B。計算思維的核心是抽象化、算法設計和自動化。",
+    "question_en": "Which of the following is a core element of Computational Thinking?",
+    "options_en": [
+      "A. Rote memorization and repetitive practice",
+      "B. Abstraction, algorithm design, and automation",
+      "C. Using computers only for calculations",
+      "D. Learning multiple programming languages"
+    ],
+    "explanation_en": "Computational thinking is a problem-solving approach with these core elements: Abstraction — extracting key information while ignoring irrelevant details; Algorithm Design — designing step-by-step solutions; Automation — using computers to automatically execute repetitive tasks. It is a universal problem-solving method not limited to programming.",
+    "markingNotes_en": "1 mark: B. Core elements of computational thinking: abstraction, algorithm design, and automation."
+  },
+  {
+    "qid": "ICT-027",
+    "topic": 6,
+    "year": 2020,
+    "qnum": 14,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪個流程圖符號表示決策/條件判斷？",
+    "options": [
+      "A. 矩形",
+      "B. 菱形",
+      "C. 橢圓形",
+      "D. 平行四邊形"
+    ],
+    "answer": 1,
+    "explanation": "流程圖標準符號：橢圓形/圓角矩形 = 開始/結束；矩形 = 處理/運算步驟；菱形 = 決策/條件判斷（通常是/否分支）；平行四邊形 = 輸入/輸出操作；箭頭 = 流程方向。菱形是唯一有兩個出口（TRUE/FALSE）的符號。",
+    "markingNotes": "1分：B。菱形代表決策/條件判斷。矩形=處理，橢圓形=開始/結束，平行四邊形=輸入輸出。",
+    "question_en": "Which flowchart symbol represents a decision/condition?",
+    "options_en": [
+      "A. Rectangle",
+      "B. Diamond",
+      "C. Oval",
+      "D. Parallelogram"
+    ],
+    "explanation_en": "Standard flowchart symbols: Oval/Rounded rectangle = Start/End; Rectangle = Process/Operation; Diamond = Decision/Condition (typically Yes/No branches); Parallelogram = Input/Output; Arrows = Flow direction. The diamond is the only symbol with two exits (TRUE/FALSE).",
+    "markingNotes_en": "1 mark: B. Diamond = decision/condition. Rectangle = process, Oval = start/end, Parallelogram = I/O."
+  },
+  {
+    "qid": "ICT-028",
+    "topic": 6,
+    "year": 2022,
+    "qnum": 7,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "在程式設計中，「變量(variable)」的作用是：",
+    "options": [
+      "A. 永久儲存數據在硬碟中",
+      "B. 暫時儲存數據在記憶體中，其值可以改變",
+      "C. 只能儲存數字類型數據",
+      "D. 確保程式永遠不會出錯"
+    ],
+    "answer": 1,
+    "explanation": "變量是程式設計中的基本概念，用於在記憶體中暫時儲存數據，其值在程式執行過程中可以改變。變量可以儲存不同類型的數據：整數(integer)、浮點數(float)、字串(string)、布爾值(boolean)等。變量儲存在RAM中而非硬碟。使用變量不能確保程式不出錯（邏輯錯誤、語法錯誤仍然可能發生）。",
+    "markingNotes": "1分：B。變量暫時儲存數據在記憶體中，其值可改變。變量支援多種數據類型。",
+    "question_en": "In programming, a 'variable' is used for:",
+    "options_en": [
+      "A. Permanently storing data on the hard disk",
+      "B. Temporarily storing data in memory, with values that can change",
+      "C. Storing only numeric data",
+      "D. Ensuring programs never have errors"
+    ],
+    "explanation_en": "A variable is a fundamental programming concept used to temporarily store data in memory, with values that can change during program execution. Variables can store different data types: integers, floats, strings, booleans, etc. Variables are stored in RAM, not hard disk. Using variables does not prevent all errors.",
+    "markingNotes_en": "1 mark: B. Variables store data temporarily in memory; their values can change. Supports multiple data types."
+  },
+  {
+    "qid": "ICT-029",
+    "topic": 6,
+    "year": 2019,
+    "qnum": 21,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下偽代碼執行後，變量sum的值是多少？\nsum = 0\nfor i = 1 to 5\n  if i mod 2 = 0 then\n    sum = sum + i\n  endif\nnext i",
+    "options": [
+      "A. 6",
+      "B. 9",
+      "C. 15",
+      "D. 10"
+    ],
+    "answer": 0,
+    "explanation": "偽代碼追蹤：i=1: 1 mod 2 = 1 ≠ 0，不執行sum=sum+i，sum=0；i=2: 2 mod 2 = 0，sum=0+2=2；i=3: 3 mod 2 = 1 ≠ 0，sum=2；i=4: 4 mod 2 = 0，sum=2+4=6；i=5: 5 mod 2 = 1 ≠ 0，sum=6。最終sum=6，即1到5之間所有偶數（2+4）的和。mod是取餘數運算。",
+    "markingNotes": "1分：A (6)。程式計算1到5之間的偶數之和：2+4=6。",
+    "question_en": "After executing the following pseudocode, what is the value of sum?\nsum = 0\nfor i = 1 to 5\n  if i mod 2 = 0 then\n    sum = sum + i\n  endif\nnext i",
+    "options_en": [
+      "A. 6",
+      "B. 9",
+      "C. 15",
+      "D. 10"
+    ],
+    "explanation_en": "Pseudocode trace: i=1: 1 mod 2 = 1 ≠ 0, skip, sum=0; i=2: 2 mod 2 = 0, sum=0+2=2; i=3: skip, sum=2; i=4: 4 mod 2 = 0, sum=2+4=6; i=5: skip, sum=6. Final sum = 6, which is the sum of all even numbers from 1 to 5 (2+4). 'mod' is the modulo (remainder) operator.",
+    "markingNotes_en": "1 mark: A (6). The program sums all even numbers from 1 to 5: 2+4=6."
+  },
+  {
+    "qid": "ICT-030",
+    "topic": 6,
+    "year": 2018,
+    "qnum": 16,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項控制結構用於重複執行一組指令？",
+    "options": [
+      "A. 順序結構 (Sequence)",
+      "B. 選擇結構 (Selection/If-else)",
+      "C. 迭代結構 (Iteration/Loop)",
+      "D. 跳轉結構 (Jump/Goto)"
+    ],
+    "answer": 2,
+    "explanation": "程式設計的三大基本控制結構：1) 順序結構(Sequence)：指令按順序逐行執行；2) 選擇結構(Selection)：根據條件執行不同分支（if-else, switch-case）；3) 迭代結構(Iteration)：重複執行一組指令直到條件滿足（for loop, while loop, do-while loop）。迭代結構用於處理重複任務，如遍歷陣列、計算累加和等。",
+    "markingNotes": "1分：C。迭代結構（for/while loop）用於重複執行指令。",
+    "question_en": "Which control structure is used to repeatedly execute a group of instructions?",
+    "options_en": [
+      "A. Sequence",
+      "B. Selection (If-else)",
+      "C. Iteration (Loop)",
+      "D. Jump (Goto)"
+    ],
+    "explanation_en": "The three fundamental control structures in programming: (1) Sequence — instructions execute in order line by line; (2) Selection — different branches execute based on conditions (if-else, switch-case); (3) Iteration — a group of instructions executes repeatedly until a condition is met (for loop, while loop, do-while). Iteration handles repetitive tasks.",
+    "markingNotes_en": "1 mark: C. Iteration (for/while loops) is used to repeatedly execute instructions."
+  },
+  {
+    "qid": "ICT-031",
+    "topic": 7,
+    "year": 2021,
+    "qnum": 19,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "在程式設計中，將程式分解為多個函數/程序的主要好處是：",
+    "options": [
+      "A. 增加程式的執行速度",
+      "B. 提高程式的可讀性和可維護性",
+      "C. 減少程式所需的記憶體",
+      "D. 使程式只能在特定平台上運行"
+    ],
+    "answer": 1,
+    "explanation": "模組化程式設計（將程式分解為函數/程序）的主要好處包括：提高可讀性（每個函數有明確功能）、提高可維護性（修改一個函數不影響其他部分）、提高可重用性（函數可在多處調用）、便於除錯（可單獨測試每個函數）、便於團隊協作（不同人負責不同模組）。模組化通常不會直接提高執行速度（函數調用有微小開銷），也不會減少記憶體使用。",
+    "markingNotes": "1分：B。模組化提高可讀性、可維護性和可重用性。",
+    "question_en": "In programming, the main benefit of decomposing a program into multiple functions/procedures is:",
+    "options_en": [
+      "A. Increasing program execution speed",
+      "B. Improving program readability and maintainability",
+      "C. Reducing memory usage",
+      "D. Making the program run only on specific platforms"
+    ],
+    "explanation_en": "Modular programming (decomposing into functions/procedures) improves readability (each function has a clear purpose), maintainability (changing one function doesn't affect others), reusability (functions can be called from multiple places), easier debugging (test each function independently), and team collaboration (different people handle different modules).",
+    "markingNotes_en": "1 mark: B. Modularization improves readability, maintainability, and reusability."
+  },
+  {
+    "qid": "ICT-032",
+    "topic": 7,
+    "year": 2022,
+    "qnum": 9,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是陣列(Array)的正確描述？",
+    "options": [
+      "A. 只能儲存一個值的變量",
+      "B. 可以儲存多個相同類型數據的集合",
+      "C. 一種用於檔案輸入輸出的技術",
+      "D. 程式語言的另一種名稱"
+    ],
+    "answer": 1,
+    "explanation": "陣列（Array）是一種數據結構，可以儲存多個相同類型的元素在連續的記憶體位置中，通過索引（從0開始）訪問各個元素。例如：score[0]=85, score[1]=92, score[2]=78。陣列的優點：使用一個變量名管理多個相關數據、通過循環方便地處理所有元素、隨機訪問（O(1)時間複雜度查詢任何元素）。",
+    "markingNotes": "1分：B。陣列儲存多個相同類型數據，通過索引訪問。",
+    "question_en": "Which of the following correctly describes an Array?",
+    "options_en": [
+      "A. A variable that can only store a single value",
+      "B. A collection that can store multiple elements of the same data type",
+      "C. A technique for file input/output",
+      "D. Another name for a programming language"
+    ],
+    "explanation_en": "An array is a data structure that stores multiple elements of the same type in contiguous memory locations, accessed by index (starting from 0). Example: score[0]=85, score[1]=92, score[2]=78. Advantages: manage related data with one variable name, convenient processing via loops, random access (O(1) time complexity).",
+    "markingNotes_en": "1 mark: B. An array stores multiple elements of the same type, accessed by index."
+  },
+  {
+    "qid": "ICT-033",
+    "topic": 7,
+    "year": 2020,
+    "qnum": 24,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項是程式測試中「邊界值測試(Boundary Value Testing)」的目的？",
+    "options": [
+      "A. 測試程式在所有可能輸入下的表現",
+      "B. 測試程式在有效輸入範圍邊界處的表現",
+      "C. 測試程式在隨機輸入下的表現",
+      "D. 僅測試程式在正常輸入下的表現"
+    ],
+    "answer": 1,
+    "explanation": "邊界值測試是一種黑盒測試技術，重點測試輸入範圍的邊界值（最小值、最大值、剛好小於最小值、剛好大於最大值），因為錯誤經常發生在邊界處。例如，如果程式接受1-100的輸入，應測試：0（小於下限）、1（下限）、100（上限）、101（大於上限）。邊界值測試不測試所有可能輸入（全面測試通常不可行），也不使用隨機輸入（隨機測試）。",
+    "markingNotes": "1分：B。邊界值測試著重測試輸入範圍邊界處的程式行為。",
+    "question_en": "What is the purpose of Boundary Value Testing in program testing?",
+    "options_en": [
+      "A. Testing program behavior under all possible inputs",
+      "B. Testing program behavior at the boundaries of valid input ranges",
+      "C. Testing program behavior with random inputs",
+      "D. Testing only with normal, expected inputs"
+    ],
+    "explanation_en": "Boundary value testing is a black-box testing technique focusing on boundary values of input ranges (minimum, maximum, just below minimum, just above maximum), because errors often occur at boundaries. Example: if a program accepts input 1-100, test 0 (below), 1 (lower bound), 100 (upper bound), 101 (above).",
+    "markingNotes_en": "1 mark: B. Boundary value testing focuses on testing program behavior at the edges of input ranges."
+  },
+  {
+    "qid": "ICT-034",
+    "topic": 7,
+    "year": 2017,
+    "qnum": 22,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是程式文檔(documentation)的主要目的？",
+    "options": [
+      "A. 增加程式的執行速度",
+      "B. 幫助其他程式員理解和維護程式",
+      "C. 減少程式檔案的大小",
+      "D. 將程式轉換為不同的程式語言"
+    ],
+    "answer": 1,
+    "explanation": "程式文檔是描述程式功能、結構、使用方法的文字說明，主要目的包括：幫助其他程式員理解程式邏輯、便於後續維護和更新、記錄設計決策和假設、作為使用者手冊。良好的文檔包括：程式註釋（解釋複雜邏輯）、API文檔（函數參數和返回值說明）、使用者手冊（如何安裝和使用）、設計文檔（架構和設計決策）。文檔不影響執行速度和檔案大小。",
+    "markingNotes": "1分：B。程式文檔幫助理解和維護程式，是軟件開發的重要部分。",
+    "question_en": "What is the primary purpose of program documentation?",
+    "options_en": [
+      "A. Increasing program execution speed",
+      "B. Helping other programmers understand and maintain the program",
+      "C. Reducing program file size",
+      "D. Converting the program to another programming language"
+    ],
+    "explanation_en": "Program documentation describes the program's function, structure, and usage. Purposes include: helping other programmers understand logic, facilitating maintenance and updates, recording design decisions, and serving as a user manual. Good documentation includes code comments, API docs, user manuals, and design documents.",
+    "markingNotes_en": "1 mark: B. Documentation helps understand and maintain programs."
+  },
+  {
+    "qid": "ICT-035",
+    "topic": 8,
+    "year": 2021,
+    "qnum": 1,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是ICT對教育的正面影響？",
+    "options": [
+      "A. 完全取代傳統教師的角色",
+      "B. 提供網上學習平台，增加學習資源的可及性",
+      "C. 確保所有學生都能取得優異成績",
+      "D. 減少學生之間的社交互動至零"
+    ],
+    "answer": 1,
+    "explanation": "ICT對教育的正面影響包括：網上學習平台（如Moodle、Google Classroom）使學生能隨時隨地獲取學習資源；多媒體教學（視頻、動畫、互動模擬）提高學習興趣和效果；即時通訊工具促進師生交流；人工智能輔助個性化學習。但ICT不能完全取代教師（教師提供指導、激勵和情感支持），也不能確保所有學生取得優異成績（學習效果取決於多種因素）。",
+    "markingNotes": "1分：B。ICT提供網上學習平台，增加學習資源的可及性和靈活性。",
+    "question_en": "Which of the following is a positive impact of ICT on education?",
+    "options_en": [
+      "A. Completely replacing the role of traditional teachers",
+      "B. Providing online learning platforms, increasing accessibility of learning resources",
+      "C. Ensuring all students achieve excellent results",
+      "D. Reducing student social interaction to zero"
+    ],
+    "explanation_en": "Positive ICT impacts on education: online learning platforms (Moodle, Google Classroom) enabling anytime/anywhere access; multimedia teaching (videos, animations, simulations) improving engagement; instant communication tools facilitating teacher-student interaction; AI-assisted personalized learning. ICT cannot fully replace teachers who provide guidance, motivation, and emotional support.",
+    "markingNotes_en": "1 mark: B. ICT provides online learning platforms, increasing accessibility and flexibility of learning resources."
+  },
+  {
+    "qid": "ICT-036",
+    "topic": 8,
+    "year": 2019,
+    "qnum": 3,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是數碼鴻溝(Digital Divide)的正確定義？",
+    "options": [
+      "A. 不同程式語言之間的差異",
+      "B. 不同地區或社群在使用和獲取ICT資源上的差距",
+      "C. 硬體和軟體之間的不相容問題",
+      "D. 互聯網速度的技術限制"
+    ],
+    "answer": 1,
+    "explanation": "數碼鴻溝是指不同地區、社會經濟階層、年齡組別、教育程度的人群在獲取和使用資訊及通訊科技（ICT）方面的差距。這種差距體現在：硬件獲取（電腦、智能手機）、互聯網接入（寬頻/移動網絡）、數碼技能（使用ICT的能力）、數碼素養（有效利用數碼資訊的能力）。數碼鴻溝可能加劇社會不平等，因為無法獲取ICT的群體在教育、就業、醫療等方面處於劣勢。",
+    "markingNotes": "1分：B。數碼鴻溝是不同社群在ICT資源獲取和使用上的差距。",
+    "question_en": "Which of the following is the correct definition of the Digital Divide?",
+    "options_en": [
+      "A. Differences between programming languages",
+      "B. The gap in ICT resource access and usage between different regions or communities",
+      "C. Incompatibility issues between hardware and software",
+      "D. Technical limitations of internet speed"
+    ],
+    "explanation_en": "The digital divide refers to the gap between different regions, socioeconomic classes, age groups, and education levels in accessing and using ICT. This gap manifests in: hardware access (computers, smartphones), internet access (broadband/mobile), digital skills, and digital literacy. The digital divide may exacerbate social inequality.",
+    "markingNotes_en": "1 mark: B. The digital divide is the gap in ICT resource access and usage between different communities."
+  },
+  {
+    "qid": "ICT-037",
+    "topic": 8,
+    "year": 2022,
+    "qnum": 26,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是知識產權(Intellectual Property)的主要保護對象？",
+    "options": [
+      "A. 實體物品如電腦硬件",
+      "B. 創作者的智力成果如軟件、音樂、文學作品",
+      "C. 自然資源如水和空氣",
+      "D. 公共領域的免費資源"
+    ],
+    "answer": 1,
+    "explanation": "知識產權保護創作者的智力成果和創造性作品，包括：版權（Copyright — 保護文學、音樂、藝術、軟件源代碼）、專利權（Patent — 保護發明和技術創新）、商標權（Trademark — 保護品牌名稱和標誌）、商業秘密（Trade Secret）。在ICT領域，軟件可受版權保護（源代碼和目標代碼），獨特的算法可申請專利，品牌名稱可註冊商標。開源軟件使用特定授權（如GPL、MIT）而非放棄版權。",
+    "markingNotes": "1分：B。知識產權保護智力創造成果，包括軟件、音樂、文學作品等。",
+    "question_en": "What is the primary subject protected by Intellectual Property rights?",
+    "options_en": [
+      "A. Physical items such as computer hardware",
+      "B. Creative and intellectual works such as software, music, and literary works",
+      "C. Natural resources such as water and air",
+      "D. Free resources in the public domain"
+    ],
+    "explanation_en": "Intellectual property protects creators' intellectual and creative works including: Copyright (literary, musical, artistic works, software source code), Patents (inventions and technical innovations), Trademarks (brand names and logos), Trade Secrets. In ICT, software is protected by copyright, unique algorithms can be patented, and brand names can be trademarked.",
+    "markingNotes_en": "1 mark: B. Intellectual property protects intellectual creations including software, music, and literary works."
+  },
+  {
+    "qid": "ICT-038",
+    "topic": 8,
+    "year": 2020,
+    "qnum": 18,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項是開放源碼軟件(Open Source Software)的特點？",
+    "options": [
+      "A. 必須付費才能使用",
+      "B. 源代碼公開，用戶可以自由修改和分發",
+      "C. 不能與其他軟件一起使用",
+      "D. 只有原創作者可以使用"
+    ],
+    "answer": 1,
+    "explanation": "開放源碼軟件的主要特點包括：源代碼公開（任何人都可以查看）、自由修改（用戶可以根據需求修改代碼）、自由分發（可以分享給他人）、通常免費（但不一定，取決於授權條款）。常見的開源授權包括：GPL（修改後必須也開源）、MIT（非常寬鬆，可用於商業軟件）、Apache（包含專利授權）。開源軟件例子：Linux操作系統、Apache網頁伺服器、Python程式語言、LibreOffice辦公套件。與免費軟件(Freeware)不同，免費軟件的源代碼不一定公開。",
+    "markingNotes": "1分：B。開放源碼軟件源代碼公開，用戶可自由修改和分發。",
+    "question_en": "Which of the following is a characteristic of Open Source Software?",
+    "options_en": [
+      "A. Must pay a fee to use it",
+      "B. Source code is publicly available; users can freely modify and distribute",
+      "C. Cannot be used together with other software",
+      "D. Only the original author can use it"
+    ],
+    "explanation_en": "Open source software characteristics: source code is publicly available (anyone can view), free modification (users can modify code for their needs), free distribution (can share with others), usually free of charge. Common licenses: GPL (modifications must also be open source), MIT (very permissive, can be used in commercial software), Apache (includes patent grant).",
+    "markingNotes_en": "1 mark: B. Open source software has publicly available source code; users can freely modify and distribute."
+  },
+  {
+    "qid": "ICT-039",
+    "topic": 8,
+    "year": 2018,
+    "qnum": 4,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "長期使用電腦可能導致的健康問題不包括：",
+    "options": [
+      "A. 重複性勞損 (RSI)",
+      "B. 眼睛疲勞和視力問題",
+      "C. 改善身體柔韌性",
+      "D. 頸部和背部疼痛"
+    ],
+    "answer": 2,
+    "explanation": "長期使用電腦可能導致的健康問題包括：重複性勞損（RSI — 手腕和手部因重複動作引起的損傷，如腕管綜合症）、眼睛疲勞（因長時間注視屏幕導致的視力模糊、乾眼症）、頸部和背部疼痛（因不良坐姿和久坐不動）。改善身體柔韌性是正面效果（如果正確運動），而非長期使用電腦導致的健康問題。預防措施包括：定時休息（20-20-20法則）、人體工學設備、正確坐姿。",
+    "markingNotes": "1分：C。改善身體柔韌性不是電腦使用導致的健康問題。RSI、眼睛疲勞、頸背疼痛才是常見問題。",
+    "question_en": "Which of the following is NOT a health issue caused by prolonged computer use?",
+    "options_en": [
+      "A. Repetitive Strain Injury (RSI)",
+      "B. Eye strain and vision problems",
+      "C. Improved body flexibility",
+      "D. Neck and back pain"
+    ],
+    "explanation_en": "Health issues from prolonged computer use: Repetitive Strain Injury (RSI — wrist/hand damage from repetitive motions like carpal tunnel syndrome), eye strain (blurred vision, dry eyes from staring at screens), neck and back pain (poor posture and prolonged sitting). Improved body flexibility is a positive effect from proper exercise, not a health issue from computer use.",
+    "markingNotes_en": "1 mark: C. Improved body flexibility is NOT a health issue from computer use. RSI, eye strain, and neck/back pain are."
+  },
+  {
+    "qid": "ICT-040",
+    "topic": 8,
+    "year": 2023,
+    "qnum": 15,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是保障網上私隱的有效方法？",
+    "options": [
+      "A. 在所有網站使用相同的密碼",
+      "B. 定期清除瀏覽器記錄和cookies",
+      "C. 在社交媒體上公開所有個人資訊",
+      "D. 關閉所有安全軟件以提高瀏覽速度"
+    ],
+    "answer": 1,
+    "explanation": "保障網上私隱的有效方法包括：定期清除瀏覽器記錄和cookies（減少被追蹤的風險）、使用強密碼並為不同網站設置不同密碼（防止一個密碼洩露導致所有帳號被盜）、限制社交媒體上分享的個人資訊、使用VPN加密網絡流量、啟用雙重驗證(2FA)、定期更新軟件和安全補丁。使用相同密碼是很危險的做法（密碼洩露會影響所有帳號）。",
+    "markingNotes": "1分：B。定期清除瀏覽記錄和cookies有助於保護網上私隱。使用不同強密碼也很重要。",
+    "question_en": "Which of the following is an effective method to protect online privacy?",
+    "options_en": [
+      "A. Using the same password on all websites",
+      "B. Regularly clearing browser history and cookies",
+      "C. Publicly sharing all personal information on social media",
+      "D. Disabling all security software for faster browsing"
+    ],
+    "explanation_en": "Effective methods for online privacy: regularly clearing browser history and cookies (reducing tracking), using strong unique passwords for each site, limiting personal information shared on social media, using VPNs to encrypt traffic, enabling two-factor authentication (2FA), and keeping software updated. Using the same password everywhere is a major security risk.",
+    "markingNotes_en": "1 mark: B. Regularly clearing browser history and cookies helps protect online privacy."
+  },
+  {
+    "qid": "ICT-041",
+    "topic": 1,
+    "year": 2022,
+    "qnum": 2,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "在資訊系統中，以下哪項屬於「硬件」的範疇？",
+    "options": [
+      "A. 操作系統",
+      "B. 數據庫管理系統",
+      "C. 中央處理器 (CPU)",
+      "D. 使用者手冊"
+    ],
+    "answer": 2,
+    "explanation": "中央處理器(CPU)是實體的電子元件，屬於硬件。操作系統(A)和數據庫管理系統(B)屬於軟件。使用者手冊(D)屬於程序/文件。資訊系統的五個組成部分：硬件、軟件、數據、人員、程序。",
+    "markingNotes": "1分：C。CPU是硬件。需區分硬件（實體設備）和軟件（程式和指令）。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "In an information system, which of the following belongs to the 'hardware' category?",
+    "options_en": [
+      "A. Operating system",
+      "B. Database management system",
+      "C. Central Processing Unit (CPU)",
+      "D. User manual"
+    ],
+    "explanation_en": "The CPU is a physical electronic component and belongs to hardware. Operating systems (A) and DBMS (B) are software. User manuals (D) are procedures/documentation. The five components of an information system: hardware, software, data, people, and procedures.",
+    "markingNotes_en": "1 mark: C. CPU is hardware. Distinguish hardware (physical devices) from software (programs and instructions)."
+  },
+  {
+    "qid": "ICT-042",
+    "topic": 1,
+    "year": 2020,
+    "qnum": 7,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是「直接存取」(Direct Access) 和「順序存取」(Sequential Access) 的正確比較？",
+    "options": [
+      "A. 硬碟使用順序存取，磁帶使用直接存取",
+      "B. 直接存取可以立即讀取任何位置的數據，順序存取必須從頭開始",
+      "C. 順序存取的速度必定比直接存取快",
+      "D. RAM使用順序存取方式"
+    ],
+    "answer": 1,
+    "explanation": "直接存取（又稱隨機存取）允許直接跳到數據所在位置進行讀寫，無需經過前面的數據（如硬碟、SSD、RAM）。順序存取必須從數據的開始位置依次讀取，直到找到目標數據（如磁帶）。硬碟使用直接存取(A錯)，順序存取通常較慢(C錯)，RAM使用直接存取(D錯)。",
+    "markingNotes": "1分：B。直接存取可即時定位數據，順序存取需從頭開始。磁帶=順序，硬碟/SSD/RAM=直接。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following correctly compares Direct Access and Sequential Access?",
+    "options_en": [
+      "A. Hard disks use sequential access; magnetic tapes use direct access",
+      "B. Direct access can immediately read data at any location; sequential access must start from the beginning",
+      "C. Sequential access is always faster than direct access",
+      "D. RAM uses sequential access"
+    ],
+    "explanation_en": "Direct access (random access) allows jumping directly to any data location without traversing preceding data (e.g., HDD, SSD, RAM). Sequential access must read data from the beginning until the target is found (e.g., magnetic tape). HDDs use direct access (A wrong), sequential is usually slower (C wrong), RAM uses direct access (D wrong).",
+    "markingNotes_en": "1 mark: B. Direct access = instant data location; sequential = must start from beginning. Tape=sequential, HDD/SSD/RAM=direct."
+  },
+  {
+    "qid": "ICT-043",
+    "topic": 1,
+    "year": 2018,
+    "qnum": 10,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "數據驗證中的「範圍檢查」(Range Check) 用於：",
+    "options": [
+      "A. 檢查數據是否在允許的範圍內",
+      "B. 檢查數據的類型是否正確",
+      "C. 檢查數據是否重複",
+      "D. 檢查數據是否被加密"
+    ],
+    "answer": 0,
+    "explanation": "範圍檢查驗證輸入數據是否在預設的合理範圍內。例如：年齡應在0-150之間，考試分數應在0-100之間。範圍檢查是最常見的數據驗證方法之一，能防止明顯的輸入錯誤。類型檢查(B)是檢查數據類型（如數字vs文字）。",
+    "markingNotes": "1分：A。範圍檢查確保數據在合理範圍內。例子：0≤年齡≤150。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Range Check in data validation is used for:",
+    "options_en": [
+      "A. Checking if data is within an allowed range",
+      "B. Checking if the data type is correct",
+      "C. Checking if data is duplicated",
+      "D. Checking if data is encrypted"
+    ],
+    "explanation_en": "Range check verifies that input data falls within a predefined reasonable range. Example: age should be 0-150, exam scores should be 0-100. Range checking is one of the most common data validation methods, preventing obvious input errors. Type check (B) verifies data type (e.g., number vs text).",
+    "markingNotes_en": "1 mark: A. Range check ensures data is within a reasonable range. Example: 0 ≤ age ≤ 150."
+  },
+  {
+    "qid": "ICT-044",
+    "topic": 2,
+    "year": 2021,
+    "qnum": 21,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項關於JPEG和PNG檔案格式的比較是正確的？",
+    "options": [
+      "A. JPEG使用無損壓縮，PNG使用有損壓縮",
+      "B. JPEG支援透明背景，PNG不支援透明背景",
+      "C. JPEG適合照片，PNG支援透明背景且使用無損壓縮",
+      "D. JPEG和PNG都使用相同的壓縮算法"
+    ],
+    "answer": 2,
+    "explanation": "JPEG使用有損壓縮（捨棄部分圖像數據以減小檔案大小），特別適合照片和漸變豐富的圖像。PNG使用無損壓縮（保留所有圖像數據），支援alpha通道透明，適合需要清晰邊緣和透明背景的圖像（如標誌、圖表）。JPEG不支援透明背景。",
+    "markingNotes": "1分：C。JPEG=有損壓縮適合照片，PNG=無損壓縮支援透明。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following correctly compares JPEG and PNG file formats?",
+    "options_en": [
+      "A. JPEG uses lossless compression; PNG uses lossy compression",
+      "B. JPEG supports transparent backgrounds; PNG does not support transparency",
+      "C. JPEG is suitable for photos; PNG supports transparency and uses lossless compression",
+      "D. JPEG and PNG use the same compression algorithm"
+    ],
+    "explanation_en": "JPEG uses lossy compression (discards some image data to reduce file size), ideal for photos and images with rich gradients. PNG uses lossless compression (preserves all image data), supports alpha channel transparency, ideal for logos, charts, and images needing sharp edges and transparency. JPEG does not support transparency.",
+    "markingNotes_en": "1 mark: C. JPEG = lossy, good for photos; PNG = lossless, supports transparency."
+  },
+  {
+    "qid": "ICT-045",
+    "topic": 2,
+    "year": 2017,
+    "qnum": 15,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "一個5分鐘的單聲道音頻，以22.05 kHz採樣，8-bit量化。未經壓縮的檔案大小約為：",
+    "options": [
+      "A. 1.26 MB",
+      "B. 6.62 MB",
+      "C. 13.23 MB",
+      "D. 52.92 MB"
+    ],
+    "answer": 1,
+    "explanation": "檔案大小 = 採樣率 × 位元深度 × 聲道數 × 時間。22,050 Hz × 8 bits × 1 channel × (5×60) seconds = 22,050 × 8 × 300 = 52,920,000 bits = 6,615,000 bytes ≈ 6.31 MB（以1MB=1,048,576 bytes計算）或約6.62 MB（以1MB=1,000,000 bytes計算）。注意單位換算和單聲道（×1而非×2）。",
+    "markingNotes": "1分：B。22,050×8×1×300/8/1024/1024 ≈ 6.3 MB。注意此題為單聲道。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "A 5-minute mono audio file, sampled at 22.05 kHz with 8-bit quantization. The uncompressed file size is approximately:",
+    "options_en": [
+      "A. 1.26 MB",
+      "B. 6.62 MB",
+      "C. 13.23 MB",
+      "D. 52.92 MB"
+    ],
+    "explanation_en": "File size = sample rate × bit depth × channels × time. 22,050 Hz × 8 bits × 1 channel × (5×60) seconds = 22,050 × 8 × 300 = 52,920,000 bits ≈ 6.62 MB. Note: single channel (×1, not ×2). Unit conversions are critical.",
+    "markingNotes_en": "1 mark: B. 22,050×8×1×300/8/1024/1024 ≈ 6.3 MB. Note this is mono (single channel)."
+  },
+  {
+    "qid": "ICT-046",
+    "topic": 2,
+    "year": 2019,
+    "qnum": 6,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "在試算表中，要計算A1到A10儲存格中數值的總和，應使用哪個函數？",
+    "options": [
+      "A. =AVERAGE(A1:A10)",
+      "B. =COUNT(A1:A10)",
+      "C. =SUM(A1:A10)",
+      "D. =MAX(A1:A10)"
+    ],
+    "answer": 2,
+    "explanation": "SUM函數計算範圍內所有數值的總和。AVERAGE計算平均值，COUNT計算包含數值的儲存格數量，MAX返回最大值。這些都是試算表中最基本的函數。",
+    "markingNotes": "1分：C。SUM()用於求和。AVERAGE=平均值，COUNT=計數，MAX=最大值。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "In a spreadsheet, to calculate the sum of values in cells A1 to A10, which function should be used?",
+    "options_en": [
+      "A. =AVERAGE(A1:A10)",
+      "B. =COUNT(A1:A10)",
+      "C. =SUM(A1:A10)",
+      "D. =MAX(A1:A10)"
+    ],
+    "explanation_en": "SUM calculates the total of all numeric values in a range. AVERAGE calculates the mean. COUNT counts the number of cells containing numbers. MAX returns the largest value. These are the most basic spreadsheet functions.",
+    "markingNotes_en": "1 mark: C. SUM() adds values. AVERAGE=mean, COUNT=count cells, MAX=largest value."
+  },
+  {
+    "qid": "ICT-047",
+    "topic": 3,
+    "year": 2021,
+    "qnum": 23,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項是GPU (圖形處理器) 的主要特點？",
+    "options": [
+      "A. 只能處理文字數據",
+      "B. 具有大量核心，適合並行處理圖形和影像數據",
+      "C. 速度比CPU慢很多",
+      "D. 專門用於管理網絡連接"
+    ],
+    "answer": 1,
+    "explanation": "GPU（圖形處理器）擁有數百至數千個小型處理核心，專為並行處理而設計，特別適合處理圖形渲染、影像處理、機器學習等需要大量並行計算的任務。與CPU（少量高性能核心，適合順序處理）互補。現代GPU也用於加密貨幣挖礦和AI訓練。",
+    "markingNotes": "1分：B。GPU核心數量多，專為並行處理設計。CPU=少量強核心，GPU=大量小核心。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "What is a key characteristic of a GPU (Graphics Processing Unit)?",
+    "options_en": [
+      "A. Can only process text data",
+      "B. Has many cores, optimized for parallel processing of graphics and image data",
+      "C. Much slower than a CPU",
+      "D. Specifically designed for managing network connections"
+    ],
+    "explanation_en": "A GPU has hundreds to thousands of small processing cores designed for parallel processing, particularly suited for graphics rendering, image processing, machine learning, and other tasks requiring massive parallel computation. GPUs complement CPUs (fewer high-performance cores, optimized for sequential processing). Modern GPUs are also used for cryptocurrency mining and AI training.",
+    "markingNotes_en": "1 mark: B. GPU has many cores optimized for parallel processing. CPU=few strong cores, GPU=many small cores."
+  },
+  {
+    "qid": "ICT-048",
+    "topic": 3,
+    "year": 2014,
+    "qnum": 12,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是「匯流排系統」(Bus System) 的正確描述？",
+    "options": [
+      "A. 一種操作系統的名稱",
+      "B. CPU內部不同部件之間傳輸數據的通訊通道",
+      "C. 一種網絡通訊協議",
+      "D. 一種數據庫管理系統"
+    ],
+    "answer": 1,
+    "explanation": "匯流排系統是CPU和電腦各部件之間傳輸數據的通訊通道，包括：數據匯流排（傳輸數據）、地址匯流排（傳輸記憶體地址）、控制匯流排（傳輸控制信號）。匯流排的寬度（位元數）影響系統性能——更寬的匯流排每次可傳輸更多數據。",
+    "markingNotes": "1分：B。匯流排是CPU與各部件間的數據傳輸通道。分為數據、地址、控制三種匯流排。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following correctly describes the Bus System?",
+    "options_en": [
+      "A. A type of operating system",
+      "B. Communication channels between the CPU and other components for transmitting data",
+      "C. A network communication protocol",
+      "D. A database management system"
+    ],
+    "explanation_en": "The bus system consists of communication channels connecting the CPU to other computer components: Data bus (transmits data), Address bus (transmits memory addresses), Control bus (transmits control signals). Bus width (in bits) affects system performance — wider buses can transfer more data per cycle.",
+    "markingNotes_en": "1 mark: B. The bus system is the communication channel between CPU and components. Three types: data, address, control."
+  },
+  {
+    "qid": "ICT-049",
+    "topic": 3,
+    "year": 2018,
+    "qnum": 25,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項關於「分散式處理」(Distributed Processing) 的描述是正確的？",
+    "options": [
+      "A. 所有處理必須在同一台電腦上完成",
+      "B. 多台電腦通過網絡協作完成一個共同任務",
+      "C. 只能使用相同型號的電腦",
+      "D. 不需要操作系統的支援"
+    ],
+    "answer": 1,
+    "explanation": "分散式處理將大型任務分解為多個子任務，分配給網絡中多台電腦同時處理，最後合併結果。優點包括：提高處理速度、提高可靠性（單點故障不影響整體）、資源共享、可擴展性。例子：SETI@home項目、區塊鏈網絡、雲端運算。與並行處理不同（後者在一台電腦內的多個CPU上進行）。",
+    "markingNotes": "1分：B。分散式處理=多台電腦通過網絡協作。需區分並行處理（單機多CPU）。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following correctly describes Distributed Processing?",
+    "options_en": [
+      "A. All processing must be completed on a single computer",
+      "B. Multiple computers collaborate over a network to complete a shared task",
+      "C. Only identical computer models can be used",
+      "D. Does not require operating system support"
+    ],
+    "explanation_en": "Distributed processing breaks large tasks into subtasks, distributes them to multiple computers on a network for parallel processing, then combines the results. Advantages: improved speed, higher reliability (single point of failure doesn't affect everything), resource sharing, scalability. Examples: SETI@home, blockchain networks, cloud computing.",
+    "markingNotes_en": "1 mark: B. Distributed processing = multiple computers collaborating via network. Distinct from parallel processing (multiple CPUs in one machine)."
+  },
+  {
+    "qid": "ICT-050",
+    "topic": 4,
+    "year": 2016,
+    "qnum": 14,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項網絡設備主要根據MAC地址來轉發數據？",
+    "options": [
+      "A. 路由器 (Router)",
+      "B. 交換機 (Switch)",
+      "C. 數據機 (Modem)",
+      "D. 防火牆 (Firewall)"
+    ],
+    "answer": 1,
+    "explanation": "交換機(Switch)工作在OSI模型的數據鏈路層(第2層)，根據MAC地址來決定將數據幀轉發到哪個端口。路由器(Router)工作在網絡層(第3層)，根據IP地址轉發數據包。數據機(Modem)負責模擬-數碼信號轉換。防火牆(Firewall)根據安全規則過濾流量。",
+    "markingNotes": "1分：B。Switch使用MAC地址（第2層），Router使用IP地址（第3層）。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which network device primarily forwards data based on MAC addresses?",
+    "options_en": [
+      "A. Router",
+      "B. Switch",
+      "C. Modem",
+      "D. Firewall"
+    ],
+    "explanation_en": "A Switch operates at the Data Link layer (Layer 2) of the OSI model, forwarding data frames based on MAC addresses to specific ports. A Router operates at the Network layer (Layer 3), forwarding data packets based on IP addresses. A Modem handles analog-digital signal conversion. A Firewall filters traffic based on security rules.",
+    "markingNotes_en": "1 mark: B. Switch uses MAC addresses (Layer 2); Router uses IP addresses (Layer 3)."
+  },
+  {
+    "qid": "ICT-051",
+    "topic": 4,
+    "year": 2021,
+    "qnum": 27,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項正確描述了電路交換(Circuit Switching)和分組交換(Packet Switching)的區別？",
+    "options": [
+      "A. 電路交換建立專用通道，分組交換將數據分成小包獨立傳送",
+      "B. 互聯網使用電路交換技術",
+      "C. 分組交換需要在通訊前建立專用連接",
+      "D. 電路交換比封包交換更適合突發性數據傳輸"
+    ],
+    "answer": 0,
+    "explanation": "電路交換在通訊前建立專用物理通道（如傳統電話網絡），通訊期間獨佔該通道，適合持續性通訊（如語音通話）。分組交換將數據分成小包，每個包獨立選擇路徑傳送（如互聯網使用TCP/IP），適合突發性數據傳輸。互聯網使用分組交換(B錯)，分組交換不需要專用連接(C錯)，分組交換更適合突發數據(D錯)。",
+    "markingNotes": "1分：A。電路交換=專用通道（電話），分組交換=分包傳送（互聯網TCP/IP）。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following correctly describes the difference between Circuit Switching and Packet Switching?",
+    "options_en": [
+      "A. Circuit switching establishes a dedicated channel; packet switching divides data into small packets sent independently",
+      "B. The internet uses circuit switching technology",
+      "C. Packet switching requires establishing a dedicated connection before communication",
+      "D. Circuit switching is more suitable for bursty data transmission than packet switching"
+    ],
+    "explanation_en": "Circuit switching establishes a dedicated physical channel before communication (e.g., traditional telephone networks); the channel is exclusively occupied during communication, suitable for continuous communication (voice calls). Packet switching divides data into small packets, each independently routed (e.g., internet using TCP/IP), suitable for bursty data. Internet uses packet switching (B wrong).",
+    "markingNotes_en": "1 mark: A. Circuit switching = dedicated channel (telephone); Packet switching = packet-based transmission (internet TCP/IP)."
+  },
+  {
+    "qid": "ICT-052",
+    "topic": 4,
+    "year": 2015,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "IPv4地址用多少位元表示？",
+    "options": [
+      "A. 16位元",
+      "B. 32位元",
+      "C. 64位元",
+      "D. 128位元"
+    ],
+    "answer": 1,
+    "explanation": "IPv4地址使用32位元（4 bytes），以點分十進制表示，如192.168.1.1。總共可提供2³² ≈ 43億個IP地址。由於互聯網設備數量已遠超43億，IPv4地址已基本耗盡。IPv6使用128位元（16 bytes），提供2¹²⁸個地址。",
+    "markingNotes": "1分：B。IPv4=32位元(約43億地址)，IPv6=128位元。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "How many bits are used to represent an IPv4 address?",
+    "options_en": [
+      "A. 16 bits",
+      "B. 32 bits",
+      "C. 64 bits",
+      "D. 128 bits"
+    ],
+    "explanation_en": "IPv4 addresses use 32 bits (4 bytes), displayed in dotted decimal notation (e.g., 192.168.1.1). This provides approximately 4.3 billion unique addresses. As internet devices far exceed 4.3 billion, IPv4 addresses are largely exhausted. IPv6 uses 128 bits (16 bytes), providing 2¹²⁸ addresses.",
+    "markingNotes_en": "1 mark: B. IPv4 = 32 bits (~4.3 billion addresses); IPv6 = 128 bits."
+  },
+  {
+    "qid": "ICT-053",
+    "topic": 5,
+    "year": 2023,
+    "qnum": 20,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是SaaS (Software as a Service) 的典型例子？",
+    "options": [
+      "A. 在本地安裝Microsoft Word",
+      "B. 使用Google Docs通過瀏覽器編輯文件",
+      "C. 購買並安裝Windows操作系統",
+      "D. 自己搭建電郵伺服器"
+    ],
+    "answer": 1,
+    "explanation": "SaaS（軟件即服務）讓用戶通過互聯網使用軟件，無需安裝和維護。Google Docs是典型的SaaS——用戶只需瀏覽器即可編輯文件，所有處理和儲存在雲端完成。在本地安裝Word(A)是傳統軟件模式。購買Windows(C)是軟件授權而非服務。自建伺服器(D)是IaaS或自託管模式。",
+    "markingNotes": "1分：B。SaaS=通過瀏覽器使用雲端軟件。Google Docs、Office 365、Gmail都是SaaS例子。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following is a typical example of SaaS (Software as a Service)?",
+    "options_en": [
+      "A. Installing Microsoft Word locally",
+      "B. Using Google Docs to edit documents through a browser",
+      "C. Purchasing and installing the Windows operating system",
+      "D. Setting up your own email server"
+    ],
+    "explanation_en": "SaaS (Software as a Service) lets users use software via the internet without installation or maintenance. Google Docs is typical SaaS — users only need a browser to edit documents; all processing and storage happen in the cloud. Installing Word locally (A) is traditional software. Buying Windows (C) is licensing, not service. Self-hosting email (D) is IaaS or self-managed.",
+    "markingNotes_en": "1 mark: B. SaaS = using cloud software through a browser. Google Docs, Office 365, Gmail are SaaS examples."
+  },
+  {
+    "qid": "ICT-054",
+    "topic": 5,
+    "year": 2022,
+    "qnum": 28,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項關於SSL/TLS和HTTPS的描述是正確的？",
+    "options": [
+      "A. HTTPS使用對稱加密進行初始連接",
+      "B. SSL/TLS先使用公開金鑰加密交換對稱密鑰，然後使用對稱加密傳輸數據",
+      "C. HTTPS不能驗證網站的身份",
+      "D. SSL/TLS只能保護文字數據，不能保護圖片和影片"
+    ],
+    "answer": 1,
+    "explanation": "SSL/TLS（安全套接層/傳輸層安全）的運作原理：1) 客戶端和伺服器使用公開金鑰加密(非對稱加密)安全地交換一個對稱密鑰；2) 之後的數據傳輸使用這個對稱密鑰進行加密（因為對稱加密速度快）。HTTPS=HTTP+SSL/TLS。數碼證書用於驗證網站身份（C錯）。SSL/TLS加密所有類型的數據（D錯）。",
+    "markingNotes": "1分：B。SSL/TLS用非對稱加密交換對稱密鑰，再用對稱加密傳輸。混合加密系統。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following about SSL/TLS and HTTPS is correct?",
+    "options_en": [
+      "A. HTTPS uses symmetric encryption for the initial connection",
+      "B. SSL/TLS first uses public-key encryption to exchange a symmetric key, then uses symmetric encryption for data transmission",
+      "C. HTTPS cannot verify a website's identity",
+      "D. SSL/TLS only protects text data, not images and videos"
+    ],
+    "explanation_en": "SSL/TLS operation: (1) Client and server use public-key (asymmetric) encryption to securely exchange a symmetric key; (2) Subsequent data transmission uses this symmetric key (faster). HTTPS = HTTP + SSL/TLS. Digital certificates verify website identity (C wrong). SSL/TLS encrypts all data types (D wrong).",
+    "markingNotes_en": "1 mark: B. SSL/TLS uses asymmetric encryption to exchange the symmetric key, then symmetric encryption for data. Hybrid cryptosystem."
+  },
+  {
+    "qid": "ICT-055",
+    "topic": 5,
+    "year": 2016,
+    "qnum": 11,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項HTML標籤用於創建超連結？",
+    "options": [
+      "A. <img>",
+      "B. <a>",
+      "C. <p>",
+      "D. <div>"
+    ],
+    "answer": 1,
+    "explanation": "<a>（anchor，錨點）標籤用於創建超連結，使用href屬性指定目標URL。例如：<a href=\"https://example.com\">點擊這裡</a>。<img>用於插入圖片，<p>用於段落，<div>用於區塊分組。",
+    "markingNotes": "1分：B。<a href=\"...\"> 是HTML中的超連結標籤。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which HTML tag is used to create a hyperlink?",
+    "options_en": [
+      "A. <img>",
+      "B. <a>",
+      "C. <p>",
+      "D. <div>"
+    ],
+    "explanation_en": "The <a> (anchor) tag creates hyperlinks, using the href attribute to specify the target URL. Example: <a href='https://example.com'>Click here</a>. <img> inserts images, <p> defines paragraphs, <div> defines block-level divisions.",
+    "markingNotes_en": "1 mark: B. <a href='...'> is the HTML hyperlink tag."
+  },
+  {
+    "qid": "ICT-056",
+    "topic": 6,
+    "year": 2017,
+    "qnum": 12,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下流程圖中，如果x=8，輸出結果是什麼？\n開始 → 輸入x → x>10? → (是)輸出\"High\" / (否)x>5? → (是)輸出\"Medium\" / (否)輸出\"Low\" → 結束",
+    "options": [
+      "A. High",
+      "B. Medium",
+      "C. Low",
+      "D. 沒有輸出"
+    ],
+    "answer": 1,
+    "explanation": "追蹤流程：x=8 → 檢查x>10? → 8>10為否 → 檢查x>5? → 8>5為是 → 輸出\"Medium\"。這是一個典型的巢狀決策結構，用於根據數值範圍進行分類。",
+    "markingNotes": "1分：B (Medium)。x=8，不滿足>10，滿足>5，輸出Medium。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "In the flowchart: Start → Input x → x>10? → (Yes) Output 'High' / (No) x>5? → (Yes) Output 'Medium' / (No) Output 'Low' → End\nIf x=8, the output is:",
+    "options_en": [
+      "A. High",
+      "B. Medium",
+      "C. Low",
+      "D. No output"
+    ],
+    "explanation_en": "Trace: x=8 → Check x>10? → 8>10 is No → Check x>5? → 8>5 is Yes → Output 'Medium'. This is a typical nested decision structure for categorizing values by ranges.",
+    "markingNotes_en": "1 mark: B (Medium). x=8 does not satisfy >10, does satisfy >5, outputs Medium."
+  },
+  {
+    "qid": "ICT-057",
+    "topic": 6,
+    "year": 2023,
+    "qnum": 17,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下偽代碼執行後，變量count的值是多少？\ncount = 0\nfor i = 1 to 10\n  if i mod 2 = 0 OR i mod 3 = 0 then\n    count = count + 1\n  endif\nnext i",
+    "options": [
+      "A. 5",
+      "B. 6",
+      "C. 7",
+      "D. 8"
+    ],
+    "answer": 2,
+    "explanation": "追蹤：1到10中，滿足i mod 2=0（偶數）OR i mod 3=0（3的倍數）的數字：\n2✓(偶數), 3✓(3的倍數), 4✓(偶數), 6✓(偶數且3的倍數，OR兩者皆可), 8✓(偶數), 9✓(3的倍數), 10✓(偶數)\n共7個數字。注意6同時滿足兩個條件但只計算一次（OR邏輯）。",
+    "markingNotes": "1分：C(7)。滿足i為偶數或3的倍數的數字：2,3,4,6,8,9,10。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "After executing the following pseudocode, what is the value of count?\ncount = 0\nfor i = 1 to 10\n  if i mod 2 = 0 OR i mod 3 = 0 then\n    count = count + 1\n  endif\nnext i",
+    "options_en": [
+      "A. 5",
+      "B. 6",
+      "C. 7",
+      "D. 8"
+    ],
+    "explanation_en": "Numbers 1-10 satisfying i mod 2=0 (even) OR i mod 3=0 (multiple of 3): 2✓(even), 3✓(multiple of 3), 4✓(even), 6✓(both, OR counts once), 8✓(even), 9✓(multiple of 3), 10✓(even). Total: 7 numbers. Note: 6 satisfies both conditions but is counted only once (OR logic).",
+    "markingNotes_en": "1 mark: C (7). Numbers that are even OR multiples of 3: 2,3,4,6,8,9,10."
+  },
+  {
+    "qid": "ICT-058",
+    "topic": 6,
+    "year": 2018,
+    "qnum": 20,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是「偽代碼」(Pseudocode) 的主要用途？",
+    "options": [
+      "A. 直接在電腦上執行",
+      "B. 用人類易讀的方式描述算法邏輯，不受特定程式語言限制",
+      "C. 取代所有程式語言",
+      "D. 加密程式碼以保護知識產權"
+    ],
+    "answer": 1,
+    "explanation": "偽代碼使用自然語言和基本程式結構（如if-then、for、while）來描述算法邏輯，不受特定程式語言語法限制。它用於規劃和溝通算法設計，幫助程式員在編寫實際程式碼前理清邏輯。偽代碼不能直接在電腦上執行，需要轉換為具體的程式語言。",
+    "markingNotes": "1分：B。偽代碼用自然語言描述算法邏輯，便於規劃和溝通。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "What is the primary purpose of Pseudocode?",
+    "options_en": [
+      "A. Direct execution on a computer",
+      "B. Describing algorithm logic in a human-readable way, independent of specific programming languages",
+      "C. Replacing all programming languages",
+      "D. Encrypting source code to protect intellectual property"
+    ],
+    "explanation_en": "Pseudocode uses natural language and basic program structures (if-then, for, while) to describe algorithm logic, unrestricted by specific programming language syntax. It is used for planning and communicating algorithm design before writing actual code. Pseudocode cannot be directly executed on a computer.",
+    "markingNotes_en": "1 mark: B. Pseudocode describes algorithm logic in natural language for planning and communication."
+  },
+  {
+    "qid": "ICT-059",
+    "topic": 7,
+    "year": 2019,
+    "qnum": 26,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "在程式設計中，以下哪項是函數(Function)和程序(Procedure)的主要區別？",
+    "options": [
+      "A. 函數有返回值，程序沒有返回值",
+      "B. 函數可以有多個參數，程序只能有一個參數",
+      "C. 函數比程序執行得更快",
+      "D. 程序只能在主程式中調用，函數可以在任何地方調用"
+    ],
+    "answer": 0,
+    "explanation": "函數(Function)執行計算後會返回一個值（如計算平方根、求和），程序(Procedure/Subroutine)執行一系列操作但不返回值（如顯示訊息、列印文件）。在許多現代程式語言中，「函數」一詞常被泛用。兩者都可以接受參數（B錯），執行速度取決於實現而非類型（C錯），兩者都可以在任何地方調用（D錯）。",
+    "markingNotes": "1分：A。函數返回一個值，程序不返回值。這是兩者的根本區別。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "In programming, what is the main difference between a Function and a Procedure?",
+    "options_en": [
+      "A. A function returns a value; a procedure does not return a value",
+      "B. A function can have multiple parameters; a procedure can only have one",
+      "C. Functions execute faster than procedures",
+      "D. Procedures can only be called from the main program; functions can be called from anywhere"
+    ],
+    "explanation_en": "A function performs calculations and returns a value (e.g., sqrt, sum). A procedure/subroutine performs a series of operations without returning a value (e.g., display message, print file). In many modern languages, 'function' is used generically. Both can accept parameters and be called from anywhere.",
+    "markingNotes_en": "1 mark: A. A function returns a value; a procedure does not. This is the fundamental difference."
+  },
+  {
+    "qid": "ICT-060",
+    "topic": 7,
+    "year": 2021,
+    "qnum": 30,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下程式碼執行後，陣列arr的值是什麼？\narr = [3, 1, 4, 1, 5]\nfor i = 0 to 3\n  for j = 0 to 3-i\n    if arr[j] > arr[j+1] then\n      temp = arr[j]\n      arr[j] = arr[j+1]\n      arr[j+1] = temp\n    endif\n  next j\nnext i",
+    "options": [
+      "A. [5, 4, 3, 1, 1]",
+      "B. [1, 1, 3, 4, 5]",
+      "C. [3, 1, 4, 1, 5]",
+      "D. [1, 3, 1, 4, 5]"
+    ],
+    "answer": 1,
+    "explanation": "這是一個冒泡排序(Bubble Sort)算法，將陣列元素從小到大排序。原始陣列[3,1,4,1,5]經過完整冒泡排序後變為[1,1,3,4,5]。冒泡排序通過重複比較相鄰元素並交換來實現排序，每一輪將最大的未排序元素「浮」到最後位置。",
+    "markingNotes": "1分：B [1,1,3,4,5]。冒泡排序將陣列升序排列。理解排序算法的過程很重要。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "After executing the following code, what is the array arr?\narr = [3,1,4,1,5]\nfor i = 0 to 3\n  for j = 0 to 3-i\n    if arr[j] > arr[j+1] then swap\n[Standard bubble sort implementation]",
+    "options_en": [
+      "A. [5,4,3,1,1]",
+      "B. [1,1,3,4,5]",
+      "C. [3,1,4,1,5]",
+      "D. [1,3,1,4,5]"
+    ],
+    "explanation_en": "This is a bubble sort algorithm that sorts the array in ascending order. Original [3,1,4,1,5] becomes [1,1,3,4,5] after a complete bubble sort. Bubble sort repeatedly compares adjacent elements and swaps them, with the largest unsorted element 'bubbling' to the end in each pass.",
+    "markingNotes_en": "1 mark: B [1,1,3,4,5]. Bubble sort produces ascending order. Understanding sorting algorithm processes is important."
+  },
+  {
+    "qid": "ICT-061",
+    "topic": 7,
+    "year": 2016,
+    "qnum": 18,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是良好的程式設計習慣？",
+    "options": [
+      "A. 使用無意義的變量名稱（如a, b, x1, x2）",
+      "B. 編寫清晰的註釋解釋複雜邏輯",
+      "C. 將所有程式碼寫在一個大函數中",
+      "D. 不進行任何測試"
+    ],
+    "answer": 1,
+    "explanation": "良好的程式設計習慣包括：使用有意義的變量名稱（如studentScore而非x）、編寫清晰的註釋、模組化設計（將程式分解為小函數）、進行充分測試（包括邊界值測試）、遵循一致的編碼風格、使用版本控制等。這些習慣提高程式的可讀性、可維護性和可靠性。",
+    "markingNotes": "1分：B。清晰註釋是良好習慣。有意義的變量名、模組化和充分測試也很重要。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following is a good programming practice?",
+    "options_en": [
+      "A. Using meaningless variable names (e.g., a, b, x1, x2)",
+      "B. Writing clear comments to explain complex logic",
+      "C. Putting all code into one large function",
+      "D. Not performing any testing"
+    ],
+    "explanation_en": "Good programming practices: using meaningful variable names (e.g., studentScore not x), writing clear comments, modular design (decomposing into small functions), thorough testing (including boundary testing), consistent coding style, and version control. These improve readability, maintainability, and reliability.",
+    "markingNotes_en": "1 mark: B. Clear comments are good practice. Meaningful names, modularization, and testing are also important."
+  },
+  {
+    "qid": "ICT-062",
+    "topic": 8,
+    "year": 2017,
+    "qnum": 32,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是開放源碼軟件(Open Source Software)的授權條款GPL的特點？",
+    "options": [
+      "A. 允許用戶修改源代碼但禁止分發",
+      "B. 修改後的衍生作品也必須以GPL授權發布",
+      "C. 只能用於非商業用途",
+      "D. 不允許任何人查看源代碼"
+    ],
+    "answer": 1,
+    "explanation": "GPL（GNU通用公共許可證）的核心特點是「Copyleft」——修改GPL授權的軟件後，衍生作品也必須以GPL授權發布。這確保了軟件及其衍生作品始終保持開源。MIT授權則較寬鬆，允許用於商業軟件而不需開源。GPL允許商業使用(C錯)，允許查看源代碼(D錯)，允許分發修改後的版本(A錯)。",
+    "markingNotes": "1分：B。GPL的核心是Copyleft：衍生作品必須同樣以GPL授權。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following is a characteristic of the GPL open source license?",
+    "options_en": [
+      "A. Allows users to modify source code but prohibits distribution",
+      "B. Modified derivative works must also be released under the GPL license",
+      "C. Can only be used for non-commercial purposes",
+      "D. Does not allow anyone to view the source code"
+    ],
+    "explanation_en": "The GPL (GNU General Public License)'s core feature is 'Copyleft' — when you modify GPL-licensed software, your derivative work must also be released under the GPL license. This ensures the software and its derivatives remain perpetually open source. MIT license is more permissive. GPL allows commercial use and source code viewing.",
+    "markingNotes_en": "1 mark: B. GPL's core is Copyleft: derivative works must also use GPL licensing."
+  },
+  {
+    "qid": "ICT-063",
+    "topic": 8,
+    "year": 2015,
+    "qnum": 9,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "「20-20-20法則」用於預防因長時間使用電腦引起的：",
+    "options": [
+      "A. 重複性勞損 (RSI)",
+      "B. 電腦病毒",
+      "C. 眼睛疲勞",
+      "D. 網絡攻擊"
+    ],
+    "answer": 2,
+    "explanation": "「20-20-20法則」建議：每使用電腦20分鐘，望向20英尺（約6米）外的物體至少20秒。這一法則旨在減少因長時間注視螢幕導致的眼睛疲勞和數碼眼疲勞症。預防RSI需要定時休息和正確的手腕姿勢，預防病毒需要防毒軟件，預防網絡攻擊需要防火牆和安全措施。",
+    "markingNotes": "1分：C。20-20-20法則=每20分鐘望20英尺外20秒，預防眼睛疲勞。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "The '20-20-20 rule' is used to prevent which of the following caused by prolonged computer use?",
+    "options_en": [
+      "A. Repetitive Strain Injury (RSI)",
+      "B. Computer viruses",
+      "C. Eye strain",
+      "D. Network attacks"
+    ],
+    "explanation_en": "The '20-20-20 rule' recommends: Every 20 minutes of computer use, look at something 20 feet (~6 meters) away for at least 20 seconds. This reduces eye strain and digital eye fatigue from prolonged screen focus. RSI prevention requires regular breaks and proper wrist posture. Virus prevention requires antivirus software.",
+    "markingNotes_en": "1 mark: C. The 20-20-20 rule (every 20 min, look 20 ft away for 20 sec) prevents eye strain."
+  },
+  {
+    "qid": "ICT-064",
+    "topic": 8,
+    "year": 2014,
+    "qnum": 13,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是減少數碼鴻溝(Digital Divide)的有效方法？",
+    "options": [
+      "A. 提高互聯網服務的價格",
+      "B. 在公共圖書館和社區中心提供免費電腦和互聯網接入",
+      "C. 只為城市地區提供高速互聯網",
+      "D. 減少學校的ICT課程"
+    ],
+    "answer": 1,
+    "explanation": "減少數碼鴻溝的策略包括：在公共場所提供免費電腦和網絡接入、為偏遠地區建設網絡基礎設施、提供數碼技能培訓課程、為低收入家庭提供電腦和上網補貼、發展適合老年人的簡易操作介面。提高價格(A)和減少覆蓋(C/D)只會加劇數碼鴻溝。",
+    "markingNotes": "1分：B。公共設施免費接入是減少數碼鴻溝的有效方法。需多管齊下。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following is an effective method to reduce the Digital Divide?",
+    "options_en": [
+      "A. Increasing internet service prices",
+      "B. Providing free computers and internet access in public libraries and community centers",
+      "C. Only providing high-speed internet in urban areas",
+      "D. Reducing ICT courses in schools"
+    ],
+    "explanation_en": "Strategies to reduce the digital divide: providing free computers and internet access in public spaces, building network infrastructure in remote areas, offering digital skills training programs, providing computer/internet subsidies for low-income families, and developing simplified interfaces for the elderly. Higher prices and reduced coverage only worsen the divide.",
+    "markingNotes_en": "1 mark: B. Free public access to computers and internet is an effective method to reduce the digital divide."
+  },
+  {
+    "qid": "ICT-065",
+    "topic": 4,
+    "year": 2013,
+    "qnum": 16,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是客戶端-伺服器(Client-Server)網絡架構的特點？",
+    "options": [
+      "A. 所有電腦的地位完全相同",
+      "B. 伺服器提供資源和服務，客戶端發送請求並接收服務",
+      "C. 不需要網絡連接",
+      "D. 只能用於互聯網，不能用於局域網"
+    ],
+    "answer": 1,
+    "explanation": "客戶端-伺服器架構中，伺服器集中管理資源和提供服務（如檔案伺服器、網頁伺服器、數據庫伺服器），客戶端向伺服器發送請求並接收回應。與對等網絡(P2P)不同（所有電腦地位平等，A錯）。此架構需要網絡連接（C錯），可在LAN和互聯網中使用（D錯）。",
+    "markingNotes": "1分：B。伺服器提供服務，客戶端請求服務。與P2P（對等網絡）架構不同。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following is a characteristic of the Client-Server network architecture?",
+    "options_en": [
+      "A. All computers have exactly equal status",
+      "B. Servers provide resources and services; clients send requests and receive services",
+      "C. Does not require a network connection",
+      "D. Can only be used on the internet, not on a LAN"
+    ],
+    "explanation_en": "In client-server architecture, servers centrally manage resources and provide services (file servers, web servers, database servers). Clients send requests to servers and receive responses. Unlike peer-to-peer (P2P) where all computers are equal (A wrong). This architecture requires network connection (C wrong) and can be used on both LAN and internet (D wrong).",
+    "markingNotes_en": "1 mark: B. Servers provide services; clients request services. Distinct from P2P architecture."
+  },
+  {
+    "qid": "ICT-066",
+    "topic": 5,
+    "year": 2020,
+    "qnum": 29,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下哪項是雙重驗證(Two-Factor Authentication, 2FA)的正確描述？",
+    "options": [
+      "A. 使用兩個相同的密碼登入",
+      "B. 結合密碼（你知道的）和手機驗證碼（你擁有的）進行身份驗證",
+      "C. 兩個人同時登入同一個帳號",
+      "D. 重複輸入密碼兩次"
+    ],
+    "answer": 1,
+    "explanation": "雙重驗證(2FA)要求用戶提供兩種不同類型的驗證因素：1) 你知道的（密碼、PIN）、2) 你擁有的（手機、安全令牌、智能卡）、3) 你與生俱來的（指紋、面部識別）。結合兩種因素大幅提高安全性——即使密碼被盜，攻擊者也無法通過第二重驗證。",
+    "markingNotes": "1分：B。2FA=兩種不同類型驗證因素。常見：密碼+手機驗證碼。",
+    "lastUpdated": "2026-06-16",
+    "question_en": "Which of the following correctly describes Two-Factor Authentication (2FA)?",
+    "options_en": [
+      "A. Using two identical passwords to log in",
+      "B. Combining a password (something you know) with a phone verification code (something you have) for authentication",
+      "C. Two people logging into the same account simultaneously",
+      "D. Entering the password twice for confirmation"
+    ],
+    "explanation_en": "2FA requires two different types of authentication factors: (1) Something you know (password, PIN), (2) Something you have (phone, security token, smart card), (3) Something you are (fingerprint, facial recognition). Combining two factors greatly improves security — even if a password is stolen, attackers cannot pass the second factor.",
+    "markingNotes_en": "1 mark: B. 2FA = two different types of authentication factors. Common: password + phone verification code."
+  },
+  {
+    "qid": "ICT-067",
+    "topic": 6,
+    "year": 2023,
+    "qnum": 28,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下偽代碼執行後，變量result的值是多少？\nresult = 1\nfor i = 1 to 4\n  result = result * i\nnext i",
+    "options": [
+      "A. 10",
+      "B. 24",
+      "C. 120",
+      "D. 4"
+    ],
+    "answer": 1,
+    "explanation": "追蹤偽代碼：i=1: result=1x1=1; i=2: result=1x2=2; i=3: result=2x3=6; i=4: result=6x4=24。這計算的是4的階乘(4! = 4x3x2x1 = 24)。注意result初始值為1（不是0，否則乘法結果永遠為0）。",
+    "markingNotes": "1分：B (24)。偽代碼計算4的階乘：1x1x2x3x4=24。需正確追蹤變量變化。",
+    "question_en": "After executing the following pseudocode, what is the value of result?\nresult = 1\nfor i = 1 to 4\n  result = result * i\nnext i",
+    "options_en": [
+      "A. 10",
+      "B. 24",
+      "C. 120",
+      "D. 4"
+    ],
+    "explanation_en": "Trace: i=1: result=1; i=2: result=2; i=3: result=6; i=4: result=24. This calculates 4! = 24. Note result starts at 1 (if 0, product always 0).",
+    "markingNotes_en": "1 mark: B (24). Computes 4! = 1x1x2x3x4 = 24."
+  },
+  {
+    "qid": "ICT-068",
+    "topic": 6,
+    "year": 2022,
+    "qnum": 22,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下偽代碼中，若輸入n=5，輸出是什麼？\n輸入 n\na = 0\nb = 1\nFOR i = 1 TO n\n  輸出 a\n  temp = a + b\n  a = b\n  b = temp\nNEXT i",
+    "options": [
+      "A. 1, 2, 3, 5, 8",
+      "B. 0, 1, 1, 2, 3",
+      "C. 1, 1, 2, 3, 5",
+      "D. 0, 1, 2, 3, 5"
+    ],
+    "answer": 1,
+    "explanation": "這是費波那契數列(Fibonacci)的生成程式。追蹤：i=1: 輸出a=0, temp=0+1=1, a=1, b=1; i=2: 輸出a=1, temp=1+1=2, a=1, b=2; i=3: 輸出a=1, temp=1+2=3, a=2, b=3; i=4: 輸出a=2, temp=2+3=5, a=3, b=5; i=5: 輸出a=3。序列：0, 1, 1, 2, 3。注意先輸出a再更新值。",
+    "markingNotes": "1分：B (0,1,1,2,3)。Fibonacci數列前5項，a=0,b=1起始。需逐行追蹤變量。",
+    "question_en": "In the pseudocode, if n=5, what is output?\nINPUT n\na = 0\nb = 1\nFOR i = 1 TO n\n  OUTPUT a\n  temp = a + b\n  a = b\n  b = temp\nNEXT i",
+    "options_en": [
+      "A. 1, 2, 3, 5, 8",
+      "B. 0, 1, 1, 2, 3",
+      "C. 1, 1, 2, 3, 5",
+      "D. 0, 1, 2, 3, 5"
+    ],
+    "explanation_en": "Fibonacci generator. Trace: outputs 0, 1, 1, 2, 3. Outputs a BEFORE updating values each iteration.",
+    "markingNotes_en": "1 mark: B. First 5 Fibonacci numbers with a=0, b=1."
+  },
+  {
+    "qid": "ICT-069",
+    "topic": 6,
+    "year": 2021,
+    "qnum": 16,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "在Python中，range(2, 8, 2) 會產生哪些數字？",
+    "options": [
+      "A. 2, 4, 6, 8",
+      "B. 2, 3, 4, 5, 6, 7",
+      "C. 2, 4, 6",
+      "D. 2, 3, 4, 5, 6, 7, 8"
+    ],
+    "answer": 2,
+    "explanation": "range(start, stop, step)：從start開始（包含），每次增加step，在stop之前結束（不包含stop）。range(2,8,2) → 2,4,6。8不包含。等價偽代碼：FOR i=2 TO 7 STEP 2。",
+    "markingNotes": "1分：C (2,4,6)。range(2,8,2)=2,4,6。stop值(8)不包含。",
+    "question_en": "In Python, what numbers does range(2, 8, 2) produce?",
+    "options_en": [
+      "A. 2, 4, 6, 8",
+      "B. 2, 3, 4, 5, 6, 7",
+      "C. 2, 4, 6",
+      "D. 2, 3, 4, 5, 6, 7, 8"
+    ],
+    "explanation_en": "range(start, stop, step): starts at start (inclusive), increments by step, stops before stop (exclusive). range(2,8,2) produces 2,4,6.",
+    "markingNotes_en": "1 mark: C (2,4,6). stop value (8) is exclusive."
+  },
+  {
+    "qid": "ICT-070",
+    "topic": 6,
+    "year": 2020,
+    "qnum": 23,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下偽代碼是要計算1到N之間所有奇數的和。哪一行有邏輯錯誤？\n1. 輸入 N\n2. sum = 0\n3. FOR i = 1 TO N\n4.   IF i % 2 = 1 THEN\n5.     sum = sum + i\n6.   ENDIF\n7. NEXT i\n8. 輸出 sum",
+    "options": [
+      "A. 第2行",
+      "B. 第3行",
+      "C. 第4行",
+      "D. 沒有錯誤"
+    ],
+    "answer": 3,
+    "explanation": "此偽代碼沒有邏輯錯誤。i%2=1正確判斷奇數（除以2餘1）。sum初始化為0，遍歷1到N，累加所有滿足i%2=1的i值。常見陷阱：誤認i%2==0為奇數——但i%2==0是偶數。%是取餘數(mod)運算符。",
+    "markingNotes": "1分：D。程式無錯誤。i%2=1正確識別奇數。理解%為取餘數運算。",
+    "question_en": "The pseudocode sums odd numbers 1 to N. Which line has a logic error?\n1. INPUT N\n2. sum = 0\n3. FOR i = 1 TO N\n4.   IF i % 2 = 1 THEN\n5.     sum = sum + i\n6.   ENDIF\n7. NEXT i\n8. OUTPUT sum",
+    "options_en": [
+      "A. Line 2",
+      "B. Line 3",
+      "C. Line 4",
+      "D. No error"
+    ],
+    "explanation_en": "No logic error. i%2=1 correctly identifies odd numbers. % is the modulo operator.",
+    "markingNotes_en": "1 mark: D. No error. i%2=1 correctly tests for odd numbers."
+  },
+  {
+    "qid": "ICT-071",
+    "topic": 6,
+    "year": 2019,
+    "qnum": 10,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "在Python中，表達式 17 % 5 的結果是什麼？",
+    "options": [
+      "A. 3",
+      "B. 2",
+      "C. 3.4",
+      "D. 5"
+    ],
+    "answer": 1,
+    "explanation": "% 是取餘數運算符(modulo)。17 / 5 = 3 餘 2，所以 17 % 5 = 2。區分：/ 返回浮點(17/5=3.4)，// 返回整數商(17//5=3)，% 返回餘數(17%5=2)。",
+    "markingNotes": "1分：B (2)。17%5=2。%為取餘數(mod)運算。",
+    "question_en": "In Python, what is 17 % 5?",
+    "options_en": [
+      "A. 3",
+      "B. 2",
+      "C. 3.4",
+      "D. 5"
+    ],
+    "explanation_en": "% is modulo. 17/5 = 3 remainder 2. / returns float (3.4), // returns integer quotient (3), % returns remainder (2).",
+    "markingNotes_en": "1 mark: B (2). 17%5 = 2."
+  },
+  {
+    "qid": "ICT-072",
+    "topic": 7,
+    "year": 2023,
+    "qnum": 33,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下Python函數的功能是什麼？\ndef mystery(a, b):\n    if b == 0:\n        return a\n    else:\n        return mystery(b, a % b)",
+    "options": [
+      "A. 計算 a 的 b 次方",
+      "B. 計算 a 和 b 的最大公因數 (GCD/HCF)",
+      "C. 計算 a 和 b 的最小公倍數 (LCM)",
+      "D. 比較 a 和 b 的大小"
+    ],
+    "answer": 1,
+    "explanation": "這是遞歸實現的歐幾里得算法(Euclidean Algorithm)，用於計算最大公因數(GCD/HCF)。原理：GCD(a,b) = GCD(b, a mod b)，當b=0時GCD為a。例：mystery(48,18)→mystery(18,12)→mystery(12,6)→mystery(6,0)→返回6（48和18的GCD=6）。",
+    "markingNotes": "1分：B。歐幾里得算法的遞歸實現，計算最大公因數(HCF/GCD)。",
+    "question_en": "What does this Python function do?\ndef mystery(a, b):\n    if b == 0:\n        return a\n    else:\n        return mystery(b, a % b)",
+    "options_en": [
+      "A. Calculates a to power b",
+      "B. Calculates GCD/HCF of a and b",
+      "C. Calculates LCM of a and b",
+      "D. Compares a and b"
+    ],
+    "explanation_en": "Recursive Euclidean Algorithm for GCD. Principle: GCD(a,b) = GCD(b, a mod b). When b=0, GCD = a. Example: mystery(48,18) returns 6.",
+    "markingNotes_en": "1 mark: B. Recursive Euclidean Algorithm for HCF/GCD."
+  },
+  {
+    "qid": "ICT-073",
+    "topic": 7,
+    "year": 2022,
+    "qnum": 34,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下程式對陣列 arr=[8,3,5,1,9,2] 執行後，arr的值是什麼？\nn = len(arr)\nfor i in range(n-1):\n  min_idx = i\n  for j in range(i+1, n):\n    if arr[j] < arr[min_idx]:\n      min_idx = j\n  arr[i], arr[min_idx] = arr[min_idx], arr[i]",
+    "options": [
+      "A. [9,8,5,3,2,1]",
+      "B. [8,3,5,1,9,2]",
+      "C. [1,2,3,5,8,9]",
+      "D. [1,8,3,5,9,2]"
+    ],
+    "answer": 2,
+    "explanation": "這是選擇排序(Selection Sort)。每輪在未排序部分找最小值，與未排序的第一個元素交換。第1輪：找[8,3,5,1,9,2]最小=1(idx3)，交換arr[0]↔arr[3]→[1,3,5,8,9,2]；第2輪：找[3,5,8,9,2]最小=2(idx5)，交換→[1,2,5,8,9,3]；繼續→最終[1,2,3,5,8,9]。與冒泡排序不同，選擇排序每輪只交換一次。",
+    "markingNotes": "1分：C [1,2,3,5,8,9]。選擇排序升序排列。需理解每輪找最小值並交換的過程。",
+    "question_en": "After executing this code on arr=[8,3,5,1,9,2], what is arr?\nn = len(arr)\nfor i in range(n-1):\n  min_idx = i\n  for j in range(i+1, n):\n    if arr[j] < arr[min_idx]:\n      min_idx = j\n  arr[i], arr[min_idx] = arr[min_idx], arr[i]",
+    "options_en": [
+      "A. [9,8,5,3,2,1]",
+      "B. [8,3,5,1,9,2]",
+      "C. [1,2,3,5,8,9]",
+      "D. [1,8,3,5,9,2]"
+    ],
+    "explanation_en": "Selection Sort. Each round finds minimum in unsorted portion and swaps with first unsorted element. Final result: [1,2,3,5,8,9] (ascending).",
+    "markingNotes_en": "1 mark: C. Selection Sort produces ascending order [1,2,3,5,8,9]."
+  },
+  {
+    "qid": "ICT-074",
+    "topic": 7,
+    "year": 2021,
+    "qnum": 35,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "以下Python程式碼執行後會發生什麼？\ndef divide(a, b):\n    return a / b\n\ntry:\n    result = divide(10, 0)\n    print(result)\nexcept ZeroDivisionError:\n    print(\"錯誤：不能除以零\")",
+    "options": [
+      "A. 輸出 0",
+      "B. 輸出 \"錯誤：不能除以零\"",
+      "C. 程式崩潰並顯示錯誤",
+      "D. 輸出 None"
+    ],
+    "answer": 1,
+    "explanation": "try-except用於異常處理。divide(10,0)引發ZeroDivisionError，except區塊捕獲異常，程式不崩潰。執行流程：divide(10,0)拋出異常→跳轉至except→輸出錯誤訊息。print(result)不會執行（異常發生在前）。",
+    "markingNotes": "1分：B。try-except捕獲ZeroDivisionError，輸出錯誤訊息而不崩潰。理解異常處理概念。",
+    "question_en": "What happens after executing this code?\ndef divide(a, b):\n    return a / b\ntry:\n    result = divide(10, 0)\n    print(result)\nexcept ZeroDivisionError:\n    print(\"Error: Cannot divide by zero\")",
+    "options_en": [
+      "A. Output 0",
+      "B. Output error message",
+      "C. Program crashes",
+      "D. Output None"
+    ],
+    "explanation_en": "try-except handles exceptions. divide(10,0) raises ZeroDivisionError, caught by except block. Program does not crash. Error message is printed.",
+    "markingNotes_en": "1 mark: B. try-except catches ZeroDivisionError gracefully."
+  },
+  {
+    "qid": "ICT-075",
+    "topic": 7,
+    "year": 2020,
+    "qnum": 31,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下關於程式測試中「邊界值分析」的描述，哪項是正確的？",
+    "options": [
+      "A. 隨機選擇測試數據",
+      "B. 測試輸入範圍的邊界值（如最小值、最大值、剛超出範圍的值）",
+      "C. 測試所有可能的輸入值",
+      "D. 只測試正常值"
+    ],
+    "answer": 1,
+    "explanation": "邊界值分析(Boundary Value Analysis)是黑盒測試技術，重點測試輸入範圍邊界。例如程式接受1-100：測試0（低於下限）、1（下限）、100（上限）、101（高於上限）。錯誤常發生在邊界處。全面測試(C)不實際，隨機測試(A)無系統性。",
+    "markingNotes": "1分：B。邊界值分析測試輸入範圍邊界，因錯誤常集中於此。",
+    "question_en": "Which describes Boundary Value Analysis in testing?",
+    "options_en": [
+      "A. Randomly select test data",
+      "B. Test boundary values of input ranges",
+      "C. Test all possible input values",
+      "D. Test only normal values"
+    ],
+    "explanation_en": "Boundary Value Analysis tests edges of input ranges where errors commonly occur. Example for range 1-100: test 0, 1, 100, 101.",
+    "markingNotes_en": "1 mark: B. Boundary testing focuses on edges of input ranges."
+  },
+  {
+    "qid": "ICT-076",
+    "topic": 7,
+    "year": 2019,
+    "qnum": 29,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "在Python中，以下哪項關於 list (陣列) 的描述是正確的？",
+    "options": [
+      "A. list 中所有元素必須是同一數據類型",
+      "B. list 的索引從 1 開始",
+      "C. list 是可變的 (mutable)，可以修改其中的元素",
+      "D. list 的長度在創建後不可改變"
+    ],
+    "answer": 2,
+    "explanation": "Python list是可變的(mutable)——可修改、添加、刪除元素（如arr[0]=10, arr.append(5), arr.pop()）。list可含不同類型(A錯——[1,'hello',True]合法），索引從0開始(B錯)，長度可動態改變(D錯——可用append/extend/pop）。",
+    "markingNotes": "1分：C。Python list可變(mutable)，可修改元素、增刪項目。索引從0開始。",
+    "question_en": "In Python, which statement about lists is correct?",
+    "options_en": [
+      "A. All elements must be same type",
+      "B. Indices start from 1",
+      "C. Lists are mutable",
+      "D. Length fixed after creation"
+    ],
+    "explanation_en": "Python lists are mutable — elements can be modified, added (append), removed (pop). Mixed types allowed, indices start at 0, length is dynamic.",
+    "markingNotes_en": "1 mark: C. Python lists are mutable."
+  }
+]
