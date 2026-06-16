@@ -896,7 +896,7 @@ function renderQuiz() {
     var qText = __(q.question, q.question_en);
         if (qText.indexOf('
 ') >= 0 || qText.indexOf('  ') >= 0) {
-          html += '<div class="qtext"><pre style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:.85rem;line-height:1.6;">' + qText + '</pre></div>';
+          html += '<div class="qtext"><pre style="white-space:pre-wrap;font-family:\'JetBrains Mono\',\'Fira Code\',\'Consolas\',monospace;background:var(--surface2);padding:10px 14px;border-radius:8px;border:1px solid var(--border);margin:4px 0;font-size:.8rem;line-height:1.7;overflow-x:auto;">' + qText + '</pre></div>';
         } else {
           html += '<div class="qtext">' + qText + '</div>';
         }
