@@ -453,35 +453,26 @@ async function initializeDB() {
     statusEl.textContent = '正在檢查題庫…';
     const seeded = await isDBSeeded(gDB);
     if (!seeded) {
-      console.log('First visit — seeding question bank...');
-      statusEl.textContent = '正在載入歷屆試題…';
-      // Load from external JSON (fast page load, cached by browser)
+      statusEl.textContent = '載入題目…';
       var questions;
       try {
         var resp = await fetch('questions-ict.json');
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
         questions = await resp.json();
       } catch(e) {
-        // Fallback: embedded data
         var rawData = document.getElementById('question-bank-data');
         questions = JSON.parse(rawData ? rawData.textContent.trim() : '[]');
       }
-      console.log('Loaded ' + questions.length + ' questions');
-      statusEl.textContent = '正在儲存題目 (' + questions.length + ' 題)…';
-      await seedQuestions(gDB, questions);
-      console.log('Questions seeded to IndexedDB');
+      // Fast seed: single transaction
+      await fastSeed(gDB, questions);
       await seedPerformance(gDB);
-      console.log('Performance records initialized');
     }
-    // Load or create session
-    statusEl.textContent = '正在載入練習進度…';
+    // Load or create session — do it async, show UI immediately
     gSession = await dbGet(gDB, 'session', 'current');
     if (!gSession || !gSession.activeQids || gSession.activeQids.length === 0) {
-      console.log('Creating initial session...');
-      statusEl.textContent = '正在生成自適應題目集…';
-      await generateNewSession();
+      generateNewSession(); // no await — render immediately
     } else {
-      await reloadActiveQuestions();
+      reloadActiveQuestions(); // no await — render immediately
+    }
       console.log('Loaded session with ' + gActiveQuestions.length + ' questions');
     }
     gDBReady = true;
