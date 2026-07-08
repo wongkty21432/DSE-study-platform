@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKDSE Chemistry — Quiz Bank | Adaptive Past Paper Questions</title>
+<style>
+  :root {
+    --bg: #0a0f1e; --surface: #131b2e; --surface2: #1c2840;
+    --text: #e8edf5; --text2: #8899b4; --accent: #38bdf8;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --purple: #c084fc; --orange: #fb923c;
+    --border: #263048; --radius: 12px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .topbar { background:var(--surface); border-bottom:1px solid var(--border); padding:14px 28px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; position:sticky; top:0; z-index:100; }
+  .topbar h1 { font-size:1.1rem; background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .topbar .badge { padding:5px 14px; border-radius:20px; font-size:.75rem; font-weight:700; background:rgba(56,189,248,.15); color:var(--accent); }
+  .container { max-width:1000px; margin:0 auto; padding:24px 28px; }
+
+  /* Stats */
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:24px; }
+  .stat { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; text-align:center; }
+  .stat .val { font-size:2rem; font-weight:800; }
+  .stat .lbl { font-size:.75rem; color:var(--text); margin-top:4px; }
+  .stat.correct .val { color:var(--green); } .stat.wrong .val { color:var(--red); }
+  .stat.total .val { color:var(--accent); } .stat.pct .val { color:var(--yellow); }
+
+  /* Filters */
+  .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+  .filters button { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:.78rem; transition:all .2s; }
+  .filters button:hover,.filters button.active { background:var(--accent); color:#0a0f1e; border-color:var(--accent); }
+  .filters .sep { color:var(--border); margin:0 4px; align-self:center; }
+  #refreshBtn { background:rgba(56,189,248,.15) !important; color:var(--accent) !important; border-color:var(--accent) !important; font-weight:600; }
+  #resetBtn { margin-left:auto; background:rgba(248,113,113,.15); color:var(--red); border-color:var(--red); }
+
+  /* Question Card */
+  .qcard { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:18px; overflow:hidden; transition:all .2s; }
+  .qcard.answered { border-left:3px solid var(--accent); }
+  .qcard.correct-q { border-left:3px solid var(--green); }
+  .qcard.wrong-q { border-left:3px solid var(--red); }
+  .qcard .qhead { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:12px; }
+  .qcard .qnum { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;background:var(--surface2);flex-shrink:0; }
+  .qcard.answered .qnum { background:var(--accent);color:#0a0f1e; }
+  .qcard.correct-q .qnum { background:var(--green);color:#0a0f1e; }
+  .qcard.wrong-q .qnum { background:var(--red);color:#fff; }
+  .qcard .qtext { color:var(--text)!important;  flex:1; font-size:.92rem; line-height:1.6; }
+  .qcard .qtopic { color:var(--accent)!important;  font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
+  .qcard .qbody { padding:12px 20px; }
+  .qcard .opt { display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
+  .qcard .opt:hover { border-color:var(--accent); background:rgba(56,189,248,.06); }
+  .qcard .opt.selected { border-color:var(--accent); background:rgba(56,189,248,.12); }
+  .qcard .opt.correct-ans { border-color:var(--green); background:rgba(74,222,128,.12); }
+  .qcard .opt.wrong-ans { border-color:var(--red); background:rgba(248,113,113,.08); }
+  .qcard .opt.disabled { pointer-events:none; opacity:.85; }
+  .qcard .explain { margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
+  .qcard.show-explain .explain { display:block; }
+  .qcard .explain strong { color:var(--yellow); }
+  .qcard .explain .correct-letter { color:var(--green); font-weight:700; }
+  .qcard .year-tag { font-size:.68rem; padding:2px 8px; background:var(--surface2); border-radius:4px; }
+  .qcard .diff-tag { font-size:.62rem; padding:2px 7px; border-radius:4px; margin-left:4px; }
+  .qcard .diff-tag.easy { background:rgba(74,222,128,.15); color:var(--green); }
+  .qcard .diff-tag.medium { background:rgba(251,191,36,.15); color:var(--yellow); }
+  .qcard .diff-tag.hard { background:rgba(248,113,113,.15); color:var(--red); }
+
+  /* Loading overlay */
+  .loading-overlay { display:none; position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(10,15,30,.8);z-index:200;justify-content:center;align-items:center; }
+  .loading-overlay.show { display:flex; }
+  .loading-spinner { width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* Responsive */
+  @media(max-width:700px){ .container { padding:12px; } .stats { grid-template-columns:repeat(2,1fr); } }
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+  /* Grading info */
+  .grade-info { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; margin-top:24px; }
+  .grade-info h3 { font-size:.85rem; color:var(--accent); margin-bottom:10px; }
+  .grade-info table { width:100%; font-size:.78rem; border-collapse:collapse; }
+  .grade-info td { padding:6px 10px; border-bottom:1px solid var(--border); }
+  .grade-info .grade { font-weight:700; }
+
+@media(max-width:640px){
+  .subject-grid{grid-template-columns:1fr!important;gap:10px}
+  .subject-card{padding:14px!important}
+  .card-grid{grid-template-columns:1fr!important}
+  .container{padding:12px!important}
+  header{padding:32px 16px 12px!important}
+  header h1{font-size:1.4rem!important}
+  header .subtitle{font-size:.8rem!important}
+  .auth-bar{flex-wrap:wrap!important;gap:6px!important}
+  .auth-bar button,.auth-bar a{font-size:.7rem!important;padding:6px 12px!important}
+  .topbar{padding:10px 14px!important;gap:8px!important}
+  .topbar h1{font-size:.85rem!important}
+  .stats{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+  .stat{padding:12px!important}
+  .stat .val{font-size:1.5rem!important}
+  .filters{gap:4px!important}
+  .filters button{padding:5px 10px!important;font-size:.68rem!important}
+  .qcard .qhead{padding:10px 14px!important}
+  .qcard .qtext{font-size:.82rem!important}
+  .qcard .opt{padding:8px 12px!important;font-size:.78rem!important}
+  .charts-row{grid-template-columns:1fr!important}
+  .subject-tabs{gap:4px!important}
+  .subject-tab{padding:8px 14px!important;font-size:.75rem!important}
+  .summary-row{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../progress.html?subject=chem" style="padding:6px 12px;border-radius:16px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);font-size:.72rem;text-decoration:none;">📊 Progress</a>
+  <a href="../progress.html#settings" onclick="localStorage.setItem('dse_show_settings','1')" style="padding:6px 10px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.7rem;text-decoration:none;">⚙️</a>
+  <a href="../index.html" style="text-decoration:none;font-size:1.1rem;" title="Home">🏠</a>
+  <h1>🧪 HKDSE Chemistry Quiz Bank</h1>
+  <span class="badge">DSE 2012–2026 · Adaptive</span>
+  <span style="font-size:.78rem;color:var(--text);" id="topbarInfo">Loading question bank…</span>
+  <span style="margin-left:auto;"></span>
+  <select id="langSwitch" onchange="switchLang(this.value)" style="padding:4px 10px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.72rem;cursor:pointer;">
+    <option value="en">EN</option>
+    <option value="zh">中文</option>
+  </select>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+</div>
+
+<div class="container">
+
+<!-- Stats Bar -->
+<div class="stats">
+  <div class="stat total"><div class="val" id="answeredCount">0</div><div class="lbl">Answered</div></div>
+  <div class="stat correct"><div class="val" id="correctCount">0</div><div class="lbl">Correct</div></div>
+  <div class="stat wrong"><div class="val" id="wrongCount">0</div><div class="lbl">Wrong</div></div>
+  <div class="stat pct"><div class="val" id="scorePct">—</div><div class="lbl">Score %</div></div>
+  <div class="stat" style="border-color:var(--purple);"><div class="val" style="color:var(--purple);" id="gradeDisplay">—</div><div class="lbl">Predicted Grade</div></div>
+</div>
+
+<!-- Topic Filter -->
+<div class="filters">
+  <span style="font-size:.78rem;color:var(--text);align-self:center;">Filter:</span>
+  <button class="active" onclick="filterAll()">📚 All Topics</button>
+  <button onclick="filterTopic(1)">🧪 Lab Safety</button>
+  <button onclick="filterTopic(2)">🌍 Planet Earth</button>
+  <button onclick="filterTopic(3)">⚛️ Microscopic I</button>
+  <button onclick="filterTopic(4)">🔩 Metals</button>
+  <button onclick="filterTopic(5)">🧴 Acids &amp; Bases</button>
+  <button onclick="filterTopic(6)">⛽ Fossil Fuels</button>
+  <button onclick="filterTopic(7)">📐 Microscopic II</button>
+  <button onclick="filterTopic(8)">⚡ Redox</button>
+  <button onclick="filterTopic(9)">🔥 Energetics</button>
+  <button onclick="filterTopic(10)">⏱️ Kinetics</button>
+  <button onclick="filterTopic(11)">⚖️ Equilibrium</button>
+  <button onclick="filterTopic(12)">🧬 Carbon Cpds</button>
+  <button onclick="filterTopic(13)">📊 Patterns</button>
+  <span class="sep">|</span>
+  <button id="refreshBtn" onclick="refreshQuestions()">🔄 New Questions</button>
+  <button id="resetBtn" onclick="resetAll()">↺ Reset Answers</button>
+</div>
+
+<!-- Questions -->
+<div id="quizContainer"><p style="text-align:center;color:var(--text);padding:48px;">⏳ Loading question bank…</p></div>
+
+<!-- Grade Reference -->
+<div class="grade-info">
+  <h3>📊 DSE Grade Reference (Paper 1A — 36 MC Questions)</h3>
+  <table>
+    <tr><td class="grade" style="color:#4ade80;">5**</td><td>≥ 33/36 (91%)</td><td class="grade" style="color:#38bdf8;">5*</td><td>31-32/36 (86%)</td><td class="grade" style="color:#c084fc;">5</td><td>28-30/36 (78%)</td></tr>
+    <tr><td class="grade" style="color:#fb923c;">4</td><td>24-27/36 (67%)</td><td class="grade" style="color:#fbbf24;">3</td><td>18-23/36 (50%)</td><td class="grade" style="color:#f87171;">2</td><td>12-17/36 (33%)</td></tr>
+    <tr><td class="grade" style="color:#f87171;">1</td><td>6-11/36 (17%)</td><td style="color:var(--text);">U</td><td>≤5/36</td><td></td><td></td></tr>
+  </table>
+  <p style="font-size:.72rem;color:var(--text);margin-top:8px;">*Approximate grade boundaries based on historical DSE Chemistry exams. Adaptive system selects questions based on your performance — weak topics get more practice.</p>
+</div>
+
+</div>
+
+<!-- ============ QUESTION BANK DATA (Hidden from user) ============ -->
+<script type="application/json" id="question-bank-data" style="display:none;"></script>
+
+<script>
+// ============ AUTH & API ============
+const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? ('http://localhost' + (location.port ? ':'+location.port : '') + '/dse-ict-api/') : (localStorage.getItem('dse_api_base') || 'https://hedging-tainted-dolly.ngrok-free.dev/dse-ict-api/');
+
+// ============ INDEXEDDB LAYER ============
+const DB_NAME = 'HKDSE-Chem-Quiz';
+const DB_VERSION = 1;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    request.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      // Questions store: keyed by qid, indexed by topic, difficulty, year
+      if (!db.objectStoreNames.contains('questions')) {
+        const qStore = db.createObjectStore('questions', { keyPath: 'qid' });
+        qStore.createIndex('topic', 'topic', { unique: false });
+        qStore.createIndex('difficulty', 'difficulty', { unique: false });
+        qStore.createIndex('year', 'year', { unique: false });
+        qStore.createIndex('topicDiff', ['topic', 'difficulty'], { unique: false });
+      }
+      // Performance store: keyed by topic (1-13)
+      if (!db.objectStoreNames.contains('performance')) {
+        db.createObjectStore('performance', { keyPath: 'topic' });
+      }
+      // Session store: keyed by id (fixed "current")
+      if (!db.objectStoreNames.contains('session')) {
+        db.createObjectStore('session', { keyPath: 'id' });
+      }
+    };
+    request.onsuccess = (e) => resolve(e.target.result);
+    request.onerror = (e) => reject(e.target.error);
+  });
+}
+
+function dbCount(db, storeName) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const req = store.count();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGetAll(db, storeName) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const req = store.getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGet(db, storeName, key) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const req = store.get(key);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbPut(db, storeName, value) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readwrite');
+    const store = tx.objectStore(storeName);
+    const req = store.put(value);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+// Query questions by topic using index
+function dbGetByTopic(db, topic) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('questions', 'readonly');
+    const store = tx.objectStore('questions');
+    const index = store.index('topic');
+    const req = index.getAll(topic);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+// Query questions by topic AND difficulty
+function dbGetByTopicAndDifficulty(db, topic, difficulty) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('questions', 'readonly');
+    const store = tx.objectStore('questions');
+    const index = store.index('topicDiff');
+    const req = index.getAll([topic, difficulty]);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+// ============ SEEDING ============
+async function seedQuestions(db, questions) {
+  // Batch into chunks of 50 to avoid browser transaction limits
+  const BATCH_SIZE = 50;
+  const batches = [];
+  for (let i = 0; i < questions.length; i += BATCH_SIZE) {
+    batches.push(questions.slice(i, i + BATCH_SIZE));
+  }
+  console.log('📦 Seeding ' + questions.length + ' questions in ' + batches.length + ' batches');
+  for (let b = 0; b < batches.length; b++) {
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction('questions', 'readwrite');
+      const store = tx.objectStore('questions');
+      const batch = batches[b];
+      for (const q of batch) { store.put(q); }
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(new Error('Batch ' + (b+1) + ' aborted'));
+    });
+  }
+  console.log('✅ Seeding complete');
+}
+
+async function seedPerformance(db) {
+  const tx = db.transaction('performance', 'readwrite');
+  const store = tx.objectStore('performance');
+  for (let t = 1; t <= 13; t++) {
+    store.put({
+      topic: t,
+      totalAttempted: 0, totalCorrect: 0, totalWrong: 0,
+      emaCorrect: null,
+      consecutiveWrong: 0, consecutiveCorrect: 0,
+      lastUpdated: 0,
+      // Multi-dimensional performance profiling
+      difficultyBreakdown: {
+        easy: { attempted: 0, correct: 0 },
+        medium: { attempted: 0, correct: 0 },
+        hard: { attempted: 0, correct: 0 }
+      },
+      // Format adaptation: track MC vs Paper 1B conversion performance
+      formatBreakdown: {
+        mc: { attempted: 0, correct: 0 },
+        converted: { attempted: 0, correct: 0 }
+      },
+      // Learning velocity: recent performance trend
+      recentResults: [],       // last 10 results: [true, false, true, ...]
+      // Session tracking
+      sessionsCompleted: 0,
+      lastSeenQids: []         // recently seen qids for this topic
+    });
+  }
+  return new Promise((resolve, reject) => {
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function isDBSeeded(db) {
+  const count = await dbCount(db, 'questions');
+  return count > 0;
+}
+
+// ============ INITIALIZATION ============
+let gDB = null;            // IndexedDB handle
+let gActiveQuestions = []; // Full question objects currently displayed (in display order)
+let gSession = null;       // Current session record
+let gActiveFilter = null;  // null=all, number=specific topic
+let gDBReady = false;
+
+async function initializeDB() {
+  // Show skeleton immediately instead of blocking overlay
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text2);"><div class="loading-spinner" style="margin:0 auto 16px;"></div><p style="font-size:.9rem;">Loading question bank…</p><p style="font-size:.72rem;margin-top:4px;">首次載入可能需要幾秒鐘</p></div>';
+  const statusEl = document.getElementById('topbarInfo');
+  statusEl.textContent = 'Initializing database…';
+  try {
+    // Test if IndexedDB is available
+    if (!window.indexedDB) {
+      throw new Error('IndexedDB not supported — use a modern browser (Chrome, Edge, Firefox)');
+    }
+    gDB = await openDB();
+    statusEl.textContent = 'Checking question bank…';
+    const seeded = await isDBSeeded(gDB);
+    if (!seeded) {
+      console.log('📦 First visit — seeding question bank...');
+      statusEl.textContent = 'Loading DSE questions…';
+      var questions;
+      // Try API (database) first, then JSON file, then inline fallback
+      try {
+        var resp = await fetch(API_BASE + 'get-questions.php?subject=chem');
+        if (!resp.ok) throw new Error('API HTTP ' + resp.status);
+        questions = await resp.json();
+        console.log('📦 Loaded ' + questions.length + ' questions from database API');
+      } catch(e1) {
+        console.log('API failed, trying JSON file:', e1.message);
+        try {
+          var resp2 = await fetch('questions-chem.json');
+          if (!resp2.ok) throw new Error('JSON HTTP ' + resp2.status);
+          questions = await resp2.json();
+          console.log('📦 Loaded ' + questions.length + ' questions from JSON file');
+        } catch(e2) {
+          console.log('JSON failed, using inline:', e2.message);
+          var raw = document.getElementById('question-bank-data');
+          if (raw && raw.textContent.trim()) {
+            questions = JSON.parse(raw.textContent.trim());
+          } else {
+            throw new Error('Cannot load question bank. Check connection and refresh.');
+          }
+        }
+      }
+      statusEl.textContent = 'Storing questions (' + questions.length + ' total)…';
+      await seedQuestions(gDB, questions);
+      console.log('✅ Questions seeded to IndexedDB');
+      await seedPerformance(gDB);
+      console.log('✅ Performance records initialized');
+    }
+    // Load or create session
+    statusEl.textContent = 'Loading session…';
+    gSession = await dbGet(gDB, 'session', 'current');
+    if (!gSession || !gSession.activeQids || gSession.activeQids.length === 0) {
+      console.log('📋 Creating initial session...');
+      statusEl.textContent = 'Generating adaptive question set…';
+      await generateNewSession();
+    } else {
+      // Reload active questions from stored qids
+      await reloadActiveQuestions();
+      console.log('📋 Loaded session with ' + gActiveQuestions.length + ' questions');
+    }
+    gDBReady = true;
+    statusEl.textContent = 'Paper 1A Style · ' + gActiveQuestions.length + ' Questions · Adaptive';
+    renderQuiz();
+  } catch (err) {
+    console.error('❌ DB init error:', err);
+    gDBReady = false;
+    statusEl.textContent = '⚠️ Error loading — check console';
+    document.getElementById('quizContainer').innerHTML =
+      '<div style="text-align:center;padding:48px;color:var(--red);">' +
+      '<h3>⚠️ Failed to Load Question Bank</h3>' +
+      '<p style="margin-top:12px;color:var(--text);">Error: ' + err.message + '</p>' +
+      '<p style="margin-top:8px;font-size:.78rem;color:var(--text);">' +
+      'Possible fixes:<br>' +
+      '1. Ensure you are NOT in private/incognito mode (IndexedDB may be restricted)<br>' +
+      '2. Try Chrome, Edge, or Firefox (latest version)<br>' +
+      '3. Clear site data and reload: F12 → Application → Clear site data<br>' +
+      '4. Check that JavaScript is enabled</p>' +
+      '<button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;border-radius:20px;border:1px solid var(--accent);background:rgba(56,189,248,.15);color:var(--accent);cursor:pointer;font-size:.85rem;">🔄 Retry</button>' +
+      '</div>';
+  }
+  showLoading(false);
+}
+
+async function reloadActiveQuestions() {
+  // Batch load: get all questions and filter by session qids (much faster than serial gets)
+  const allQuestions = await dbGetAll(gDB, 'questions');
+  const qidMap = new Map(allQuestions.map(q => [q.qid, q]));
+  gActiveQuestions = gSession.activeQids
+    .map(qid => qidMap.get(qid))
+    .filter(Boolean);
+  // Maintain session order
+  if (gActiveQuestions.length < gSession.activeQids.length) {
+    console.warn('⚠️ Some qids not found in DB, session may be stale');
+  }
+}
+
+// ============ ENHANCED PERFORMANCE TRACKING ============
+// Tracks multi-dimensional performance: difficulty, format, learning velocity, streaks
+
+async function recordAnswer(qid, topic, difficulty, sourceType, selectedOption, correctAnswer) {
+  const isCorrect = selectedOption === correctAnswer;
+  const perf = await dbGet(gDB, 'performance', topic);
+  if (!perf) return;
+
+  perf.totalAttempted++;
+  if (isCorrect) perf.totalCorrect++; else perf.totalWrong++;
+
+  // === DIFFICULTY BREAKDOWN ===
+  if (!perf.difficultyBreakdown) {
+    perf.difficultyBreakdown = { easy:{attempted:0,correct:0}, medium:{attempted:0,correct:0}, hard:{attempted:0,correct:0} };
+  }
+  const dBreakdown = perf.difficultyBreakdown[difficulty];
+  if (dBreakdown) { dBreakdown.attempted++; if (isCorrect) dBreakdown.correct++; }
+
+  // === FORMAT BREAKDOWN (MC vs Paper 1B conversion) ===
+  if (!perf.formatBreakdown) {
+    perf.formatBreakdown = { mc:{attempted:0,correct:0}, converted:{attempted:0,correct:0} };
+  }
+  const fmt = sourceType === 'converted' ? 'converted' : 'mc';
+  const fBreakdown = perf.formatBreakdown[fmt];
+  if (fBreakdown) { fBreakdown.attempted++; if (isCorrect) fBreakdown.correct++; }
+
+  // === EMA (exponential moving average) with dynamic alpha ===
+  // Higher alpha (more responsive) when user is improving, lower when stable
+  const baseAlpha = 0.3;
+  const sampleSize = Math.min(perf.totalAttempted, 20);
+  // Adaptive alpha: larger for small samples (quick initial calibration), smaller for large samples
+  const alpha = baseAlpha + (1.0 - baseAlpha) * Math.exp(-sampleSize / 5);
+  const thisResult = isCorrect ? 1.0 : 0.0;
+  if (perf.emaCorrect === null) {
+    perf.emaCorrect = thisResult;
+  } else {
+    perf.emaCorrect = alpha * thisResult + (1.0 - alpha) * perf.emaCorrect;
+  }
+
+  // === STREAK TRACKING ===
+  if (isCorrect) {
+    perf.consecutiveCorrect = (perf.consecutiveCorrect || 0) + 1;
+    perf.consecutiveWrong = 0;
+  } else {
+    perf.consecutiveWrong = (perf.consecutiveWrong || 0) + 1;
+    perf.consecutiveCorrect = 0;
+  }
+
+  // === LEARNING VELOCITY: Recent results tracking ===
+  if (!perf.recentResults) perf.recentResults = [];
+  perf.recentResults.push(isCorrect);
+  if (perf.recentResults.length > 10) perf.recentResults.shift();
+
+  // Calculate trend: positive = improving, negative = declining
+  if (perf.recentResults.length >= 6) {
+    const firstHalf = perf.recentResults.slice(0, Math.floor(perf.recentResults.length/2));
+    const secondHalf = perf.recentResults.slice(Math.floor(perf.recentResults.length/2));
+    const firstAvg = firstHalf.filter(Boolean).length / firstHalf.length;
+    const secondAvg = secondHalf.filter(Boolean).length / secondHalf.length;
+    perf.learningVelocity = secondAvg - firstAvg; // range: -1 to +1
+  }
+
+  // === SESSION TRACKING ===
+  perf.lastUpdated = Date.now();
+
+  // Add qid to last seen for this topic
+  if (!perf.lastSeenQids) perf.lastSeenQids = [];
+  if (!perf.lastSeenQids.includes(qid)) {
+    perf.lastSeenQids.unshift(qid);
+    if (perf.lastSeenQids.length > 50) perf.lastSeenQids.pop();
+  }
+
+  await dbPut(gDB, 'performance', perf);
+}
+
+// Build comprehensive performance profile for adaptive decision-making
+function buildPerformanceProfile(perfRecord) {
+  if (!perfRecord || perfRecord.emaCorrect === null) {
+    return {
+      mastery: null,          // unknown mastery
+      masteryLevel: 'new',    // 'new','novice','developing','proficient','advanced','master'
+      emaScore: null,
+      learningVelocity: 0,
+      streak: { correct: 0, wrong: 0 },
+      difficultyProfile: {
+        easy: { accuracy: null, readiness: 'ready' },
+        medium: { accuracy: null, readiness: 'ready' },
+        hard: { accuracy: null, readiness: 'not-ready' }
+      },
+      formatPreference: { mcAccuracy: null, convertedAccuracy: null },
+      recommendedDifficulty: 'easy',
+      recommendedFormat: 'mc',
+      needsReview: false
+    };
+  }
+
+  const p = perfRecord;
+  const ema = p.emaCorrect;
+
+  // Mastery level classification
+  let masteryLevel;
+  if (ema >= 0.90) masteryLevel = 'master';
+  else if (ema >= 0.80) masteryLevel = 'advanced';
+  else if (ema >= 0.65) masteryLevel = 'proficient';
+  else if (ema >= 0.45) masteryLevel = 'developing';
+  else if (ema >= 0.25) masteryLevel = 'novice';
+  else masteryLevel = 'new';
+
+  // Difficulty readiness
+  const diffProfile = {};
+  for (const d of ['easy','medium','hard']) {
+    const bd = (p.difficultyBreakdown || {})[d] || { attempted: 0, correct: 0 };
+    const acc = bd.attempted > 0 ? bd.correct / bd.attempted : null;
+    let readiness;
+    if (acc === null) readiness = (d === 'easy') ? 'ready' : (d === 'medium') ? 'ready' : 'not-ready';
+    else if (acc >= 0.80) readiness = 'ready';
+    else if (acc >= 0.50) readiness = 'developing';
+    else readiness = 'not-ready';
+    diffProfile[d] = { accuracy: acc, readiness };
+  }
+
+  // Format preference
+  const fmt = p.formatBreakdown || { mc:{attempted:0,correct:0}, converted:{attempted:0,correct:0} };
+  const mcAcc = fmt.mc.attempted > 0 ? fmt.mc.correct / fmt.mc.attempted : null;
+  const convAcc = fmt.converted.attempted > 0 ? fmt.converted.correct / fmt.converted.attempted : null;
+
+  // Recommended difficulty based on mastery and recent trend
+  let recDiff = 'medium';
+  if (masteryLevel === 'master' || masteryLevel === 'advanced') recDiff = 'hard';
+  else if (masteryLevel === 'proficient') recDiff = 'medium';
+  else if (masteryLevel === 'developing') recDiff = 'medium';
+  else recDiff = 'easy';
+
+  // If declining (negative velocity), ease up
+  if ((p.learningVelocity || 0) < -0.15 && recDiff !== 'easy') {
+    recDiff = recDiff === 'hard' ? 'medium' : 'easy';
+  }
+  // If improving fast (positive velocity), challenge more
+  if ((p.learningVelocity || 0) > 0.25 && recDiff !== 'hard') {
+    recDiff = recDiff === 'easy' ? 'medium' : 'hard';
+  }
+
+  // Format recommendation
+  let recFormat = 'mc';
+  if (convAcc !== null && convAcc >= 0.60) recFormat = 'mixed';
+  if (convAcc !== null && convAcc < 0.40 && mcAcc !== null && mcAcc >= 0.70) recFormat = 'mc-first';
+
+  return {
+    mastery: ema,
+    masteryLevel,
+    emaScore: ema,
+    learningVelocity: p.learningVelocity || 0,
+    streak: { correct: p.consecutiveCorrect || 0, wrong: p.consecutiveWrong || 0 },
+    difficultyProfile: diffProfile,
+    formatPreference: { mcAccuracy: mcAcc, convertedAccuracy: convAcc },
+    recommendedDifficulty: recDiff,
+    recommendedFormat: recFormat,
+    needsReview: (p.consecutiveWrong || 0) >= 2,
+    totalAttempted: p.totalAttempted || 0
+  };
+}
+
+// Update session tracking after a session completes
+async function completeSessionTracking() {
+  if (!gSession || !gSession.activeQids) return;
+  for (let t = 1; t <= 13; t++) {
+    const perf = await dbGet(gDB, 'performance', t);
+    if (perf) {
+      perf.sessionsCompleted = (perf.sessionsCompleted || 0) + 1;
+      await dbPut(gDB, 'performance', perf);
+    }
+  }
+}
+
+// ============ ENHANCED ADAPTIVE SELECTION ALGORITHM ============
+// Multi-dimensional: topic weighting, progressive difficulty, format adaptation, spaced repetition
+
+// --- TOPIC WEIGHTING (enhanced with learning velocity) ---
+function topicWeight(perfRecord, baselineWeight) {
+  const profile = buildPerformanceProfile(perfRecord);
+  if (profile.mastery === null) return baselineWeight; // new topic, neutral weight
+
+  const alpha = 0.6; // weakness amplification
+
+  // Base weakness: 0 (perfect) to 1 (very weak)
+  const weakness = Math.max(0.05, 1.0 - profile.mastery);
+
+  // Velocity modifier: declining topics need MORE attention
+  const velocityMod = profile.learningVelocity < 0
+    ? (1.0 + Math.abs(profile.learningVelocity) * 0.5)
+    : (1.0 - Math.min(profile.learningVelocity, 0.3) * 0.4);
+
+  // Streak modifier: consecutive wrongs need immediate attention
+  const streakMod = 1.0 + Math.min(profile.streak.wrong, 3) * 0.2;
+
+  // Review modifier: topics needing review get extra weight
+  const reviewMod = profile.needsReview ? 1.3 : 1.0;
+
+  const adjustedWeakness = weakness * velocityMod * streakMod * reviewMod;
+
+  return baselineWeight + alpha * adjustedWeakness;
+}
+
+// --- DIFFICULTY MIX (enhanced with readiness checks) ---
+function difficultyMix(perfRecord) {
+  const profile = buildPerformanceProfile(perfRecord);
+
+  if (profile.mastery === null) {
+    return { easy: 0.50, medium: 0.35, hard: 0.15 };
+  }
+
+  // Readiness-based allocation
+  const easyReady = profile.difficultyProfile.easy.readiness === 'ready' ? 1 : 0;
+  const medReady = profile.difficultyProfile.medium.readiness === 'ready' ? 1 :
+                   profile.difficultyProfile.medium.readiness === 'developing' ? 0.5 : 0;
+  const hardReady = profile.difficultyProfile.hard.readiness === 'ready' ? 1 :
+                    profile.difficultyProfile.hard.readiness === 'developing' ? 0.5 : 0;
+
+  switch (profile.masteryLevel) {
+    case 'master':
+      return { easy: 0.05, medium: 0.20, hard: 0.75 };
+    case 'advanced':
+      return { easy: 0.10, medium: 0.30, hard: 0.60 };
+    case 'proficient':
+      // Boost medium if hard isn't ready yet
+      if (hardReady < 0.5) return { easy: 0.15, medium: 0.55, hard: 0.30 };
+      return { easy: 0.15, medium: 0.45, hard: 0.40 };
+    case 'developing':
+      return { easy: 0.35, medium: 0.45, hard: 0.20 };
+    case 'novice':
+      return { easy: 0.55, medium: 0.35, hard: 0.10 };
+    default: // 'new'
+      return { easy: 0.65, medium: 0.30, hard: 0.05 };
+  }
+}
+
+// --- SESSION STRUCTURE DESIGN ---
+// Designs the layout: warmup → core → challenge → review
+function designSessionStructure(profiles, activeTopics, targetCount) {
+  // Phase allocation (percentage of questions)
+  const phases = {
+    warmup: 0.20,    // 20%: easier questions, weak topics
+    core: 0.50,      // 50%: main difficulty, all topics
+    challenge: 0.20, // 20%: harder questions, stretch goals
+    review: 0.10     // 10%: previously wrong questions
+  };
+
+  // Adjust phases based on overall mastery
+  const avgMastery = activeTopics.reduce((sum, t) => {
+    const p = profiles[t];
+    return sum + (p && p.mastery !== null ? p.mastery : 0.5);
+  }, 0) / activeTopics.length;
+
+  // If overall weak, increase warmup, reduce challenge
+  if (avgMastery < 0.40) {
+    phases.warmup = 0.30;
+    phases.core = 0.50;
+    phases.challenge = 0.10;
+    phases.review = 0.10;
+  }
+  // If overall strong, reduce warmup, increase challenge
+  if (avgMastery >= 0.75) {
+    phases.warmup = 0.10;
+    phases.core = 0.45;
+    phases.challenge = 0.30;
+    phases.review = 0.15;
+  }
+
+  return {
+    phases,
+    counts: {
+      warmup: Math.max(1, Math.round(targetCount * phases.warmup)),
+      core: Math.max(1, Math.round(targetCount * phases.core)),
+      challenge: Math.max(1, Math.round(targetCount * phases.challenge)),
+      review: Math.max(1, Math.round(targetCount * phases.review))
+    },
+    avgMastery
+  };
+}
+
+// --- FORMAT SELECTION (MC vs Paper 1B conversion) ---
+function formatMix(profile) {
+  if (!profile || profile.mastery === null) {
+    return { mc: 0.70, converted: 0.30 };
+  }
+  switch (profile.recommendedFormat) {
+    case 'mc-first': return { mc: 0.85, converted: 0.15 };
+    case 'mixed': return { mc: 0.55, converted: 0.45 };
+    default: return { mc: 0.70, converted: 0.30 };
+  }
+}
+
+// --- COMPUTE TOPIC ALLOCATION ---
+function computeTopicAllocation(performanceRecords, activeTopics, targetCount) {
+  const topicPerf = {};
+  for (const t of activeTopics) {
+    topicPerf[t] = performanceRecords.find(p => p.topic === t) || null;
+  }
+
+  const weights = {};
+  let totalWeight = 0;
+  for (const t of activeTopics) {
+    weights[t] = topicWeight(topicPerf[t], 1.0);
+    totalWeight += weights[t];
+  }
+
+  const allocation = new Map();
+  let allocated = 0;
+  const fractions = [];
+  for (const t of activeTopics) {
+    const raw = (targetCount * weights[t]) / totalWeight;
+    const floor = Math.max(1, Math.floor(raw));
+    allocation.set(t, floor);
+    allocated += floor;
+    fractions.push({ topic: t, frac: raw - floor });
+  }
+
+  fractions.sort((a, b) => b.frac - a.frac);
+  let remainder = targetCount - allocated;
+  for (let i = 0; i < remainder && i < fractions.length; i++) {
+    const t = fractions[i].topic;
+    allocation.set(t, allocation.get(t) + 1);
+  }
+  return allocation;
+}
+
+// --- RANDOM SAMPLING UTILITIES ---
+function randomSample(arr, count) {
+  if (count >= arr.length) return [...arr];
+  const shuffled = [...arr];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, count);
+}
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// --- MAIN SELECTION ENGINE ---
+async function selectQuestions(db, activeTopics, targetCount, recentQidsSet, performanceRecords) {
+  // Build profiles for all active topics
+  const profiles = {};
+  for (const t of activeTopics) {
+    const perf = performanceRecords.find(p => p.topic === t);
+    profiles[t] = buildPerformanceProfile(perf);
+  }
+
+  // Design session structure
+  const sessionDesign = designSessionStructure(profiles, activeTopics, targetCount);
+
+  // Compute total allocation per topic
+  const topicAllocation = computeTopicAllocation(performanceRecords, activeTopics, targetCount);
+
+  // Pre-fetch all questions by topic
+  const questionsByTopic = {};
+  for (const t of activeTopics) {
+    questionsByTopic[t] = await dbGetByTopic(db, t);
+  }
+
+  // Collect review candidates (spaced repetition)
+  const reviewCandidates = [];
+  for (const t of activeTopics) {
+    const perf = performanceRecords.find(p => p.topic === t);
+    if (!perf || !perf.lastSeenQids) continue;
+    // Questions previously seen in this topic that were NOT in recentQids
+    for (const qid of perf.lastSeenQids) {
+      if (!recentQidsSet.has(qid) && !reviewCandidates.includes(qid)) {
+        reviewCandidates.push(qid);
+      }
+    }
+  }
+
+  const selectedQids = [];
+  const usedQids = new Set();
+  const bucketByTopicAndDifficulty = {}; // cache
+
+  function getBuckets(topic) {
+    if (bucketByTopicAndDifficulty[topic]) return bucketByTopicAndDifficulty[topic];
+    const allQ = questionsByTopic[topic] || [];
+    const buckets = { easy: [], medium: [], hard: [] };
+    for (const q of allQ) {
+      if (recentQidsSet.has(q.qid)) continue;
+      if (buckets[q.difficulty]) buckets[q.difficulty].push(q);
+      else buckets.medium.push(q);
+    }
+    bucketByTopicAndDifficulty[topic] = buckets;
+    return buckets;
+  }
+
+  function pickFromBucket(topic, difficulty, count, preferFormat) {
+    const buckets = getBuckets(topic);
+    let pool = buckets[difficulty] || buckets.medium || [];
+
+    // Filter out already-used qids
+    pool = pool.filter(q => !usedQids.has(q.qid));
+
+    // If format preference specified, prioritize
+    if (preferFormat && pool.length > count * 2) {
+      const preferred = pool.filter(q => (q.sourceType === 'converted') === (preferFormat === 'converted'));
+      const others = pool.filter(q => (q.sourceType === 'converted') !== (preferFormat === 'converted'));
+      pool = [...preferred, ...others];
+    }
+
+    const picked = randomSample(pool, count);
+    for (const q of picked) usedQids.add(q.qid);
+    return picked;
+  }
+
+  // === PHASE 1: WARMUP ===
+  // Focus on weak topics with easier difficulty
+  const warmupCount = sessionDesign.counts.warmup;
+  const weakTopics = activeTopics
+    .map(t => ({ topic: t, mastery: profiles[t].mastery || 0 }))
+    .sort((a, b) => a.mastery - b.mastery);
+  const warmupTopics = weakTopics.slice(0, Math.ceil(activeTopics.length * 0.5)).map(w => w.topic);
+
+  const warmupPerTopic = computeTopicAllocation(performanceRecords.filter(p => warmupTopics.includes(p.topic)),
+    warmupTopics, warmupCount);
+
+  for (const [topic, count] of warmupPerTopic) {
+    const profile = profiles[topic] || buildPerformanceProfile(null);
+    // Warmup: use easier difficulty than normal
+    const warmupMix = profile.mastery !== null && profile.mastery >= 0.7
+      ? { easy: 0.4, medium: 0.4, hard: 0.2 }
+      : { easy: 0.7, medium: 0.25, hard: 0.05 };
+    const easyN = Math.round(count * warmupMix.easy);
+    const medN = Math.round(count * warmupMix.medium);
+    const hardN = count - easyN - medN;
+
+    const picked = [
+      ...pickFromBucket(topic, 'easy', easyN),
+      ...pickFromBucket(topic, 'medium', medN),
+      ...pickFromBucket(topic, 'hard', hardN)
+    ];
+    for (const q of picked) selectedQids.push(q.qid);
+  }
+
+  // === PHASE 2: CORE ===
+  // Main difficulty based on current level, full topic spread
+  const coreCount = sessionDesign.counts.core;
+  const corePerTopic = computeTopicAllocation(performanceRecords, activeTopics, coreCount);
+
+  for (const [topic, count] of corePerTopic) {
+    const profile = profiles[topic] || buildPerformanceProfile(null);
+    const mix = difficultyMix(performanceRecords.find(p => p.topic === topic));
+    const fmtMix = formatMix(profile);
+    const easyN = Math.round(count * mix.easy);
+    const medN = Math.round(count * mix.medium);
+    const hardN = count - easyN - medN;
+
+    // Format adaptation: for each difficulty, split by format preference
+    const mcRatio = fmtMix.mc;
+    const picked = [
+      ...pickFromBucket(topic, 'easy', Math.round(easyN * mcRatio), 'mc'),
+      ...pickFromBucket(topic, 'easy', easyN - Math.round(easyN * mcRatio), 'converted'),
+      ...pickFromBucket(topic, 'medium', Math.round(medN * mcRatio), 'mc'),
+      ...pickFromBucket(topic, 'medium', medN - Math.round(medN * mcRatio), 'converted'),
+      ...pickFromBucket(topic, 'hard', Math.round(hardN * mcRatio), 'mc'),
+      ...pickFromBucket(topic, 'hard', hardN - Math.round(hardN * mcRatio), 'converted'),
+    ];
+    for (const q of picked) selectedQids.push(q.qid);
+  }
+
+  // === PHASE 3: CHALLENGE ===
+  // Harder questions, pushing beyond current level
+  const challengeCount = sessionDesign.counts.challenge;
+  const strongTopics = activeTopics
+    .map(t => ({ topic: t, mastery: profiles[t].mastery || 0.5 }))
+    .sort((a, b) => b.mastery - a.mastery);
+  const challengeTopics = strongTopics.slice(0, Math.ceil(activeTopics.length * 0.5)).map(s => s.topic);
+
+  const challengePerTopic = computeTopicAllocation(
+    performanceRecords.filter(p => challengeTopics.includes(p.topic)),
+    challengeTopics, challengeCount
+  );
+
+  for (const [topic, count] of challengePerTopic) {
+    // Challenge: bias toward medium and hard
+    const challengeMix = { easy: 0.1, medium: 0.4, hard: 0.5 };
+    const easyN = Math.round(count * challengeMix.easy);
+    const medN = Math.round(count * challengeMix.medium);
+    const hardN = count - easyN - medN;
+
+    const picked = [
+      ...pickFromBucket(topic, 'easy', easyN),
+      ...pickFromBucket(topic, 'medium', medN),
+      ...pickFromBucket(topic, 'hard', hardN)
+    ];
+    for (const q of picked) selectedQids.push(q.qid);
+  }
+
+  // === PHASE 4: REVIEW (Spaced Repetition) ===
+  const reviewCount = sessionDesign.counts.review;
+  if (reviewCandidates.length > 0) {
+    // Prioritize review candidates from weak topics
+    const reviewPool = reviewCandidates
+      .filter(qid => !usedQids.has(qid))
+      .slice(0, Math.min(reviewCount * 3, reviewCandidates.length));
+
+    const reviewQids = randomSample(reviewPool, Math.min(reviewCount, reviewPool.length));
+    for (const qid of reviewQids) {
+      selectedQids.push(qid);
+      usedQids.add(qid);
+    }
+  }
+
+  // Fill any remaining slots (if review candidates were insufficient)
+  let remaining = targetCount - selectedQids.length;
+  if (remaining > 0) {
+    for (const [topic, count] of computeTopicAllocation(performanceRecords, activeTopics, remaining)) {
+      const picked = pickFromBucket(topic, 'medium', count);
+      for (const q of picked) selectedQids.push(q.qid);
+    }
+  }
+
+  // === FINAL: Shuffle WITHIN phases (phases stay ordered) ===
+  // Actually, interleave slightly within each phase group for variety
+  const warmupQids = selectedQids.slice(0, warmupCount);
+  const coreQids = selectedQids.slice(warmupCount, warmupCount + coreCount +
+    (challengeCount) + Math.min(reviewCount, reviewCandidates.length));
+  // ...simplification: full shuffle after phase ordering ensures good mix
+
+  return {
+    qids: shuffleArray(selectedQids),
+    sessionDesign
+  };
+}
+
+// ============ SESSION MANAGEMENT ============
+function getRecentQids() {
+  return new Set(gSession.recentQids || []);
+}
+
+async function generateNewSession(forceTopics) {
+  const activeTopics = forceTopics || [1,2,3,4,5,6,7,8,9,10,11,12,13];
+  const targetCount = activeTopics.length === 1 ? 20 : 36;
+
+  showLoading(true);
+  let sessionDesign = { avgMastery: 0.5 };
+
+  // --- TIER 1: Adaptive algorithm (skip if no performance data yet) ---
+  try {
+    const allPerf = await dbGetAll(gDB, 'performance');
+    const hasPerfData = allPerf.some(p => p && p.totalAttempted > 0);
+
+    if (hasPerfData) {
+      console.log('🎯 Using adaptive algorithm...');
+      const recentSet = getRecentQids();
+      const result = await selectQuestions(gDB, activeTopics, targetCount, recentSet, allPerf);
+      if (result && result.qids && result.qids.length >= 5) {
+        sessionDesign = result.sessionDesign;
+        const qids = result.qids.slice(0, targetCount);
+        await finalizeSession(qids, activeTopics, sessionDesign);
+        showLoading(false);
+        return;
+      }
+      console.warn('⚠️ Adaptive returned too few questions, falling back...');
+    } else {
+      console.log('📋 No performance data yet — using random selection for first session');
+    }
+  } catch (err) {
+    console.warn('⚠️ Adaptive algorithm error, falling back:', err.message);
+  }
+
+  // --- TIER 2: Random selection from IndexedDB ---
+  try {
+    console.log('🎲 Tier 2: Random selection from DB...');
+    const allQ = await dbGetAll(gDB, 'questions');
+    const filtered = allQ.filter(q => activeTopics.includes(q.topic));
+    if (filtered.length >= 5) {
+      const shuffled = shuffleArray(filtered);
+      const qids = shuffled.slice(0, Math.min(targetCount, shuffled.length)).map(q => q.qid);
+      await finalizeSession(qids, activeTopics, sessionDesign);
+      showLoading(false);
+      return;
+    }
+    console.warn('⚠️ Not enough questions in DB for selected topics');
+  } catch (err) {
+    console.warn('⚠️ DB random selection failed:', err.message);
+  }
+
+  // --- TIER 3: Direct from embedded JSON (bypass IndexedDB entirely) ---
+  try {
+    console.log('💾 Tier 3: Direct from embedded JSON...');
+    const raw = document.getElementById('question-bank-data').textContent.trim();
+    const allQ = JSON.parse(raw);
+    const filtered = allQ.filter(q => activeTopics.includes(q.topic));
+    if (filtered.length >= 5) {
+      const shuffled = shuffleArray(filtered);
+      const qids = shuffled.slice(0, Math.min(targetCount, shuffled.length)).map(q => q.qid);
+      // Store questions directly as gActiveQuestions (bypass session store)
+      const qidSet = new Set(qids);
+      gActiveQuestions = shuffled.filter(q => qidSet.has(q.qid)).slice(0, targetCount);
+      gSession = {
+        id: 'current', activeQids: qids, answers: {},
+        generatedAt: Date.now(), recentQids: [], activeFilter: activeTopics.length === 1 ? activeTopics[0] : null,
+        sessionDesign: sessionDesign
+      };
+      for (const qid of qids) gSession.answers[qid] = -1;
+      try { await dbPut(gDB, 'session', gSession); } catch(e) {}
+      document.getElementById('topbarInfo').textContent =
+        'Paper 1A Style · ' + gActiveQuestions.length + ' Questions (Direct Mode)';
+      showLoading(false);
+      return;
+    }
+  } catch (err) {
+    console.error('❌ Even direct JSON failed:', err.message);
+  }
+
+  // --- TIER 4: Desperate — show clear error ---
+  showLoading(false);
+  document.getElementById('quizContainer').innerHTML =
+    '<div style="text-align:center;padding:48px;color:var(--red);">' +
+    '<h3>⚠️ Could Not Generate Questions</h3>' +
+    '<p style="margin-top:12px;color:var(--text);">All generation methods failed. This may be due to browser restrictions.</p>' +
+    '<p style="font-size:.78rem;color:var(--text);margin-top:8px;">Try: Use Chrome/Edge (not private mode) → Clear site data → Reload</p>' +
+    '<button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;border-radius:20px;border:1px solid var(--accent);background:rgba(56,189,248,.15);color:var(--accent);cursor:pointer;">🔄 Retry</button>' +
+    '</div>';
+}
+
+// Helper to finalize a session (save to DB, reload questions)
+async function finalizeSession(selectedQids, activeTopics, sessionDesign) {
+  const newSession = {
+    id: 'current',
+    activeQids: selectedQids,
+    answers: {},
+    generatedAt: Date.now(),
+    recentQids: gSession ? (gSession.recentQids || []) : [],
+    activeFilter: activeTopics.length === 1 ? activeTopics[0] : null,
+    sessionDesign: sessionDesign
+  };
+  for (const qid of selectedQids) {
+    newSession.answers[qid] = -1;
+  }
+  // Update recentQids
+  const newRecent = new Set(newSession.recentQids);
+  for (const qid of selectedQids) newRecent.add(qid);
+  if (newRecent.size > 200) {
+    const it = newRecent.values();
+    while (newRecent.size > 200) newRecent.delete(it.next().value);
+  }
+  newSession.recentQids = Array.from(newRecent);
+
+  // Track session completion
+  if (gSession && gSession.activeQids && gSession.activeQids.length > 0) {
+    try { await completeSessionTracking(); } catch(e) {}
+  }
+
+  gSession = newSession;
+  try { await dbPut(gDB, 'session', gSession); } catch(e) {}
+  await reloadActiveQuestions();
+
+  const modeLabel = (sessionDesign && sessionDesign.avgMastery >= 0.7) ? 'Advanced' :
+                    (sessionDesign && sessionDesign.avgMastery >= 0.4) ? 'Standard' : 'Guided';
+  document.getElementById('topbarInfo').textContent =
+    'Paper 1A Style · ' + gActiveQuestions.length + ' Questions · ' + modeLabel + ' Mode';
+}
+
+async function updateSessionAnswers() {
+  gSession.answers = {};
+  for (let i = 0; i < gActiveQuestions.length; i++) {
+    const q = gActiveQuestions[i];
+    // Look up user's answer from session (map by qid)
+    gSession.answers[q.qid] = gSession.answers[q.qid] !== undefined ? gSession.answers[q.qid] : -1;
+  }
+  await dbPut(gDB, 'session', gSession);
+}
+
+// ============ UI RENDERING ============
+function showLoading(show) {
+  const overlay = document.getElementById('loadingOverlay');
+  if (show) overlay.classList.add('show');
+  else overlay.classList.remove('show');
+}
+
+var gSelectedYears = [];
+var gSelectedDiffs = [];
+
+function toggleDropdown(id) {
+  var d = document.getElementById(id);
+  d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  var other = id === 'yearDrop' ? 'diffDrop' : 'yearDrop';
+  document.getElementById(other).style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#yearDrop') && !e.target.closest('#diffDrop') && !e.target.closest('button')) {
+    document.getElementById('yearDrop').style.display = 'none';
+    document.getElementById('diffDrop').style.display = 'none';
+  }
+});
+
+async function populateYearFilter() {
+  var allQ = await dbGetAll(gDB, 'questions');
+  var years = [...new Set(allQ.map(q => q.year).filter(Boolean))].sort((a,b) => b-a);
+  var h = '';
+  years.forEach(function(y){
+    h += '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;white-space:nowrap;"><input type="checkbox" value="'+y+'" onchange="toggleYear(this)"> '+y+'</label>';
+  });
+  document.getElementById('yearDrop').innerHTML = h;
+  document.getElementById('diffDrop').innerHTML = '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="easy" onchange="toggleDiff(this)"> Easy</label><label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="medium" onchange="toggleDiff(this)"> Medium</label><label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="hard" onchange="toggleDiff(this)"> Hard</label>';
+}
+
+function toggleYear(cb) {
+  if (cb.checked) gSelectedYears.push(cb.value); else gSelectedYears = gSelectedYears.filter(y => y !== cb.value);
+  document.getElementById('yearCount').textContent = gSelectedYears.length ? '('+gSelectedYears.length+')' : '';
+  renderQuiz();
+}
+function toggleDiff(cb) {
+  if (cb.checked) gSelectedDiffs.push(cb.value); else gSelectedDiffs = gSelectedDiffs.filter(d => d !== cb.value);
+  document.getElementById('diffCount').textContent = gSelectedDiffs.length ? '('+gSelectedDiffs.length+')' : '';
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quizContainer');
+  if (!gActiveQuestions.length) {
+    container.innerHTML = '<p style="text-align:center;color:var(--text);padding:48px;">No questions loaded. Click "New Questions" to start.</p>';
+    updateStats();
+    return;
+  }
+
+  container.innerHTML = '';
+  gActiveQuestions.forEach((q, displayIdx) => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.dataset.qid = q.qid;
+    card.dataset.idx = displayIdx;
+
+    const userAns = gSession.answers[q.qid] !== undefined ? gSession.answers[q.qid] : -1;
+    if (userAns >= 0) {
+      card.classList.add('answered');
+      card.classList.add(userAns === q.answer ? 'correct-q' : 'wrong-q');
+      if (userAns !== q.answer) card.classList.add('show-explain');
+    }
+
+    const letters = ['A','B','C','D'];
+    const diffClass = q.difficulty || 'medium';
+    card.innerHTML = `
+      <div class="qhead">
+        <div class="qnum">${displayIdx+1}</div>
+        <div>
+          <div class="qtopic">📋 Topic ${q.topic} · DSE ${q.year} · Q${q.qnum} <span class="diff-tag ${diffClass}">${(q.difficulty||'medium').toUpperCase()}</span>${q.sourceType==='converted'?' <span style="font-size:.62rem;color:var(--purple);">Paper 1B</span>':''}</div>
+          <div class="qtext">${q.question}</div>
+        </div>
+        <span class="year-tag">${q.year}</span>
+      </div>
+      <div class="qbody">
+        ${q.options.map((opt, oi) => `
+          <div class="opt${userAns===oi?' selected'+(oi===q.answer?' correct-ans':' wrong-ans'):''}${userAns>=0?' disabled':''}${userAns>=0&&oi===q.answer&&userAns!==oi?' correct-ans':''}"
+               onclick="selectAnswer('${q.qid}',${oi})">
+            <strong>${letters[oi]}.</strong> ${opt.replace(/^[A-D]\.\s*/,'').trim()}
+          </div>
+        `).join('')}
+        <div class="explain">
+          <strong>📝 答案：<span class="correct-letter">${letters[q.answer]}</span></strong><br>
+          <div style="margin-top:6px;">${q.explanationCN || q.explanation}</div>
+          ${(q.markingNotesCN || q.markingNotes) ? `<br><small style="color:var(--text);">📋 評分重點：${q.markingNotesCN || q.markingNotes}</small>` : ''}
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
+  updateStats();
+}
+
+async function selectAnswer(qid, optIdx) {
+  if (!gDBReady) return;
+  // Check if already answered
+  if (gSession.answers[qid] !== undefined && gSession.answers[qid] >= 0) return;
+
+  // Record the answer in session
+  gSession.answers[qid] = optIdx;
+
+  // Find the question object
+  const q = gActiveQuestions.find(q => q.qid === qid);
+  if (!q) return;
+
+  // Record performance with enhanced multi-dimensional tracking
+  await recordAnswer(qid, q.topic, q.difficulty, q.sourceType || 'mc', optIdx, q.answer);
+
+  // Save session
+  await dbPut(gDB, 'session', gSession);
+
+  // Re-render
+  renderQuiz();
+
+  // Scroll to next unanswered
+  const nextIdx = gActiveQuestions.findIndex(q => {
+    const ans = gSession.answers[q.qid];
+    return ans === undefined || ans < 0;
+  });
+  if (nextIdx >= 0) {
+    const cards = document.querySelectorAll('.qcard');
+    const targetCard = Array.from(cards).find(c => parseInt(c.dataset.idx) === nextIdx);
+    if (targetCard) setTimeout(() => targetCard.scrollIntoView({behavior:'smooth',block:'center'}), 200);
+  }
+}
+
+function updateStats() {
+  if (!gActiveQuestions.length) {
+    document.getElementById('answeredCount').textContent = '0';
+    document.getElementById('correctCount').textContent = '0';
+    document.getElementById('wrongCount').textContent = '0';
+    document.getElementById('scorePct').textContent = '—';
+    document.getElementById('gradeDisplay').textContent = '—';
+    document.getElementById('gradeDisplay').style.color = 'var(--text2)';
+    return;
+  }
+
+  let answered = 0, correct = 0, wrong = 0;
+  for (const q of gActiveQuestions) {
+    const ans = gSession.answers[q.qid];
+    if (ans !== undefined && ans >= 0) {
+      answered++;
+      if (ans === q.answer) correct++; else wrong++;
+    }
+  }
+
+  const pct = answered > 0 ? Math.round(correct / answered * 100) : 0;
+  document.getElementById('answeredCount').textContent = answered;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('scorePct').textContent = answered > 0 ? pct + '%' : '—';
+
+  // Grade prediction
+  const total = gActiveQuestions.length;
+  const scaledCorrect = total > 0 ? Math.round(correct * 36 / total) : 0;
+  let grade = '—', gcolor = 'var(--text2)';
+  if (answered > 0) {
+    if (scaledCorrect >= 33) { grade = '5**'; gcolor = 'var(--green)'; }
+    else if (scaledCorrect >= 31) { grade = '5*'; gcolor = 'var(--accent)'; }
+    else if (scaledCorrect >= 28) { grade = '5'; gcolor = 'var(--purple)'; }
+    else if (scaledCorrect >= 24) { grade = '4'; gcolor = 'var(--orange)'; }
+    else if (scaledCorrect >= 18) { grade = '3'; gcolor = 'var(--yellow)'; }
+    else if (scaledCorrect >= 12) { grade = '2'; gcolor = 'var(--red)'; }
+    else if (scaledCorrect >= 6) { grade = '1'; gcolor = 'var(--red)'; }
+    else { grade = 'U'; gcolor = 'var(--red)'; }
+  }
+  document.getElementById('gradeDisplay').textContent = grade;
+  document.getElementById('gradeDisplay').style.color = gcolor;
+}
+
+// ============ FILTER & REFRESH ============
+async function filterAll() {
+  if (!gDBReady) return;
+  gActiveFilter = null;
+  updateFilterBtns(-1);
+  await generateNewSession(null);
+  renderQuiz();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+async function filterTopic(t) {
+  if (!gDBReady) return;
+  gActiveFilter = t;
+  updateFilterBtns(t);
+  await generateNewSession([t]);
+  renderQuiz();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function updateFilterBtns(activeTopic) {
+  document.querySelectorAll('.filters button').forEach(b => {
+    b.classList.remove('active');
+    if (activeTopic >= 0 && b.textContent.includes(getTopicShort(activeTopic))) b.classList.add('active');
+    if (activeTopic < 0 && b.textContent.includes('All Topics')) b.classList.add('active');
+  });
+}
+
+function getTopicShort(t) {
+  const shorts = {1:'Lab Safety',2:'Planet Earth',3:'Microscopic I',4:'Metals',5:'Acids',6:'Fossil Fuels',7:'Microscopic II',8:'Redox',9:'Energetics',10:'Kinetics',11:'Equilibrium',12:'Carbon Cpds',13:'Patterns'};
+  return shorts[t] || '';
+}
+
+async function refreshQuestions() {
+  if (!gDBReady) return;
+  const forceTopics = gActiveFilter ? [gActiveFilter] : null;
+  await generateNewSession(forceTopics);
+  // Reset all answers for the new session
+  renderQuiz();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+async function resetAll() {
+  if (!gDBReady) return;
+  // Reset answers but keep same questions
+  for (const qid of gSession.activeQids) {
+    gSession.answers[qid] = -1;
+  }
+  await dbPut(gDB, 'session', gSession);
+  renderQuiz();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ============ LANGUAGE ============
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get('lang');
+  if (urlLang) localStorage.setItem('dse_platform_lang', urlLang.startsWith('en') ? 'en' : 'zh');
+})();
+const gChemLang = localStorage.getItem('dse_platform_lang') || 'en';
+document.addEventListener('DOMContentLoaded', () => {
+  const sel = document.getElementById('langSwitch');
+  if (sel) sel.value = gChemLang;
+});
+function switchLang(lang) {
+  const l = lang.startsWith('en') ? 'en' : 'zh';
+  localStorage.setItem('dse_platform_lang', l);
+  location.reload();
+}
+
+// ============ STARTUP ============
+document.addEventListener('DOMContentLoaded', () => {
+  initializeDB();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# XAMPP / local server
+api/
+auth/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Backup files
+*-backup.json
+*-zh-only-backup.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temp
+*.tmp

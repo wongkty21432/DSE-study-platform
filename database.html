@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>題庫數據庫 — DSE Study Platform</title>
+<style>
+  :root {
+    --bg: #0a0f1e; --surface: #131b2e; --surface2: #1c2840;
+    --text: #e8edf5; --text2: #8899b4; --accent: #38bdf8;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --purple: #c084fc; --border: #263048; --radius: 10px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .topbar { background:var(--surface); border-bottom:1px solid var(--border); padding:12px 24px; display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:100; flex-wrap:wrap; }
+  .topbar h1 { font-size:1rem; background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .topbar a { text-decoration:none; font-size:1.2rem; }
+  .container { max-width:100%; margin:0 auto; padding:16px 20px; }
+
+  /* Toolbar */
+  .toolbar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }
+  .toolbar select, .toolbar input { padding:8px 14px; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:.8rem; outline:none; font-family:inherit; }
+  .toolbar select:focus, .toolbar input:focus { border-color:var(--accent); }
+  .toolbar button { padding:8px 18px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:.8rem; transition:all .2s; font-family:inherit; }
+  .toolbar button:hover { border-color:var(--accent); }
+  .toolbar button.active { background:var(--accent); color:#0a0f1e; border-color:var(--accent); }
+  .toolbar .count { font-size:.75rem; color:var(--text2); margin-left:auto; }
+
+  /* Table */
+  .table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius); max-height:75vh; overflow-y:auto; }
+  table { width:100%; border-collapse:collapse; font-size:.76rem; }
+  th { background:var(--surface2); padding:10px 12px; text-align:left; font-weight:600; color:var(--accent); white-space:nowrap; position:sticky; top:0; z-index:1; cursor:pointer; user-select:none; }
+  th:hover { background:#243050; }
+  th .sort-arrow { font-size:.65rem; margin-left:3px; }
+  td { padding:8px 12px; border-top:1px solid var(--border); vertical-align:top; }
+  tr:hover td { background:rgba(56,189,248,.03); }
+  td.qtext { max-width:400px; line-height:1.5; }
+  td.qtext pre { font-family:'JetBrains Mono','Fira Code',monospace; font-size:.72rem; white-space:pre-wrap; color:var(--green); margin:0; }
+  td.qtext code { font-family:'JetBrains Mono','Fira Code',monospace; font-size:.72rem; background:rgba(56,189,248,.08); padding:1px 5px; border-radius:3px; }
+  td.answer { text-align:center; font-weight:700; }
+  td.answer.correct { color:var(--green); }
+  .diff-tag { display:inline-block; padding:2px 8px; border-radius:10px; font-size:.65rem; font-weight:600; }
+  .diff-tag.easy { background:rgba(74,222,128,.15); color:var(--green); }
+  .diff-tag.medium { background:rgba(251,191,36,.15); color:var(--yellow); }
+  .diff-tag.hard { background:rgba(248,113,113,.15); color:var(--red); }
+
+  /* Loading */
+  .loading { text-align:center; padding:60px 20px; color:var(--text2); }
+  .loading-spinner { width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px; }
+  @keyframes spin { to{transform:rotate(360deg);} }
+
+  /* Subject tabs */
+  .subject-tabs { display:flex; gap:8px; margin-bottom:16px; }
+  .subject-tab { padding:8px 22px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text2); cursor:pointer; font-size:.82rem; font-weight:600; transition:all .2s; font-family:inherit; }
+  .subject-tab:hover { border-color:var(--accent); color:var(--text); }
+  .subject-tab.active.ict { background:#38bdf8; color:#0a0f1e; border-color:#38bdf8; }
+  .subject-tab.active.chem { background:#4ade80; color:#0a0f1e; border-color:#4ade80; }
+
+  ::-webkit-scrollbar { width:6px; height:6px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+  @media(max-width:700px){
+    .topbar{padding:10px 14px;gap:8px}
+    .topbar h1{font-size:.85rem}
+    .container{padding:8px}
+    .toolbar{gap:6px}
+    .toolbar select,.toolbar input,.toolbar button{font-size:.72rem;padding:6px 10px}
+    td.qtext{max-width:200px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html">🏠</a>
+  <h1>🗄️ 題庫數據庫</h1>
+  <span style="font-size:.75rem;color:var(--text2);" id="dbInfo">載入中…</span>
+  <span style="margin-left:auto;"></span>
+  <a href="index.html" style="padding:6px 14px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:.75rem;text-decoration:none;">返回平台</a>
+</div>
+
+<div class="container">
+
+<div class="subject-tabs" id="subjectTabs">
+  <button class="subject-tab active chem" onclick="switchSubject('chem')">⚗️ 化學 Chemistry (532題)</button>
+  <button class="subject-tab ict" onclick="switchSubject('ict')">💻 資訊及通訊科技 ICT</button>
+</div>
+
+<div class="toolbar">
+  <input type="text" id="searchInput" placeholder="🔍 搜尋題目內容…" oninput="applyFilters()" style="width:240px;">
+  <select id="filterTopic" onchange="applyFilters()">
+    <option value="all">全部課題</option>
+  </select>
+  <select id="filterYear" onchange="applyFilters()">
+    <option value="all">全部年份</option>
+  </select>
+  <select id="filterDiff" onchange="applyFilters()">
+    <option value="all">全部難度</option>
+    <option value="easy">容易</option>
+    <option value="medium">中等</option>
+    <option value="hard">困難</option>
+  </select>
+  <span class="count" id="resultCount"></span>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th onclick="sortBy('qid')" style="width:90px;">ID <span class="sort-arrow"></span></th>
+        <th onclick="sortBy('year')" style="width:55px;">年份</th>
+        <th onclick="sortBy('topic')" style="width:80px;">課題</th>
+        <th onclick="sortBy('difficulty')" style="width:70px;">難度</th>
+        <th style="min-width:300px;">題目</th>
+        <th style="width:60px;">答案</th>
+        <th style="min-width:200px;">解釋</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td colspan="7" class="loading"><div class="loading-spinner"></div>載入題庫數據中…</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<script>
+// ============ STATE ============
+var gAllQuestions = [];
+var gFilteredQuestions = [];
+var gCurrentSubject = 'chem';
+var gSortKey = null;
+var gSortDir = 1;
+
+// Topic names
+var TOPIC_NAMES_CHEM = {
+  1:'1. 實驗室安全', 2:'2. 地球', 3:'3. 微觀世界 I', 4:'4. 金屬',
+  5:'5. 酸和鹼', 6:'6. 化石燃料', 7:'7. 微觀世界 II', 8:'8. 氧化還原',
+  9:'9. 化學能量學', 10:'10. 反應速率', 11:'11. 化學平衡', 12:'12. 碳化合物化學',
+  13:'13. 化學規律'
+};
+var TOPIC_NAMES_ICT = {
+  1:'1. 資訊處理(一)', 2:'2. 資訊處理(二)', 3:'3. 電腦系統',
+  4:'4. 互聯網(一)', 5:'5. 互聯網(二)', 6:'6. 計算思維(一)',
+  7:'7. 計算思維(二)', 8:'8. 社會影響'
+};
+
+var SUBJECT_FILES = {
+  chem: 'chem/questions-chem.json',
+  ict: 'ict/questions-ict.json'
+};
+
+// ============ LOAD QUESTIONS ============
+async function loadQuestions(subject) {
+  gAllQuestions = [];
+  gCurrentSubject = subject;
+  document.getElementById('tableBody').innerHTML = '<tr><td colspan="7" class="loading"><div class="loading-spinner"></div>載入 ' + (subject === 'chem' ? '化學' : 'ICT') + ' 題庫中…<br><small>直接從 JSON 載入，無需 IndexedDB</small></td></tr>';
+  document.getElementById('dbInfo').textContent = '載入中…';
+
+  try {
+    var url = SUBJECT_FILES[subject];
+    var resp = await fetch(url);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    var questions = await resp.json();
+    gAllQuestions = questions;
+    gFilteredQuestions = questions.slice();
+
+    // Populate filter dropdowns
+    populateFilters(questions);
+    applyFilters();
+    document.getElementById('dbInfo').textContent = '已載入 ' + questions.length + ' 題 | ' + (subject === 'chem' ? '化學 Chemistry' : '資訊及通訊科技 ICT');
+  } catch(e) {
+    document.getElementById('tableBody').innerHTML = '<tr><td colspan="7" style="text-align:center;padding:48px;color:var(--red);"><h3>載入失敗</h3><p style="margin-top:8px;">' + e.message + '</p><p style="margin-top:4px;font-size:.75rem;">請確保 questions JSON 檔案存在於正確路徑</p></td></tr>';
+    document.getElementById('dbInfo').textContent = '錯誤：' + e.message;
+  }
+}
+
+function populateFilters(questions) {
+  // Topics
+  var topics = [...new Set(questions.map(q => q.topic))].sort((a,b) => a-b);
+  var topicNames = gCurrentSubject === 'chem' ? TOPIC_NAMES_CHEM : TOPIC_NAMES_ICT;
+  var topicSel = document.getElementById('filterTopic');
+  topicSel.innerHTML = '<option value="all">全部課題</option>';
+  topics.forEach(function(t) {
+    topicSel.innerHTML += '<option value="' + t + '">' + (topicNames[t] || ('Topic '+t)) + '</option>';
+  });
+
+  // Years
+  var years = [...new Set(questions.map(q => q.year))].sort((a,b) => b-a);
+  var yearSel = document.getElementById('filterYear');
+  yearSel.innerHTML = '<option value="all">全部年份</option>';
+  years.forEach(function(y) {
+    yearSel.innerHTML += '<option value="' + y + '">' + y + '</option>';
+  });
+}
+
+// ============ FILTER & SORT ============
+function applyFilters() {
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  var topic = document.getElementById('filterTopic').value;
+  var year = document.getElementById('filterYear').value;
+  var diff = document.getElementById('filterDiff').value;
+
+  gFilteredQuestions = gAllQuestions.filter(function(q) {
+    if (topic !== 'all' && String(q.topic) !== topic) return false;
+    if (year !== 'all' && String(q.year) !== year) return false;
+    if (diff !== 'all' && q.difficulty !== diff) return false;
+    if (search) {
+      var haystack = (q.question + ' ' + (q.explanation||'') + ' ' + (q.qid||'')).toLowerCase();
+      if (q.question_en) haystack += ' ' + q.question_en.toLowerCase();
+      if (q.explanation_en) haystack += ' ' + q.explanation_en.toLowerCase();
+      if (haystack.indexOf(search) < 0) return false;
+    }
+    return true;
+  });
+
+  if (gSortKey) {
+    gFilteredQuestions.sort(function(a,b) {
+      var va = a[gSortKey], vb = b[gSortKey];
+      if (typeof va === 'string') va = va.toLowerCase();
+      if (typeof vb === 'string') vb = vb.toLowerCase();
+      if (va < vb) return -1 * gSortDir;
+      if (va > vb) return 1 * gSortDir;
+      return 0;
+    });
+  }
+
+  renderTable();
+}
+
+function sortBy(key) {
+  if (gSortKey === key) {
+    gSortDir *= -1;
+  } else {
+    gSortKey = key;
+    gSortDir = 1;
+  }
+  // Update sort arrows
+  document.querySelectorAll('th .sort-arrow').forEach(function(a) { a.textContent = ''; });
+  var ths = document.querySelectorAll('th');
+  ths.forEach(function(th) {
+    if (th.textContent.trim().startsWith(key === 'qid' ? 'ID' : key === 'year' ? '年份' : key === 'topic' ? '課題' : key === 'difficulty' ? '難度' : '')) {
+      th.querySelector('.sort-arrow').textContent = gSortDir === 1 ? '▲' : '▼';
+    }
+  });
+  applyFilters();
+}
+
+// ============ RENDER TABLE ============
+function renderTable() {
+  var topicNames = gCurrentSubject === 'chem' ? TOPIC_NAMES_CHEM : TOPIC_NAMES_ICT;
+  var tbody = document.getElementById('tableBody');
+  document.getElementById('resultCount').textContent = '顯示 ' + gFilteredQuestions.length + ' / ' + gAllQuestions.length + ' 題';
+
+  if (gFilteredQuestions.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:36px;color:var(--text2);">沒有符合條件的題目</td></tr>';
+    return;
+  }
+
+  var html = '';
+  for (var i = 0; i < gFilteredQuestions.length; i++) {
+    var q = gFilteredQuestions[i];
+    var letters = ['A','B','C','D'];
+    var diffClass = q.difficulty || 'medium';
+
+    // Detect code questions (contain HTML tags or code patterns)
+    var questionText = q.question || '';
+    var isCode = questionText.indexOf('<') >= 0 || questionText.indexOf('{') >= 0 || questionText.indexOf('def ') >= 0;
+
+    html += '<tr>';
+    html += '<td style="font-family:monospace;font-size:.7rem;">' + (q.qid || '') + '</td>';
+    html += '<td>' + (q.year || '') + '</td>';
+    html += '<td style="font-size:.7rem;">' + (topicNames[q.topic] || ('Topic '+q.topic)) + '</td>';
+    html += '<td><span class="diff-tag ' + diffClass + '">' + (diffClass === 'easy' ? '容易' : diffClass === 'medium' ? '中等' : '困難') + '</span></td>';
+    html += '<td class="qtext">' + (isCode ? '<pre>' + escapeHTML(questionText) + '</pre>' : escapeHTML(questionText)) + '</td>';
+    html += '<td class="answer correct">' + (letters[q.answer] || q.answer) + '</td>';
+    html += '<td style="font-size:.72rem;line-height:1.5;max-width:350px;">' + escapeHTML((q.explanationCN || q.explanation || '').substring(0, 300)) + ((q.explanationCN || q.explanation || '').length > 300 ? '…' : '') + '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ============ SUBJECT SWITCHING ============
+function switchSubject(subject) {
+  if (gCurrentSubject === subject) return;
+  document.querySelectorAll('.subject-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelector('.subject-tab.' + subject).classList.add('active');
+  gSortKey = null;
+  gSortDir = 1;
+  document.getElementById('searchInput').value = '';
+  document.getElementById('filterTopic').value = 'all';
+  document.getElementById('filterYear').value = 'all';
+  document.getElementById('filterDiff').value = 'all';
+  loadQuestions(subject);
+}
+
+// ============ STARTUP ============
+loadQuestions('chem');
+</script>
+
+</body>
+</html>

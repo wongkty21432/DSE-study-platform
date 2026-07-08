@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKDSE ICT — 題庫練習 | 自適應歷屆試題</title>
+<style>
+  :root {
+    --bg: #0a0f1e; --surface: #131b2e; --surface2: #1c2840;
+    --text: #e8edf5; --text2: #8899b4; --accent: #38bdf8;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --purple: #c084fc; --orange: #fb923c;
+    --border: #263048; --radius: 12px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .topbar { background:var(--surface); border-bottom:1px solid var(--border); padding:14px 28px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; position:sticky; top:0; z-index:100; }
+  .topbar h1 { font-size:1.1rem; background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .topbar .badge { padding:5px 14px; border-radius:20px; font-size:.75rem; font-weight:700; background:rgba(56,189,248,.15); color:var(--accent); }
+  .container { max-width:1000px; margin:0 auto; padding:24px 28px; }
+
+  /* Stats */
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:24px; }
+  .stat { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; text-align:center; }
+  .stat .val { font-size:2rem; font-weight:800; }
+  .stat .lbl { font-size:.75rem; color:var(--text); margin-top:4px; }
+  .stat.correct .val { color:var(--green); } .stat.wrong .val { color:var(--red); }
+  .stat.total .val { color:var(--accent); } .stat.pct .val { color:var(--yellow); }
+
+  /* Filters */
+  .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+  .filters button { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:.78rem; transition:all .2s; }
+  .filters button:hover,.filters button.active { background:var(--accent); color:#0a0f1e; border-color:var(--accent); }
+  .filters .sep { color:var(--border); margin:0 4px; align-self:center; }
+  #refreshBtn { background:rgba(56,189,248,.15) !important; color:var(--accent) !important; border-color:var(--accent) !important; font-weight:600; }
+  #resetBtn { margin-left:auto; background:rgba(248,113,113,.15); color:var(--red); border-color:var(--red); }
+
+  /* Question Card */
+  .qcard { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:18px; overflow:hidden; transition:all .2s; }
+  .qcard.answered { border-left:3px solid var(--accent); }
+  .qcard.correct-q { border-left:3px solid var(--green); }
+  .qcard.wrong-q { border-left:3px solid var(--red); }
+  .qcard .qhead { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:12px; }
+  .qcard .qnum { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;background:var(--surface2);flex-shrink:0; }
+  .qcard.answered .qnum { background:var(--accent);color:#0a0f1e; }
+  .qcard.correct-q .qnum { background:var(--green);color:#0a0f1e; }
+  .qcard.wrong-q .qnum { background:var(--red);color:#fff; }
+  .qcard .qtext { flex:1; font-size:.92rem; line-height:1.6; }
+  .qcard .qtopic { font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
+  .qcard .qbody { padding:12px 20px; }
+  .qcard .opt { display:block; padding:10px 16px; margin:4px 0; border-radius:8px; cursor:pointer; border:1px solid transparent; background:var(--surface2); font-size:.85rem; transition:all .15s; }
+  .qcard .opt:hover { border-color:var(--accent); background:rgba(56,189,248,.06); }
+  .qcard .opt.selected { border-color:var(--accent); background:rgba(56,189,248,.12); }
+  .qcard .opt.correct-ans { border-color:var(--green); background:rgba(74,222,128,.12); }
+  .qcard .opt.wrong-ans { border-color:var(--red); background:rgba(248,113,113,.08); }
+  .qcard .opt.disabled { pointer-events:none; opacity:.85; }
+  .qcard .explain { margin-top:12px; padding:14px; border-radius:8px; background:rgba(251,191,36,.06); border-left:3px solid var(--yellow); font-size:.82rem; line-height:1.7; display:none; }
+  .qcard.show-explain .explain { display:block; }
+  .qcard .explain strong { color:var(--yellow); }
+  .qcard .explain .correct-letter { color:var(--green); font-weight:700; }
+  .qcard .year-tag { font-size:.68rem; padding:2px 8px; background:var(--surface2); border-radius:4px; }
+  .qcard .diff-tag { font-size:.62rem; padding:2px 7px; border-radius:4px; margin-left:4px; }
+  .qcard .diff-tag.easy { background:rgba(74,222,128,.15); color:var(--green); }
+  .qcard .diff-tag.medium { background:rgba(251,191,36,.15); color:var(--yellow); }
+  .qcard .diff-tag.hard { background:rgba(248,113,113,.15); color:var(--red); }
+
+  /* Loading overlay */
+  .loading-overlay { display:none; position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(10,15,30,.8);z-index:200;justify-content:center;align-items:center; }
+  .loading-overlay.show { display:flex; }
+  .loading-spinner { width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* Responsive */
+  @media(max-width:700px){ .container { padding:12px; } .stats { grid-template-columns:repeat(2,1fr); } }
+
+  /* Auth Modal */
+  .auth-overlay { display:none; position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(10,15,30,.85);z-index:300;justify-content:center;align-items:center; }
+  .auth-overlay.show { display:flex; }
+  .auth-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; width:90%;max-width:400px; }
+  .auth-box h3 { margin-bottom:16px; color:var(--accent); font-size:1rem; }
+  .auth-box label { display:block; font-size:.75rem; color:var(--text); margin-bottom:4px; margin-top:10px; }
+  .auth-box input { width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:.85rem; outline:none; font-family:inherit; }
+  .auth-box input:focus { border-color:var(--accent); }
+  .auth-box .btn-row { display:flex; gap:10px; margin-top:18px; }
+  .auth-box button { flex:1; padding:10px; border-radius:20px; border:none; cursor:pointer; font-size:.82rem; font-weight:600; }
+  .auth-box .btn-primary { background:var(--accent); color:#0a0f1e; }
+  .auth-box .btn-secondary { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+  .auth-box .toggle-link { text-align:center; margin-top:14px; font-size:.75rem; color:var(--accent); cursor:pointer; }
+  .auth-box .toggle-link:hover { text-decoration:underline; }
+  .auth-box .err-msg { color:var(--red); font-size:.75rem; margin-top:8px; display:none; }
+  .auth-box .ok-msg { color:var(--green); font-size:.75rem; margin-top:8px; display:none; }
+  ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+  /* Grade info */
+  .grade-info { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; margin-top:24px; }
+  .grade-info h3 { font-size:.85rem; color:var(--accent); margin-bottom:10px; }
+  .grade-info table { width:100%; font-size:.78rem; border-collapse:collapse; }
+  .grade-info td { padding:6px 10px; border-bottom:1px solid var(--border); }
+  .grade-info .grade { font-weight:700; }
+
+  /* Progress panel */
+  .progress-overlay { display:none; position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(10,15,30,.88);z-index:300;justify-content:center;align-items:center; }
+  .progress-overlay.show { display:flex; }
+  .progress-panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; width:90%;max-width:700px;max-height:85vh;overflow-y:auto; }
+  .progress-panel h3 { color:var(--accent); margin-bottom:8px; font-size:1rem; }
+  .progress-panel .subtitle { font-size:.75rem; color:var(--text); margin-bottom:16px; }
+  .topic-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); }
+  .topic-row .t-name { flex:0 0 160px; font-size:.8rem; font-weight:600; }
+  .topic-row .t-bar-wrap { flex:1; height:8px; background:var(--surface2); border-radius:4px; overflow:hidden; }
+  .topic-row .t-bar { height:100%; border-radius:4px; transition:width .5s; }
+  .topic-row .t-stat { flex:0 0 80px; font-size:.72rem; color:var(--text); text-align:right; }
+  .topic-row .t-level { flex:0 0 90px; font-size:.7rem; font-weight:600; text-align:center; padding:2px 8px; border-radius:10px; }
+  .level-master { background:rgba(74,222,128,.15); color:#4ade80; }
+  .level-advanced { background:rgba(56,189,248,.15); color:#38bdf8; }
+  .level-proficient { background:rgba(192,132,252,.15); color:#c084fc; }
+  .level-developing { background:rgba(251,191,36,.15); color:#fbbf24; }
+  .level-novice,.level-new { background:rgba(248,113,113,.12); color:#f87171; }
+  .sync-ok { color:var(--green); } .sync-off { color:var(--text); } .sync-err { color:var(--red); }
+
+
+.qcard .qtext,.qcard .qtext *,.qcard pre,.qcard code,.qcard .eq{color:var(--text)!important}
+
+@media(max-width:640px){
+  .subject-grid{grid-template-columns:1fr!important;gap:10px}
+  .subject-card{padding:14px!important}
+  .card-grid{grid-template-columns:1fr!important}
+  .container{padding:12px!important}
+  header{padding:32px 16px 12px!important}
+  header h1{font-size:1.4rem!important}
+  header .subtitle{font-size:.8rem!important}
+  .auth-bar{flex-wrap:wrap!important;gap:6px!important}
+  .auth-bar button,.auth-bar a{font-size:.7rem!important;padding:6px 12px!important}
+  .topbar{padding:10px 14px!important;gap:8px!important}
+  .topbar h1{font-size:.85rem!important}
+  .stats{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+  .stat{padding:12px!important}
+  .stat .val{font-size:1.5rem!important}
+  .filters{gap:4px!important}
+  .filters button{padding:5px 10px!important;font-size:.68rem!important}
+  .qcard .qhead{padding:10px 14px!important}
+  .qcard .qtext{font-size:.82rem!important}
+  .qcard .opt{padding:8px 12px!important;font-size:.78rem!important}
+  .charts-row{grid-template-columns:1fr!important}
+  .subject-tabs{gap:4px!important}
+  .subject-tab{padding:8px 14px!important;font-size:.75rem!important}
+  .summary-row{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" style="text-decoration:none;color:var(--text);font-size:.85rem;" title="返回學習平台">🏠</a>
+  <h1>🧪 HKDSE ICT 題庫練習</h1>
+  <span class="badge">DSE 2012–2024 · 自適應</span>
+  <select id="langSwitch" onchange="switchLang(this.value)" style="padding:4px 10px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.72rem;cursor:pointer;margin-left:8px;"><option value="zh">中文</option><option value="en">English</option></select>
+  <span style="font-size:.78rem;color:var(--text);" id="topbarInfo">載入題庫中…</span>
+  <span style="margin-left:auto;"></span>
+  <span id="syncStatus" style="font-size:.7rem;color:var(--text);margin-right:8px;" title="同步狀態"></span>
+  <a href="../progress.html?subject=ict" style="padding:7px 14px;border-radius:20px;border:1px solid var(--purple);background:rgba(192,132,252,.1);color:var(--purple);cursor:pointer;font-size:.78rem;font-weight:600;text-decoration:none;margin-right:6px;">📊 進度</a>
+  <button id="authBtn" onclick="showAuthModal()" style="padding:7px 18px;border-radius:20px;border:1px solid var(--accent);background:rgba(56,189,248,.12);color:var(--accent);cursor:pointer;font-size:.78rem;font-weight:600;">👤 登入</button>
+  <span id="userBadge" style="display:none;font-size:.78rem;color:var(--green);font-weight:600;"></span>
+  <button id="logoutBtn" onclick="logout()" style="display:none;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:.7rem;">登出</button>
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+</div>
+
+<!-- Auth Modal (login only — register at hub) -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <h3 id="authTitle">👤 登入 DSE ICT 題庫</h3>
+    <label>用戶名</label>
+    <input type="text" id="authUsername" placeholder="你的用戶名">
+    <label>密碼</label>
+    <input type="password" id="authPassword" placeholder="你的密碼">
+    <div class="err-msg" id="authError"></div>
+    <div class="ok-msg" id="authOk"></div>
+    <div class="btn-row">
+      <button class="btn-primary" id="authSubmitBtn" onclick="handleAuth()">登入</button>
+      <button class="btn-secondary" onclick="closeAuthModal()">取消</button>
+    </div>
+    <div class="toggle-link" onclick="window.location.href='../index.html'">還沒有帳號？前往學習平台註冊 →</div>
+  </div>
+</div>
+
+<!-- Progress Panel -->
+<div class="progress-overlay" id="progressOverlay">
+  <div class="progress-panel">
+    <h3>📊 學習進度</h3>
+    <p class="subtitle" id="progressSubtitle">各課題掌握程度</p>
+    <div id="progressContent"></div>
+    <div style="text-align:center;margin-top:16px;">
+      <button onclick="closeProgressPanel()" style="padding:8px 20px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:.78rem;">關閉</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="container">
+
+<!-- Stats Bar -->
+<div class="stats">
+  <div class="stat total"><div class="val" id="statTotal">0</div><div class="lbl">總題數</div></div>
+  <div class="stat correct"><div class="val" id="statCorrect">0</div><div class="lbl">正確</div></div>
+  <div class="stat wrong"><div class="val" id="statWrong">0</div><div class="lbl">錯誤</div></div>
+  <div class="stat pct"><div class="val" id="statPct">0%</div><div class="lbl">正確率</div></div>
+</div>
+
+<!-- Topic Filters -->
+<div class="filters">
+  <button class="active" onclick="setFilter(null)">全部</button>
+  <span class="sep">|</span>
+  <button onclick="setFilter(1)">資訊處理(一)</button>
+  <button onclick="setFilter(2)">資訊處理(二)</button>
+  <button onclick="setFilter(3)">電腦系統</button>
+  <button onclick="setFilter(4)">互聯網(一)</button>
+  <button onclick="setFilter(5)">互聯網(二)</button>
+  <button onclick="setFilter(6)">計算思維(一)</button>
+  <button onclick="setFilter(7)">計算思維(二)</button>
+  <button onclick="setFilter(8)">社會影響</button>
+  <span class="sep">|</span>
+  <button onclick="setFilter(9)">數據庫</button>
+  <button onclick="setFilter(10)">網絡應用</button>
+  <span class="sep">|</span>
+  <span style="position:relative;">
+    <button onclick="toggleDropdown('yearDrop')" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">📅 年份 <span id="yearCount"></span></button>
+    <div id="yearDrop" style="display:none;position:absolute;top:100%;left:0;z-index:50;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;min-width:120px;max-height:200px;overflow-y:auto;"></div>
+  </span>
+  <span style="position:relative;">
+    <button onclick="toggleDropdown('diffDrop')" style="padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:.75rem;cursor:pointer;">📊 難度 <span id="diffCount"></span></button>
+    <div id="diffDrop" style="display:none;position:absolute;top:100%;left:0;z-index:50;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px;min-width:100px;"></div>
+  </span>
+  <button id="refreshBtn" onclick="generateNewSession()">🔄 新題目</button>
+  <button id="resetBtn" onclick="resetAllData()">重設進度</button>
+</div>
+
+<!-- Question Cards -->
+<div id="quizContainer">
+  <p style="text-align:center;padding:48px;color:var(--text);">載入中…</p>
+</div>
+
+<!-- Grade Reference -->
+<div class="grade-info">
+  <h3>📊 參考評級 (DSE ICT 2012–2024)</h3>
+  <table>
+    <tr><td class="grade" style="color:#4ade80;">5**</td><td>≥ 88%</td><td class="grade" style="color:#38bdf8;">5*</td><td>≥ 82%</td></tr>
+    <tr><td class="grade" style="color:#c084fc;">5</td><td>≥ 74%</td><td class="grade" style="color:#fb923c;">4</td><td>≥ 62%</td></tr>
+    <tr><td class="grade" style="color:#fbbf24;">3</td><td>≥ 50%</td><td class="grade" style="color:#4ade80;">2</td><td>≥ 38%</td></tr>
+  </table>
+  <p style="font-size:.72rem;color:var(--text);margin-top:8px;">*以上為根據歷年DSE ICT考試數據推算的近似等級邊界。自適應系統根據你的表現選擇題目——薄弱課題會獲得更多練習。</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+
+// URL language: ?lang=zh-hk or ?lang=en-hk
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get('lang');
+  if (urlLang) {
+    const lang = urlLang.startsWith('en') ? 'en' : 'zh';
+    localStorage.setItem('dse_platform_lang', lang);
+    localStorage.setItem('dse_ict_lang', lang);
+  }
+})();
+
+// ============ TOPIC CONFIG (ICT) ============
+const TOPIC_NAMES = {
+  1: '資訊處理 (一)',
+  2: '資訊處理 (二)',
+  3: '電腦系統基礎',
+  4: '互聯網及其應用 (一)',
+  5: '互聯網及其應用 (二)',
+  6: '計算思維與程式編寫 (一)',
+  7: '計算思維與程式編寫 (二)',
+  8: '資訊及通訊科技對社會的影響',
+  9: '數據庫',
+  10: '網絡應用程式開發'
+};
+const TOTAL_TOPICS = 10;
+const DIFFICULTY_LABELS = { easy: '容易', medium: '中等', hard: '困難' };
+const DIFFICULTY_CSS = { easy: 'easy', medium: 'medium', hard: 'hard' };
+const PASTPAPER_YEARS = '2012–2024';
+
+// ============ INDEXEDDB LAYER ============
+const DB_NAME = 'HKDSE-ICT-Quiz';
+const DB_VERSION = 1;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    request.onerror = () => reject(request.error);
+    request.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains('questions')) {
+        const qStore = db.createObjectStore('questions', { keyPath: 'qid' });
+        qStore.createIndex('topic', 'topic', { unique: false });
+        qStore.createIndex('difficulty', 'difficulty', { unique: false });
+        qStore.createIndex('topicDiff', ['topic', 'difficulty'], { unique: false });
+      }
+      if (!db.objectStoreNames.contains('performance')) {
+        db.createObjectStore('performance', { keyPath: 'topic' });
+      }
+      if (!db.objectStoreNames.contains('session')) {
+        db.createObjectStore('session', { keyPath: 'id' });
+      }
+    };
+    request.onsuccess = (e) => resolve(e.target.result);
+  });
+}
+
+function dbCount(db, storeName) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const req = store.count();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGetAll(db, storeName) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const req = store.getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGet(db, storeName, key) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const store = tx.objectStore(storeName);
+    const req = store.get(key);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbPut(db, storeName, value) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readwrite');
+    const store = tx.objectStore(storeName);
+    const req = store.put(value);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGetByTopic(db, topic) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('questions', 'readonly');
+    const store = tx.objectStore('questions');
+    const index = store.index('topic');
+    const req = index.getAll(topic);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function dbGetByTopicAndDifficulty(db, topic, difficulty) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('questions', 'readonly');
+    const store = tx.objectStore('questions');
+    const index = store.index('topicDiff');
+    const req = index.getAll([topic, difficulty]);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+// ============ SEEDING ============
+async function seedQuestions(db, questions) {
+  const BATCH_SIZE = 50;
+  const batches = [];
+  for (let i = 0; i < questions.length; i += BATCH_SIZE) {
+    batches.push(questions.slice(i, i + BATCH_SIZE));
+  }
+  for (let b = 0; b < batches.length; b++) {
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction('questions', 'readwrite');
+      const store = tx.objectStore('questions');
+      const batch = batches[b];
+      for (const q of batch) { store.put(q); }
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+  }
+}
+
+async function seedPerformance(db) {
+  const tx = db.transaction('performance', 'readwrite');
+  const store = tx.objectStore('performance');
+  for (let t = 1; t <= TOTAL_TOPICS; t++) {
+    store.put({
+      topic: t,
+      totalAttempted: 0,
+      totalCorrect: 0,
+      totalWrong: 0,
+      difficultyBreakdown: {
+        easy: { attempted: 0, correct: 0 },
+        medium: { attempted: 0, correct: 0 },
+        hard: { attempted: 0, correct: 0 }
+      },
+      formatBreakdown: {
+        mc: { attempted: 0, correct: 0 },
+        converted: { attempted: 0, correct: 0 }
+      },
+      recentResults: [],
+      lastSeenQids: []
+    });
+  }
+  return new Promise((resolve, reject) => {
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function isDBSeeded(db) {
+  try {
+    const count = await dbCount(db, 'questions');
+    return count > 0;
+  } catch { return false; }
+}
+
+// ============ GLOBAL STATE ============
+let gDB = null;
+let gActiveQuestions = [];
+let gSession = null;
+let gActiveFilter = null;
+let gDBReady = false;
+
+// ============ INITIALIZATION ============
+function showLoading(show) {
+  document.getElementById('loadingOverlay').classList.toggle('show', show);
+}
+
+async function initializeDB() {
+  // Show skeleton immediately instead of blocking overlay
+  var container = document.getElementById('quizContainer');
+  container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:var(--text2);"><div class="loading-spinner" style="margin:0 auto 16px;"></div><p style="font-size:.9rem;">載入題庫中…</p><p style="font-size:.72rem;margin-top:4px;">首次載入可能需要幾秒鐘</p></div>';
+  var statusEl = document.getElementById('topbarInfo');
+  statusEl.textContent = '正在初始化資料庫…';
+  try {
+    if (!window.indexedDB) {
+      throw new Error('瀏覽器不支援 IndexedDB — 請使用 Chrome、Edge 或 Firefox');
+    }
+    gDB = await openDB();
+    statusEl.textContent = '正在檢查題庫…';
+    const seeded = await isDBSeeded(gDB);
+    if (!seeded) {
+      statusEl.textContent = '載入題目…';
+      var questions;
+      // Try API (database) first, then JSON file, then inline fallback
+      try {
+        var resp = await fetch(API_BASE + 'get-questions.php?subject=ict');
+        if (!resp.ok) throw new Error('API HTTP ' + resp.status);
+        questions = await resp.json();
+        console.log('Loaded ' + questions.length + ' questions from database API');
+      } catch(e1) {
+        console.log('API failed, trying JSON file:', e1.message);
+        try {
+          var resp2 = await fetch('questions-ict.json');
+          if (!resp2.ok) throw new Error('JSON HTTP ' + resp2.status);
+          questions = await resp2.json();
+          console.log('Loaded ' + questions.length + ' questions from JSON file');
+        } catch(e2) {
+          console.log('JSON failed, using inline:', e2.message);
+          var rawData = document.getElementById('question-bank-data');
+          questions = JSON.parse(rawData ? rawData.textContent.trim() : '[]');
+        }
+      }
+      await seedQuestions(gDB, questions);
+      await seedPerformance(gDB);
+    }
+    // Load or create session — do it async, show UI immediately
+    gSession = await dbGet(gDB, 'session', 'current');
+    if (!gSession || !gSession.activeQids || gSession.activeQids.length === 0) {
+      generateNewSession(); // no await — render immediately
+    } else {
+      reloadActiveQuestions(); // no await — render immediately
+    }
+    console.log('Loaded session with ' + gActiveQuestions.length + ' questions');
+    gDBReady = true;
+    statusEl.textContent = __('卷一 · 自適應模式', 'Paper 1 · Adaptive Mode');
+    renderQuiz();
+    setTimeout(populateYearFilter, 100); // defer to speed up initial render
+  } catch (err) {
+    console.error('DB init error:', err);
+    gDBReady = false;
+    statusEl.textContent = '⚠️ 載入錯誤 — 請檢查控制台';
+    document.getElementById('quizContainer').innerHTML =
+      '<div style="text-align:center;padding:48px;color:var(--red);">' +
+      '<h3>⚠️ 載入題庫失敗</h3>' +
+      '<p style="margin-top:12px;color:var(--text);">錯誤：' + err.message + '</p>' +
+      '<p style="margin-top:8px;font-size:.78rem;color:var(--text);">' +
+      '可能的解決方法：<br>' +
+      '1. 題目數據已內嵌於HTML，無需外部檔案<br>' +
+      '2. 請勿使用私隱/無痕模式（IndexedDB 可能受限）<br>' +
+      '3. 嘗試使用 Chrome、Edge 或 Firefox（最新版本）<br>' +
+      '4. 清除網站資料後重新載入：F12 → Application → Clear site data</p>' +
+      '<button onclick="location.reload()" style="margin-top:16px;padding:10px 24px;border-radius:20px;border:1px solid var(--accent);background:rgba(56,189,248,.15);color:var(--accent);cursor:pointer;font-size:.85rem;">🔄 重試</button>' +
+      '</div>';
+  }
+  showLoading(false);
+}
+
+async function reloadActiveQuestions() {
+  const allQuestions = await dbGetAll(gDB, 'questions');
+  const qidMap = new Map(allQuestions.map(q => [q.qid, q]));
+  gActiveQuestions = gSession.activeQids.map(qid => qidMap.get(qid)).filter(Boolean);
+  if (gActiveQuestions.length < gSession.activeQids.length) {
+    console.warn('Some qids not found in DB, session may be stale');
+  }
+}
+
+// ============ ADAPTIVE PERFORMANCE TRACKING ============
+async function recordAnswer(qid, topic, difficulty, sourceType, selectedOption, correctAnswer) {
+  const isCorrect = selectedOption === correctAnswer;
+  const perf = await dbGet(gDB, 'performance', topic);
+  if (!perf) return;
+
+  perf.totalAttempted++;
+  if (isCorrect) perf.totalCorrect++; else perf.totalWrong++;
+
+  if (!perf.difficultyBreakdown) {
+    perf.difficultyBreakdown = { easy:{attempted:0,correct:0}, medium:{attempted:0,correct:0}, hard:{attempted:0,correct:0} };
+  }
+  const dBreakdown = perf.difficultyBreakdown[difficulty];
+  if (dBreakdown) { dBreakdown.attempted++; if (isCorrect) dBreakdown.correct++; }
+
+  if (!perf.formatBreakdown) {
+    perf.formatBreakdown = { mc:{attempted:0,correct:0}, converted:{attempted:0,correct:0} };
+  }
+  const fmt = (sourceType === 'mc') ? 'mc' : 'converted';
+  const fBreakdown = perf.formatBreakdown[fmt];
+  if (fBreakdown) { fBreakdown.attempted++; if (isCorrect) fBreakdown.correct++; }
+
+  // Recent results (last 20)
+  if (!perf.recentResults) perf.recentResults = [];
+  perf.recentResults.push(isCorrect ? 1 : 0);
+  if (perf.recentResults.length > 20) perf.recentResults.shift();
+
+  // Last seen qids (avoid repeats)
+  if (!perf.lastSeenQids) perf.lastSeenQids = [];
+  perf.lastSeenQids.push(qid);
+  if (perf.lastSeenQids.length > 30) perf.lastSeenQids.shift();
+
+  // Update session answer
+  if (gSession && gSession.answers) {
+    gSession.answers[qid] = { selected: selectedOption, correct: correctAnswer, isCorrect };
+    await dbPut(gDB, 'session', gSession);
+  }
+
+  await dbPut(gDB, 'performance', perf);
+  updateStats();
+}
+
+function buildPerformanceProfile(perfRecord) {
+  if (!perfRecord || perfRecord.totalAttempted === 0) {
+    return {
+      mastery: null,
+      masteryLevel: 'new',
+      difficultyProfile: {
+        easy: { readiness: 'ready', accuracy: null },
+        medium: { readiness: 'ready', accuracy: null },
+        hard: { readiness: 'ready', accuracy: null }
+      },
+      recentTrend: 'neutral',
+      needsReview: false,
+      streak: 0
+    };
+  }
+
+  // EMA (exponential moving average) for mastery
+  const alpha = 0.3;
+  let ema;
+  if (!perfRecord._ema) {
+    ema = perfRecord.totalCorrect / perfRecord.totalAttempted;
+  } else {
+    const latestCorrect = (perfRecord.recentResults || []).slice(-1)[0] || 0;
+    ema = alpha * latestCorrect + (1 - alpha) * perfRecord._ema;
+  }
+  perfRecord._ema = ema;
+
+  let masteryLevel;
+  if (ema >= 0.90) masteryLevel = 'master';
+  else if (ema >= 0.80) masteryLevel = 'advanced';
+  else if (ema >= 0.65) masteryLevel = 'proficient';
+  else if (ema >= 0.45) masteryLevel = 'developing';
+  else if (ema >= 0.25) masteryLevel = 'novice';
+  else masteryLevel = 'new';
+
+  const diffProfile = {};
+  for (const d of ['easy', 'medium', 'hard']) {
+    const bd = (perfRecord.difficultyBreakdown || {})[d] || { attempted: 0, correct: 0 };
+    const acc = bd.attempted > 0 ? bd.correct / bd.attempted : null;
+    let readiness = 'ready';
+    if (acc === null) readiness = 'ready';
+    else if (acc < 0.4) readiness = 'developing';
+    else if (acc < 0.7) readiness = 'ready';
+    else readiness = 'ready';
+    diffProfile[d] = { accuracy: acc, readiness };
+  }
+
+  // Recent trend
+  const recent = (perfRecord.recentResults || []).slice(-5);
+  let trend = 'neutral';
+  if (recent.length >= 3) {
+    const recentAvg = recent.reduce((a,b) => a+b, 0) / recent.length;
+    if (recentAvg >= 0.8) trend = 'improving';
+    else if (recentAvg <= 0.3) trend = 'declining';
+  }
+
+  // Streak
+  let streak = 0;
+  const results = perfRecord.recentResults || [];
+  for (let i = results.length - 1; i >= 0; i--) {
+    if (results[i] === 1) streak++;
+    else break;
+  }
+
+  const recommendedDifficulty = masteryLevel === 'master' || masteryLevel === 'advanced' ? 'hard' :
+    masteryLevel === 'proficient' ? 'medium' : 'easy';
+
+  return {
+    mastery: ema,
+    masteryLevel,
+    recommendedDifficulty,
+    difficultyProfile: diffProfile,
+    recentTrend: trend,
+    needsReview: masteryLevel === 'developing' || masteryLevel === 'novice' || masteryLevel === 'new',
+    streak
+  };
+}
+
+// ============ SESSION MANAGEMENT ============
+async function completeSessionTracking() {
+  for (let t = 1; t <= TOTAL_TOPICS; t++) {
+    const perf = await dbGet(gDB, 'performance', t);
+    if (perf) {
+      perf.lastSessionDate = new Date().toISOString();
+      await dbPut(gDB, 'performance', perf);
+    }
+  }
+}
+
+function topicWeight(perfRecord, baselineWeight) {
+  if (!perfRecord || perfRecord.totalAttempted === 0) return baselineWeight;
+  const profile = buildPerformanceProfile(perfRecord);
+  if (profile.mastery === null) return baselineWeight;
+
+  const weakness = Math.max(0.05, 1.0 - profile.mastery);
+  let velMod = 1.0;
+  if (profile.recentTrend === 'declining') velMod = 1.5;
+  else if (profile.recentTrend === 'improving') velMod = 0.7;
+  let reviewMod = 1.0;
+  if (profile.needsReview) reviewMod = 1.3;
+  let streakMod = 1.0;
+  if (profile.streak >= 5) streakMod = 0.8;
+
+  return baselineWeight * weakness * velMod * streakMod * reviewMod;
+}
+
+function difficultyMix(perfRecord) {
+  const profile = buildPerformanceProfile(perfRecord);
+  if (profile.mastery === null) return { easy: 0.5, medium: 0.35, hard: 0.15 };
+
+  switch (profile.masteryLevel) {
+    case 'new': return { easy: 0.6, medium: 0.3, hard: 0.1 };
+    case 'novice': return { easy: 0.5, medium: 0.35, hard: 0.15 };
+    case 'developing': return { easy: 0.3, medium: 0.45, hard: 0.25 };
+    case 'proficient': return { easy: 0.15, medium: 0.45, hard: 0.40 };
+    case 'advanced': return { easy: 0.05, medium: 0.35, hard: 0.60 };
+    case 'master': return { easy: 0.0, medium: 0.2, hard: 0.80 };
+    default: return { easy: 0.4, medium: 0.4, hard: 0.2 };
+  }
+}
+
+function computeTopicAllocation(performanceRecords, activeTopics, targetCount) {
+  const weights = {};
+  let totalWeight = 0;
+  for (const t of activeTopics) {
+    const perf = performanceRecords.find(p => p.topic === t) || null;
+    weights[t] = topicWeight(perf, 1.0);
+    totalWeight += weights[t];
+  }
+
+  // Normalize and compute initial allocation
+  const alloc = {};
+  const fractions = [];
+  for (const t of activeTopics) {
+    const raw = (weights[t] / totalWeight) * targetCount;
+    const floor = Math.floor(raw);
+    alloc[t] = floor;
+    fractions.push({ topic: t, frac: raw - floor });
+  }
+
+  // Distribute remainder
+  let remaining = targetCount - Object.values(alloc).reduce((a,b) => a+b, 0);
+  fractions.sort((a, b) => b.frac - a.frac);
+  for (let i = 0; i < remaining && i < fractions.length; i++) {
+    alloc[fractions[i].topic]++;
+  }
+
+  // Ensure each topic gets at least 1
+  for (const t of activeTopics) {
+    if (alloc[t] === 0) {
+      alloc[t] = 1;
+      // Steal from topic with most
+      let maxT = activeTopics[0];
+      for (const tt of activeTopics) { if (alloc[tt] > alloc[maxT]) maxT = tt; }
+      if (alloc[maxT] > 1) alloc[maxT]--;
+    }
+  }
+
+  return alloc;
+}
+
+async function generateNewSession() {
+  if (!gDB) return;
+  showLoading(true);
+
+  try {
+    // Get performance for all topics
+    const performanceRecords = [];
+    for (let t = 1; t <= TOTAL_TOPICS; t++) {
+      const perf = await dbGet(gDB, 'performance', t);
+      performanceRecords.push(perf);
+    }
+
+    const activeTopics = [];
+    for (let t = 1; t <= TOTAL_TOPICS; t++) activeTopics.push(t);
+
+    const targetCount = Math.min(40, await dbCount(gDB, 'questions'));
+    const alloc = computeTopicAllocation(performanceRecords, activeTopics, targetCount);
+
+    // Build question pool
+    const selectedQids = [];
+    const usedQids = new Set();
+
+    for (const [t, count] of Object.entries(alloc)) {
+      const topic = parseInt(t);
+      const perf = performanceRecords.find(p => p && p.topic === topic);
+      const mix = difficultyMix(perf);
+
+      const allTopicQs = await dbGetByTopic(gDB, topic);
+      // Shuffle
+      const shuffled = allTopicQs.sort(() => Math.random() - 0.5);
+
+      // Try to match difficulty mix
+      const byDifficulty = { easy: [], medium: [], hard: [] };
+      for (const q of shuffled) {
+        if (!usedQids.has(q.qid)) {
+          const d = q.difficulty || 'medium';
+          if (byDifficulty[d]) byDifficulty[d].push(q);
+        }
+      }
+
+      let added = 0;
+      // First pass: proportional to mix
+      for (const d of ['easy', 'medium', 'hard']) {
+        const targetD = Math.round(count * (mix[d] || 0.33));
+        for (let i = 0; i < Math.min(targetD, byDifficulty[d].length) && added < count; i++) {
+          if (!usedQids.has(byDifficulty[d][i].qid)) {
+            selectedQids.push(byDifficulty[d][i].qid);
+            usedQids.add(byDifficulty[d][i].qid);
+            added++;
+          }
+        }
+      }
+      // Fill remaining from any difficulty
+      for (const d of ['medium', 'easy', 'hard']) {
+        for (const q of byDifficulty[d]) {
+          if (added >= count) break;
+          if (!usedQids.has(q.qid)) {
+            selectedQids.push(q.qid);
+            usedQids.add(q.qid);
+            added++;
+          }
+        }
+      }
+    }
+
+    // Shuffle final order
+    for (let i = selectedQids.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [selectedQids[i], selectedQids[j]] = [selectedQids[j], selectedQids[i]];
+    }
+
+    // Save session
+    gSession = {
+      id: 'current',
+      activeQids: selectedQids,
+      answers: {},
+      createdAt: new Date().toISOString()
+    };
+    await dbPut(gDB, 'session', gSession);
+    await reloadActiveQuestions();
+
+    const statusEl = document.getElementById('topbarInfo');
+    statusEl.textContent = __('卷一 · 自適應模式', 'Paper 1 · Adaptive Mode');
+    renderQuiz();
+  } catch (err) {
+    console.error('Session generation error:', err);
+  }
+  showLoading(false);
+}
+
+// ============ RENDERING ============
+var gSelectedYears = [];
+var gSelectedDiffs = [];
+
+function toggleDropdown(id) {
+  var d = document.getElementById(id);
+  d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  // Close other dropdown
+  var other = id === 'yearDrop' ? 'diffDrop' : 'yearDrop';
+  document.getElementById(other).style.display = 'none';
+}
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#yearDrop') && !e.target.closest('#diffDrop') && !e.target.closest('button')) {
+    document.getElementById('yearDrop').style.display = 'none';
+    document.getElementById('diffDrop').style.display = 'none';
+  }
+});
+
+var gYearPopulated = false;
+async function populateYearFilter() {
+  if (gYearPopulated) return;
+  var allQ = await dbGetAll(gDB, 'questions');
+  var years = [...new Set(allQ.map(q => q.year).filter(Boolean))].sort((a,b) => b-a);
+  var h = '';
+  years.forEach(function(y){
+    h += '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;white-space:nowrap;">';
+    h += '<input type="checkbox" value="'+y+'" onchange="toggleYear(this)"> '+y;
+    h += '</label>';
+  });
+  document.getElementById('yearDrop').innerHTML = h;
+  document.getElementById('diffDrop').innerHTML = '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="easy" onchange="toggleDiff(this)"> '+__('容易','Easy')+'</label>'+
+    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="medium" onchange="toggleDiff(this)"> '+__('中等','Medium')+'</label>'+
+    '<label style="display:flex;align-items:center;gap:6px;padding:3px 6px;font-size:.73rem;cursor:pointer;"><input type="checkbox" value="hard" onchange="toggleDiff(this)"> '+__('困難','Hard')+'</label>';
+  gYearPopulated = true;
+}
+
+function toggleYear(cb) {
+  if (cb.checked) gSelectedYears.push(cb.value); else gSelectedYears = gSelectedYears.filter(y => y !== cb.value);
+  document.getElementById('yearCount').textContent = gSelectedYears.length ? '('+gSelectedYears.length+')' : '';
+  renderQuiz();
+}
+function toggleDiff(cb) {
+  if (cb.checked) gSelectedDiffs.push(cb.value); else gSelectedDiffs = gSelectedDiffs.filter(d => d !== cb.value);
+  document.getElementById('diffCount').textContent = gSelectedDiffs.length ? '('+gSelectedDiffs.length+')' : '';
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quizContainer');
+  if (!gActiveQuestions || gActiveQuestions.length === 0) {
+    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text);">暫無題目，點擊「新題目」生成</p>';
+    return;
+  }
+
+  // Apply topic filter
+  let questions = gActiveQuestions;
+  if (gActiveFilter !== null) {
+    questions = questions.filter(q => q.topic === gActiveFilter);
+  }
+  // Apply year filter (multi-select)
+  if (gSelectedYears.length > 0) {
+    questions = questions.filter(q => gSelectedYears.indexOf(String(q.year)) >= 0);
+  }
+  // Apply difficulty filter (multi-select)
+  if (gSelectedDiffs.length > 0) {
+    questions = questions.filter(q => gSelectedDiffs.indexOf(q.difficulty) >= 0);
+  }
+
+  if (questions.length === 0) {
+    container.innerHTML = '<p style="text-align:center;padding:48px;color:var(--text);">沒有符合條件的題目</p>';
+    return;
+  }
+
+  let html = '';
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const topicName = __(TOPIC_NAMES[q.topic] || ('課題 ' + q.topic), q.topic_name_en || ('Topic ' + q.topic));
+    const diffLabel = __(DIFFICULTY_LABELS[q.difficulty] || q.difficulty, (q.difficulty||'').charAt(0).toUpperCase()+(q.difficulty||'').slice(1));
+    const diffCss = DIFFICULTY_CSS[q.difficulty] || '';
+
+    // Check if answered
+    const ans = gSession && gSession.answers ? gSession.answers[q.qid] : null;
+    let cardClass = '';
+    if (ans) {
+      cardClass = ans.isCorrect ? 'correct-q' : 'wrong-q';
+    } else {
+      cardClass = '';
+    }
+
+    html += '<div class="qcard ' + cardClass + '" id="card-' + q.qid + '">';
+    html += '<div class="qhead">';
+    html += '<div class="qnum">' + (i + 1) + '</div>';
+    html += '<div>';
+    html += '<div class="qtopic">' + topicName + '</div>';
+    var qText = __(q.question, q.question_en);
+        if (qText.indexOf('\n') >= 0 || qText.indexOf('  ') >= 0) {
+          html += '<div class="qtext"><pre style="white-space:pre-wrap;font-family:\'JetBrains Mono\',\'Fira Code\',\'Consolas\',monospace;background:var(--surface2);padding:10px 14px;border-radius:8px;border:1px solid var(--border);margin:4px 0;font-size:.8rem;line-height:1.7;overflow-x:auto;">' + qText + '</pre></div>';
+        } else {
+          html += '<div class="qtext">' + qText + '</div>';
+        }
+    html += '<div style="margin-top:4px;">';
+    html += '<span class="year-tag">' + (q.year || '?') + ' 卷一 Q' + (q.qnum || '?') + '</span>';
+    html += '<span class="diff-tag ' + diffCss + '">' + diffLabel + '</span>';
+    html += '</div></div></div>';
+
+    html += '<div class="qbody">';
+    const labels = ['A', 'B', 'C', 'D'];
+    for (let o = 0; o < q.options.length; o++) {
+      let optClass = 'opt';
+      if (ans) {
+        optClass += ' disabled';
+        if (o === q.answer) optClass += ' correct-ans';
+        else if (o === ans.selected && !ans.isCorrect) optClass += ' wrong-ans';
+      }
+      html += '<div class="' + optClass + '" onclick="selectAnswer(\'' + q.qid + '\', ' + o + ', ' + q.topic + ', \'' + (q.difficulty||'medium') + '\', \'' + (q.sourceType||'mc') + '\')">' + q.options[o] + '</div>';
+    }
+    html += '</div>';
+
+    // Explanation
+    html += '<div class="explain" id="explain-' + q.qid + '">';
+    const correctLetter = labels[q.answer];
+    html += '<strong>✅ 正確答案：<span class="correct-letter">' + correctLetter + '</span></strong><br><br>';
+    html += __(q.explanation || '暫無解釋', q.explanation_en || 'No explanation available');
+    if (q.markingNotes || q.markingNotes_en) {
+      const markLabel = __('📝 評分參考：', '📝 Marking Scheme: ');
+      html += '<br><br><strong>' + markLabel + '</strong>' + __(q.markingNotes || '', q.markingNotes_en || '');
+    }
+    html += '</div>';
+
+    html += '</div>';
+  }
+
+  container.innerHTML = html;
+
+  // Re-show explanations for answered questions
+  if (gSession && gSession.answers) {
+    for (const qid of Object.keys(gSession.answers)) {
+      const card = document.getElementById('card-' + qid);
+      if (card) card.classList.add('show-explain');
+    }
+  }
+
+  updateStats();
+}
+
+function selectAnswer(qid, selectedOption, topic, difficulty, sourceType) {
+  if (!gDBReady) return;
+
+  const card = document.getElementById('card-' + qid);
+  if (!card || card.classList.contains('answered')) return;
+
+  // Find question
+  const q = gActiveQuestions.find(q => q.qid === qid);
+  if (!q) return;
+
+  const correctAnswer = q.answer;
+  card.classList.add('answered');
+  card.classList.add('show-explain');
+
+  // Highlight
+  const opts = card.querySelectorAll('.opt');
+  opts.forEach((opt, i) => {
+    opt.classList.add('disabled');
+    if (i === correctAnswer) opt.classList.add('correct-ans');
+    else if (i === selectedOption && selectedOption !== correctAnswer) opt.classList.add('wrong-ans');
+  });
+
+  // Update card border
+  if (selectedOption === correctAnswer) {
+    card.classList.add('correct-q');
+  } else {
+    card.classList.add('wrong-q');
+  }
+
+  recordAnswer(qid, topic, difficulty, sourceType, selectedOption, correctAnswer);
+}
+
+function updateStats() {
+  if (!gSession || !gSession.answers) return;
+  const answers = Object.values(gSession.answers);
+  const total = answers.length;
+  const correct = answers.filter(a => a.isCorrect).length;
+  const wrong = total - correct;
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statPct').textContent = pct + '%';
+  // Update labels based on language
+  document.querySelector('.stat.total .lbl').textContent = __('總題數', 'Total');
+  document.querySelector('.stat.correct .lbl').textContent = __('正確', 'Correct');
+  document.querySelector('.stat.wrong .lbl').textContent = __('錯誤', 'Wrong');
+  document.querySelector('.stat.pct .lbl').textContent = __('正確率', 'Accuracy');
+}
+
+// ============ FILTER ============
+function setFilter(topic) {
+  gActiveFilter = topic;
+  // Update button states
+  const buttons = document.querySelectorAll('.filters button');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  if (topic === null) {
+    buttons[0].classList.add('active'); // "全部"
+  } else {
+    // Find button by text
+    const name = TOPIC_NAMES[topic];
+    buttons.forEach(btn => {
+      if (btn.textContent.includes(name) || btn.textContent.includes(name.substring(0, 4))) {
+        btn.classList.add('active');
+      }
+    });
+  }
+  renderQuiz();
+}
+
+async function resetAllData() {
+  if (!confirm('確定要重設所有練習進度嗎？此操作無法還原。')) return;
+  if (!gDB) return;
+  showLoading(true);
+  try {
+    // Clear session
+    gSession = { id: 'current', activeQids: [], answers: {} };
+    await dbPut(gDB, 'session', gSession);
+    // Reset performance
+    await seedPerformance(gDB);
+    gActiveQuestions = [];
+    await generateNewSession();
+  } catch (err) {
+    console.error('Reset error:', err);
+  }
+  showLoading(false);
+}
+
+// ============ AUTH & API ============
+const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1') ? ('http://localhost' + (location.port ? ':'+location.port : '') + '/dse-ict-api/') : (localStorage.getItem('dse_api_base') || 'https://hedging-tainted-dolly.ngrok-free.dev/dse-ict-api/');
+let gAuthToken = localStorage.getItem('dse_ict_token') || null;
+let gUser = JSON.parse(localStorage.getItem('dse_ict_user') || 'null');
+
+function isLoggedIn() { return !!gAuthToken && !!gUser; }
+
+function updateAuthUI() {
+  const authBtn = document.getElementById('authBtn');
+  const userBadge = document.getElementById('userBadge');
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (isLoggedIn()) {
+    authBtn.style.display = 'none';
+    userBadge.style.display = 'inline';
+    userBadge.textContent = '👤 ' + gUser.username;
+    logoutBtn.style.display = 'inline';
+  } else {
+    authBtn.style.display = 'inline';
+    userBadge.style.display = 'none';
+    logoutBtn.style.display = 'none';
+  }
+}
+
+function showAuthModal() {
+  document.getElementById('authOverlay').classList.add('show');
+  document.getElementById('authError').style.display = 'none';
+  document.getElementById('authOk').style.display = 'none';
+  document.getElementById('authUsername').value = '';
+  document.getElementById('authPassword').value = '';
+  document.getElementById('authEmail').value = '';
+}
+
+function closeAuthModal() {
+  document.getElementById('authOverlay').classList.remove('show');
+}
+
+// ============ PROGRESS PANEL ============
+const MASTERY_NAMES = {
+  zh: {master:'大師',advanced:'進階',proficient:'熟練',developing:'成長中',novice:'初學',new:'全新'},
+  en: {master:'Master',advanced:'Advanced',proficient:'Proficient',developing:'Developing',novice:'Novice',new:'New'}
+};
+const MASTERY_COLORS = {master:'#4ade80',advanced:'#38bdf8',proficient:'#c084fc',developing:'#fbbf24',novice:'#fb923c',new:'#f87171'};
+const TOPIC_SHORT = {
+  zh: {1:'資訊處理(一)',2:'資訊處理(二)',3:'電腦系統',4:'互聯網(一)',5:'互聯網(二)',6:'計算思維(一)',7:'計算思維(二)',8:'社會影響'},
+  en: {1:'Info Processing I',2:'Info Processing II',3:'Computer Systems',4:'Internet I',5:'Internet II',6:'Comp Thinking I',7:'Comp Thinking II',8:'Social Impact'}
+};
+
+function showProgressPanel() {
+  if (!gDB) return;
+  buildProgressPanel();
+  document.getElementById('progressOverlay').classList.add('show');
+}
+function closeProgressPanel() {
+  document.getElementById('progressOverlay').classList.remove('show');
+}
+
+async function buildProgressPanel() {
+  const container = document.getElementById('progressContent');
+  const subtitle = document.getElementById('progressSubtitle');
+
+  // Sync status
+  const syncEl = document.getElementById('syncStatus');
+  if (isLoggedIn()) {
+    syncEl.innerHTML = '<span class="sync-ok">☁️ 已同步</span>';
+    syncEl.title = '進度已儲存至雲端';
+  } else {
+    syncEl.innerHTML = '<span class="sync-off">💻 本機</span>';
+    syncEl.title = '僅儲存在本機瀏覽器。登入後可雲端同步。';
+  }
+
+  let html = '';
+  let totalAttempted = 0, totalCorrect = 0;
+
+  for (let t = 1; t <= 8; t++) {
+    const perf = await dbGet(gDB, 'performance', t);
+    if (!perf) continue;
+
+    const profile = buildPerformanceProfile(perf);
+    const pct = perf.totalAttempted > 0 ? Math.round(perf.totalCorrect / perf.totalAttempted * 100) : 0;
+    const level = profile.masteryLevel;
+    const levelName = MASTERY_NAMES[gLang]?.[level] || level;
+    const color = MASTERY_COLORS[level] || '#888';
+    const topicName = (TOPIC_SHORT[gLang] || TOPIC_SHORT['zh'])[t] || ('Topic '+t);
+
+    totalAttempted += perf.totalAttempted;
+    totalCorrect += perf.totalCorrect;
+
+    html += '<div class="topic-row">';
+    html += '<div class="t-name">' + topicName + '</div>';
+    html += '<div class="t-bar-wrap"><div class="t-bar" style="width:' + Math.max(pct, 5) + '%;background:' + color + ';"></div></div>';
+    html += '<div class="t-stat">' + perf.totalCorrect + '/' + perf.totalAttempted + ' (' + pct + '%)</div>';
+    html += '<div class="t-level level-' + level + '">' + levelName + '</div>';
+    html += '</div>';
+  }
+
+  if (!html) {
+    html = '<p style="text-align:center;padding:32px;color:var(--text);">' + __('還沒有答題記錄，開始練習吧！', 'No progress yet. Start practicing!') + '</p>';
+  }
+
+  const overallPct = totalAttempted > 0 ? Math.round(totalCorrect / totalAttempted * 100) : 0;
+  subtitle.textContent = __('總答題：' + totalAttempted + ' | 總正確：' + totalCorrect + ' | 整體正確率：' + overallPct + '%',
+    'Total answered: ' + totalAttempted + ' | Correct: ' + totalCorrect + ' | Overall: ' + overallPct + '%');
+
+  container.innerHTML = html;
+}
+
+let gSyncTimer = null;
+function updateSyncStatus(ok) {
+  const el = document.getElementById('syncStatus');
+  if (!isLoggedIn()) {
+    el.innerHTML = '<span class="sync-off">💻 ' + __('本機', 'Local') + '</span>';
+  } else if (ok) {
+    el.innerHTML = '<span class="sync-ok">☁️ ' + __('已同步', 'Synced') + '</span>';
+  } else {
+    el.innerHTML = '<span class="sync-err">⚠️ ' + __('離線', 'Offline') + '</span>';
+  }
+}
+
+let gAuthMode = 'login';
+function toggleAuthMode() {
+  // Redirect to hub for registration — hub is the only place to create accounts
+  window.location.href = '../index.html';
+}
+
+async function handleAuth() {
+  const username = document.getElementById('authUsername').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const errEl = document.getElementById('authError');
+  const okEl = document.getElementById('authOk');
+
+  errEl.style.display = 'none';
+  okEl.style.display = 'none';
+
+  if (!username || !password) {
+    errEl.textContent = '請填寫用戶名和密碼';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // Login only — registration happens at the hub
+  const url = API_BASE + 'login.php';
+  const body = { username, password };
+
+  try {
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await resp.json();
+    if (!resp.ok) {
+      errEl.textContent = data.error || '操作失敗';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    // Success
+    gAuthToken = data.token;
+    gUser = data.user;
+    localStorage.setItem('dse_ict_token', gAuthToken);
+    localStorage.setItem('dse_ict_user', JSON.stringify(gUser));
+    updateAuthUI();
+    closeAuthModal();
+
+    // Load progress from server
+    await loadServerProgress();
+    okEl.textContent = gAuthMode === 'register' ? '註冊成功！' : '登入成功！';
+    okEl.style.display = 'block';
+
+  } catch (e) {
+    errEl.textContent = '無法連接伺服器。請確保你的電腦正在運行 XAMPP。';
+    errEl.style.display = 'block';
+  }
+}
+
+function logout() {
+  gAuthToken = null;
+  gUser = null;
+  localStorage.removeItem('dse_ict_token');
+  localStorage.removeItem('dse_ict_user');
+  updateAuthUI();
+  location.reload();
+}
+
+// ============ PROGRESS SYNC ============
+async function apiCall(method, path, body = null) {
+  if (!isLoggedIn()) return null;
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + gAuthToken }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  try {
+    const resp = await fetch(API_BASE + path, opts);
+    if (resp.status === 401) { logout(); return null; }
+    return await resp.json();
+  } catch (e) {
+    console.log('API offline — using local storage only');
+    return null;
+  }
+}
+
+async function syncProgress() {
+  if (!isLoggedIn() || !gDB) return;
+  const topics = [];
+  for (let t = 1; t <= TOTAL_TOPICS; t++) {
+    const perf = await dbGet(gDB, 'performance', t);
+    if (perf && perf.totalAttempted > 0) {
+      topics.push({
+        topic: t,
+        totalAttempted: perf.totalAttempted || 0,
+        totalCorrect: perf.totalCorrect || 0,
+        totalWrong: perf.totalWrong || 0,
+        emaScore: perf._ema || null,
+        masteryLevel: buildPerformanceProfile(perf).masteryLevel,
+        difficultyBreakdown: perf.difficultyBreakdown || null,
+        recentResults: perf.recentResults || null,
+        lastSeenQids: perf.lastSeenQids || null
+      });
+    }
+  }
+  if (topics.length > 0) {
+    const result = await apiCall('POST', 'save-progress.php', { subject: 'ict', topics });
+    updateSyncStatus(result && result.success);
+  }
+
+  // Sync session
+  if (gSession && gSession.activeQids && gSession.activeQids.length > 0) {
+    await apiCall('POST', 'session.php', {
+      activeQids: gSession.activeQids,
+      answers: gSession.answers || {},
+      completed: false
+    });
+  }
+}
+
+async function loadServerProgress() {
+  if (!isLoggedIn() || !gDB) return;
+  const data = await apiCall('GET', 'get-progress.php');
+  if (!data || !data.progress) return;
+
+  for (const p of data.progress) {
+    const existing = await dbGet(gDB, 'performance', p.topic);
+    if (!existing || existing.totalAttempted < p.total_attempted) {
+      await dbPut(gDB, 'performance', {
+        topic: p.topic,
+        totalAttempted: p.total_attempted,
+        totalCorrect: p.total_correct,
+        totalWrong: p.total_wrong,
+        _ema: p.ema_score,
+        difficultyBreakdown: p.difficulty_breakdown || { easy:{attempted:0,correct:0}, medium:{attempted:0,correct:0}, hard:{attempted:0,correct:0} },
+        formatBreakdown: { mc:{attempted:0,correct:0}, converted:{attempted:0,correct:0} },
+        recentResults: p.recent_results || [],
+        lastSeenQids: p.last_seen_qids || []
+      });
+    }
+  }
+
+  // Load session
+  const sessData = await apiCall('GET', 'session.php');
+  if (sessData && sessData.session && sessData.session.active_qids) {
+    const s = sessData.session;
+    if (!gSession || gSession.activeQids.length === 0 || (s.answers && Object.keys(s.answers).length > Object.keys(gSession.answers||{}).length)) {
+      gSession = { id: 'current', activeQids: s.active_qids, answers: s.answers || {} };
+      await dbPut(gDB, 'session', gSession);
+      await reloadActiveQuestions();
+      renderQuiz();
+    }
+  }
+}
+
+// Auto-sync every 30 seconds
+setInterval(syncProgress, 30000);
+
+
+// ============ LANGUAGE ============
+let gLang = localStorage.getItem('dse_ict_lang') || 'zh';
+document.addEventListener('DOMContentLoaded', () => {
+  const sel = document.getElementById('langSwitch');
+  if (sel) { sel.value = gLang; }
+});
+
+function switchLang(lang) {
+  gLang = lang;
+  localStorage.setItem('dse_ict_lang', lang);
+  localStorage.setItem('dse_platform_lang', lang);
+  renderQuiz();
+}
+
+function __(zh, en) {
+  if (!en) return zh;
+  return gLang === 'en' ? en : zh;
+}
+
+// ============ STARTUP ============
+updateAuthUI();
+initializeDB();
+</script>
+
+
+<script id="question-bank-data" type="application/json">
+[
+  {
+    "qid": "ICT-001",
+    "topic": 1,
+    "year": 2019,
+    "qnum": 5,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "下列哪項是數據與資訊之間的正確關係？",
+    "options": [
+      "A. 數據和資訊是同一概念",
+      "B. 資訊是經過處理和組織的數據",
+      "C. 數據是經過處理和組織的資訊",
+      "D. 兩者之間沒有關係"
+    ],
+    "answer": 1,
+    "explanation": "資訊是經過處理、組織和分析後的數據，使其具有意義和用途。原始數據本身沒有上下文，經過處理後才成為有用的資訊。",
+    "markingNotes": "1分：正確答案是B。資訊是經過處理和組織的數據。",
+    "question_en": "Which of the following is the correct relationship between data and information?",
+    "options_en": [
+      "A. Data and information are the same concept",
+      "B. Information is processed and organized data",
+      "C. Data is processed and organized information",
+      "D. There is no relationship between them"
+    ],
+    "explanation_en": "Information is processed, organized, and analyzed data that carries meaning and purpose. Raw data lacks context on its own; only after processing does it become useful information.",
+    "markingNotes_en": "1 mark: B. Information is processed and organized data.",
+    "topic_name_en": "Information Processing I"
+  },
+  {
+    "qid": "ICT-002",
+    "topic": 1,
+    "year": 2020,
+    "qnum": 3,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "easy",
+    "question": "以下哪項是模擬數據(analog data)的特性？",
+    "options": [
+      "A. 以離散數值表示",
+      "B. 只能取0和1兩個值",
+      "C. 連續變化的數值",
+      "D. 必須以二進制儲存"
+    ],
+    "answer": 2,
+    "explanation": "模擬數據是連續變化的物理量，可以在一定範圍內取任意值。與數碼數據不同，模擬數據不是以離散的二進制數值表示。",
+    "markingNotes": "1分：C。模擬數據是連續變化的數值。",
+    "question_en": "Which of the following is a characteristic of analog data?",
+    "options_en": [
+      "A. Represented by discrete values",
+      "B. Can only take values of 0 and 1",
+      "C. Continuously varying values",
+      "D. Must be stored in binary"
+    ],
+    "explanation_en": "Analog data consists of continuously varying physical quantities that can take any value within a range. Unlike digital data, analog data is not represented by discrete binary values.",
+    "markingNotes_en": "1 mark: C. Analog data is continuously varying values.",
+    "topic_name_en": "Information Processing I"
+  },
+  {
+    "qid": "ICT-003",
+    "topic": 1,
+    "year": 2021,
+    "qnum": 8,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "將十進制數45轉換為二進制數，結果是：",
+    "options": [
+      "A. 101101",
+      "B. 110101",
+      "C. 101111",
+      "D. 111101"
+    ],
+    "answer": 0,
+    "explanation": "45₁₀ = 32 + 8 + 4 + 1 = 2⁵ + 2³ + 2² + 2⁰ = 101101₂。驗證：101101₂ = 1×32 + 0×16 + 1×8 + 1×4 + 0×2 + 1×1 = 32 + 8 + 4 + 1 = 45。使用重複除法：45÷2=22餘1, 22÷2=11餘0, 11÷2=5餘1, 5÷2=2餘1, 2÷2=1餘0, 1÷2=0餘1，從下往上讀取餘數得101101₂。",
+    "markingNotes": "1分：A (101101₂)。需展示正確的十進制轉二進制步驟。",
+    "question_en": "Convert the decimal number 45 to binary. The result is:",
+    "options_en": [
+      "A. 101101",
+      "B. 110101",
+      "C. 101111",
+      "D. 111101"
+    ],
+    "explanation_en": "45₁₀ = 32+8+4+1 = 2⁵+2³+2²+2⁰ = 101101₂. Verify: 1×32+0×16+1×8+1×4+0×2+1×1 = 45. Using repeated division: 45÷2=22r1, 22÷2=11r0, 11÷2=5r1, 5÷2=2r1, 2÷2=1r0, 1÷2=0r1. Read remainders bottom-up: 101101₂.",
+    "markingNotes_en": "1 mark: A (101101₂). Must show correct decimal to binary conversion steps.",
+    "topic_name_en": "Information Processing I"
+  },
+  {
+    "qid": "ICT-004",
+    "topic": 1,
+    "year": 2018,
+    "qnum": 14,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "hard",
+    "question": "一幅1024×768像素的24-bit全彩色點陣圖，其未經壓縮的檔案大小約為多少？",
+    "options": [
+      "A. 2.25 MB",
+      "B. 2.36 MB",
+      "C. 18.87 MB",
+      "D. 24.00 MB"
+    ],
+    "answer": 0,
+    "explanation": "檔案大小 = 1024 × 768 × 24 bits = 1024 × 768 × 3 bytes = 2,359,296 bytes ≈ 2.25 MB。注意24-bit = 3 bytes per pixel（因為8 bits = 1 byte），1 MB = 1,048,576 bytes = 1024 × 1024 bytes。計算：2,359,296 / 1,048,576 = 2.25 MB。常見錯誤是忘記將bits轉為bytes（除以8）。",
+    "markingNotes": "1分：A。1024×768×24/8/1024/1024 ≈ 2.25 MB。必須正確處理單位換算。",
+    "question_en": "An uncompressed 1024×768 pixel 24-bit full-color bitmap image has a file size of approximately:",
+    "options_en": [
+      "A. 2.25 MB",
+      "B. 2.36 MB",
+      "C. 18.87 MB",
+      "D. 24.00 MB"
+    ],
+    "explanation_en": "File size = 1024×768×24 bits = 1024×768×3 bytes = 2,359,296 bytes ≈ 2.25 MB. Note: 24-bit = 3 bytes per pixel (8 bits = 1 byte), 1 MB = 1,048,576 bytes. Common mistake: forgetting to convert bits to bytes (divide by 8).",
+    "markingNotes_en": "1 mark: A. 1024×768×24/8/1024/1024 ≈ 2.25 MB. Must handle unit conversions correctly.",
+    "topic_name_en": "Information Processing I"
+  },
+  {
+    "qid": "ICT-005",
+    "topic": 1,
+    "year": 2017,
+    "qnum": 11,
+    "sourceType": "mc",
+    "sourcePaper": "卷一",
+    "difficulty": "medium",
+    "question": "以下哪項是Unicode編碼的主要優點？",
+    "options": [
+      "A. 佔用最少的儲存空間",
+      "B. 能表示多種語言的字符",
+      "C. 只能表示英文字母和數字",
+      "D. 與ASCII完全不相容"
+    ],
+    "answer": 1,
+    "explanation": "Unicode是一種國際字符編碼標準，能表示幾乎所有語言的字符（包括中文、日文、韓文、阿拉伯文等），解決了ASCII只能表示128個字符和Big-5主要用於繁體中文的限制。Unicode有多種實現方式（UTF-8、UTF-16等），其中UTF-8與ASCII相容（前128個字符與ASCII相同）。雖然Unicode可能需要更多儲存空間（每個字符1-4 bytes），但其優勢在於通用性和多語言支援。",
+    "markingNotes": "1分：B。Unicode能表示多種語言字符，實現國際化編碼。",
+    "question_en": "Which of the following is the main advantage of Unicode encoding?",
+    "options_en": [
+      "A. Uses the least storage space",
+      "B. Can represent characters from multiple languages",
+      "C. Can only represent English letters and numbers",
+      "D. Completely incompatible with ASCII"
+    ],
+    "explanation_en": "Unicode is an international character encoding standard capable of representing characters from virtually all languages (Chinese, Japanese, Korean, Arabic, etc.), solving ASCII's limitation of only 128 characters and Big-5's restriction to Traditional Chinese. UTF-8 is backward-compatible with ASCII (first 128 characters identical).",
+    "markingNotes_en": "1 mark: B. Unicode can represent characters from multiple languages for international encoding.",
+    "topic_name_en": "Information Processing I"
+  }
+]
+</script>
+</body>
+</html>
