@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKDSE 中國語文 — 題庫練習 | 歷屆試題</title>
+<style>
+  :root {
+    --bg: #0a0f1e; --surface: #131b2e; --surface2: #1c2840;
+    --text: #e8edf5; --text2: #8899b4; --accent: #f87171;
+    --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+    --purple: #c084fc; --orange: #fb923c;
+    --border: #263048; --radius: 12px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .topbar { background:var(--surface); border-bottom:1px solid var(--border); padding:14px 28px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; position:sticky; top:0; z-index:100; }
+  .topbar h1 { font-size:1.1rem; background:linear-gradient(135deg,var(--accent),var(--purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .topbar .badge { padding:5px 14px; border-radius:20px; font-size:.75rem; font-weight:700; background:rgba(248,113,113,.15); color:var(--accent); }
+  .topbar a.back { margin-left:auto; color:var(--text2); text-decoration:none; font-size:.85rem; }
+  .topbar a.back:hover { color:var(--accent); }
+  .container { max-width:1000px; margin:0 auto; padding:24px 28px; }
+
+  .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; align-items:center; }
+  .filters button { padding:7px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; font-size:.78rem; transition:all .2s; }
+  .filters button:hover,.filters button.active { background:var(--accent); color:#0a0f1e; border-color:var(--accent); }
+  .filters button.len.active { background:var(--purple); color:#0a0f1e; border-color:var(--purple); }
+  #kwBtn { margin-left:auto; font-weight:600; background:rgba(251,191,36,.15); color:var(--yellow); border-color:var(--yellow); }
+  #kwBtn.on { background:var(--yellow); color:#0a0f1e; }
+
+  .qcard { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:16px; overflow:hidden; }
+  .qcard .qhead { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:12px; }
+  .qcard .qnum { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;background:var(--surface2);flex-shrink:0; }
+  .qcard .qtopic { font-size:.68rem; color:var(--accent); margin-bottom:4px; font-weight:600; }
+  .qcard .qtext { flex:1; font-size:.92rem; line-height:1.7; }
+  .qcard .qbody { padding:14px 20px; }
+  .pill { font-size:.7rem; background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:2px 10px; color:var(--text2); margin-left:6px; }
+
+  /* 拿分關鍵字（二元：blur / none） */
+  .kwbox { display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; }
+  .kwbox > span { background:rgba(251,191,36,.12); border:1px solid rgba(251,191,36,.4); color:#ffe9b0; font-size:.8rem; padding:3px 11px; border-radius:8px; }
+  .kwbox.blur > span { filter:blur(6px); }
+  @media print { .kwbox.blur > span { filter:none; } }
+
+  .ansbtn { margin-top:10px; padding:7px 16px; border-radius:8px; border:1px solid var(--green); background:rgba(74,222,128,.12); color:var(--green); cursor:pointer; font-size:.8rem; font-weight:600; }
+  .ansbtn:hover { background:var(--green); color:#0a0f1e; }
+  .answer { display:none; margin-top:12px; padding:14px; border-radius:8px; background:rgba(74,222,128,.06); border-left:3px solid var(--green); font-size:.85rem; line-height:1.75; white-space:pre-wrap; }
+  .qcard.show .answer { display:block; }
+  .empty { text-align:center; color:var(--text2); padding:40px; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>📖 HKDSE 中國語文 — 題庫練習</h1>
+  <span class="badge" id="cnt">–</span>
+  <a class="back" href="../index.html">← 返回主頁</a>
+</div>
+<div class="container">
+  <div class="filters" id="yearF"></div>
+  <div class="filters" id="lenF"></div>
+  <div id="list"></div>
+</div>
+
+<script>
+let QA=[], curY='全部', curL='全部', hideKw=true;
+fetch('questions-chinese.json').then(r=>r.json()).then(d=>{
+  QA=d; document.getElementById('cnt').textContent = QA.length + ' 題';
+  const years=[...new Set(QA.map(q=>q.year))].sort();
+  const yf=document.getElementById('yearF');
+  yf.innerHTML = `<button class="active" data-y="全部">全部 ${QA.length}</button>`+
+    years.map(y=>`<button data-y="${y}">${y} ${QA.filter(q=>q.year===y).length}</button>`).join('');
+  yf.onclick=e=>{ const b=e.target.closest('button'); if(!b)return;
+    curY=b.dataset.y; [...yf.children].forEach(x=>x.classList.toggle('active',x===b)); render(); };
+  const lf=document.getElementById('lenF');
+  lf.innerHTML = `<button class="len active" data-l="全部">全部題型</button>
+    <button class="len" data-l="長">長題 ${QA.filter(q=>q.type.includes('長題')).length}</button>
+    <button class="len" data-l="短">短題 ${QA.filter(q=>q.type.includes('短題')).length}</button>
+    <button id="kwBtn" class="on">🙈 矇住全部關鍵字</button>`;
+  lf.onclick=e=>{ const b=e.target.closest('button'); if(!b)return;
+    if(b.id==='kwBtn'){ hideKw=!hideKw; b.classList.toggle('on',hideKw);
+      b.textContent = hideKw?'🙈 矇住全部關鍵字':'👁 顯示全部關鍵字'; render(); return; }
+    curL=b.dataset.l; [...lf.querySelectorAll('.len')].forEach(x=>x.classList.toggle('active',x===b)); render(); };
+  render();
+});
+function render(){
+  const box=document.getElementById('list');
+  const list=QA.filter(q=>(curY==='全部'||q.year===curY)&&(curL==='全部'||q.type.includes(curL)));
+  if(!list.length){ box.innerHTML='<div class="empty">冇題目</div>'; return; }
+  box.innerHTML = list.map((q,i)=>`
+    <div class="qcard">
+      <div class="qhead">
+        <div class="qnum">${i+1}</div>
+        <div><div class="qtopic">${q.topic}</div><div class="qtext">${q.question}</div></div>
+      </div>
+      <div class="qbody">
+        <div class="kwbox${hideKw?' blur':''}">${q.keywords.map(k=>`<span>${k}</span>`).join('')}</div>
+        <button class="ansbtn" onclick="this.parentElement.parentElement.classList.toggle('show')">顯示答案</button>
+        <div class="answer">${q.answer}</div>
+      </div>
+    </div>`).join('');
+}
+</script>
+</body>
+</html>
