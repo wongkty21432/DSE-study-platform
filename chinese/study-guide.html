@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKDSE 中國語文 — 學習指南 | 12 篇範文</title>
+<style>
+  :root {
+    --bg:#0a0f1e; --surface:#131b2e; --surface2:#1c2840; --text:#e8edf5; --text2:#8899b4;
+    --accent:#f87171; --green:#4ade80; --yellow:#fbbf24; --purple:#c084fc; --border:#263048; --radius:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:100}
+  .topbar h1{font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .topbar .badge{padding:5px 14px;border-radius:20px;font-size:.75rem;font-weight:700;background:rgba(248,113,113,.15);color:var(--accent)}
+  .topbar a.back{margin-left:auto;color:var(--text2);text-decoration:none;font-size:.85rem}
+  .topbar a.back:hover{color:var(--accent)}
+  .container{max-width:1000px;margin:0 auto;padding:24px 28px}
+  h2{font-size:1.05rem;margin:22px 0 12px;border-left:3px solid var(--accent);padding-left:10px}
+  select,input{background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font:inherit;font-size:.85rem}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin:12px 0}
+
+  /* 課文點字 */
+  #txText{font-family:'Noto Serif TC','Songti TC',serif;font-size:1.15rem;line-height:2.5;letter-spacing:1.5px}
+  .clk{cursor:default}
+  .clk.has{cursor:pointer;background:rgba(56,189,248,.12);border-bottom:2px solid #38bdf8;color:#bfe9ff;border-radius:4px;padding:1px 2px}
+  .clk.exam{cursor:pointer;background:rgba(248,113,113,.18);border-bottom:2px solid #f87171;color:#ffd0d8;border-radius:4px;padding:1px 2px;position:relative}
+  .clk.exam::after{content:"★";position:absolute;top:-9px;right:-2px;font-size:9px;color:var(--yellow)}
+
+  /* 單詞卡彈窗 */
+  .wpop{position:fixed;z-index:999;max-width:330px;background:#131a24;border:1.5px solid #38bdf8;border-radius:12px;padding:14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.55);font-size:.88rem;line-height:1.65}
+  .wpop .x{position:absolute;top:6px;right:8px;background:transparent;border:0;color:var(--text2);cursor:pointer}
+  .wpop .word{font-family:'Noto Serif TC',serif;font-size:1.5rem;color:#7dd3fc}
+  .wpop .mean{color:var(--green);font-weight:600}
+  .wpop .examtag{margin-top:8px;padding:6px 10px;background:rgba(248,113,113,.15);border:1px solid #f87171;border-radius:8px;color:#ffd0d8;font-size:.78rem}
+  mark{background:rgba(251,191,36,.25);color:#ffe9b0;padding:0 3px;border-radius:4px}
+
+  /* 字詞卡列表 */
+  #wcGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  .wc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px}
+  .wc b{font-family:'Noto Serif TC',serif;font-size:1.25rem;color:#7dd3fc}
+  .wc .s{font-size:.82rem;color:var(--text);margin-top:6px}
+  .wc .a{font-size:.82rem;color:var(--green);margin-top:4px}
+  .badge-star{font-size:.68rem;background:rgba(248,113,113,.2);color:#ffd0d8;border-radius:20px;padding:1px 8px;margin-left:6px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>📚 HKDSE 中國語文 — 學習指南</h1>
+  <span class="badge" id="wcTotal">–</span>
+  <a class="back" href="../index.html">← 返回主頁</a>
+</div>
+<div class="container">
+  <h2>12 篇範文全文 · 點字查單詞卡</h2>
+  <div class="card">
+    <label>選篇：<select id="txPaper"></select></label>
+    <span style="margin-left:12px;font-size:.8rem;color:var(--text2)">
+      <span class="clk has" style="cursor:default">字</span> 有卡 ·
+      <span class="clk exam" style="cursor:default">字</span> 歷屆考過
+    </span>
+  </div>
+  <div class="card" id="txText"></div>
+
+  <h2>字詞單詞卡（全部）</h2>
+  <div class="card">
+    <input id="wcSearch" placeholder="🔍 搜尋字詞…" style="width:100%;max-width:320px">
+    <div id="wcFilter" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px"></div>
+  </div>
+  <div id="wcGrid"></div>
+</div>
+
+<script>
+let WC=[], TX={};
+const idx={};
+const nrm = t => (t||'').replace(/（節錄）/g,'').trim();
+Promise.all([
+  fetch('wordcards-chinese.json').then(r=>r.json()),
+  fetch('texts-chinese.json').then(r=>r.json())
+]).then(([w,t])=>{
+  WC=w; TX=t;
+  WC.forEach(c=>{ const k=nrm(c.t); idx[k]=idx[k]||{};
+    new Set([c.w, ...Array.from(c.w)]).forEach(kk=>{ idx[k][kk]=(idx[k][kk]||[]).concat([c]); }); });
+  document.getElementById('wcTotal').textContent = WC.length + ' 張卡';
+  initText(); initWC();
+});
+
+/* ---- 課文點字 ---- */
+function cardsFor(paper, ch){
+  const m = idx[nrm(paper)]||{};
+  return m[ch]||[];
+}
+function clean(s){ return (s||'').replace(/[【】「」『』（）()《》，。；：、！？—…·　\s]/g,''); }
+function lcs(a,b){ if(!a||!b)return 0; let best=0,dp=new Array(b.length+1).fill(0);
+  for(let i=1;i<=a.length;i++){let prev=0;for(let j=1;j<=b.length;j++){const t=dp[j];dp[j]=(a[i-1]===b[j-1])?prev+1:0;if(dp[j]>best)best=dp[j];prev=t;}} return best; }
+function cardInSentence(paper, ch, sentClean){
+  const m=cardsFor(paper,ch); if(!m.length) return null;
+  if(m.length===1) return m[0];
+  let best=m[0],bs=-1;
+  for(const c of m){ const q=clean(c.q); const sc=Math.max(lcs(sentClean,q), (q&&sentClean.includes(q))?100:0); if(sc>bs){bs=sc;best=c;} }
+  return best;
+}
+function initText(){
+  const sel=document.getElementById('txPaper');
+  Object.keys(TX).forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; sel.appendChild(o); });
+  sel.onchange=()=>{ closePop(); renderText(sel.value); };
+  window.__sel=sel;
+  renderText(Object.keys(TX)[0]);
+}
+const PUNC=/[\s，。；：、「」『』（）《》？！—…·　]/;
+function renderText(paper){
+  const body=TX[paper]||''; let out='', sent='';
+  const flush=(tail)=>{ const sc=clean(sent);
+    for(const ch of sent){ if(PUNC.test(ch)){ out+=esc(ch); continue; }
+      const card=cardInSentence(paper,ch,sc);
+      if(card){ const ex=card.y?` exam title="${card.y.join('、')} 考過"`:'';
+        out+=`<span class="clk has${ex}" data-ch="${ch}">${esc(ch)}</span>`; }
+      else out+=`<span class="clk">${esc(ch)}</span>`; }
+    out+=esc(tail); };
+  for(const ch of body){ if(ch==='\n'){ flush(''); out+='<br>'; sent=''; continue; }
+    if('。！？'.includes(ch)){ flush(ch); sent=''; continue; } sent+=ch; }
+  if(sent) flush('');
+  const box=document.getElementById('txText'); box.innerHTML=out;
+  box.querySelectorAll('.clk.has').forEach(s=>{ s.onclick=()=>showPop(s, paper, s.dataset.ch); });
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+let pop=null;
+function closePop(){ if(pop){ pop.remove(); pop=null; } }
+document.addEventListener('click',e=>{ if(pop && !pop.contains(e.target) && !e.target.classList.contains('clk')) closePop(); });
+window.addEventListener('scroll',()=>{ if(pop) closePop(); }, true);
+function showPop(span, paper, ch){
+  closePop();
+  const cards=cardsFor(paper,ch); if(!cards.length) return;
+  const c = cardInSentence(paper, ch, clean(span.parentElement.innerText)) || cards[0];
+  const yb = c.y? `<div class="examtag">⭐ 歷屆試題考過（${c.y.join('、')}年）</div>`:'';
+  pop=document.createElement('div'); pop.className='wpop';
+  pop.innerHTML=`<button class="x">✕</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <div class="word">${c.w}${c.r?` <span style="font-size:.7rem;color:#8899b4">${c.r}</span>`:''}</div>
+      <span style="font-size:.7rem;color:#8899b4">${c.t}</span></div>
+    <div style="margin-top:8px">${c.q.replace(/【/g,'<mark>').replace(/】/g,'</mark>')}</div>
+    <div style="margin-top:10px"><span class="mean">✅ 本句意思：</span>${c.a.join('、')}</div>
+    ${yb}
+    <div style="margin-top:8px;font-size:.72rem;color:#8899b4">※ 此字他句可另有他義</div>`;
+  document.body.appendChild(pop);
+  const r=span.getBoundingClientRect();
+  let left=r.left+r.width/2-pop.offsetWidth/2;
+  left=Math.max(8,Math.min(left,innerWidth-pop.offsetWidth-8));
+  let top=r.top-pop.offsetHeight-8; if(top<8) top=r.bottom+8;
+  pop.style.left=left+'px'; pop.style.top=top+'px';
+  pop.querySelector('.x').onclick=e=>{e.stopPropagation();closePop();};
+}
+
+/* ---- 字詞卡列表 ---- */
+function initWC(){
+  const grid=document.getElementById('wcGrid'), filt=document.getElementById('wcFilter');
+  const papers=[...new Set(WC.map(c=>c.t))];
+  let curP='全部', curQ='';
+  filt.innerHTML=`<button class="fbtn active" data-p="全部">全部</button>`+
+    papers.map(p=>`<button class="fbtn" data-p="${p}">${p} <span class="badge-star">${WC.filter(c=>c.t===p).length}</span></button>`).join('');
+  filt.querySelectorAll('.fbtn').forEach(b=>b.style.cssText="padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.75rem");
+  const style=document.createElement('style');
+  style.textContent='.fbtn.active{background:var(--accent);color:#0a0f1e;border-color:var(--accent)!important}';
+  document.head.appendChild(style);
+  filt.onclick=e=>{ const b=e.target.closest('.fbtn'); if(!b)return;
+    curP=b.dataset.p; filt.querySelectorAll('.fbtn').forEach(x=>x.classList.toggle('active',x===b)); renderWC(); };
+  document.getElementById('wcSearch').oninput=e=>{ curQ=e.target.value.trim(); renderWC(); };
+  function renderWC(){
+    const list=WC.filter(c=>(curP==='全部'||c.t===curP)&&(!curQ||c.w.includes(curQ)||c.a.join('').includes(curQ)||c.s.join('').includes(curQ)));
+    grid.innerHTML = list.length? list.map(c=>`
+      <div class="wc">
+        <b>${c.w}</b>${c.r?`<span style="font-size:.7rem;color:#8899b4"> ${c.r}</span>`:''}
+        ${c.y?`<span class="badge-star">⭐${c.y.join('/')}</span>`:''}
+        <div style="font-size:.72rem;color:#8899b4;margin-top:4px">${c.t}</div>
+        <div class="s">${c.s.join('；')}</div>
+        <div class="a">✓ ${c.a.join('、')}</div>
+      </div>`).join('') : '<div style="color:#8899b4">冇符合嘅字詞</div>';
+  }
+  renderWC();
+}
+</script>
+</body>
+</html>

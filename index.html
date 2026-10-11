@@ -13,6 +13,7 @@
     --border: #1e2d4a; --radius: 14px;
     --ict-color: #38bdf8;
     --chem-color: #4ade80;
+    --chinese-color: #f87171;
     --math-color: #fbbf24;
     --physics-color: #f87171;
     --bio-color: #c084fc;
@@ -60,6 +61,7 @@
   .subject-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,.4); }
   .subject-card.ict:hover { border-color:var(--ict-color); }
   .subject-card.chem:hover { border-color:var(--chem-color); }
+  .subject-card.chinese:hover { border-color:var(--chinese-color); }
   .subject-card.math:hover { border-color:var(--math-color); }
   .subject-card.physics:hover { border-color:var(--physics-color); }
   .subject-card.bio:hover { border-color:var(--bio-color); }
@@ -71,6 +73,7 @@
   .subject-card .card-icon { width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0; }
   .subject-card.ict .card-icon { background:rgba(56,189,248,.15); }
   .subject-card.chem .card-icon { background:rgba(74,222,128,.15); }
+  .subject-card.chinese .card-icon { background:rgba(248,113,113,.15); }
   .subject-card.math .card-icon { background:rgba(251,191,36,.15); }
   .subject-card.physics .card-icon { background:rgba(248,113,113,.15); }
   .subject-card.bio .card-icon { background:rgba(192,132,252,.15); }
@@ -85,6 +88,8 @@
   .subject-card.ict .card-link:hover { background:var(--ict-color); color:#060b18; }
   .subject-card.chem .card-link { background:rgba(74,222,128,.1); color:var(--chem-color); }
   .subject-card.chem .card-link:hover { background:var(--chem-color); color:#060b18; }
+  .subject-card.chinese .card-link { background:rgba(248,113,113,.1); color:var(--chinese-color); }
+  .subject-card.chinese .card-link:hover { background:var(--chinese-color); color:#060b18; }
 
   .subject-card .coming-tag { position:absolute; top:16px;right:16px; padding:3px 10px; border-radius:10px; font-size:.65rem; font-weight:700; background:rgba(251,191,36,.12); color:var(--yellow); }
 
@@ -181,7 +186,7 @@
 <!-- ===== COMPULSORY ===== -->
 <div class="section-title"><h2>🔒 必修科 Core Subjects</h2><p>所有 DSE 考生必須應考</p></div>
 <div class="subject-grid">
-  <div class="subject-card coming-soon"><span class="coming-tag">即將推出</span><div class="card-top"><div class="card-icon" style="background:rgba(248,113,113,.15);">📖</div><div><h3>中國語文</h3><span class="en-name">Chinese Language</span></div></div></div>
+  <div class="subject-card chinese"><div class="card-top"><div class="card-icon" style="background:rgba(248,113,113,.15);">📖</div><div><h3>中國語文</h3><span class="en-name">Chinese Language</span></div></div><div class="card-links"><a href="chinese/quiz-bank.html" class="card-link">🧪 題庫練習</a><a href="chinese/study-guide.html" class="card-link">📚 學習指南</a></div></div>
   <div class="subject-card coming-soon"><span class="coming-tag">即將推出</span><div class="card-top"><div class="card-icon" style="background:rgba(56,189,248,.15);">🇬🇧</div><div><h3>英國語文</h3><span class="en-name">English Language</span></div></div></div>
   <div class="subject-card coming-soon"><span class="coming-tag">即將推出</span><div class="card-top"><div class="card-icon" style="background:rgba(251,191,36,.15);">📐</div><div><h3>數學</h3><span class="en-name">Mathematics</span></div></div></div>
   <div class="subject-card coming-soon"><span class="coming-tag">即將推出</span><div class="card-top"><div class="card-icon" style="background:rgba(192,132,252,.15);">🏛️</div><div><h3>公民與社會發展</h3><span class="en-name">Citizenship & Social Development</span></div></div></div>
@@ -322,6 +327,8 @@ async function showHubProgress() {
     const levelsZH = {master:'大師',advanced:'進階',proficient:'熟練',developing:'成長中',novice:'初學',new:'全新'};
     const subjects = {
       ict: {name:'💻 資訊及通訊科技', topics:{1:'資訊處理(一)',2:'資訊處理(二)',3:'電腦系統',4:'互聯網(一)',5:'互聯網(二)',6:'計算思維(一)',7:'計算思維(二)',8:'社會影響'}},
+      chinese: {name:'📖 中國語文', topics:{1:'論仁、論孝、論君子',2:'魚我所欲也',3:'逍遙遊',4:'勸學',5:'廉頗藺相如列傳',6:'出師表',7:'師說',8:'始得西山宴遊記',9:'岳陽樓記',10:'六國論',11:'唐詩三首',12:'詞三首'}},
+
       chem: {name:'⚗️ 化學', topics:{1:'實驗室安全',2:'地球',3:'微觀世界I',4:'金屬',5:'酸和鹼',6:'化石燃料',7:'微觀世界II',8:'氧化還原',9:'化學能量學',10:'反應速率',11:'化學平衡',12:'碳化合物',13:'化學規律'}}
     };
 
